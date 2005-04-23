@@ -20,8 +20,12 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// <summary>
 		///  Dieser Event wird ausgelöst, wenn versucht wird ein nicht Zefania Modul zu cachen.
 		/// </summary>
-		public delegate void OnInvalidFileFormat(object sender, EventArgs e);
+		public delegate void OnInvalidFileFormatEventHandler(object sender, EventArgs e);
 		/// <summary>
+		/// <seealso cref="OnInvalidFileFormatEventHandler"/>
+		/// </summary>
+        public event OnInvalidFileFormatEventHandler OnInvalidFileFormat;
+        /// <summary>
 		///  Dieser Event wird ausgelöst, wenn ein Userdefinierter Inhaltsbaum endeckt wurde.
 		/// </summary>
 		public delegate void OnUserTreeEventHandler(object sender, EventArgs e);
@@ -64,6 +68,10 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// <seealso cref="OnCachedEventHandler"/>
 		/// </summary>
 		public event OnCachedEventHandler OnCachedSuccess;
+		/// <summary>
+		/// Feld ist true, wenn Datei als Zefania XML Module erkannt wird.
+		/// </summary>
+		private bool IsZefaniaFormat=false;
 		/// <summary>
 		///   Feld ist true wenn Usertree existiert
 		/// </summary>
@@ -133,26 +141,13 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			get
 			{
-				Version v =new Version("0.1.0.12");
+				Version v =new Version("0.1.0.14");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
 
 		}
-		/// <summary>
-		///  Diese Methode prüft, ob die Datei gültiges Zefania XML ist.
-		/// </summary>
-		/// <returns>true, wenn gültiges Zefania XML-Format</returns>
-		private bool FormatIsZefaniaXML(){
-			try
-			{
-			  
-			}
-			catch(Exception e)
-			{
-			   return false;
-			}
-		}
+		
 
 		/// <summary>
 		///  Diese Funktion ersetzt den Default Inhaltsbaum durch einen eventuell gesicherten Userdefinierten
@@ -389,6 +384,9 @@ namespace NewTrueSharpSwordAPI.Cache
 						}
 						xmlbible="<XMLBIBLE "+xmlbible+">";
 						ModulReader.MoveToElement();
+
+						IsZefaniaFormat=true;
+
 					}// end XMLBIBLE
 
 					if(ModulReader.Name=="BIBLEBOOK")
@@ -463,7 +461,14 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 				ModulReader.Close();
 				Cached=true;
+				// Invalid File Format
+				if(IsZefaniaFormat==false){
+				    // Invalid file event auslösen
+					OnInvalidFileFormat(this,e1);
+					return;
 				
+				}
+				// end invalid file format
 				
 				CacheINFO.Save(FullCachePath+@"\info.xml");
 				// Inhaltsbaum aufbauen
@@ -575,6 +580,7 @@ namespace NewTrueSharpSwordAPI.Cache
 						}
 						xmlbible="<XMLBIBLE "+xmlbible+">";
 						ModulReader.MoveToElement();
+						IsZefaniaFormat=true;
 					}// end XMLBIBLE
 
 
@@ -655,9 +661,17 @@ namespace NewTrueSharpSwordAPI.Cache
 
 				}
 				ModulReader.Close();
+				// Invalid File Format
+				if(IsZefaniaFormat==false)
+				{
+					// Invalid file event auslösen
+					OnInvalidFileFormat(this,e1);
+					return;
+				
+				}
+				// end invalid file format
+
 				Cached=true;
-				
-				
 				CacheINFO.Save(FullCachePath+@"\info.xml");
 				// Inhaltsbaum aufbauen
 				CreateDefaultTree();
