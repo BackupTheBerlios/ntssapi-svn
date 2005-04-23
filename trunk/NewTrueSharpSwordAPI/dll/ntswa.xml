@@ -215,5 +215,36 @@
              Die ArrayList enthält im Index 0 den Pfad zum Cacheverzeichnis.
             </remarks>
         </member>
+        <member name="T:NewTrueSharpSwordAPI.Queries.zefMapNames">
+            <summary>
+            maps  Bibelbuchnummer zu Buchbezeichnungen und umgekehrt.
+            z.B.  10==> 2Sam
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Queries.zefMapNames.NamesXMLResource">
+            <summary>
+             Diese Variable enthält den Inhalt einer bnames Datei.
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.#ctor(System.String)">
+            <summary>
+             Der Konstruktor für eine Map-Klasse
+            </summary>
+            <param name="pathToNamesFile">
+             Pfad zur XML-Resource mit Zuordnungen Buchnummern zu Buchnamen.
+             vergl: http://tinyurl.com/94mr2
+            </param>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetListOfIds">
+            <summary>
+             Diese Methode liefert eine Liste alle in einer bnames Datei verfügbaren Sprach IDs zurück.
+            </summary>
+            <returns> Eine Arrayliste aller Sprach Ids</returns>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Queries.zefMapNames.MapVersion">
+            <summary>
+            Gibt die Versionsnummer der zefMapNames-Klasse zurück.
+            </summary>
+        </member>
     </members>
 </doc>
