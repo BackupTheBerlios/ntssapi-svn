@@ -191,13 +191,6 @@
              Dieser Event wird ausgelöst, wenn ein Userdefinierter Inhaltsbaum endeckt wurde.
             </summary>
         </member>
-        <member name="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CacheType">
-            <summary>
-             Aufzählungstype, der die Art des Caches beschreibt
-             <seealso cref="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CreateCacheBooks(System.Boolean)"/>
-             <seealso cref="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CreateCacheChapters(System.Boolean)"/>
-            </summary>
-        </member>
         <member name="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnSplittedEventHandler">
             <summary>
             Ereignishandler ausgelöst, wenn eine Zerlegung in Buch, Kapitel oder Vers stattgefunden hat.
@@ -215,10 +208,15 @@
              Die ArrayList enthält im Index 0 den Pfad zum Cacheverzeichnis.
             </remarks>
         </member>
-        <member name="T:NewTrueSharpSwordAPI.Queries.zefMapNames">
+        <member name="T:NewTrueSharpSwordAPI.Queries.BookNameType">
             <summary>
             maps  Bibelbuchnummer zu Buchbezeichnungen und umgekehrt.
-            z.B.  10==> 2Sam
+            z.B.  10==&gt; 2Sam
+            </summary>
+            <summary>
+            Diese Enumeration kann verwendet werden, um auf die 
+            kurze oder lange Form des Bibelbuchnames zuzugreifen.
+            <seealso cref="!:GetBookNameByNumber"/>
             </summary>
         </member>
         <member name="F:NewTrueSharpSwordAPI.Queries.zefMapNames.NamesXMLResource">
@@ -234,6 +232,16 @@
              Pfad zur XML-Resource mit Zuordnungen Buchnummern zu Buchnamen.
              vergl: http://tinyurl.com/94mr2
             </param>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetBookNameByNumber(System.String,NewTrueSharpSwordAPI.Queries.BookNameType,System.Int32)">
+            <summary>
+             Diese Methode liefert zu einer Buchnummer entweder die lange oder die kurze Form
+             eine Bibelbuchnamens zurück
+            </summary>
+            <param name="LangID">Die Sprach ID</param>
+            <param name="NameType">shortname oder longname</param>
+            <param name="BookNumber">Die Buchnummer</param>
+            <returns>Den Buchnamen z.B. Genesis</returns>
         </member>
         <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetListOfIds">
             <summary>

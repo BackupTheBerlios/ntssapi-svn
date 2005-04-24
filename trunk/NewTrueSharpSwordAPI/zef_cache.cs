@@ -38,12 +38,6 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// </summary>
 		private XmlDocument ContentTree=new XmlDocument();
 		/// <summary>
-		///  Aufzählungstype, der die Art des Caches beschreibt
-		///  <seealso cref="CreateCacheBooks"/>
-		///  <seealso cref="CreateCacheChapters"/>
-		/// </summary>
-		private enum CacheType {xbooks=1,xchapters=2};
-		/// <summary>
 		/// Ereignishandler ausgelöst, wenn eine Zerlegung in Buch, Kapitel oder Vers stattgefunden hat.
 		/// </summary>
 		/// <remarks>
@@ -141,7 +135,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			get
 			{
-				Version v =new Version("0.1.0.14");
+				Version v =new Version("0.1.0.15");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
