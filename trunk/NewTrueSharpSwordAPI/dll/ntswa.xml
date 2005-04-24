@@ -203,7 +203,7 @@
             Ereignishandler ausgelöst, wenn eine Zerlegung in Buch, Kapitel oder Vers stattgefunden hat.
             </summary>
             <remarks>
-             Die ArrayList enthält im Index 0 einen Eintrag der Form x.x.x = BuchNr.KapitelNr.VersNr 
+             Die ArrayList enthält im Index 0 einen Eintrag der Form x:x:x = BuchNr:KapitelNr:VersNr 
              Die ArrayList enthält im Index 1 den Dateipfad zur zerlegten Datei.
             </remarks>
         </member>

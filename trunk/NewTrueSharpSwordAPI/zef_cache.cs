@@ -47,7 +47,7 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// Ereignishandler ausgelöst, wenn eine Zerlegung in Buch, Kapitel oder Vers stattgefunden hat.
 		/// </summary>
 		/// <remarks>
-		///  Die ArrayList enthält im Index 0 einen Eintrag der Form x.x.x = BuchNr.KapitelNr.VersNr 
+		///  Die ArrayList enthält im Index 0 einen Eintrag der Form x:x:x = BuchNr:KapitelNr:VersNr 
 		///  Die ArrayList enthält im Index 1 den Dateipfad zur zerlegten Datei.
 		/// </remarks>
 		public delegate void OnSplittedEventHandler(object sender, EventArgs e,ArrayList message);
@@ -431,7 +431,7 @@ namespace NewTrueSharpSwordAPI.Cache
 						if(OnSplitted!=null)
 						{
 							List.Clear();
-							List.Add(bnumber+".0.0");
+							List.Add(bnumber+":0:0");
 							List.Add(FullCachePath+@"\"+bnumber+".xml");
 							// Das Splitted-Ereignis auslösen
 							OnSplitted(this,e1,List);
@@ -631,7 +631,7 @@ namespace NewTrueSharpSwordAPI.Cache
 						if(OnSplitted!=null)
 						{
 							List.Clear();
-							List.Add(bnumber+"."+cnumber+".0");
+							List.Add(bnumber+":"+cnumber+":0");
 							List.Add(FullCachePath+@"\"+bnumber+"_"+cnumber+".xml");
 							// Das Splitted-Ereignis auslösen
 							OnSplitted(this,e1,List);
