@@ -749,17 +749,19 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 				string ChapterNumber="0";string BookNumber="0";
 				XmlTextReader ModulReader=null;
+				
+				UTF8Encoding utf8 = new UTF8Encoding();
 				foreach(string BookFile in Books)
 				{
-					
+					MemoryStream sr =new MemoryStream();
 					if(Path.GetFileName(BookFile)=="info.xml"){continue;}
 
 
 					if(IsZipped)
 					{
 					
-						StreamWriter sr = File.CreateText(FullCachePath+@"\tmp.~xml");
-						sr.AutoFlush=true;
+						
+						
 						ZipInputStream s = new ZipInputStream(File.OpenRead(BookFile));
 						ZipEntry theEntry;
  
@@ -768,16 +770,19 @@ namespace NewTrueSharpSwordAPI.Cache
 							int nBytes = 2048;
 							byte[] data = new byte[2048];
 							while((nBytes = s.Read(data, 0, data.Length))  > 0)
-							{
-								sr.Write(new UTF8Encoding().GetString(data, 0, nBytes));
+							{   
+								
+								byte[]buffer = utf8.GetBytes(utf8.GetString(data, 0, nBytes));
+								sr.Write(buffer,0,buffer.Length);
 								
 							}
 							
 							
 						}
-						sr.Close();
+						
 						s.Close();
-						ModulReader = new XmlTextReader(FullCachePath+@"\tmp.~xml");
+						sr.Position=0;
+						ModulReader = new XmlTextReader(sr);
 						
 						
 					}
@@ -832,20 +837,22 @@ namespace NewTrueSharpSwordAPI.Cache
 							}
 										
 						}
-                             
+                           
 					}// end while
 
 					ModulReader.Close();
-					File.Delete(FullCachePath+@"\tmp.~xml");
+					sr.Close();
+					
 
 				}// end foreach
 
 				CacheInfo.Save(FullCachePath+@"\info.xml");
+              
 				
 			}
 			catch(Exception e)
 			{
-				string t=e.Message;  
+				
 			}
 	
 		}
