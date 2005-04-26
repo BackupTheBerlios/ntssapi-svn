@@ -24,8 +24,8 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// <summary>
 		/// <seealso cref="OnInvalidFileFormatEventHandler"/>
 		/// </summary>
-        public event OnInvalidFileFormatEventHandler OnInvalidFileFormat;
-        /// <summary>
+		public event OnInvalidFileFormatEventHandler OnInvalidFileFormat;
+		/// <summary>
 		///  Dieser Event wird ausgelöst, wenn ein Userdefinierter Inhaltsbaum endeckt wurde.
 		/// </summary>
 		public delegate void OnUserTreeEventHandler(object sender, EventArgs e);
@@ -135,7 +135,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			get
 			{
-				Version v =new Version("0.1.0.15");
+				Version v =new Version("0.1.0.17");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
@@ -391,16 +391,14 @@ namespace NewTrueSharpSwordAPI.Cache
 
 						if(zippedCache)
 						{
-							StreamWriter sr = File.CreateText(FullCachePath+@"\tmp.xml");
-							sr.WriteLine (book);
-							sr.Close();
-
+							
+							
+							UTF8Encoding utf8 = new UTF8Encoding();
+        
+							byte[]buffer = utf8.GetBytes(book);
+							
 							ZipOutputStream s = new ZipOutputStream(File.Create(FullCachePath+@"\"+bnumber+".zip"));
 							s.SetLevel(9);
-
-							FileStream fs = File.OpenRead(FullCachePath+@"\tmp.xml");
-							byte[] buffer = new byte[fs.Length];
-							fs.Read(buffer, 0, buffer.Length);
 
 							ZipEntry entry = new ZipEntry(FullCachePath+@"\"+bnumber+".xml");
 							s.PutNextEntry(entry);
@@ -408,10 +406,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 							s.Finish();
 							s.Close();
-							fs.Close();
-							File.Delete(FullCachePath+@"\tmp.xml");
-                            
-
+							
 						}
 						else
 						{
@@ -440,11 +435,12 @@ namespace NewTrueSharpSwordAPI.Cache
 						XmlNode INFODC=CacheINFO.SelectSingleNode("descendant::INFORMATION");
 
 						if(INFODC!=null)
-                        {
+						{
 							INFODC.InnerXml=ModulReader.ReadInnerXml();
 							XmlNode title=INFODC.SelectSingleNode("descendant::title");
-							if(title!=null){
-							  BibleName=title.InnerText;
+							if(title!=null)
+							{
+								BibleName=title.InnerText;
 							}
 						};
 					 
@@ -456,8 +452,9 @@ namespace NewTrueSharpSwordAPI.Cache
 				ModulReader.Close();
 				Cached=true;
 				// Invalid File Format
-				if(IsZefaniaFormat==false){
-				    // Invalid file event auslösen
+				if(IsZefaniaFormat==false)
+				{
+					// Invalid file event auslösen
 					OnInvalidFileFormat(this,e1);
 					return;
 				
@@ -468,6 +465,7 @@ namespace NewTrueSharpSwordAPI.Cache
 				// Inhaltsbaum aufbauen
 				CreateDefaultTree();
 				// end Inhaltsbaum
+
 				// eventuell userdefinierten Inhaltsbaum per Event melden
 				if(OnUserTree!=null)
 				{
@@ -479,6 +477,7 @@ namespace NewTrueSharpSwordAPI.Cache
 					}
 				}
 				// end 
+				
 				if(OnCachedSuccess!=null)
 				{
 					
@@ -489,6 +488,7 @@ namespace NewTrueSharpSwordAPI.Cache
 					OnCachedSuccess(this,e1,List);
 
 				}
+
 
 			}
 			catch(Exception e)
@@ -595,25 +595,21 @@ namespace NewTrueSharpSwordAPI.Cache
 
 						if(zippedCache)
 						{
-							StreamWriter sr = File.CreateText(FullCachePath+@"\tmp.xml");
-							sr.WriteLine (chapter);
-							sr.Close();
+							
+							UTF8Encoding utf8 = new UTF8Encoding();
+        
+							byte[]buffer = utf8.GetBytes(chapter);
 
 							ZipOutputStream s = new ZipOutputStream(File.Create(FullCachePath+@"\"+bnumber+"_"+cnumber+".zip"));
 							s.SetLevel(9);
 
-							FileStream fs = File.OpenRead(FullCachePath+@"\tmp.xml");
-							byte[] buffer = new byte[fs.Length];
-							fs.Read(buffer, 0, buffer.Length);
-
-							ZipEntry entry = new ZipEntry(FullCachePath+@"\"+bnumber+"_"+cnumber+".xml");
+							ZipEntry entry = new ZipEntry(bnumber+"_"+cnumber+".xml");
 							s.PutNextEntry(entry);
 							s.Write(buffer, 0, buffer.Length);
 
 							s.Finish();
 							s.Close();
-							fs.Close();
-							File.Delete(FullCachePath+@"\tmp.xml");
+							
 
 						}
 						else
