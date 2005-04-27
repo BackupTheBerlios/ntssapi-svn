@@ -2,15 +2,16 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
 	<xsd:element name="XMLBIBLE">
-	
+
 		<xsd:annotation>
 			<xsd:documentation>Das Wurzelelement einer Zefania XML Bibel</xsd:documentation>
-			<xsd:appinfo>version:2.0.0.1</xsd:appinfo>
+			<xsd:appinfo>version:2.0.0.2</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexType>
 			<xsd:sequence maxOccurs="1">
 				<xsd:element ref="INFORMATION"/>
 				<xsd:element ref="BIBLEBOOK" maxOccurs="unbounded"/>
+				<xsd:element ref="APPINFO" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:sequence>
 			<xsd:attribute type="xsd:string" use="required" name="biblename">
 				<xsd:annotation>
@@ -38,6 +39,20 @@
 				</xsd:annotation>
 			</xsd:attribute>
 			<xsd:attribute name="content" type="enumContent" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="TRANSLATION">
+		<xsd:complexType mixed="true">
+			<xsd:attribute name="ID" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element><xsd:element name="APPINFO">
+		<xsd:complexType mixed="true">
+			<xsd:choice maxOccurs="unbounded">
+			  <xsd:element ref="TRANSLATION"/>
+			</xsd:choice>
+
+			<xsd:attribute name="client"/>
+			<xsd:attribute name="version"/>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="BIBLEBOOK">
@@ -122,7 +137,13 @@
 				<xsd:element ref="GRAM" minOccurs="0"/>
 			</xsd:choice>
 			<xsd:attribute name="vref" type="Tvref" use="required"/>
-		<xsd:attribute name="type" type="enumCaptionType" use="optional"><xsd:annotation><xsd:documentation>header levelEnumeration x-h1 bis x-h6</xsd:documentation></xsd:annotation></xsd:attribute><xsd:attribute name="mscope" type="TScope" use="optional"/></xsd:complexType>
+			<xsd:attribute name="type" type="enumCaptionType" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>header levelEnumeration x-h1 bis x-h6</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="mscope" type="TScope" use="optional"/>
+		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="REMARK">
 		<xsd:annotation>
@@ -136,7 +157,8 @@
 			<xsd:attribute name="vref" type="xsd:anyURI" use="required"/>
 			<xsd:attribute name="art" type="enumRemark" use="optional"/>
 			<xsd:attribute name="aix" type="Taix" use="optional"/>
-		<xsd:attribute name="mscope" type="TScope" use="optional"/></xsd:complexType>
+			<xsd:attribute name="mscope" type="TScope" use="optional"/>
+		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="NOTE">
 		<xsd:annotation>
@@ -625,8 +647,9 @@
 	</xsd:simpleType>
 	<xsd:simpleType name="TScope">
 		<xsd:annotation>
-		<xsd:documentation>Bibelstellennotation siehe: 
-		http://forum.mybible.de/viewtopic.php?p=3495</xsd:documentation></xsd:annotation>
+			<xsd:documentation>Bibelstellennotation siehe: 
+		http://forum.mybible.de/viewtopic.php?p=3495</xsd:documentation>
+		</xsd:annotation>
 		<xsd:restriction base="xsd:string">
 			<xsd:pattern value="\d{1,3}-\d{1,3};\d{1,3}-\d{1,3};\d{1,3}-\d{1,3}"/>
 		</xsd:restriction>
@@ -728,6 +751,7 @@
 					<xsd:documentation>Das Modul beinhaltet Kommentare</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
+			<xsd:enumeration value="x-parallel"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="enumContent">
@@ -754,12 +778,26 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
-<xsd:simpleType name="enumNoteTypes">
+	<xsd:simpleType name="enumNoteTypes">
 		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="x-studynote"/>
 		</xsd:restriction>
 	</xsd:simpleType>
-	<xsd:simpleType name="enumCaptionType"><xsd:annotation><xsd:documentation>Aufzählung für Überschriftenlevel</xsd:documentation></xsd:annotation><xsd:restriction base="xsd:string"><xsd:enumeration value="x-h1"/><xsd:enumeration value="x-h2"/><xsd:enumeration value="x-h3"/><xsd:enumeration value="x-h4"/><xsd:enumeration value="x-h5"/><xsd:enumeration value="x-h6"/></xsd:restriction></xsd:simpleType><xsd:simpleType name="enumXrefs">
+	<xsd:simpleType name="enumCaptionType">
+		<xsd:annotation>
+			<xsd:documentation>Aufzählung für Überschriftenlevel</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="x-h1"/>
+			<xsd:enumeration value="x-h2"/>
+			<xsd:enumeration value="x-h3"/>
+			<xsd:enumeration value="x-h4"/>
+			<xsd:enumeration value="x-h5"/>
+			<xsd:enumeration value="x-h6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="enumXrefs">
 		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="x-mscope"/>
 
