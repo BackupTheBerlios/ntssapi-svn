@@ -216,7 +216,6 @@
             56:12:7
             19:4:5
             abgefragt werden.
-            TODO: Zip-Support
             </summary>
         </member>
         <member name="F:NewTrueSharpSwordAPI.Queries.zefCoreRequest.FMaxVersePerPage">
@@ -264,11 +263,31 @@
             <param name="VN">Die Versnummer</param>
             <returns>Verstext incl. XML-Markup</returns>
         </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXChaptersZip(System.String,System.String,System.String,System.String)">
+            <summary>
+             Liefert aus einem x-chapters zipped file den Verstext incl. XML-Markup zurück.
+            </summary>
+            <param name="PathToCachedBookFile">Der Pfad zur zip Buchdatei im Cache.</param>
+            <param name="BN">Die Buchnummer</param>
+            <param name="CN">Die Kapitelnummer</param>
+            <param name="VN">Die Versnummer</param>
+            <returns>Verstext incl. XML-Markup</returns>
+        </member>
         <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXBooks(System.String,System.String,System.String,System.String)">
             <summary>
             Liefert aus einem x-books file den Verstext incl. XML-Markup zurück.
             </summary>
             <param name="PathToCachedBookFile">Der Pfad zur Buchdatei im Cache.</param>
+            <param name="BN">Die Buchnummer</param>
+            <param name="CN">Die Kapitelnummer</param>
+            <param name="VN">Die Versnummer</param>
+            <returns>Verstext incl. XML-Markup</returns>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXBooksZip(System.String,System.String,System.String,System.String)">
+            <summary>
+            Liefert aus einem x-books zipped file den Verstext incl. XML-Markup zurück.
+            </summary>
+            <param name="PathToCachedBookFile">Der Pfad zur zip Buchdatei im Cache.</param>
             <param name="BN">Die Buchnummer</param>
             <param name="CN">Die Kapitelnummer</param>
             <param name="VN">Die Versnummer</param>

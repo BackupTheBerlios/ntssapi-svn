@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Xml;
 using System.IO;
+using System.Text;
+using ICSharpCode.SharpZipLib.Zip;
+
 
 namespace NewTrueSharpSwordAPI.Queries
 {
@@ -12,7 +15,6 @@ namespace NewTrueSharpSwordAPI.Queries
 	/// 56:12:7
 	/// 19:4:5
 	/// abgefragt werden.
-	/// TODO: Zip-Support
 	/// </summary>
 	public class zefCoreRequest
 	{
@@ -121,7 +123,7 @@ namespace NewTrueSharpSwordAPI.Queries
 
 			get
 			{
-				Version v =new Version("0.0.0.3");
+				Version v =new Version("0.0.0.5");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
@@ -183,9 +185,10 @@ namespace NewTrueSharpSwordAPI.Queries
 
 				if(FResultRequestPages.Count!=0)
 				{
-					if(OnRequestFinished!=null){
-					  EventArgs e1=new EventArgs();
-					  OnRequestFinished(this,e1,ResultRequestPages);
+					if(OnRequestFinished!=null)
+					{
+						EventArgs e1=new EventArgs();
+						OnRequestFinished(this,e1,ResultRequestPages);
 					}
 					return true;
 				}
@@ -214,11 +217,12 @@ namespace NewTrueSharpSwordAPI.Queries
 			string BN,CN,VN;
 			string PathToCachedFile="";
 			string[] VersItemArray;
-			string ResultXMLString="";
+
+			StringBuilder ResultXMLStringX=new StringBuilder(2000);
 
 			try
 			{
-				ResultXMLString=("<XMLBIBLE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"zef2005.xsd\" version=\"2.0.0.2\" status=\"v\" biblename=\"internal\" type=\"x-other\" >\n<INFORMATION/>");
+				ResultXMLStringX.Append("<XMLBIBLE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"zef2005.xsd\" version=\"2.0.0.2\" status=\"v\" biblename=\"internal\" type=\"x-other\" >\n<INFORMATION/>");
 
 				foreach(string VersItem in SubVerses)
 				{
@@ -228,7 +232,7 @@ namespace NewTrueSharpSwordAPI.Queries
 					// wir gehen alle Modul IDs durch
 
 
-					ResultXMLString=ResultXMLString+"<BIBLEBOOK bnumber=\""+BN+"\">\n<CHAPTER cnumber=\""+CN+"\">\n";
+					ResultXMLStringX.Append("<BIBLEBOOK bnumber=\""+BN+"\">\n<CHAPTER cnumber=\""+CN+"\">\n");
 
 					int CountTransLations=0;
 
@@ -246,7 +250,7 @@ namespace NewTrueSharpSwordAPI.Queries
 								// Cache mit x-Books gefunden
 								// Vers ergänzen mit id
 								// 
-								ResultXMLString=ResultXMLString+"\n"+GetVerseXBooks(PathToCachedFile,BN,CN,VN).Replace("vnumber","id=\""+CountTransLations.ToString()+"\" vnumber");
+								ResultXMLStringX.Append("\n"+GetVerseXBooks(PathToCachedFile,BN,CN,VN).Replace("vnumber","id=\""+CountTransLations.ToString()+"\" vnumber"));
 
 								// ok nächste Modul ID
 								continue;
@@ -256,31 +260,55 @@ namespace NewTrueSharpSwordAPI.Queries
 							PathToCachedFile=CacheDir+@"\"+ModulMD5+@"\"+BN+"_"+CN+".xml";
 							if(File.Exists(PathToCachedFile))
 							{
-								// Cache mit x-Books gefunden	
-								ResultXMLString=ResultXMLString+"\n"+GetVerseXChapters(PathToCachedFile,BN,CN,VN).Replace("vnumber","id=\""+CountTransLations.ToString()+"\" vnumber");
+								// Cache mit x-chapters gefunden	
+								ResultXMLStringX.Append("\n"+GetVerseXChapters(PathToCachedFile,BN,CN,VN).Replace("vnumber","id=\""+CountTransLations.ToString()+"\" vnumber"));
+								// ok nächste Modul ID
+							}
+
+							//zip files
+
+							PathToCachedFile=CacheDir+@"\"+ModulMD5+@"\"+BN+".zip";
+
+							if(File.Exists(PathToCachedFile))
+							{
+								// Cache mit x-Books gefunden
+								// Vers ergänzen mit id
+								// 
+								ResultXMLStringX.Append("\n"+GetVerseXBooksZip(PathToCachedFile,BN,CN,VN).Replace("vnumber","id=\""+CountTransLations.ToString()+"\" vnumber"));
+
+								// ok nächste Modul ID
+								continue;
+							}
+							PathToCachedFile=CacheDir+@"\"+ModulMD5+@"\"+BN+"_"+CN+".zip";
+							if(File.Exists(PathToCachedFile))
+							{
+								// Cache mit x-chapters gefunden	
+								ResultXMLStringX.Append("\n"+GetVerseXChaptersZip(PathToCachedFile,BN,CN,VN).Replace("vnumber","id=\""+CountTransLations.ToString()+"\" vnumber"));
 								// ok nächste Modul ID
 							}
 							else
 							{
-								ResultXMLString=ResultXMLString+"\n"+"<VERS id=\""+CountTransLations.ToString()+"\" vnumber=\""+VN+"\">--</VERS>";
+								ResultXMLStringX.Append("\n"+"<VERS id=\""+CountTransLations.ToString()+"\" vnumber=\""+VN+"\">--</VERS>");
 								continue;
 							}
+
 
 						}//end CacheDir
 
 					}	// end ModulMd5
 
-					ResultXMLString=ResultXMLString+"\n</CHAPTER>\n</BIBLEBOOK>";
+					ResultXMLStringX.Append("\n</CHAPTER>\n</BIBLEBOOK>");
 
 				}
 
-				ResultXMLString=ResultXMLString+"\n</XMLBIBLE>";
-				FResultRequestPages.Add(AddAppInfo(ResultXMLString));
-				
-				if(OnPageRequest!=null){
-				 // Page Request Event feuern
-				 EventArgs e1=new EventArgs();
-				 OnPageRequest(this,e1,ResultXMLString);
+				ResultXMLStringX.Append("\n</XMLBIBLE>");
+				FResultRequestPages.Add(AddAppInfo(ResultXMLStringX.ToString()));
+
+				if(OnPageRequest!=null)
+				{
+					// Page Request Event feuern
+					EventArgs e1=new EventArgs();
+					OnPageRequest(this,e1,ResultXMLStringX.ToString());
 				}
 
 			}
@@ -320,6 +348,51 @@ namespace NewTrueSharpSwordAPI.Queries
 			catch(Exception e)
 			{
 
+				return e.Message;
+
+			}
+
+
+		}
+		/// <summary>
+		///  Liefert aus einem x-chapters zipped file den Verstext incl. XML-Markup zurück.
+		/// </summary>
+		/// <param name="PathToCachedBookFile">Der Pfad zur zip Buchdatei im Cache.</param>
+		/// <param name="BN">Die Buchnummer</param>
+		/// <param name="CN">Die Kapitelnummer</param>
+		/// <param name="VN">Die Versnummer</param>
+		/// <returns>Verstext incl. XML-Markup</returns>
+		private string GetVerseXChaptersZip(string PathToCachedBookFile,string BN,string CN,string VN)
+		{
+
+			ZipInputStream s = new ZipInputStream(File.OpenRead(PathToCachedBookFile));
+
+			s.GetNextEntry();
+
+			XmlTextReader ModulReader=new XmlTextReader(s);
+
+			try
+			{
+				while (ModulReader.Read()) 
+				{
+					if(ModulReader.Name=="VERS")
+					{
+						if((ModulReader.GetAttribute("vnumber")==VN))
+						{
+							// Sodele Vers gefunden!
+							s.Close();
+							return ModulReader.ReadOuterXml();
+
+						}
+					}
+				}
+				s.Close();
+				return "<VERS vnumber=\""+VN+"\">--</VERS>";
+
+			}
+			catch(Exception e)
+			{
+				s.Close();
 				return e.Message;
 
 			}
@@ -374,6 +447,66 @@ namespace NewTrueSharpSwordAPI.Queries
 			catch(Exception e)
 			{
 
+				return e.Message;
+
+			}
+
+
+		}// end get x-books
+
+		/// <summary>
+		/// Liefert aus einem x-books zipped file den Verstext incl. XML-Markup zurück.
+		/// </summary>
+		/// <param name="PathToCachedBookFile">Der Pfad zur zip Buchdatei im Cache.</param>
+		/// <param name="BN">Die Buchnummer</param>
+		/// <param name="CN">Die Kapitelnummer</param>
+		/// <param name="VN">Die Versnummer</param>
+		/// <returns>Verstext incl. XML-Markup</returns>
+		private string GetVerseXBooksZip(string PathToCachedBookFile,string BN,string CN,string VN)
+		{
+
+			bool ChapterFound=false;
+
+			ZipInputStream s = new ZipInputStream(File.OpenRead(PathToCachedBookFile));
+
+			s.GetNextEntry();
+
+			XmlTextReader ModulReader=new XmlTextReader(s);
+			try
+			{   
+				while (ModulReader.Read()) 
+				{
+
+
+					if(ModulReader.Name=="CHAPTER")
+					{   
+						if(ModulReader.GetAttribute("cnumber")==CN)
+						{   
+							ChapterFound=true;
+						}
+
+					}
+					if(ModulReader.Name=="VERS")
+					{
+						if((ModulReader.GetAttribute("vnumber")==VN)&ChapterFound)
+						{   
+
+							// Sodele Vers gefunden!
+							s.Close();
+							return ModulReader.ReadOuterXml();
+
+						}
+					}
+
+
+				}//end while
+				s.Close();
+				return "<VERS vnumber=\""+VN+"\">--</VERS>";	
+
+			}
+			catch(Exception e)
+			{
+				s.Close();
 				return e.Message;
 
 			}
