@@ -281,6 +281,16 @@
             <param name="ResultXml">Das XML Markup der RequestPage</param>
             <returns>Das XML Markup der RequestPage mit APPINFO</returns>
         </member>
+        <member name="E:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnRequestFinished">
+            <summary>
+            <seealso cref="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnRequestFinishedEventHandler"/>
+            </summary>
+        </member>
+        <member name="E:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnPageRequest">
+            <summary>
+            <seealso cref="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnRequestPageEventHandler"/>
+            </summary>
+        </member>
         <member name="P:NewTrueSharpSwordAPI.Queries.zefCoreRequest.CacheDirectories">
             <summary>
             Setzt oder liest die Liste der Cache-Verzeichnise
@@ -303,7 +313,18 @@
         </member>
         <member name="P:NewTrueSharpSwordAPI.Queries.zefCoreRequest.CoreRequestVersion">
             <summary>
-            Gibt die Versionsnummer der ZefaniaCache-Klasse zurück.
+            Gibt die Versionsnummer der CoreRequest-Klasse zurück.
+            </summary>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnRequestFinishedEventHandler">
+            <summary>
+             Dieser Event wird ausgelöst, wenn die Abfrage komplett beendet wurde.
+            </summary>
+            <remarks>Das Ergebnis kann dann über <seealso cref="P:NewTrueSharpSwordAPI.Queries.zefCoreRequest.ResultRequestPages"/> untersucht werden.</remarks>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnRequestPageEventHandler">
+            <summary>
+             Dieser Event wird ausgelöst, wenn eine Seite für eine Abfrage erstellt wurde.
             </summary>
         </member>
         <member name="T:NewTrueSharpSwordAPI.Queries.BookNameType">

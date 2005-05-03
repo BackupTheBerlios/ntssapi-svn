@@ -17,6 +17,23 @@ namespace NewTrueSharpSwordAPI.Queries
 	public class zefCoreRequest
 	{
 		/// <summary>
+		///  Dieser Event wird ausgelöst, wenn die Abfrage komplett beendet wurde.
+		/// </summary>
+		/// <remarks>Das Ergebnis kann dann über <seealso cref="ResultRequestPages"/> untersucht werden.</remarks>
+		public delegate void OnRequestFinishedEventHandler(object sender, EventArgs e, ArrayList ResultList);
+		/// <summary>
+		/// <seealso cref="OnRequestFinishedEventHandler"/>
+		/// </summary>
+		public event OnRequestFinishedEventHandler OnRequestFinished;
+		/// <summary>
+		///  Dieser Event wird ausgelöst, wenn eine Seite für eine Abfrage erstellt wurde.
+		/// </summary>
+		public delegate void OnRequestPageEventHandler(object sender, EventArgs e, string XmlRequestPage);
+		/// <summary>
+		/// <seealso cref="OnRequestPageEventHandler"/>
+		/// </summary>
+		public event OnRequestPageEventHandler OnPageRequest;
+		/// <summary>
 		/// Die Anzahl der Verse auf einer Ergebnisseite
 		/// </summary>
 		private int FMaxVersePerPage;
@@ -97,14 +114,14 @@ namespace NewTrueSharpSwordAPI.Queries
 		}
 
 		/// <summary>
-		/// Gibt die Versionsnummer der ZefaniaCache-Klasse zurück.
+		/// Gibt die Versionsnummer der CoreRequest-Klasse zurück.
 		/// </summary>
 		public string CoreRequestVersion
 		{
 
 			get
 			{
-				Version v =new Version("0.0.0.1");
+				Version v =new Version("0.0.0.3");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
@@ -131,29 +148,29 @@ namespace NewTrueSharpSwordAPI.Queries
 			try
 			{   // Versanzahl auf Requestpages berechnen.
 				decimal SubCount=(MaxVersePerPage/FMD5ModulDirList.Count);
-                
+
 				int LOWER=0;
 
 				int UPER=Convert.ToInt16(SubCount);
 
 				if(UPER==0){UPER=1;SubCount=1;}
-             
+
 				decimal CountPages=VersesItems.Count/SubCount;
-                
+
 				for (int i = 1; i<= Convert.ToInt16(CountPages)-1 ; i++)
 				{
 					SubVerses=VersesItems.GetRange(LOWER,UPER);
 					LOWER=i*UPER;
 					BuildResultPage(SubVerses);
 				}
-	
+
 				if(LOWER+UPER<=VersesItems.Count)
 				{
-			
+
 					SubVerses=VersesItems.GetRange(LOWER,UPER);
 					LOWER=LOWER+UPER;
 					BuildResultPage(SubVerses);
-				
+
 				}
 
 				if(LOWER<VersesItems.Count)
@@ -163,10 +180,13 @@ namespace NewTrueSharpSwordAPI.Queries
 					BuildResultPage(SubVerses);
 				}
 
-				   
+
 				if(FResultRequestPages.Count!=0)
 				{
-					//TODO: Request Finished event
+					if(OnRequestFinished!=null){
+					  EventArgs e1=new EventArgs();
+					  OnRequestFinished(this,e1,ResultRequestPages);
+					}
 					return true;
 				}
 				else
@@ -175,9 +195,9 @@ namespace NewTrueSharpSwordAPI.Queries
 			}
 			catch(Exception e)
 			{
-				
+
 				return false;
-				
+
 			}
 
 
@@ -190,7 +210,7 @@ namespace NewTrueSharpSwordAPI.Queries
 		/// <seealso cref="GetRequest"/> </param>
 		private void BuildResultPage(ArrayList SubVerses)
 		{
-		    
+
 			string BN,CN,VN;
 			string PathToCachedFile="";
 			string[] VersItemArray;
@@ -198,18 +218,18 @@ namespace NewTrueSharpSwordAPI.Queries
 
 			try
 			{
-				ResultXMLString=("<XMLBIBLE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"zef2005.xsd\" version=\"2.0.0.0\" status=\"v\" biblename=\"internal\" type=\"x-other\" >\n<INFORMATION/>");
-				
+				ResultXMLString=("<XMLBIBLE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"zef2005.xsd\" version=\"2.0.0.2\" status=\"v\" biblename=\"internal\" type=\"x-other\" >\n<INFORMATION/>");
+
 				foreach(string VersItem in SubVerses)
 				{
-				    
+
 					VersItemArray=VersItem.Split(':');
 					BN=VersItemArray[0];CN=VersItemArray[1];VN=VersItemArray[2];
 					// wir gehen alle Modul IDs durch
-                   
+
 
 					ResultXMLString=ResultXMLString+"<BIBLEBOOK bnumber=\""+BN+"\">\n<CHAPTER cnumber=\""+CN+"\">\n";
-					
+
 					int CountTransLations=0;
 
 					foreach(string ModulMD5 in FMD5ModulDirList)
@@ -227,11 +247,11 @@ namespace NewTrueSharpSwordAPI.Queries
 								// Vers ergänzen mit id
 								// 
 								ResultXMLString=ResultXMLString+"\n"+GetVerseXBooks(PathToCachedFile,BN,CN,VN).Replace("vnumber","id=\""+CountTransLations.ToString()+"\" vnumber");
-                               
+
 								// ok nächste Modul ID
 								continue;
 							}
-							
+
 							// teste ob ein file vom type x-chapters vorliegt
 							PathToCachedFile=CacheDir+@"\"+ModulMD5+@"\"+BN+"_"+CN+".xml";
 							if(File.Exists(PathToCachedFile))
@@ -245,25 +265,30 @@ namespace NewTrueSharpSwordAPI.Queries
 								ResultXMLString=ResultXMLString+"\n"+"<VERS id=\""+CountTransLations.ToString()+"\" vnumber=\""+VN+"\">--</VERS>";
 								continue;
 							}
-						
+
 						}//end CacheDir
-						
+
 					}	// end ModulMd5
-                    
+
 					ResultXMLString=ResultXMLString+"\n</CHAPTER>\n</BIBLEBOOK>";
-						
+
 				}
-				
+
 				ResultXMLString=ResultXMLString+"\n</XMLBIBLE>";
 				FResultRequestPages.Add(AddAppInfo(ResultXMLString));
-                //TODO: Page Request event
+				
+				if(OnPageRequest!=null){
+				 // Page Request Event feuern
+				 EventArgs e1=new EventArgs();
+				 OnPageRequest(this,e1,ResultXMLString);
+				}
 
 			}
 			catch(Exception e)
 			{
-				
+
 			}
-		
+
 		}
 		/// <summary>
 		///  Liefert aus einem x-chapters file den Verstext incl. XML-Markup zurück.
@@ -286,7 +311,7 @@ namespace NewTrueSharpSwordAPI.Queries
 						{
 							// Sodele Vers gefunden!
 							return ModulReader.ReadOuterXml();
-						 
+
 						}
 					}
 				}
@@ -294,12 +319,12 @@ namespace NewTrueSharpSwordAPI.Queries
 			}
 			catch(Exception e)
 			{
-				
+
 				return e.Message;
-				
+
 			}
-		
-		
+
+
 		}
 
 		/// <summary>
@@ -312,7 +337,7 @@ namespace NewTrueSharpSwordAPI.Queries
 		/// <returns>Verstext incl. XML-Markup</returns>
 		private string GetVerseXBooks(string PathToCachedBookFile,string BN,string CN,string VN)
 		{
-            
+
 			bool ChapterFound=false;
 
 			XmlTextReader ModulReader=new XmlTextReader(PathToCachedBookFile);
@@ -320,40 +345,40 @@ namespace NewTrueSharpSwordAPI.Queries
 			{   
 				while (ModulReader.Read()) 
 				{
-					
-					
+
+
 					if(ModulReader.Name=="CHAPTER")
 					{   
 						if(ModulReader.GetAttribute("cnumber")==CN)
 						{   
 							ChapterFound=true;
 						}
-						
+
 					}
 					if(ModulReader.Name=="VERS")
 					{
 						if((ModulReader.GetAttribute("vnumber")==VN)&ChapterFound)
 						{   
-							
+
 							// Sodele Vers gefunden!
 							return ModulReader.ReadOuterXml();
-						 
+
 						}
 					}
 
-				
+
 				}//end while
-			return "<VERS vnumber=\""+VN+"\">--</VERS>";	
-				
+				return "<VERS vnumber=\""+VN+"\">--</VERS>";	
+
 			}
 			catch(Exception e)
 			{
-				
+
 				return e.Message;
-				
+
 			}
-		
-		
+
+
 		}// end get
 
 
@@ -364,24 +389,24 @@ namespace NewTrueSharpSwordAPI.Queries
 		/// <returns>Das XML Markup der RequestPage mit APPINFO</returns>
 		private string AddAppInfo(string ResultXml)
 		{
-            
+
 			XmlDocument XMLPage=new XmlDocument();
 			string PathToCachedInfoFile;
 			int CountTransLations=0;
 
 			try
 			{
-               
+
 				XMLPage.LoadXml(ResultXml);
 
-                XmlNode APPINFO=XMLPage.DocumentElement.SelectSingleNode("descendant::APPINFO");
+				XmlNode APPINFO=XMLPage.DocumentElement.SelectSingleNode("descendant::APPINFO");
 
 				if(APPINFO==null)
 				{
 					APPINFO=XMLPage.CreateNode(XmlNodeType.Element,"APPINFO","");
 				}
 
-                XmlAttribute ATT1=XMLPage.CreateAttribute("","client","");
+				XmlAttribute ATT1=XMLPage.CreateAttribute("","client","");
 				ATT1.Value="NewTrueSharpSwordAPI";
 				APPINFO.Attributes.Append(ATT1);
 
@@ -399,41 +424,41 @@ namespace NewTrueSharpSwordAPI.Queries
 
 						if(File.Exists(PathToCachedInfoFile))
 						{
-						// Cache Info File gefunden
+							// Cache Info File gefunden
 
-                        XmlTextReader ModulReader=new XmlTextReader(PathToCachedInfoFile);
-						while (ModulReader.Read()) 
-						{
-					        if(ModulReader.Name=="title")
+							XmlTextReader ModulReader=new XmlTextReader(PathToCachedInfoFile);
+							while (ModulReader.Read()) 
+							{
+								if(ModulReader.Name=="title")
 								{   
-								  XmlNode TRANSLATION=XMLPage.CreateNode(XmlNodeType.Element,"TRANSLATION","");
-								  TRANSLATION.InnerText=ModulReader.ReadString();
-								  XmlAttribute ATTID=XMLPage.CreateAttribute("","id","");
-								  ATTID.Value=CountTransLations.ToString();
-								  TRANSLATION.Attributes.Prepend(ATTID);
-								  APPINFO.AppendChild(TRANSLATION);
-								  XMLPage.DocumentElement.AppendChild(APPINFO);
-													
+									XmlNode TRANSLATION=XMLPage.CreateNode(XmlNodeType.Element,"TRANSLATION","");
+									TRANSLATION.InnerText=ModulReader.ReadString();
+									XmlAttribute ATTID=XMLPage.CreateAttribute("","id","");
+									ATTID.Value=CountTransLations.ToString();
+									TRANSLATION.Attributes.Prepend(ATTID);
+									APPINFO.AppendChild(TRANSLATION);
+									XMLPage.DocumentElement.AppendChild(APPINFO);
+
 								}
-							
+
 							}
-                               
-						// ok nächste Modul ID
-						
+
+							// ok nächste Modul ID
+
 						}
-						
+
 					}//end CacheDir
-						
+
 				}// end ModulMD5
 
 				return XMLPage.DocumentElement.OuterXml;
-				
+
 			}
 			catch(Exception e)
 			{
-				
+
 				return e.Message;
-				
+
 			}
 
 
