@@ -18,6 +18,7 @@ namespace NewTrueSharpSwordAPI.Queries
 	/// </summary>
 	public class zefCoreRequest
 	{
+		StringBuilder ResultXMLStringX=new StringBuilder(5000);
 		/// <summary>
 		///  Dieser Event wird ausgelöst, wenn die Abfrage komplett beendet wurde.
 		/// </summary>
@@ -123,7 +124,7 @@ namespace NewTrueSharpSwordAPI.Queries
 
 			get
 			{
-				Version v =new Version("0.0.0.5");
+				Version v =new Version("0.0.0.7");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
@@ -218,7 +219,7 @@ namespace NewTrueSharpSwordAPI.Queries
 			string PathToCachedFile="";
 			string[] VersItemArray;
 
-			StringBuilder ResultXMLStringX=new StringBuilder(2000);
+			ResultXMLStringX.Length=0;
 
 			try
 			{
@@ -226,9 +227,10 @@ namespace NewTrueSharpSwordAPI.Queries
 
 				foreach(string VersItem in SubVerses)
 				{
+					// eventuell vorhandene Leerzeichen entfernen.
 
 					VersItemArray=VersItem.Split(':');
-					BN=VersItemArray[0];CN=VersItemArray[1];VN=VersItemArray[2];
+					BN=VersItemArray[0].Trim();CN=VersItemArray[1].Trim();VN=VersItemArray[2].Trim();
 					// wir gehen alle Modul IDs durch
 
 
@@ -250,10 +252,11 @@ namespace NewTrueSharpSwordAPI.Queries
 								// Cache mit x-Books gefunden
 								// Vers ergänzen mit id
 								// 
-								ResultXMLStringX.Append("\n"+GetVerseXBooks(PathToCachedFile,BN,CN,VN).Replace("vnumber","id=\""+CountTransLations.ToString()+"\" vnumber"));
+								GetVerseXBooks(CountTransLations,PathToCachedFile,BN,CN,VN);
 
 								// ok nächste Modul ID
 								continue;
+
 							}
 
 							// teste ob ein file vom type x-chapters vorliegt
@@ -261,8 +264,9 @@ namespace NewTrueSharpSwordAPI.Queries
 							if(File.Exists(PathToCachedFile))
 							{
 								// Cache mit x-chapters gefunden	
-								ResultXMLStringX.Append("\n"+GetVerseXChapters(PathToCachedFile,BN,CN,VN).Replace("vnumber","id=\""+CountTransLations.ToString()+"\" vnumber"));
+								GetVerseXChapters(CountTransLations,PathToCachedFile,BN,CN,VN);
 								// ok nächste Modul ID
+								continue;
 							}
 
 							//zip files
@@ -274,23 +278,23 @@ namespace NewTrueSharpSwordAPI.Queries
 								// Cache mit x-Books gefunden
 								// Vers ergänzen mit id
 								// 
-								ResultXMLStringX.Append("\n"+GetVerseXBooksZip(PathToCachedFile,BN,CN,VN).Replace("vnumber","id=\""+CountTransLations.ToString()+"\" vnumber"));
-
+								GetVerseXBooksZip(CountTransLations,PathToCachedFile,BN,CN,VN);
 								// ok nächste Modul ID
 								continue;
 							}
+
 							PathToCachedFile=CacheDir+@"\"+ModulMD5+@"\"+BN+"_"+CN+".zip";
 							if(File.Exists(PathToCachedFile))
 							{
 								// Cache mit x-chapters gefunden	
-								ResultXMLStringX.Append("\n"+GetVerseXChaptersZip(PathToCachedFile,BN,CN,VN).Replace("vnumber","id=\""+CountTransLations.ToString()+"\" vnumber"));
+								GetVerseXChaptersZip(CountTransLations,PathToCachedFile,BN,CN,VN);
 								// ok nächste Modul ID
-							}
-							else
-							{
-								ResultXMLStringX.Append("\n"+"<VERS id=\""+CountTransLations.ToString()+"\" vnumber=\""+VN+"\">--</VERS>");
 								continue;
 							}
+							else 
+								ResultXMLStringX.Append("\n"+"<VERS id=\""+CountTransLations.ToString()+"\" vnumber=\""+VN+"\">--</VERS>");
+
+
 
 
 						}//end CacheDir
@@ -325,30 +329,93 @@ namespace NewTrueSharpSwordAPI.Queries
 		/// <param name="BN">Die Buchnummer</param>
 		/// <param name="CN">Die Kapitelnummer</param>
 		/// <param name="VN">Die Versnummer</param>
-		/// <returns>Verstext incl. XML-Markup</returns>
-		private string GetVerseXChapters(string PathToCachedBookFile,string BN,string CN,string VN)
+		/// <param name="TranslationID">Die Übersetzungen durchzählen</param>
+		private void GetVerseXChapters(int TranslationID,string PathToCachedBookFile,string BN,string CN,string VN)
 		{
+			bool VersFound=false;
 			XmlTextReader ModulReader=new XmlTextReader(PathToCachedBookFile);
+			// was ist das?
+			object oChapter = ModulReader.NameTable.Add("CHAPTER");
+			object oCaption = ModulReader.NameTable.Add("CAPTION");
+			object oVers = ModulReader.NameTable.Add("VERS");
+			object oRemark = ModulReader.NameTable.Add("REMARK");
+			object oXref = ModulReader.NameTable.Add("XREF");
+			// vergL: http://tinyurl.com/dfumx
 			try
 			{
 				while (ModulReader.Read()) 
 				{
-					if(ModulReader.Name=="VERS")
+
+					if(ModulReader.Name.Equals(oCaption))
+					{   
+						if(ModulReader.GetAttribute("vref")==VN)
+
+						{   
+							string caption=ModulReader.ReadOuterXml();
+							caption=caption.Replace("vref=","id=\""+TranslationID.ToString()+"\" vref=");
+							ResultXMLStringX.Append(caption);
+
+						}
+
+					}
+
+
+					if((ModulReader.Name.Equals(oRemark))&VersFound)
+					{   
+						if(ModulReader.GetAttribute("vref")==VN)
+
+						{   
+							string remark=ModulReader.ReadOuterXml();
+							remark=remark.Replace("vref=","id=\""+TranslationID.ToString()+"\" vref=");
+							ResultXMLStringX.Append(remark);
+
+						}
+
+					}
+
+					if((ModulReader.Name.Equals(oXref))&VersFound)
+					{   
+						if(ModulReader.GetAttribute("vref")==VN)
+
+						{   
+							string xref=ModulReader.ReadOuterXml();
+							xref=xref.Replace("vref=","id=\""+TranslationID.ToString()+"\" vref=");
+							ResultXMLStringX.Append(xref);
+
+						}
+
+					}
+
+					if(ModulReader.Name.Equals(oVers))
 					{
-						if((ModulReader.GetAttribute("vnumber")==VN))
+						if (VersFound)
 						{
+							// wir können abrechen, da nächster vers gefunden ist.
+							break;}
+						if(ModulReader.GetAttribute("vnumber")==VN)
+						{   
+
 							// Sodele Vers gefunden!
-							return ModulReader.ReadOuterXml();
+							string vers=ModulReader.ReadOuterXml();
+							vers=vers.Replace("vnumber=","id=\""+TranslationID.ToString()+"\" vnumber=");
+							ResultXMLStringX.Append(vers);
+
+							VersFound=true;
+
 
 						}
 					}
+				}// end while
+				if( VersFound==false)
+				{
+					ResultXMLStringX.Append("<VERS id=\""+TranslationID.ToString()+"\" vnumber=\""+VN+"\">--</VERS>");		
 				}
-				return "<VERS vnumber=\""+VN+"\">--</VERS>";
+
 			}
 			catch(Exception e)
 			{
 
-				return e.Message;
+
 
 			}
 
@@ -361,39 +428,99 @@ namespace NewTrueSharpSwordAPI.Queries
 		/// <param name="BN">Die Buchnummer</param>
 		/// <param name="CN">Die Kapitelnummer</param>
 		/// <param name="VN">Die Versnummer</param>
-		/// <returns>Verstext incl. XML-Markup</returns>
-		private string GetVerseXChaptersZip(string PathToCachedBookFile,string BN,string CN,string VN)
+		/// <param name="TranslationID">Übersetzungen durchzählen</param>
+		private void GetVerseXChaptersZip(int TranslationID,string PathToCachedBookFile,string BN,string CN,string VN)
 		{
-
+			bool VersFound=false;
 			ZipInputStream s = new ZipInputStream(File.OpenRead(PathToCachedBookFile));
 
 			s.GetNextEntry();
 
 			XmlTextReader ModulReader=new XmlTextReader(s);
+			// was ist das?
+			object oChapter = ModulReader.NameTable.Add("CHAPTER");
+			object oCaption = ModulReader.NameTable.Add("CAPTION");
+			object oVers = ModulReader.NameTable.Add("VERS");
+			object oRemark = ModulReader.NameTable.Add("REMARK");
+			object oXref = ModulReader.NameTable.Add("XREF");
+			// vergL: http://tinyurl.com/dfumx
 
 			try
 			{
 				while (ModulReader.Read()) 
 				{
-					if(ModulReader.Name=="VERS")
+
+					if(ModulReader.Name.Equals(oCaption))
+					{   
+						if(ModulReader.GetAttribute("vref")==VN)
+
+						{   
+							string caption=ModulReader.ReadOuterXml();
+							caption=caption.Replace("vref=","id=\""+TranslationID.ToString()+"\" vref=");
+							ResultXMLStringX.Append(caption);
+
+						}
+
+					}
+
+					if((ModulReader.Name.Equals(oRemark))&VersFound)
+					{   
+						if(ModulReader.GetAttribute("vref")==VN)
+
+						{   
+							string remark=ModulReader.ReadOuterXml();
+							remark=remark.Replace("vref=","id=\""+TranslationID.ToString()+"\" vref=");
+							ResultXMLStringX.Append(remark);
+
+						}
+
+					}
+
+					if((ModulReader.Name.Equals(oXref)&VersFound))
+					{   
+						if(ModulReader.GetAttribute("vref")==VN)
+
+						{   
+							string xref=ModulReader.ReadOuterXml();
+							xref=xref.Replace("vref=","id=\""+TranslationID.ToString()+"\" vref=");
+							ResultXMLStringX.Append(xref);
+
+						}
+
+					}
+
+					if(ModulReader.Name.Equals(oVers))
 					{
-						if((ModulReader.GetAttribute("vnumber")==VN))
+						if (VersFound)
 						{
+							// wir können abrechen, da nächster vers gefunden ist.
+							break;}
+						if(ModulReader.GetAttribute("vnumber")==VN)
+						{   
+
 							// Sodele Vers gefunden!
-							s.Close();
-							return ModulReader.ReadOuterXml();
+							string vers=ModulReader.ReadOuterXml();
+							vers=vers.Replace("vnumber=","id=\""+TranslationID.ToString()+"\" vnumber=");
+							ResultXMLStringX.Append(vers);
+
+							VersFound=true;
+
 
 						}
 					}
-				}
+				}// end while
 				s.Close();
-				return "<VERS vnumber=\""+VN+"\">--</VERS>";
+				if( VersFound==false)
+				{
+					ResultXMLStringX.Append("<VERS id=\""+TranslationID.ToString()+"\" vnumber=\""+VN+"\">--</VERS>");	
+				}
+
 
 			}
 			catch(Exception e)
 			{
 				s.Close();
-				return e.Message;
+
 
 			}
 
@@ -407,20 +534,32 @@ namespace NewTrueSharpSwordAPI.Queries
 		/// <param name="BN">Die Buchnummer</param>
 		/// <param name="CN">Die Kapitelnummer</param>
 		/// <param name="VN">Die Versnummer</param>
-		/// <returns>Verstext incl. XML-Markup</returns>
-		private string GetVerseXBooks(string PathToCachedBookFile,string BN,string CN,string VN)
+		/// <param name="TranslationID">Übersetzungen durchzählen</param>
+		private void GetVerseXBooks(int TranslationID,string PathToCachedBookFile,string BN,string CN,string VN)
 		{
 
 			bool ChapterFound=false;
+			bool VersFound=false;
 
 			XmlTextReader ModulReader=new XmlTextReader(PathToCachedBookFile);
+
+			// was ist das?
+			object oChapter = ModulReader.NameTable.Add("CHAPTER");
+			object oCaption = ModulReader.NameTable.Add("CAPTION");
+			object oVers = ModulReader.NameTable.Add("VERS");
+			object oRemark = ModulReader.NameTable.Add("REMARK");
+			object oXref = ModulReader.NameTable.Add("XREF");
+
+			// vergL: http://tinyurl.com/dfumx
+
 			try
 			{   
 				while (ModulReader.Read()) 
 				{
 
 
-					if(ModulReader.Name=="CHAPTER")
+
+					if(ModulReader.Name.Equals(oChapter))
 					{   
 						if(ModulReader.GetAttribute("cnumber")==CN)
 						{   
@@ -428,26 +567,78 @@ namespace NewTrueSharpSwordAPI.Queries
 						}
 
 					}
-					if(ModulReader.Name=="VERS")
+
+					if((ModulReader.Name.Equals(oCaption))&ChapterFound)
+					{   
+						if(ModulReader.GetAttribute("vref")==VN)
+
+						{   
+							string caption=ModulReader.ReadOuterXml();
+							caption=caption.Replace("vref=","id=\""+TranslationID.ToString()+"\" vref=");
+							ResultXMLStringX.Append(caption);
+
+						}
+
+					}
+
+					if((ModulReader.Name.Equals(oRemark))&VersFound)
+					{   
+						if(ModulReader.GetAttribute("vref")==VN)
+
+						{   
+							string remark=ModulReader.ReadOuterXml();
+							remark=remark.Replace("vref=","id=\""+TranslationID.ToString()+"\" vref=");
+							ResultXMLStringX.Append(remark);
+
+						}
+
+					}
+
+					if((ModulReader.Name.Equals(oXref))&VersFound)
+					{   
+						if(ModulReader.GetAttribute("vref")==VN)
+
+						{   
+							string xref=ModulReader.ReadOuterXml();
+							xref=xref.Replace("vref=","id=\""+TranslationID.ToString()+"\" vref=");
+							ResultXMLStringX.Append(xref);
+
+						}
+
+					}
+
+					if((ModulReader.Name.Equals(oVers))&ChapterFound)
 					{
-						if((ModulReader.GetAttribute("vnumber")==VN)&ChapterFound)
+						if (VersFound)
+						{
+							// wir können abrechen, da nächster vers gefunden ist.
+							break;}
+						if(ModulReader.GetAttribute("vnumber")==VN)
 						{   
 
 							// Sodele Vers gefunden!
-							return ModulReader.ReadOuterXml();
+							string vers=ModulReader.ReadOuterXml();
+							vers=vers.Replace("vnumber=","id=\""+TranslationID.ToString()+"\" vnumber=");
+							ResultXMLStringX.Append(vers);
+
+							VersFound=true;
+
 
 						}
 					}
 
 
 				}//end while
-				return "<VERS vnumber=\""+VN+"\">--</VERS>";	
+				if( VersFound==false)
+				{
+					ResultXMLStringX.Append("<VERS id=\""+TranslationID.ToString()+"\" vnumber=\""+VN+"\">--</VERS>");		
+				}
 
 			}
 			catch(Exception e)
 			{
 
-				return e.Message;
+
 
 			}
 
@@ -461,24 +652,32 @@ namespace NewTrueSharpSwordAPI.Queries
 		/// <param name="BN">Die Buchnummer</param>
 		/// <param name="CN">Die Kapitelnummer</param>
 		/// <param name="VN">Die Versnummer</param>
-		/// <returns>Verstext incl. XML-Markup</returns>
-		private string GetVerseXBooksZip(string PathToCachedBookFile,string BN,string CN,string VN)
+		/// <param name="TranslationID">Übersetzungen durchzählen</param>
+		private void GetVerseXBooksZip(int TranslationID,string PathToCachedBookFile,string BN,string CN,string VN)
 		{
 
 			bool ChapterFound=false;
+			bool VersFound=false;
 
 			ZipInputStream s = new ZipInputStream(File.OpenRead(PathToCachedBookFile));
 
 			s.GetNextEntry();
 
 			XmlTextReader ModulReader=new XmlTextReader(s);
+			// was ist das?
+			object oChapter = ModulReader.NameTable.Add("CHAPTER");
+			object oCaption = ModulReader.NameTable.Add("CAPTION");
+			object oVers = ModulReader.NameTable.Add("VERS");
+			object oRemark = ModulReader.NameTable.Add("REMARK");
+			object oXref = ModulReader.NameTable.Add("XREF");
+			// vergL: http://tinyurl.com/dfumx
 			try
 			{   
 				while (ModulReader.Read()) 
 				{
 
 
-					if(ModulReader.Name=="CHAPTER")
+					if(ModulReader.Name.Equals(oChapter))
 					{   
 						if(ModulReader.GetAttribute("cnumber")==CN)
 						{   
@@ -486,14 +685,63 @@ namespace NewTrueSharpSwordAPI.Queries
 						}
 
 					}
-					if(ModulReader.Name=="VERS")
+
+					if((ModulReader.Name.Equals(oCaption))&ChapterFound)
+					{   
+						if(ModulReader.GetAttribute("vref")==VN)
+
+						{   
+							string caption=ModulReader.ReadOuterXml();
+							caption=caption.Replace("vref=","id=\""+TranslationID.ToString()+"\" vref=");
+							ResultXMLStringX.Append(caption);
+
+						}
+
+					}
+
+					if((ModulReader.Name.Equals(oRemark))&VersFound)
+					{   
+						if(ModulReader.GetAttribute("vref")==VN)
+
+						{   
+							string remark=ModulReader.ReadOuterXml();
+							remark=remark.Replace("vref=","id=\""+TranslationID.ToString()+"\" vref=");
+							ResultXMLStringX.Append(remark);
+
+						}
+
+					}
+
+					if((ModulReader.Name.Equals(oXref))&VersFound)
+					{   
+						if(ModulReader.GetAttribute("vref")==VN)
+
+						{   
+							string xref=ModulReader.ReadOuterXml();
+							xref=xref.Replace("vref=","id=\""+TranslationID.ToString()+"\" vref=");
+							ResultXMLStringX.Append(xref);
+
+						}
+
+					}
+
+
+					if((ModulReader.Name.Equals(oVers))&ChapterFound)
 					{
-						if((ModulReader.GetAttribute("vnumber")==VN)&ChapterFound)
+						if (VersFound)
+						{
+							// wir können abrechen, da nächster vers gefunden ist.
+							break;}
+						if(ModulReader.GetAttribute("vnumber")==VN)
 						{   
 
 							// Sodele Vers gefunden!
-							s.Close();
-							return ModulReader.ReadOuterXml();
+							string vers=ModulReader.ReadOuterXml();
+							vers=vers.Replace("vnumber=","id=\""+TranslationID.ToString()+"\" vnumber=");
+							ResultXMLStringX.Append(vers);
+
+							VersFound=true;
+
 
 						}
 					}
@@ -501,13 +749,16 @@ namespace NewTrueSharpSwordAPI.Queries
 
 				}//end while
 				s.Close();
-				return "<VERS vnumber=\""+VN+"\">--</VERS>";	
+				if( VersFound==false)
+				{
+					ResultXMLStringX.Append("<VERS id=\""+TranslationID.ToString()+"\" vnumber=\""+VN+"\">--</VERS>");		
+				}	
 
 			}
 			catch(Exception e)
 			{
 				s.Close();
-				return e.Message;
+
 
 			}
 

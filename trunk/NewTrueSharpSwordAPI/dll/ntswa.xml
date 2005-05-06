@@ -253,7 +253,7 @@
             und Anzahl der Bibelausgaben in FMD5ModulDirList.
             <seealso cref="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetRequest(System.Collections.ArrayList)"/> </param>
         </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXChapters(System.String,System.String,System.String,System.String)">
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXChapters(System.Int32,System.String,System.String,System.String,System.String)">
             <summary>
              Liefert aus einem x-chapters file den Verstext incl. XML-Markup zurück.
             </summary>
@@ -261,9 +261,9 @@
             <param name="BN">Die Buchnummer</param>
             <param name="CN">Die Kapitelnummer</param>
             <param name="VN">Die Versnummer</param>
-            <returns>Verstext incl. XML-Markup</returns>
+            <param name="TranslationID">Die Übersetzungen durchzählen</param>
         </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXChaptersZip(System.String,System.String,System.String,System.String)">
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXChaptersZip(System.Int32,System.String,System.String,System.String,System.String)">
             <summary>
              Liefert aus einem x-chapters zipped file den Verstext incl. XML-Markup zurück.
             </summary>
@@ -271,9 +271,9 @@
             <param name="BN">Die Buchnummer</param>
             <param name="CN">Die Kapitelnummer</param>
             <param name="VN">Die Versnummer</param>
-            <returns>Verstext incl. XML-Markup</returns>
+            <param name="TranslationID">Übersetzungen durchzählen</param>
         </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXBooks(System.String,System.String,System.String,System.String)">
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXBooks(System.Int32,System.String,System.String,System.String,System.String)">
             <summary>
             Liefert aus einem x-books file den Verstext incl. XML-Markup zurück.
             </summary>
@@ -281,9 +281,9 @@
             <param name="BN">Die Buchnummer</param>
             <param name="CN">Die Kapitelnummer</param>
             <param name="VN">Die Versnummer</param>
-            <returns>Verstext incl. XML-Markup</returns>
+            <param name="TranslationID">Übersetzungen durchzählen</param>
         </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXBooksZip(System.String,System.String,System.String,System.String)">
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXBooksZip(System.Int32,System.String,System.String,System.String,System.String)">
             <summary>
             Liefert aus einem x-books zipped file den Verstext incl. XML-Markup zurück.
             </summary>
@@ -291,7 +291,7 @@
             <param name="BN">Die Buchnummer</param>
             <param name="CN">Die Kapitelnummer</param>
             <param name="VN">Die Versnummer</param>
-            <returns>Verstext incl. XML-Markup</returns>
+            <param name="TranslationID">Übersetzungen durchzählen</param>
         </member>
         <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.AddAppInfo(System.String)">
             <summary>
