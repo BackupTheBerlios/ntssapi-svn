@@ -357,6 +357,11 @@
             <seealso cref="!:GetBookNameByNumber"/>
             </summary>
         </member>
+        <member name="T:NewTrueSharpSwordAPI.Queries.BookGroup">
+            <summary>
+            Diese Aufzählung möge für die genauere Bestimmung der Bibeluntergliederung dienen.
+            </summary>
+        </member>
         <member name="F:NewTrueSharpSwordAPI.Queries.zefMapNames.NamesXMLResource">
             <summary>
              Diese Variable enthält den Inhalt einer bnames Datei.
@@ -380,6 +385,25 @@
             <param name="NameType">shortname oder longname</param>
             <param name="BookNumber">Die Buchnummer</param>
             <returns>Den Buchnamen z.B. Genesis</returns>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.isInBookGroup(System.String,NewTrueSharpSwordAPI.Queries.BookGroup)">
+            <summary>
+              Testet,ob eine Buchnummer in einer Buchgruppe vorkommt.
+              <seealso cref="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetListOfBookNamesByBookGroups(System.String,NewTrueSharpSwordAPI.Queries.BookNameType,NewTrueSharpSwordAPI.Queries.BookGroup)"/>
+            </summary>
+            <param name="BN">Die Buchnummer</param>
+            <param name="BookGr">Die Buchgruppe</param>
+            <returns>true, wenn Buchnummer in Buchgruppe vorkommt, sonst false</returns>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetListOfBookNamesByBookGroups(System.String,NewTrueSharpSwordAPI.Queries.BookNameType,NewTrueSharpSwordAPI.Queries.BookGroup)">
+            <summary>
+             Liefert die Namensliste für eine bestimmte Buchgruppen zurück.
+             <seealso cref="M:NewTrueSharpSwordAPI.Queries.zefMapNames.isInBookGroup(System.String,NewTrueSharpSwordAPI.Queries.BookGroup)"/>
+            </summary>
+            <param name="LangID">Die SprachID</param>
+            <param name="NameType">langen oder die kurzen Namen </param>
+            <param name="BookGr">Welche Buchgruppe?</param>
+            <returns>Eine Liste mit spezifischer Buchnamenauswahl</returns>
         </member>
         <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetListOfIds">
             <summary>
