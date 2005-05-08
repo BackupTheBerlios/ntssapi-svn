@@ -70,7 +70,7 @@ namespace NewTrueSharpSwordAPI.Cache
 		///  Liest alle info.xml Dateien von  Zefania XML Modulen im Cache.
 		/// </summary>
 		/// <returns>Liste der Bibelnamen</returns>
-		public ArrayList GetNamesOfChachedBibles()
+		public ArrayList GetNamesOfCachedBibles()
 		{
 		    
 			ArrayList internalList=new ArrayList();

@@ -437,7 +437,7 @@
             Konstruktor
             </summary>
         </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.GetNamesOfChachedBibles">
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.GetNamesOfCachedBibles">
             <summary>
              Liest alle info.xml Dateien von  Zefania XML Modulen im Cache.
             </summary>
