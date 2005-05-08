@@ -416,5 +416,39 @@
             Gibt die Versionsnummer der zefMapNames-Klasse zurück.
             </summary>
         </member>
+        <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance">
+            <summary>
+            zefCacheMaintenance verwaltet, erstellt und liefert Informationen über den Zefania XML 
+            ModulCache.
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FListOfModulInputDirectories">
+            <summary>
+            Die Eingangsverzeichnisse für Zefania XML Module
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FListOfCacheDirectories">
+            <summary>
+            Liste der Speicherorte für die erstellten ModulCaches
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.#ctor">
+            <summary>
+            Konstruktor
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.GetNamesOfChachedBibles">
+            <summary>
+             Liest alle info.xml Dateien von  Zefania XML Modulen im Cache.
+            </summary>
+            <returns>Liste der Bibelnamen</returns>
+        </member>
+        <!-- Schlecht gebildeter XML-Kommentar wurde für den Member "P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfModulInputDirectories" ignoriert -->
+        <!-- Schlecht gebildeter XML-Kommentar wurde für den Member "P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfCacheDirectories" ignoriert -->
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheVersion">
+            <summary>
+            Gibt die Versionsnummer der zefCacheMaintenance-Klasse zurück.
+            </summary>
+        </member>
     </members>
 </doc>

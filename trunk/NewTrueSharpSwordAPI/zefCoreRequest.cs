@@ -43,15 +43,15 @@ namespace NewTrueSharpSwordAPI.Queries
 		/// <summary>
 		/// Eine Liste der BaseCacheDirs.
 		/// </summary>
-		private ArrayList FCacheDirectories;
+		private ArrayList FCacheDirectories=new ArrayList();
 		/// <summary>
 		/// Eine Liste für die Ergebnise einer Abfrage.
 		/// </summary>
-		private ArrayList FResultRequestPages;
+		private ArrayList FResultRequestPages=new ArrayList();
 		/// <summary>
 		/// Die Liste der abzufragenden Bibelmodule identifiziert durch ihren MD5-Hashwert.
 		/// </summary>
-		private ArrayList FMD5ModulDirList;
+		private ArrayList FMD5ModulDirList=new ArrayList();
 		/// <summary>
 		/// Setzt oder liest die Liste der Cache-Verzeichnise
 		/// </summary>
