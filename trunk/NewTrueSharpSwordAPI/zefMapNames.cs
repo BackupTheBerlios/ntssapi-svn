@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Collections;
 
@@ -15,7 +16,7 @@ namespace NewTrueSharpSwordAPI.Queries
 	/// </summary>
 	public enum BookNameType {shortname=1,longname=2};
 	/// <summary>
-	/// Diese Aufzählung möge für die genauere Bestimmung der Bibeluntergliederung dienen.
+	/// Diese Aufzählung dient für die genauere Bestimmung der Bibeluntergliederung dienen.
 	/// </summary>
 	public enum BookGroup{at=1,nt=2,apo=3,pent=4,gb=5,chro=6,lul=7,gp=8,kp=9,ssg=10,sss=11,ssp=12,eva=13,bp=14,bk=15};
 
@@ -25,7 +26,7 @@ namespace NewTrueSharpSwordAPI.Queries
 		/// <summary>
 		///  Diese Variable enthält den Inhalt einer bnames Datei.
 		/// </summary>
-		private XmlDocument NamesXMLResource= new XmlDocument();
+		private XmlDocument NamesXMLResource=new XmlDocument();
 		/// <summary>
 		///  Der Konstruktor für eine Map-Klasse
 		/// </summary>
@@ -54,12 +55,126 @@ namespace NewTrueSharpSwordAPI.Queries
 
 			get
 			{
-				Version v =new Version("0.0.0.4");
+				Version v =new Version("0.0.0.6");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
 
 		}
+		/// <summary>
+		/// Liefert zu einer Eingabe wie  1 Chr 5,5 die Buchnummer "13" zurück.
+		/// </summary>
+		/// <param name="LangID">Die SprachId in der gesucht werden soll.</param>
+		/// <param name="Reference">Eine Bibelstellenangabe</param>
+		/// <example>1 Chr 5,6, Gen, 1Kö2,5, </example>
+		/// <returns>Die Buchnummer z.B. "17"</returns>
+		/// <param name="InternalRefView">Liefert den KapitelVersanteil per ref Paramter zurück.</param>
+		/// <remarks>InternalRefView liefert für  1Kön 4,6    "4:6" zurück</remarks>
+		public string GetBookNumberBySingleRef(string LangID,string Reference,ref string InternalRefView)
+		{
+
+			// Arbeitskopie der EingabeReferenz besorgen und von überflüssigen Zeichen befreien.
+			string WorkCopyRef=Reference.TrimStart(' ');
+			string ResultBookNumber="-1";
+			string Dummy="";
+			string BookNShort;
+			string BookNLong;
+			XmlNodeList BookItems;
+			try
+			{
+				// Eingaben wie   1Mo3,6 normalisieren zu 1 mo
+				// d.h. nur noch Buchname in Lowercase
+
+				NormalizeBookRef(ref WorkCopyRef,ref InternalRefView);
+
+
+				BookItems=NamesXMLResource.DocumentElement.SelectNodes("descendant::ID[@descr='"+LangID+"']/BOOK");
+
+				foreach(XmlNode Book in BookItems)
+				{
+
+					BookNShort=Book.Attributes.GetNamedItem("bshort").Value;
+					NormalizeBookRef(ref BookNShort,ref Dummy);
+					if(WorkCopyRef==BookNShort)
+					{
+
+						return Book.Attributes.GetNamedItem("bnumber").InnerText;
+
+					}
+					BookNLong=Book.InnerText;
+					NormalizeBookRef(ref BookNLong,ref Dummy);
+					if(WorkCopyRef==BookNLong)
+					{
+
+						return Book.Attributes.GetNamedItem("bnumber").InnerText;
+
+					}
+					//Jetzt probieren wir, ob wir Ähnliche finden
+					// Eingabe "ex"   soll auch "exod" finden
+					if(BookNShort.StartsWith(WorkCopyRef))
+					{
+
+						return Book.Attributes.GetNamedItem("bnumber").InnerText;
+
+					}
+					if(BookNLong.StartsWith(WorkCopyRef))
+					{
+
+						return Book.Attributes.GetNamedItem("bnumber").InnerText;
+
+					}
+
+				}
+
+				return ResultBookNumber="-1";
+			}
+			catch(Exception e)
+			{
+				return ResultBookNumber="-1";
+
+			}
+
+
+
+		}
+		/// <summary>
+		///   Normalisiert eine Ref-Eingabe wie "1 Kön 5,6" zu   "1 kön"
+		/// </summary>
+		/// <param name="inRef">Eine Zeichenkette wie  1 Kön 5,6</param>
+		/// <param name="CVPart">Der KapitelVersTeil einer Stellenangabe z.B. "5,7" o. "5-8,8-12"</param>
+		private void NormalizeBookRef(ref string inRef, ref string CVPart)
+		{
+
+			try
+			{
+
+				inRef=Regex.Replace(inRef,"[ ]+","");
+
+				inRef=Regex.Replace(inRef,"([a-zA-Z])([1-9])","$1 $2");
+
+				CVPart=Regex.Match(inRef,"[ ]([1-9-]*)([,]*)([1-9-]*)").ToString().Trim();
+
+				CVPart=Regex.Replace(CVPart,"[,]",":");
+
+				if(CVPart==""){CVPart="0:0";}
+
+				if(CVPart.IndexOf(":")==-1){CVPart=CVPart+":0";}
+
+				inRef=Regex.Replace(inRef,"([1-9])([a-zA-Z])","$1 $2");
+
+				inRef=Regex.Replace(inRef,"([1-9a-zA-Z])([ ]+)","$1 ");
+
+				inRef=Regex.Match(inRef+" ","([IV1-5]*)([ .]*)([a-zA-Z]+)([ ])").ToString().Trim();
+
+				inRef=inRef.ToLower();
+
+			}
+			catch(Exception e)
+			{
+
+			}
+		}
+
 		/// <summary>
 		///  Diese Methode liefert zu einer Buchnummer entweder die lange oder die kurze Form
 		///  eine Bibelbuchnamens zurück
@@ -346,12 +461,14 @@ namespace NewTrueSharpSwordAPI.Queries
 				}// end if
 				else
 					// Leere Liste zurückgeben
+
 					return internalList;
 
 			}
 
 			catch(Exception e)
 			{// Leere Liste zurückgeben
+				string r=e.Message;
 				return internalList;	
 			}
 

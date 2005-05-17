@@ -107,6 +107,13 @@
             <remarks>Zerlegt ein Zefania XML Bibelmodul in einzelne Bibelkapitel; Sollte der Cache schon existieren wird er zuerst gelöscht.</remarks>
             <param name="zippedCache">Wenn zippedCache = true, werden die Bibelkapitel gezipped.</param>
         </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.GetZippedModulContent(System.String)">
+            <summary>
+            Extrahiert ein Zefania XML Modul aus einem zip-archiv
+            </summary>
+            <param name="ModulPath">Pfade zur zip-datei</param>
+            <returns>Zefania XML Modul als Stream.</returns>
+        </member>
         <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CreateDefaultTree">
             <summary>
              Diese Methode erzeugt aus dem Zefania XML Modul einen Inhaltsbaum für die Verwendung 
@@ -207,6 +214,48 @@
             <remarks>
              Die ArrayList enthält im Index 0 den Pfad zum Cacheverzeichnis.
             </remarks>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance">
+            <summary>
+            zefCacheMaintenance verwaltet, erstellt und liefert Informationen über den Zefania XML 
+            ModulCache.
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FListOfModulInputDirectories">
+            <summary>
+            Die Eingangsverzeichnisse für Zefania XML Module
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FListOfCacheDirectories">
+            <summary>
+            Liste der Speicherorte für die erstellten ModulCaches
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.#ctor">
+            <summary>
+            Konstruktor
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.GetNamesOfCachedBibles">
+            <summary>
+             Liest alle info.xml Dateien von  Zefania XML Modulen im Cache.
+            </summary>
+            <returns>Liste der Bibelnamen</returns>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfModulInputDirectories">
+            <summary>
+            Die Liste der Eingangsverzeichnisse der Zefania XML Bibelmodule.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfCacheDirectories">
+            <summary>
+            Die Liste der CacheVerzeichnisse der Zefania XML Bibelmodule.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheVersion">
+            <summary>
+            Gibt die Versionsnummer der zefCacheMaintenance-Klasse zurück.
+            </summary>
         </member>
         <member name="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest">
             <summary>
@@ -359,7 +408,7 @@
         </member>
         <member name="T:NewTrueSharpSwordAPI.Queries.BookGroup">
             <summary>
-            Diese Aufzählung möge für die genauere Bestimmung der Bibeluntergliederung dienen.
+            Diese Aufzählung dient für die genauere Bestimmung der Bibeluntergliederung dienen.
             </summary>
         </member>
         <member name="F:NewTrueSharpSwordAPI.Queries.zefMapNames.NamesXMLResource">
@@ -375,6 +424,22 @@
              Pfad zur XML-Resource mit Zuordnungen Buchnummern zu Buchnamen.
              vergl: http://tinyurl.com/94mr2
             </param>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetBookNumberBySingleRef(System.String,System.String,System.String@)">
+            <summary>
+            Liefert zu einer Eingabe wie  1 Chr 5,5 die Buchnummer "13" zurück.
+            </summary>
+            <param name="LangID">Die SprachId in der gesucht werden soll.</param>
+            <param name="Reference">Eine Bibelstellenangabe</param>
+            <example>1 Chr 5,6, Gen, 1Kö2,5, </example>
+            <returns>Die Buchnummer z.B. "17"</returns>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.NormalizeBookRef(System.String@,System.String@)">
+            <summary>
+              Normalisiert eine Ref-Eingabe wie "1 Kön 5,6" zu   "1 kön"
+            </summary>
+            <param name="inRef">Eine Zeichenkette wie  1 Kön 5,6</param>
+            <param name="CVPart">Der KapitelVersTeil einer Stellenangabe z.B. "5,7" o. "5-8,8-12"</param>
         </member>
         <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetBookNameByNumber(System.String,NewTrueSharpSwordAPI.Queries.BookNameType,System.Int32)">
             <summary>
@@ -414,40 +479,6 @@
         <member name="P:NewTrueSharpSwordAPI.Queries.zefMapNames.MapVersion">
             <summary>
             Gibt die Versionsnummer der zefMapNames-Klasse zurück.
-            </summary>
-        </member>
-        <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance">
-            <summary>
-            zefCacheMaintenance verwaltet, erstellt und liefert Informationen über den Zefania XML 
-            ModulCache.
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FListOfModulInputDirectories">
-            <summary>
-            Die Eingangsverzeichnisse für Zefania XML Module
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FListOfCacheDirectories">
-            <summary>
-            Liste der Speicherorte für die erstellten ModulCaches
-            </summary>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.#ctor">
-            <summary>
-            Konstruktor
-            </summary>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.GetNamesOfCachedBibles">
-            <summary>
-             Liest alle info.xml Dateien von  Zefania XML Modulen im Cache.
-            </summary>
-            <returns>Liste der Bibelnamen</returns>
-        </member>
-        <!-- Schlecht gebildeter XML-Kommentar wurde für den Member "P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfModulInputDirectories" ignoriert -->
-        <!-- Schlecht gebildeter XML-Kommentar wurde für den Member "P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfCacheDirectories" ignoriert -->
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheVersion">
-            <summary>
-            Gibt die Versionsnummer der zefCacheMaintenance-Klasse zurück.
             </summary>
         </member>
     </members>
