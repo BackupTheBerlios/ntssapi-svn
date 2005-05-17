@@ -17,6 +17,7 @@ namespace NewTrueSharpSwordAPI.Cache
 	/// </summary>
 	public class ZefaniaCache
 	{
+
 		/// <summary>
 		///  Dieser Event wird ausgelöst, wenn versucht wird ein nicht Zefania Modul zu cachen.
 		/// </summary>
@@ -92,6 +93,7 @@ namespace NewTrueSharpSwordAPI.Cache
 				return Cached;
 			}
 		}
+
 		/// <summary>
 		/// Zeigt, ob Cache gezipped ist.
 		/// </summary>
@@ -111,7 +113,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			{
 				return BibleName;
 			}
-		 
+
 		}
 
 		/// <summary>
@@ -124,7 +126,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			{
 				return UserDefTree;
 			}
-		 
+
 		}
 
 		/// <summary>
@@ -141,7 +143,6 @@ namespace NewTrueSharpSwordAPI.Cache
 			}
 
 		}
-		
 
 		/// <summary>
 		///  Diese Funktion ersetzt den Default Inhaltsbaum durch einen eventuell gesicherten Userdefinierten
@@ -150,7 +151,7 @@ namespace NewTrueSharpSwordAPI.Cache
 		{
 			try
 			{
-			    
+
 				if(HaveUserTree)
 				{
 					XmlNode UTS=ContentTree.SelectSingleNode("descendant::tree");
@@ -160,15 +161,15 @@ namespace NewTrueSharpSwordAPI.Cache
 						CacheINFO.Load(FullCachePath+@"\info.xml");
 
 						XmlNode UTSDefault=CacheINFO.SelectSingleNode("descendant::tree");
-						
+
 						UTSDefault.InnerXml=UTS.InnerXml;
 						UTSDefault.Attributes.GetNamedItem("userdef").InnerText="true";
 
 						CacheINFO.Save(FullCachePath+@"\info.xml");
-						
-					
+
+
 					}
-				
+
 				}
 				else
 				{
@@ -176,14 +177,14 @@ namespace NewTrueSharpSwordAPI.Cache
 					return;
 
 				}
-		     
+
 			}
 			catch(Exception e)
 			{
-				
+
 			}
-		
-		
+
+
 		}
 
 		/// <summary>
@@ -310,8 +311,8 @@ namespace NewTrueSharpSwordAPI.Cache
 		{
 			try
 			{
-				
-				
+
+				XmlTextReader ModulReader;
 				Zipped=zippedCache;
 				EventArgs e1=new EventArgs();
 
@@ -339,27 +340,41 @@ namespace NewTrueSharpSwordAPI.Cache
 				//ModulCacheInfos
 				XmlDocument CacheINFO=new XmlDocument();
 				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
-				
+
 				XmlNode sourcepath=CacheINFO.SelectSingleNode("descendant::sourcepath");
 				sourcepath.InnerText=ModulPath;
 
 				XmlNode md5=CacheINFO.SelectSingleNode("descendant::modulmd5");
 				md5.InnerText=ModulCacheDir;
-				
+
 				XmlNode zip=CacheINFO.SelectSingleNode("descendant::zipped");
 				zip.InnerText=zippedCache.ToString();
-				
+
 
 				XmlNode type=CacheINFO.SelectSingleNode("descendant::type");
 				type.InnerText="x-books";
-				
-			
+
+
 				//endModuleCacheInfos
-		     
+
 				string book;
 				string xmlbible="";
 				string bnumber;
-				XmlTextReader ModulReader=new XmlTextReader(ModulPath);
+
+
+				if(Path.GetExtension(ModulPath)==".zip")
+				{
+
+					ModulReader=new XmlTextReader(GetZippedModulContent(ModulPath));
+				}
+				else
+				{
+
+					ModulReader=new XmlTextReader(ModulPath);
+
+				}
+
+
 				while (ModulReader.Read()) 
 				{
 					if(ModulReader.Name=="XMLBIBLE")
@@ -391,12 +406,12 @@ namespace NewTrueSharpSwordAPI.Cache
 
 						if(zippedCache)
 						{
-							
-							
+
+
 							UTF8Encoding utf8 = new UTF8Encoding();
-        
+
 							byte[]buffer = utf8.GetBytes(book);
-							
+
 							ZipOutputStream s = new ZipOutputStream(File.Create(FullCachePath+@"\"+bnumber+".zip"));
 							s.SetLevel(9);
 
@@ -406,7 +421,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 							s.Finish();
 							s.Close();
-							
+
 						}
 						else
 						{
@@ -429,7 +444,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 					}// end Bibelbook
 					// CopyDublinCore2CacheInfo
-					
+
 					if(ModulReader.Name=="INFORMATION")
 					{
 						XmlNode INFODC=CacheINFO.SelectSingleNode("descendant::INFORMATION");
@@ -443,9 +458,9 @@ namespace NewTrueSharpSwordAPI.Cache
 								BibleName=title.InnerText;
 							}
 						};
-					 
+
 					}
-					
+
 					//endCopyDC
 
 				}
@@ -457,10 +472,10 @@ namespace NewTrueSharpSwordAPI.Cache
 					// Invalid file event auslösen
 					OnInvalidFileFormat(this,e1);
 					return;
-				
+
 				}
 				// end invalid file format
-				
+
 				CacheINFO.Save(FullCachePath+@"\info.xml");
 				// Inhaltsbaum aufbauen
 				CreateDefaultTree();
@@ -471,17 +486,17 @@ namespace NewTrueSharpSwordAPI.Cache
 				{
 					if(UserDefTree)
 					{
-					   
+
 						OnUserTree(this,e1);
-                        					
+
 					}
 				}
 				// end 
-				
+
 				if(OnCachedSuccess!=null)
 				{
-					
-					
+
+
 					List.Clear();
 					List.Add(FullCachePath);
 					// Das Cached Ereignis auslösen.
@@ -493,7 +508,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			}
 			catch(Exception e)
 			{
-				
+
 				string x=e.Message;
 			}
 
@@ -508,6 +523,7 @@ namespace NewTrueSharpSwordAPI.Cache
 		{
 			try
 			{
+				XmlTextReader ModulReader;
 				Zipped=zippedCache;
 				EventArgs e1=new EventArgs();
 				ArrayList List=new ArrayList();
@@ -534,27 +550,40 @@ namespace NewTrueSharpSwordAPI.Cache
 				// ModulCacheInfos
 				XmlDocument CacheINFO=new XmlDocument();
 				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
-				
+
 				XmlNode sourcepath=CacheINFO.SelectSingleNode("descendant::sourcepath");
 				sourcepath.InnerText=ModulPath;
-				
+
 				XmlNode md5=CacheINFO.SelectSingleNode("descendant::modulmd5");
 				md5.InnerText=ModulCacheDir;
-				
+
 				XmlNode zip=CacheINFO.SelectSingleNode("descendant::zipped");
 				zip.InnerText=zippedCache.ToString();
-				
+
 
 				XmlNode type=CacheINFO.SelectSingleNode("descendant::type");
 				type.InnerText="x-chapters";
-				
+
 				// endModuleCacheInfos
 				string chapter;
 				string xmlbible="";
 				string xmlbook="";
 				string bnumber="0";
 				string cnumber;
-				XmlTextReader ModulReader=new XmlTextReader(ModulPath);
+
+
+				if(Path.GetExtension(ModulPath)==".zip")
+				{
+
+					ModulReader=new XmlTextReader(GetZippedModulContent(ModulPath));
+				}
+				else
+				{
+
+					ModulReader=new XmlTextReader(ModulPath);
+
+				}
+
 				while (ModulReader.Read()) 
 				{
 
@@ -595,9 +624,9 @@ namespace NewTrueSharpSwordAPI.Cache
 
 						if(zippedCache)
 						{
-							
+
 							UTF8Encoding utf8 = new UTF8Encoding();
-        
+
 							byte[]buffer = utf8.GetBytes(chapter);
 
 							ZipOutputStream s = new ZipOutputStream(File.Create(FullCachePath+@"\"+bnumber+"_"+cnumber+".zip"));
@@ -609,7 +638,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 							s.Finish();
 							s.Close();
-							
+
 
 						}
 						else
@@ -631,7 +660,7 @@ namespace NewTrueSharpSwordAPI.Cache
 					}// end Chapter
 
 					// CopyDublinCore2CacheInfo
-					
+
 					if(ModulReader.Name=="INFORMATION")
 					{
 						XmlNode INFODC=CacheINFO.SelectSingleNode("descendant::INFORMATION");
@@ -644,7 +673,7 @@ namespace NewTrueSharpSwordAPI.Cache
 								BibleName=title.InnerText;
 							}
 						};
-					 
+
 					}
 
 					//endCopyDC
@@ -657,7 +686,7 @@ namespace NewTrueSharpSwordAPI.Cache
 					// Invalid file event auslösen
 					OnInvalidFileFormat(this,e1);
 					return;
-				
+
 				}
 				// end invalid file format
 
@@ -671,9 +700,9 @@ namespace NewTrueSharpSwordAPI.Cache
 				{
 					if(UserDefTree)
 					{
-					   
+
 						OnUserTree(this,e1);
-                        					
+
 					}
 				}
 				// end 
@@ -689,10 +718,50 @@ namespace NewTrueSharpSwordAPI.Cache
 			}
 			catch(Exception e)
 			{
-                 
+
+			}
+		}// end CreateCacheBooks()
+
+
+		/// <summary>
+		/// Extrahiert ein Zefania XML Modul aus einem zip-archiv
+		/// </summary>
+		/// <param name="ModulPath">Pfade zur zip-datei</param>
+		/// <returns>Zefania XML Modul als Stream.</returns>
+		private ZipInputStream GetZippedModulContent(string ModulPath)
+		{
+
+
+			ZipEntry theEntry;
+
+
+			try
+			{
+
+				ZipInputStream s = new ZipInputStream(File.OpenRead(ModulPath));
+				while ((theEntry=s.GetNextEntry())!= null) 
+				{
+
+					if(theEntry.Size>40000)
+					{
+
+						return s;
+
+					}	
+
+				}
+				return null;
 			}
 
-		}// end CreateCacheBooks()
+			catch(Exception e)
+			{
+
+				return null;
+			}
+		}
+
+
+
 		/// <summary>
 		///  Diese Methode erzeugt aus dem Zefania XML Modul einen Inhaltsbaum für die Verwendung 
 		///  in Bibelnavigations Klassen. 
@@ -708,21 +777,21 @@ namespace NewTrueSharpSwordAPI.Cache
 				attr00.InnerText=GetBibleName;
 				XmlNode attr01=CacheInfo.CreateNode(XmlNodeType.Attribute,"userdef","");
 				attr01.InnerText="false";
-				
+
 				XmlNode ContentTree =CacheInfo.CreateNode(XmlNodeType.Element,"tree","");
 				ContentTree.Attributes.SetNamedItem(attr00);
 				ContentTree.Attributes.SetNamedItem(attr01);
 
 				XmlNode attr1=CacheInfo.CreateNode(XmlNodeType.Attribute,"title","");
-				
+
 				XmlNode AT_Node=CacheInfo.CreateNode(XmlNodeType.Element,"group","");
-				
+
 				attr1.InnerText="AT";
 				AT_Node.Attributes.SetNamedItem(attr1);
 				ContentTree.AppendChild(AT_Node);
 
 				XmlNode attr2=CacheInfo.CreateNode(XmlNodeType.Attribute,"title","");
-				
+
 				XmlNode NT_Node=CacheInfo.CreateNode(XmlNodeType.Element,"group","");;
 				attr2.InnerText="NT";
 				NT_Node.Attributes.SetNamedItem(attr2);
@@ -734,22 +803,22 @@ namespace NewTrueSharpSwordAPI.Cache
 				AP_Node.Attributes.SetNamedItem(attr3);
 				ContentTree.AppendChild(AP_Node);
 				CacheInfo.DocumentElement.AppendChild(ContentTree);
-                
-				
+
+
 				string[] Books;
-						
+
 				if(IsZipped)
 				{	
 					Books=Directory.GetFiles(FullCachePath,"*.zip");
 				}
 				else
 				{
-						
+
 					Books=Directory.GetFiles(FullCachePath,"*.xml");
 				}
 				string ChapterNumber="0";string BookNumber="0";
 				XmlTextReader ModulReader=null;
-				
+
 				UTF8Encoding utf8 = new UTF8Encoding();
 				foreach(string BookFile in Books)
 				{
@@ -759,102 +828,102 @@ namespace NewTrueSharpSwordAPI.Cache
 
 					if(IsZipped)
 					{
-					
-						
-						
+
+
+
 						ZipInputStream s = new ZipInputStream(File.OpenRead(BookFile));
 						ZipEntry theEntry;
- 
+
 						while ((theEntry = s.GetNextEntry()) != null) 
 						{
 							int nBytes = 2048;
 							byte[] data = new byte[2048];
 							while((nBytes = s.Read(data, 0, data.Length))  > 0)
 							{   
-								
+
 								byte[]buffer = utf8.GetBytes(utf8.GetString(data, 0, nBytes));
 								sr.Write(buffer,0,buffer.Length);
-								
+
 							}
-							
-							
+
+
 						}
-						
+
 						s.Close();
 						sr.Position=0;
 						ModulReader = new XmlTextReader(sr);
-						
-						
+
+
 					}
 					else
 					{
 
 						ModulReader = new XmlTextReader(BookFile);
-					
+
 					}
-                    
+
 					while (ModulReader.Read()) 
 					{
 						if(ModulReader.Name=="BIBLEBOOK")
 						{
-								 
+
 							BookNumber=ModulReader.GetAttribute("bnumber");
-										
+
 						}
 						if(ModulReader.Name=="CHAPTER")
 						{
-								 
+
 							ChapterNumber=ModulReader.GetAttribute("cnumber");
 							if(ChapterNumber==null){continue;}
 							XmlNode Entry =CacheInfo.CreateNode(XmlNodeType.Element,"item","");
 							XmlNode attr5=CacheInfo.CreateNode(XmlNodeType.Attribute,"bn","");
 							XmlNode attr6=CacheInfo.CreateNode(XmlNodeType.Attribute,"cn","");
-									
+
 							XmlNode attr8=CacheInfo.CreateNode(XmlNodeType.Attribute,"active","");
 							attr5.InnerText=BookNumber;
 							attr6.InnerText=ChapterNumber;
-									
+
 							attr8.InnerText=false.ToString();
 							Entry.Attributes.SetNamedItem(attr5);
 							Entry.Attributes.SetNamedItem(attr6);
-									
+
 							Entry.Attributes.SetNamedItem(attr8);
 							if(Convert.ToInt16(BookNumber)<40)
 							{
 								AT_Node.AppendChild(Entry);
-								
+
 							}
 							if(Convert.ToInt16(BookNumber)>39&Convert.ToInt16(BookNumber)<67)
 							{
 								NT_Node.AppendChild(Entry);
-								
+
 							}
 
 							if(Convert.ToInt16(BookNumber)>66)
 							{
 								AP_Node.AppendChild(Entry);
-								
+
 							}
-										
+
 						}
-                           
+
 					}// end while
 
 					ModulReader.Close();
 					sr.Close();
-					
+
 
 				}// end foreach
 
 				CacheInfo.Save(FullCachePath+@"\info.xml");
-              
-				
+
+
 			}
 			catch(Exception e)
 			{
-				
+
 			}
-	
+
 		}
 		/// <summary>
 		///  Liest eine eventuell vorhandene Cache Info Datei und sichert, falls vorhanden, einen durch den User veränderten Inhaltsbaum
@@ -873,17 +942,17 @@ namespace NewTrueSharpSwordAPI.Cache
 					if(UT!=null)
 					{
 						if(UT.InnerText=="false")
-						
+
 						{return false;}
 
 						if(UT.InnerText=="true")
-						
+
 						{return true;}
-					
+
 					}
 					else
 					{
-					
+
 						return false;
 
 					}
@@ -899,8 +968,8 @@ namespace NewTrueSharpSwordAPI.Cache
 			{
 				return false;   
 			}
-		
+
 		}
 	}
-		
+
 }	
