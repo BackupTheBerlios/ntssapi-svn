@@ -137,7 +137,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			get
 			{
-				Version v =new Version("0.1.0.17");
+				Version v =new Version("0.1.0.19");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
@@ -276,10 +276,11 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// <returns>
 		///   MD5-Hashwert des Zefania XML Bibelmoduls.
 		/// </returns>
-		private string CreateMD5Dir()
+		private string CreateMD5Dir(Stream fs)
 		{
 
-			FileStream fs = File.OpenRead(ModulPath);
+			//FileStream fs = File.Open(Path);
+
 			try
 			{
 				MD5CryptoServiceProvider cryptHandler;
@@ -318,12 +319,31 @@ namespace NewTrueSharpSwordAPI.Cache
 
 				ArrayList List=new ArrayList();
 
-				ModulCacheDir=CreateMD5Dir();
-				FullCachePath=BaseCacheDir+@"\zefcache\"+ModulCacheDir;
+				
+				
+				string book;
+				string xmlbible="";
+				string bnumber;
+
+
+				if(Path.GetExtension(ModulPath)==".zip")
+				{
+
+					ModulReader=new XmlTextReader(GetZippedModulContent(ModulPath));
+					ModulCacheDir=CreateMD5Dir(GetZippedModulContent(ModulPath));
+				}
+				else
+				{
+
+					ModulReader=new XmlTextReader(ModulPath);
+					ModulCacheDir=CreateMD5Dir(File.OpenRead(ModulPath));
+
+				}
+
+                FullCachePath=BaseCacheDir+@"\zefcache\"+ModulCacheDir;
 				// eventuell schon vorhandenen Inhaltsbaum sichern
 				UserDefTree=CatchUserTree();
 				// end
-
 				if(Directory.Exists(FullCachePath)==true)
 				{
 
@@ -356,24 +376,6 @@ namespace NewTrueSharpSwordAPI.Cache
 
 
 				//endModuleCacheInfos
-
-				string book;
-				string xmlbible="";
-				string bnumber;
-
-
-				if(Path.GetExtension(ModulPath)==".zip")
-				{
-
-					ModulReader=new XmlTextReader(GetZippedModulContent(ModulPath));
-				}
-				else
-				{
-
-					ModulReader=new XmlTextReader(ModulPath);
-
-				}
-
 
 				while (ModulReader.Read()) 
 				{
@@ -527,13 +529,33 @@ namespace NewTrueSharpSwordAPI.Cache
 				Zipped=zippedCache;
 				EventArgs e1=new EventArgs();
 				ArrayList List=new ArrayList();
-				ModulCacheDir=CreateMD5Dir();
-				FullCachePath=BaseCacheDir+@"\zefcache\"+ModulCacheDir;
+				
+				string chapter;
+				string xmlbible="";
+				string xmlbook="";
+				string bnumber="0";
+				string cnumber;
 
+
+				if(Path.GetExtension(ModulPath)==".zip")
+				{
+
+					ModulReader=new XmlTextReader(GetZippedModulContent(ModulPath));
+					ModulCacheDir=CreateMD5Dir(GetZippedModulContent(ModulPath));
+				}
+				else
+				{
+
+					ModulReader=new XmlTextReader(ModulPath);
+					
+					ModulCacheDir=CreateMD5Dir(File.OpenRead(ModulPath));
+
+				}
+                
+				FullCachePath=BaseCacheDir+@"\zefcache\"+ModulCacheDir;
 				// eventuell schon vorhandenen Inhaltsbaum sichern
 				UserDefTree=CatchUserTree();
 				// end
-
 				if(Directory.Exists(FullCachePath)==true)
 				{
 
@@ -565,24 +587,6 @@ namespace NewTrueSharpSwordAPI.Cache
 				type.InnerText="x-chapters";
 
 				// endModuleCacheInfos
-				string chapter;
-				string xmlbible="";
-				string xmlbook="";
-				string bnumber="0";
-				string cnumber;
-
-
-				if(Path.GetExtension(ModulPath)==".zip")
-				{
-
-					ModulReader=new XmlTextReader(GetZippedModulContent(ModulPath));
-				}
-				else
-				{
-
-					ModulReader=new XmlTextReader(ModulPath);
-
-				}
 
 				while (ModulReader.Read()) 
 				{
