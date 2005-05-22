@@ -55,7 +55,7 @@ namespace NewTrueSharpSwordAPI.Queries
 
 			get
 			{
-				Version v =new Version("0.0.0.6");
+				Version v =new Version("0.0.0.8");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
@@ -76,10 +76,6 @@ namespace NewTrueSharpSwordAPI.Queries
 			// Arbeitskopie der EingabeReferenz besorgen und von überflüssigen Zeichen befreien.
 			string WorkCopyRef=Reference.TrimStart(' ');
 			string ResultBookNumber="-1";
-			string Dummy="";
-			string BookNShort;
-			string BookNLong;
-			XmlNodeList BookItems;
 			try
 			{
 				// Eingaben wie   1Mo3,6 normalisieren zu 1 mo
@@ -87,56 +83,48 @@ namespace NewTrueSharpSwordAPI.Queries
 
 				NormalizeBookRef(ref WorkCopyRef,ref InternalRefView);
 
-
-				BookItems=NamesXMLResource.DocumentElement.SelectNodes("descendant::ID[@descr='"+LangID+"']/BOOK");
-
-				foreach(XmlNode Book in BookItems)
+				XmlNode aBook=NamesXMLResource.DocumentElement.SelectSingleNode("descendant::id[@descr='"+LangID+"']/book[@bshort='"+WorkCopyRef+"']");
+				if(aBook!=null)
 				{
-
-					BookNShort=Book.Attributes.GetNamedItem("bshort").Value;
-					NormalizeBookRef(ref BookNShort,ref Dummy);
-					if(WorkCopyRef==BookNShort)
-					{
-
-						return Book.Attributes.GetNamedItem("bnumber").InnerText;
-
-					}
-					BookNLong=Book.InnerText;
-					NormalizeBookRef(ref BookNLong,ref Dummy);
-					if(WorkCopyRef==BookNLong)
-					{
-
-						return Book.Attributes.GetNamedItem("bnumber").InnerText;
-
-					}
-					//Jetzt probieren wir, ob wir Ähnliche finden
-					// Eingabe "ex"   soll auch "exod" finden
-					if(BookNShort.StartsWith(WorkCopyRef))
-					{
-
-						return Book.Attributes.GetNamedItem("bnumber").InnerText;
-
-					}
-					if(BookNLong.StartsWith(WorkCopyRef))
-					{
-
-						return Book.Attributes.GetNamedItem("bnumber").InnerText;
-
-					}
-
+					return aBook.Attributes.GetNamedItem("bnumber").InnerText;
 				}
+				aBook=NamesXMLResource.DocumentElement.SelectSingleNode("descendant::id[@descr='"+LangID+"']/book[text()='"+WorkCopyRef+"']"); 
+				
+				if(aBook!=null)
+				{
+				  
+					return aBook.Attributes.GetNamedItem("bnumber").InnerText;
+				
+				};
 
+
+				aBook=NamesXMLResource.DocumentElement.SelectSingleNode("descendant::id[@descr='"+LangID+"']/book[starts-with(@bshort,'"+WorkCopyRef+"')]");
+				if(aBook!=null)
+				{
+				  
+					return aBook.Attributes.GetNamedItem("bnumber").InnerText;
+				
+				};
+
+				aBook=NamesXMLResource.DocumentElement.SelectSingleNode("descendant::id[@descr='"+LangID+"']/book[starts-with(text(),'"+WorkCopyRef+"')]"); 
+				
+				if(aBook!=null)
+				{
+				  
+					return aBook.Attributes.GetNamedItem("bnumber").InnerText;
+				
+				};
+
+				
 				return ResultBookNumber="-1";
+				
 			}
 			catch(Exception e)
 			{
 				return ResultBookNumber="-1";
 
 			}
-
-
-
-		}
+          }
 		/// <summary>
 		///   Normalisiert eine Ref-Eingabe wie "1 Kön 5,6" zu   "1 kön"
 		/// </summary>
@@ -223,7 +211,7 @@ namespace NewTrueSharpSwordAPI.Queries
 			}
 			catch(Exception e)
 			{
-				return "";
+				return e.Message;
 			}
 
 		}
@@ -362,7 +350,7 @@ namespace NewTrueSharpSwordAPI.Queries
 
 					default:
 						return intern;
-						break;
+						
 				}// end switch
 				return intern;
 			}
@@ -443,7 +431,7 @@ namespace NewTrueSharpSwordAPI.Queries
 			XmlNode DESC;
 			try
 			{
-				IDs=NamesXMLResource.DocumentElement.SelectNodes("descendant::ID");
+				IDs=NamesXMLResource.DocumentElement.SelectNodes("descendant::id");
 				if(IDs!=null)
 				{
 					foreach(XmlNode ID in IDs)
