@@ -47,7 +47,7 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// </remarks>
 		public delegate void OnSplittedEventHandler(object sender, EventArgs e,ArrayList message);
 		/// <summary>
-		/// Das Spliced Ereignis selbst.
+		/// Das Splitted Ereignis selbst.
 		/// <seealso cref="OnSplittedEventHandler"/>
 		/// </summary>
 		public event OnSplittedEventHandler OnSplitted;
