@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-	<!--Version 1.0.0.0-->
+	<!--Version 1.0.0.1-->
 
 	<xsd:element name="dictionary">
 		<xsd:complexType>
@@ -14,6 +14,11 @@
 			<xsd:attribute name="refbible"/>
 			<xsd:attribute name="revision"/>
 			<xsd:attribute name="dicversion" type="xsd:string" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="description" substitutionGroup="paragraph"/><xsd:element name="paragraph" type="TParagraph"/><xsd:element name="see">
+		<xsd:complexType mixed="true">
+			<xsd:attribute name="target" type="TTarget"/>
 		</xsd:complexType>
 	</xsd:element><xsd:complexType name="TItem" mixed="true">
 		<xsd:choice maxOccurs="unbounded">
@@ -33,14 +38,29 @@
 			<xsd:element name="title"/>
 			<xsd:element name="transliteration"/>
 			<xsd:element name="pronunciation"/>
-		<xsd:element name="em"/><xsd:element name="br"/><xsd:element name="q"/><xsd:element name="bib_link"><xsd:complexType><xsd:attribute name="bn"/><xsd:attribute name="cn1"/><xsd:attribute name="vn1"/></xsd:complexType></xsd:element><xsd:element name="STYLE"><xsd:complexType mixed="true"><xsd:attribute name="css" type="xsd:string" use="required"/><xsd:attribute name="ID" type="xsd:string"/></xsd:complexType></xsd:element></xsd:choice>
+			<xsd:element name="br"/>
+			<xsd:element name="bib_link">
+				<xsd:complexType>
+					<xsd:attribute name="bn"/>
+					<xsd:attribute name="cn1"/>
+					<xsd:attribute name="vn1"/>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="STYLE">
+				<xsd:complexType mixed="true">
+					<xsd:attribute name="css" type="xsd:string" use="required"/>
+					<xsd:attribute name="ID" type="xsd:string"/>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:choice>
 		<xsd:attribute name="id" use="optional" type="xsd:string"/>
 		<xsd:attribute name="target" type="TScope" use="optional"/>
-	</xsd:complexType><xsd:complexType name="TParagraph" mixed="true">
+	</xsd:complexType>
+	<xsd:complexType name="TParagraph" mixed="true">
 
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
-			<xsd:element name="content" type="TContent"/>
-			<xsd:element name="reflink">
+			<xsd:element name="paragraph" type="TParagraph"/><xsd:element name="content" type="TContent"/>
+			<xsd:element name="title"/><xsd:element name="reflink">
 				<xsd:complexType mixed="true">
 					<xsd:attribute name="mscope" use="optional" type="TScope"/>
 					<xsd:attribute name="target" type="TScope"/>
@@ -51,19 +71,28 @@
 					<xsd:attribute name="target" type="TTarget"/>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="paragraph" type="TParagraph"/>
-			<xsd:element name="title"/>
+			
+			
 			<xsd:element name="transliteration"/>
 			<xsd:element name="pronunciation">
 				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="em"/>
-					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="strong_id"/>
-		<xsd:element name="em"/><xsd:element name="br"/><xsd:element name="q"/><xsd:element name="strong"/><xsd:element name="bib_link"><xsd:complexType><xsd:attribute name="bn"/><xsd:attribute name="cn1"/><xsd:attribute name="vn1"/></xsd:complexType></xsd:element><xsd:element name="sub"/><xsd:element name="greek"/><xsd:element name="STYLE"><xsd:complexType mixed="true"><xsd:attribute name="css" type="xsd:string" use="required"/><xsd:attribute name="ID"/></xsd:complexType></xsd:element></xsd:choice>
-	</xsd:complexType><xsd:complexType name="TContent" mixed="true">
+			<xsd:element name="STYLE" type="TStyle"/><xsd:element name="br"/><xsd:element name="greek"/><xsd:element name="strong_id"/>
+			
+			<xsd:element name="bib_link">
+				<xsd:complexType>
+					<xsd:attribute name="bn"/>
+					<xsd:attribute name="cn1"/>
+					<xsd:attribute name="vn1"/>
+				</xsd:complexType>
+			</xsd:element>
+			
+			
+			
+		<xsd:element name="sub"/></xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="TContent" mixed="true">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="reflink">
 				<xsd:complexType mixed="true">
@@ -76,10 +105,11 @@
 					<xsd:attribute name="target" type="TTarget"/>
 				</xsd:complexType>
 			</xsd:element>
-		<xsd:element name="STYLE"><xsd:complexType mixed="true"><xsd:attribute name="css" use="required"/><xsd:attribute name="ID"/></xsd:complexType></xsd:element></xsd:choice>
+			<xsd:element name="STYLE" type="TStyle"/>
+		<xsd:element name="br"/></xsd:choice>
 	</xsd:complexType>
-	
-	
+
+
 	<xsd:complexType mixed="false" name="TINFORMATION">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="title" type="xsd:string" minOccurs="1">
@@ -153,17 +183,25 @@
 	</xsd:complexType>
 
 
-	
-	
-	
-	
+
+
+
+
 
 	<xsd:simpleType name="TScope">
 		<xsd:restriction base="xsd:string">
-			<xsd:pattern value="\d{1,3}-{0,1}\d{0,3};\d{1,3}-{0,1}\d{0,3};\d{1,3}-{0,1}\d{0,3}|XXX"/>
+			<xsd:pattern value="\d{1,3}-{0,1}\d{0,3};{0,3}\d{0,3}-{0,1}\d{0,3};{0,1}\d{0,3}-{0,1}\d{0,3}|XXX"/>
 		</xsd:restriction>
 	</xsd:simpleType>
-	<xsd:simpleType name="TTarget">
+	<xsd:complexType name="TStyle" mixed="true">
+		<xsd:choice maxOccurs="unbounded" minOccurs="0">
+			<xsd:element name="STYLE" type="TStyle"/>
+			<xsd:element ref="see"/>
+			
+		</xsd:choice>
+		<xsd:attribute name="css" type="xsd:string" use="required"/>
+		<xsd:attribute name="ID"/>
+	</xsd:complexType><xsd:simpleType name="TTarget">
 		<xsd:restriction base="xsd:string">
 			<xsd:pattern value="x-self|[A-z0-9]+"/>
 		</xsd:restriction>
@@ -175,13 +213,9 @@
 			<xsd:enumeration value="x-strong"/>
 			<xsd:enumeration value="x-daily"/>
 		</xsd:restriction>
-	</xsd:simpleType><xsd:element name="paragraph" type="TParagraph"/><xsd:element name="description" substitutionGroup="paragraph"/><xsd:element name="see">
-		<xsd:complexType mixed="true">
-			<xsd:attribute name="target" type="TTarget"/>
-		</xsd:complexType>
-	</xsd:element><xsd:element name="link" substitutionGroup="see"/>
-
-
-
+	</xsd:simpleType>
+	
+	
+	
 	
 </xsd:schema>
