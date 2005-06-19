@@ -2,6 +2,10 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
+using System.Threading;
+using System.Collections.Specialized;
+using ICSharpCode.SharpZipLib.Zip;
+using System.Security.Cryptography;
 
 namespace NewTrueSharpSwordAPI.Cache
 {
@@ -9,43 +13,43 @@ namespace NewTrueSharpSwordAPI.Cache
 	/// zefCacheMaintenance verwaltet, erstellt und liefert Informationen über den Zefania XML 
 	/// ModulCache.
 	/// </summary>
+	[Serializable]
 	public class zefCacheMaintenance
 	{
-		
-		public delegate void OnIncomingEventHandler(object sender, EventArgs e,string PathToModul);
-        public event OnIncomingEventHandler OnIncomingNotCached;
-        public event OnIncomingEventHandler OnIncomingInCache;
+
+		public delegate void OnCachedEventHandler(object sender, EventArgs e,string message);
+		[field:NonSerialized]
+		public event OnCachedEventHandler OnCacheProgress;
+		[field:NonSerialized]
+		public event OnCachedEventHandler OnCacheFinished;
+		[field:NonSerialized]
+		public event OnCachedEventHandler OnInvalidFormat;
+
+		[field:NonSerialized]
+		public event OnCachedEventHandler OnBuildListsProgress;
+
+
+
 
 		/// <summary>
-		/// Diese Liste enthält alle Pfade zu den Modulen in den Eingangsverzeichnissen,
-		/// die  im Cache sind.
+		/// Die Dateipfade aller Module in den Eingangsverzeichnissen
 		/// </summary>
-		private ArrayList FPathListOfCachedModuls=new ArrayList();
+		private StringCollection FIncomingModulPaths=new StringCollection();
 		/// <summary>
-		/// Diese Liste enthält alle Pfade zu den Modulen in den Eingangsverzeichnissen,
-		/// die nicht im Cache sind.
+		/// Die Dateipfade aller info.xml 
 		/// </summary>
-		private ArrayList FPathListOfIncomingModuls=new ArrayList();
-		/// <summary>
-		/// Diese Liste enthält die Namen aller Bibelmodule im Cache.
-		/// </summary>
-		private ArrayList FNameListOfBibles=new ArrayList();
-		/// <summary>
-		/// Diese Liste enthält die Namen und Pfade aller Bibelmodule im Cache.
-		/// </summary>
-		private ArrayList FNamePathListOfBibles=new ArrayList();
-		/// <summary>
-		/// Diese Liste enthält die Namen der Bibelmodule, die gerade vom User ausgewählt wurden.
-		/// </summary>
-		private ArrayList FNameListOfSelectedBibles=new ArrayList();
+		private StringCollection FCachedInfoFilesPaths=new StringCollection();	
+
+
+		private CacheInfoItemDictionary FCacheInfoDictionary=new CacheInfoItemDictionary();
 		/// <summary>
 		/// Die Eingangsverzeichnisse für Zefania XML Module
 		/// </summary>
-		private ArrayList FListOfModulInputDirectories=new ArrayList();
+		private StringCollection FListOfModulInputDirectories=new StringCollection();
 		/// <summary>
-		/// Liste der Speicherorte für die erstellten ModulCaches
+		/// Liste der Speicherorte für  erstellte ModulCaches
 		/// </summary>
-		private ArrayList FListOfCacheDirectories=new ArrayList();
+		private StringCollection FListOfCacheDirectories=new StringCollection();
 		/// <summary>
 		/// Konstruktor
 		/// </summary>
@@ -56,68 +60,24 @@ namespace NewTrueSharpSwordAPI.Cache
 			//
 		}
 
-		/// <summary>
-		/// Die Liste der gerade aktuell ausgewählten Bibelmodule.
-		/// </summary>
-		public ArrayList NameListOfSelectedBibles
+
+		public CacheInfoItemDictionary CacheInfoDictionary
 		{
+
 			get
 			{
-				return FNameListOfSelectedBibles;
+
+				return FCacheInfoDictionary;
+
 			}
-			set
-			{
-				FNameListOfSelectedBibles=value;
-			
-			}
-		
+
+
 		}
-		
-		/// <summary>
-		/// Die Liste der Bibelnamen im Cache.
-		/// </summary>
-		public ArrayList NameListOfBibles
-		{
-			get
-			{   
-				FNameListOfBibles.Clear();
-				MakeListOfCachedBibles();
-				int x=1;
-				foreach(string BibleName in FNamePathListOfBibles)
-				{
-					if(x%2!= 0)
-					{
-						// an den ungeraden Indices stehen die Bibelnamen
-						FNameListOfBibles.Add(BibleName); 
-					}
-					
-					x++;
-				}
-				
-				return FNameListOfBibles;	
-			}
-			
-		}
-		
-	
-		/// <summary>
-		/// Die Liste der vorhandenen BibelModule im Cache. Wird durch Aufruf
-		/// von <seealso cref="MakeListOfCachedBibles"/> gefüllt.
-		/// Die Liste enthält Paare von Einträgen Bibelname/Pfade zum Cache.
-		/// </summary>
-		public ArrayList NamePathListOfBibles
-		{
-			get
-			{
-				return FNamePathListOfBibles;
-			}
-			
-		
-		}
+
 		/// <summary>
 		/// Die Liste der Eingangsverzeichnisse für Zefania XML Bibelmodule.
 		/// </summary>
-		public ArrayList ListOfModulInputDirectories
+		public StringCollection ListOfModulInputDirectories
 		{
 
 			get
@@ -132,38 +92,11 @@ namespace NewTrueSharpSwordAPI.Cache
 			}
 
 		}
-		/// <summary>
-		///  Die Liste der Module im Eingangverzeichnis, die nicht im Cache sind
-		/// </summary>
-		public ArrayList ListOfPathIncomingModuls
-		{
-		  
-			get
-			{
-			  
-				return  FPathListOfIncomingModuls;
-			
-			}
-		
-		
-		
-		}
-		/// <summary>
-		///  Die Liste der Module im Eingangverzeichnis, die im Cache sind
-		/// </summary>
-		public ArrayList PathListOfCachedModuls
-		{
-		
-			get{
-			
-			   return FPathListOfCachedModuls;
-			}
-		
-		}
+
 		/// <summary>
 		/// Die Liste der CacheVerzeichnisse der Zefania XML Bibelmodule.
 		/// </summary>
-		public ArrayList ListOfCacheDirectories
+		public StringCollection ListOfCacheDirectories
 		{
 
 			get
@@ -179,209 +112,408 @@ namespace NewTrueSharpSwordAPI.Cache
 
 		}
 
-		/// <summary>
-		/// Liefert die Liste von CacheDir(s) zu einem Bibelnamen zurück
-		/// </summary>
-		/// <param name="BibleName">Der Bibelname</param>
-		/// <returns>Liste von CacheDir(s) zu einem Bibelnamen</returns>
-		public ArrayList GetListOfModulPathsByBibleName(string BibleName)
+		// Cache erzeugen mit Threads
+
+		private class CacheFetchBooks
 		{
-		 
-			ArrayList internalList=new ArrayList();
-			try
+			ZefaniaCache my_cache;
+			bool my_zipped;
+
+			public CacheFetchBooks (ZefaniaCache cache,bool zipped)
 			{
-				if(FNameListOfBibles.Contains(BibleName))
-				{
-				    
-					int index=0;
-					foreach(string Name in FNamePathListOfBibles)
-					{
-					   
-						if(Name==BibleName)
-						{
-							internalList.AddRange(FNamePathListOfBibles.GetRange(index+1,1)); 
-						}
-						index++;
-					}
-					
-					return internalList;
-				}
-				return internalList;
+				my_cache = cache;
+				my_zipped=zipped;
 			}
-			catch(Exception e)
+
+			public void Fetch()
 			{
-				internalList.Clear();
-				return internalList;
+				my_cache.CreateCacheBooks(my_zipped);
 			}
 		}
 
-		/// <summary>
-		/// erstellt die Pfadliste der Zefania Module in den Eingangsverzeichnissen
-		/// </summary>
-		public void MakeListOfIncomingModuls()
+		private class CacheFetchChapters
 		{
-            EventArgs e1=new EventArgs();
-			FPathListOfIncomingModuls.Clear();
-			FPathListOfCachedModuls.Clear();
+			ZefaniaCache my_cache;
+			bool my_zipped;
+
+			public CacheFetchChapters (ZefaniaCache cache,bool zipped)
+			{
+				my_cache = cache;
+				my_zipped=zipped;
+			}
+
+			public void Fetch()
+			{
+				my_cache.CreateCacheChapters(my_zipped);
+			}
+		}
+
+        /// <summary>
+		/// Diese Methode erstelle mit Hilfe der <see cref="ZefaniaCache"/> Klasse das Cachverzeichnis für das Modul.
+        /// </summary>
+        /// <param name="ModulPath">Der Pfad zum Zefania XML Bibelmodul</param>
+        /// <param name="ID">Integerkennzeichnung für die Instanz der <see cref="ZefaniaCache"/>Klasse </param>
+        /// <param name="zipped">Wenn true, besteht der Cache aus zipped Files</param>
+        /// <param name="chapters">Wenn true ist der Cache vom Type x-chapters, sonst x-books</param>
+		public void CreateCacheFromModul(string ModulPath,int ID,bool zipped,bool chapters)
+		{
 
 			try
-			{
-				foreach( string ModulInputDir in FListOfModulInputDirectories)
+			{  
+
+				ZefaniaCache SingleCache=new ZefaniaCache(ModulPath);
+				SingleCache.OnSplitted+=new NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnSplittedEventHandler(SingleCache_OnSplitted);
+				SingleCache.OnCachedSuccess+=new NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnCachedEventHandler(SingleCache_OnCachedSuccess);
+				SingleCache.OnInvalidFileFormat+=new NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnInvalidFileFormatEventHandler(SingleCache_OnInvalidFileFormat);
+
+				SingleCache.Tag=ID;
+
+				if(chapters)
 				{
-					string [] ModulFiles = Directory.GetFiles(ModulInputDir,"*");
-					foreach(string MPath in ModulFiles)
-					{
-					
-						if((Path.GetExtension(MPath)==".xml")|(Path.GetExtension(MPath)==".zip"))
-						{
-
-							if(ModulIsInCache(MPath))
-							{
-								FPathListOfCachedModuls.Add(MPath);
-								if(OnIncomingInCache!=null)
-								{
-								 
-									OnIncomingInCache(this,e1,MPath);
-								  
-								}
-							}
-							else
-							{
-								FPathListOfIncomingModuls.Add(MPath);
-                                if(OnIncomingNotCached!=null)
-								{
-								 
-									OnIncomingNotCached(this,e1,MPath);
-								  
-								}
-
-							}
-																							  
-						}
-
-					}
-				
+					CacheFetchChapters fetcher = new CacheFetchChapters (SingleCache,zipped);
+					new Thread (new ThreadStart (fetcher.Fetch)).Start();
 				}
-			
+				else
+				{
+					CacheFetchBooks fetcher = new CacheFetchBooks (SingleCache,zipped);
+					new Thread (new ThreadStart (fetcher.Fetch)).Start();
+				}
+
+
+
 			}
 			catch(Exception e)
 			{
-				
+
+
 			}
 		}
+
+		private void SingleCache_OnSplitted(object sender, EventArgs e, ArrayList message)
+		{
+			//
+			EventArgs e1=new EventArgs();
+
+			if(OnCacheProgress!=null)
+			{
+
+				OnCacheProgress(sender,e,message[0].ToString());
+
+			}
+
+		}
+
+		private void SingleCache_OnCachedSuccess(object sender, EventArgs e, ArrayList message)
+		{
+			//
+			EventArgs e1=new EventArgs();
+
+			string SP=(sender as ZefaniaCache).GetPathToModul;
+			string IP=(sender as ZefaniaCache).GetInfoPath;
 		
-		/// <summary>
-		///  Liest alle info.xml Dateien von  Zefania XML Modulen im Cache und
-		///  setzt die füllt die interne Liste <see cref="FNamePathListOfBibles"/>.
-		/// </summary>
-		public void MakeListOfCachedBibles()
-		{
 
-			FNamePathListOfBibles.Clear();
-			ArrayList InfoFileEntries=new ArrayList();
-			try
+            CacheInfoItem CII=new CacheInfoItem(IP,false);
+
+            if(FCacheInfoDictionary.Contains(CII.Sourcepath)){FCacheInfoDictionary.Remove(CII.Sourcepath);}
+
+            FCacheInfoDictionary.Add(SP,CII);
+
+			if(OnCacheFinished!=null)
 			{
 
-				foreach(string CachDir in FListOfCacheDirectories)
+				OnCacheFinished(sender,e,message[0].ToString());
+
+			}
+
+		}
+		private void SingleCache_OnInvalidFileFormat(object sender, EventArgs e)
+		{
+			EventArgs e1=new EventArgs();
+
+			if(OnInvalidFormat!=null)
+			{
+
+
+				OnInvalidFormat(this,e1,"");
+
+			}
+		}
+
+
+		// ende Cache erzeugen mit Thread;
+
+
+
+
+		private void RefreshCachedInfoFilesPathList()
+		{
+
+			try
+			{
+				FCachedInfoFilesPaths.Clear();
+				foreach(string Dir in this.ListOfCacheDirectories)
 				{
+					DirectoryInfo DI=new DirectoryInfo(Dir);
+					FindFilesInFolder("info.xml",DI,true,FCachedInfoFilesPaths,null);
 
-					InfoFileEntries.Clear();
+				}
 
-					string [] ModulMD5Dirs=Directory.GetDirectories(CachDir);
-
-					foreach (string ModulMD5Dir in ModulMD5Dirs)
-					{
-
-						string [] InfoFile = Directory.GetFiles(ModulMD5Dir,"info.xml");
-						InfoFileEntries.AddRange(InfoFile);
-
-					}
-					// aus jedem info.xml den Bibelnamen lesen
-					foreach(string fileName in InfoFileEntries)
-					{
-						XmlTextReader ModulInfoReader=new XmlTextReader(fileName);
-						while (ModulInfoReader.Read()) 
-						{
-							if(ModulInfoReader.Name=="title")
-							{
-								FNamePathListOfBibles.Add(ModulInfoReader.ReadString());
-								FNamePathListOfBibles.Add(Path.GetDirectoryName(fileName));
-								ModulInfoReader.Close();
-								break;
-
-							}
-						}// end while
-
-					}// end fileName
-
-				}// end ChachDir
-
-			
 			}
 			catch(Exception e)
 			{
-				
 
 			}
-
-
 		}
 
 		/// <summary>
-		///  Prüft, ob für ein Modul im Eingangsverzeichnis ein Cache existiert.
+		///  Das <see cref="CacheInfoItemDictionary"/> updaten und optional die MD5-Hashwerte checken
 		/// </summary>
-		/// <param name="PathToIncomingModul">Der komplette Pfad zum Eingangsmodul</param>
-		/// <returns>true, wenn Modul im Cache, sonst false</returns>
-		public bool ModulIsInCache(string PathToIncomingModul)
+		/// <param name="checkMd5">Wenn true, MD5 checken</param>
+		private void RefreshCacheItemsList(bool checkMd5)
 		{
-
-			ArrayList InfoFileEntries=new ArrayList();
+			EventArgs e1=new EventArgs();
 			try
 			{
-
-				foreach(string CachDir in FListOfCacheDirectories)
+				FCacheInfoDictionary.Clear();
+				foreach(string InfoPath in FCachedInfoFilesPaths)
 				{
+					CacheInfoItem CI=new CacheInfoItem(InfoPath,checkMd5);
 
-					InfoFileEntries.Clear();
 
-					string [] ModulMD5Dirs=Directory.GetDirectories(CachDir);
+					if(FCacheInfoDictionary.Contains(CI.Sourcepath)){FCacheInfoDictionary.Remove(CI.Sourcepath);}
+					
+					FCacheInfoDictionary.Add(CI.Sourcepath,CI);
 
-					foreach (string ModulMD5Dir in ModulMD5Dirs)
+
+					if(OnBuildListsProgress!=null)
 					{
 
-						string [] InfoFile = Directory.GetFiles(ModulMD5Dir,"info.xml");
-						InfoFileEntries.AddRange(InfoFile);
+						OnBuildListsProgress(this,e1,CI.Title);
 
 					}
-					// aus jedem info.xml den Bibelnamen lesen
-					foreach(string fileName in InfoFileEntries)
+				}
+
+				foreach(string ModulPath in FIncomingModulPaths)
+				{
+					if(!CacheInfoDictionary.Contains(ModulPath))
 					{
-						XmlTextReader ModulInfoReader=new XmlTextReader(fileName);
-						while (ModulInfoReader.Read()) 
+						CacheInfoItem CII=new CacheInfoItem(ModulPath,checkMd5);
+						
+						
+					
+						FCacheInfoDictionary.Add(CII.Sourcepath,CII);
+						if(OnBuildListsProgress!=null)
 						{
-							if(ModulInfoReader.Name=="sourcepath")
-							{
-								if(ModulInfoReader.ReadString()==PathToIncomingModul){
-								  
-                                   return true;
-								}
-								
 
-							}
-						}// end while
+							OnBuildListsProgress(this,e1,CII.Title);
 
-					}// end fileName
+						}
+					}
+				}
 
-				}// end ChachDir
-			  return false;
+			}
+
+
+			catch(Exception e)
+			{
+
+			}
+
+		}
+		/// <summary>
+		/// Löscht ein Cacheverzeichnis anhand des MD5-Hash Wertes
+		/// </summary>
+		/// <param name="MD5">Der MD5 Verzeichnisname des Caches</param>
+		public void DeleteCacheByMD5(string MD5)
+		{
+			try
+			{
+				// Das CacheDictionary durchsuchen.
+				foreach( DictionaryEntry entry in CacheInfoDictionary)
+				{
+					CacheInfoItem CI=(CacheInfoItem) entry.Value;
+					if(CI.Modulmd5==MD5)
+					{
+
+						if(File.Exists(CI.Infopath))
+						{
+
+							// Cache löschen.
+							string p=Path.GetDirectoryName(CI.Infopath);
+							Directory.Delete(p,true);
+							CI.reset2NoneCached();
+
+						}
+
+
+					}
+				}
+
 			}
 			catch(Exception e)
 			{
-				
+
+			}
+		}
+		/// <summary>
+		///  Anhand des Sourcepfades im <see cref="CacheInfoItemDictionary"/> nach dem <see cref="CacheInfoItem"/> suchen
+		///  und nachsehen, ob der in der info.xml hinterlegte MD5-Hashwert vom tatsächlichen MD5-Hash des Moduls abweicht.
+		/// </summary>
+		/// <remarks>Das kann geschehen, wenn das Sourcemodul editiert wurde</remarks>
+		/// <param name="SourcePath">Der Pfad zum Sourcemodul</param>
+		/// <returns>true, wenn MD5-Hash abweicht</returns>
+		public bool IsInConsistent(string SourcePath)
+		{
+
+			try
+			{
+				foreach( DictionaryEntry entry in CacheInfoDictionary)
+				{
+					CacheInfoItem CI=(CacheInfoItem) entry.Value;
+					if(CI.Sourcepath==SourcePath)
+					{
+
+
+						return CI.Inconsistent;
+
+					}
+				}
+
 				return false;
 
 			}
+			catch(Exception e)
+			{
+				return true;
+			}
+
+
+
 		}
+       
+		/// <summary>
+		/// Löscht  die Sourcedatei eine Caches
+		/// </summary>
+		/// <param name="SourcePath"></param>
+		public void DeleteSourcePath(string SourcePath)
+		{
+
+			try
+			{
+				foreach( DictionaryEntry entry in CacheInfoDictionary)
+				{
+					CacheInfoItem CI=(CacheInfoItem) entry.Value;
+					if(CI.Sourcepath==SourcePath)
+					{
+
+						if(File.Exists(CI.Sourcepath))
+						{
+
+							// Source löschen.
+							
+							File.Delete(CI.Sourcepath);
+							CI.reset2Orphaned();
+						
+
+						}
+
+
+					}
+				}
+
+			}
+			catch(Exception e)
+			{
+				
+			}
+
+
+		}
+        
+
+        /// <summary>
+        /// Löscht einen Cache anhand des Sourcepfad des Moduls
+        /// </summary>
+        /// <param name="SourcePath"></param>
+		public void DeleteCacheBySourcePath(string SourcePath)
+		{
+
+			try
+			{
+				foreach( DictionaryEntry entry in CacheInfoDictionary)
+				{
+					CacheInfoItem CI=(CacheInfoItem) entry.Value;
+					if(CI.Sourcepath==SourcePath)
+					{
+
+						if(File.Exists(CI.Infopath))
+						{
+
+							// Cache löschen.
+							string p=Path.GetDirectoryName(CI.Infopath);
+							Directory.Delete(p,true);
+							CI.reset2NoneCached();
+
+						}
+
+
+					}
+				}
+
+			}
+			catch(Exception e)
+			{
+				
+			}
+
+
+		}
+
+		/// <summary>
+		/// Alle Verzeichnislisten  und das <see cref="CacheInfoItemDictionary"/> aktualisieren.
+		/// </summary>
+		/// <param name="checkMd5">Wenn true, wird zusätzlich der MD5-Hashwert des Moduls überprüft.</param>
+		public void refreshModulList(bool checkMd5)
+		{
+
+			try
+			{
+				RefreshIncomingModulPathList();
+				RefreshCachedInfoFilesPathList();
+				RefreshCacheItemsList(checkMd5);
+
+			}
+			catch(Exception e)
+			{
+
+			}
+		}
+
+		/// <summary>
+		///  Alle Eingangsverzeichnisse nach möglichen Modulen durchsuchen und in <see cref="FIncomingModulPaths"/> auflisten.
+		/// </summary>
+		private void RefreshIncomingModulPathList()
+		{
+
+			try
+			{
+				FIncomingModulPaths.Clear();
+
+				foreach(string Dir in ListOfModulInputDirectories)
+				{
+					DirectoryInfo DI=new DirectoryInfo(Dir);
+					FindFilesInFolder("*.xml",DI,true,FIncomingModulPaths,null);
+					FindFilesInFolder("*.zip",DI,true,FIncomingModulPaths,null);
+
+				}
+
+			}
+			catch(Exception e)
+			{
+
+			}
+		}
+
 
 		/// <summary>
 		/// Gibt die Versionsnummer der zefCacheMaintenance-Klasse zurück.
@@ -391,12 +523,406 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			get
 			{
-				Version v =new Version("0.0.0.6");
+				Version v =new Version("0.0.0.9");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
 
 		}
+
+		/// <summary>
+		///  Diese Hilfsklasse speichert alle wichtigen Infos über Module.
+		///  <see cref="CacheInfoItemDictionary"/>
+		/// </summary>
+		[Serializable]
+			public class CacheInfoItem
+		{
+			private string Ftitle="";
+			private string Fsourcepath="";
+			private string Flanguage="";
+			private string Fidentifier="";
+			private string Fdate="";
+			private string Fzipped="";
+			private string Ftype="";
+			private string Fmodulmd5="";
+			private bool Forphaned=false;
+			private bool Fcached=false;
+			private bool Finconsistent=false;
+			private string Finfopath;
+
+			public CacheInfoItem(string InfoPath,bool checkMd5)
+			{
+
+				try
+				{
+
+					Fcached=false;
+					Forphaned=false;
+					Finfopath="";
+					if(InfoPath.EndsWith("info.xml"))
+					{
+						XmlDocument INFO=new XmlDocument();
+						INFO.Load(InfoPath);
+						Finfopath=InfoPath;
+						XmlNode N=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/title");
+						if(N!=null)
+						{
+							Ftitle=N.InnerText;
+						}
+
+
+						N=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/sourcepath");
+
+						if(N!=null)
+						{
+							Fsourcepath=N.InnerText;
+							Forphaned=!File.Exists(Fsourcepath);
+							Fcached=true;
+						}
+
+						N=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/language");
+						if(N!=null)
+						{
+
+							Flanguage=N.InnerText;
+						}
+
+
+						N=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/identifier");
+
+						if(N!=null)
+						{
+
+							Fidentifier=N.InnerText;
+						}
+
+
+						N=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/date");
+
+						if(N!=null)
+						{
+
+							Fdate=N.InnerText;
+						}
+
+
+						N=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/zipped");
+
+						if(N!=null)
+						{
+							Fzipped=N.InnerText;
+						}
+
+
+						N=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/type");
+
+						if(N!=null)
+						{
+							Ftype=N.InnerText;
+						}
+
+						N=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/modulmd5");
+
+						if(N!=null)
+						{
+							Fmodulmd5=N.InnerText;
+							// nachfolgend überprüfen wir, ob der MD5-Hashwert der Quelldatei
+							// noch mit dem Vermerk in der info.xml übereinstimmt.
+							if(checkMd5)
+							{
+
+
+
+								if(Path.GetExtension(Sourcepath)==".zip")
+								{
+									// Zefania Modul aus zip entpacken
+									Finconsistent=!(CreateMD5Dir(GetZippedModulContent(Sourcepath))==Fmodulmd5);
+
+								}
+								else
+								{
+
+									Finconsistent=!(CreateMD5Dir(File.OpenRead(Sourcepath))==Fmodulmd5);
+
+
+								}
+							}
+
+						}
+					}
+					else
+					{
+
+						Fsourcepath=InfoPath;
+						Ftitle=Path.GetFileName(InfoPath);
+
+
+					}
+				}
+
+				catch(Exception e)
+				{
+
+				}
+			}
+			// methoden
+			public void reset2NoneCached()
+			{
+			
+				Fcached=false;
+				Fdate="";
+				Fidentifier="";
+				Finconsistent=false;
+				Finfopath="";
+				Flanguage="";
+				Fmodulmd5="";
+				Forphaned=false;
+				Ftype="";
+				Fzipped="";
+			}
+            
+			public void reset2Orphaned()
+			{
+			    Forphaned=true;
+				
+			}
+
+			/// <summary>
+			/// Diese Methode berechnet aus dem Zefania XML Bibelmodul einen MD5-Hashwert, der als Verzeichnisname
+			/// für das in Bibelbücher(Kapitel) zerlegte Zefania XML Bibelmodul dient.
+			/// </summary>
+			/// <returns>
+			///   MD5-Hashwert des Zefania XML Bibelmoduls.
+			/// </returns>
+			private string CreateMD5Dir(Stream fs)
+			{
+
+				//FileStream fs = File.Open(Path);
+
+				try
+				{
+					MD5CryptoServiceProvider cryptHandler;
+					cryptHandler = new MD5CryptoServiceProvider();
+					byte[] hash = cryptHandler.ComputeHash(fs);
+					string ret = "";
+					foreach (byte a in hash) 
+					{
+						if (a<16)
+							ret += "0" + a.ToString ("x");
+						else
+							ret += a.ToString ("x");
+					}
+					return ret ;
+				}
+				catch(Exception e)
+				{
+					return e.Message;
+				}
+
+			}
+
+			/// <summary>
+			/// Extrahiert ein Zefania XML Modul aus einem zip-archiv
+			/// </summary>
+			/// <param name="ModulPath">Pfade zur zip-datei</param>
+			/// <returns>Zefania XML Modul als Stream.</returns>
+			private ZipInputStream GetZippedModulContent(string ModulPath)
+			{
+
+
+				ZipEntry theEntry;
+
+
+				try
+				{
+
+					ZipInputStream s = new ZipInputStream(File.OpenRead(ModulPath));
+					while ((theEntry=s.GetNextEntry())!= null) 
+					{
+
+						if(theEntry.Size>40000)
+						{
+
+							return s;
+
+						}	
+
+					}
+					return null;
+				}
+
+				catch(Exception e)
+				{
+
+					return null;
+				}
+			}
+
+
+
+
+			// end methoden
+
+			// felder
+			public string Title
+			{
+				get{return Ftitle;}
+				set{Ftitle=value;}
+			}
+			public string Sourcepath
+			{
+				get{return Fsourcepath;}
+				set{Fsourcepath=value;}
+			}
+			public string Language
+			{
+				get{return Flanguage;}
+				set{Flanguage=value;}
+			}
+			public string Identifier
+			{
+				get{return Fidentifier;}
+				set{Fidentifier=value;}
+			}
+
+			public string Date
+			{
+				get{return Fdate;}
+				set{Fdate=value;}
+			}
+			public string Zipped
+			{
+				get{return Fzipped;}
+				
+			}
+			public string Type
+			{
+				get{return Ftype;}
+				
+			}
+			public string Modulmd5
+			{
+				get{return Fmodulmd5;}
+				
+			}
+
+			public bool Orphaned
+			{
+				get{return Forphaned;}
+				
+				
+			}
+			public bool Cached
+			{
+				get{return Fcached;}
+				
+				
+			}
+			public bool Inconsistent
+			{
+				get{return Finconsistent;}
+				
+			}
+			public string Infopath
+			{
+				get{return Finfopath;}
+				
+			}
+		}// end class CacheInfoItem
+		/// <summary>
+		/// Ein Dictionary aller Module mit Instanzen von <see cref="CacheInfoItem"/>
+		/// </summary>
+		[Serializable]
+			public class CacheInfoItemDictionary : DictionaryBase 
+		{   //strongly typed accessor 
+			public CacheInfoItem this[string key]
+			{
+				get {return (CacheInfoItem) this.Dictionary[key]; }
+
+				set { this.Dictionary[key] = value; } 
+			}
+			//add a CacheInfoItem to the collection
+			public void Add(string key, CacheInfoItem cacheinfoitem)
+            { 
+				this.Dictionary.Add(key, cacheinfoitem); 
+			} 
+			//see if collection contains an entry corresponding to key
+			public bool Contains(string key)
+			{
+				return this.Dictionary.Contains(key);
+			}
+
+			public void Remove( string key )  
+			{
+				this.Dictionary.Remove( key );
+			}
+
+
+			//we will get to this later
+			public ICollection Keys
+			{
+				get {return this.Dictionary.Keys;}
+			}
+
+		}// end CacheInfoItemCollection
+		//
+
+
+		// begin find files
+
+		/* Delegate für eine Fortschrittsmeldung */
+
+		public delegate void FindProgress(string folderName);
+
+		/* Methode zum Suchen von Dateien in einem Ordner */
+		private static StringCollection FindFiles(string folderName,
+			string searchPattern, bool recurse, FindProgress findProgress)
+		{
+			// StringCollection-Objekt für die Rückgabe erzeugen
+			StringCollection resultFiles =  new StringCollection();
+
+			// DirectoryInfo-Objekt für den Ordner erzeugen
+			DirectoryInfo folder = new DirectoryInfo(folderName);
+
+			// Die rekursive Methode zum Suchen in einem Ordner aufrufen
+			FindFilesInFolder(searchPattern, folder, recurse, resultFiles, 
+				findProgress);
+
+			// StringCollection zurückgeben
+			return resultFiles;
+		}
+
+		/* Rekursive Methode zum Suchen von Dateien */
+		private static void FindFilesInFolder(string searchPattern, 
+			DirectoryInfo folder, bool recurse, StringCollection resultFiles,
+			FindProgress findProgress)
+		{
+			// Delegate aufrufen, falls dieser übergeben wurde
+			if (findProgress != null)
+				findProgress(folder.FullName); 
+
+			// Zunächst für alle Unterordner FindFilesInFolder rekursiv aufrufen, 
+			// wenn dies gewünscht ist
+			if (recurse)
+			{
+				DirectoryInfo[] subFolders = folder.GetDirectories();
+				for (int i = 0; i < subFolders.Length; i++)
+					FindFilesInFolder(searchPattern, subFolders[i], true, resultFiles,
+						findProgress);
+			}
+
+			// Alle Dateien ermitteln, die dem übergebenen Suchmuster entsprechen 
+			FileInfo[] files = folder.GetFiles(searchPattern);
+
+			// Die gefundenen Dateien durchgehen und deren vollen Namen an die
+			// StringCollection anhängen
+			for (int i = 0; i < files.Length; i++)
+				resultFiles.Add(files[i].FullName);
+		}
+
+
+		// end find files
+
 
 	}
 }

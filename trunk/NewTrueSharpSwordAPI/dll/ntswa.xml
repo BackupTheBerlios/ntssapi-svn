@@ -40,6 +40,11 @@
              Signalisiert intern, ob der Cache für das Zefania XML Bibelmodul schon erstellt wurde.
             </summary>
         </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.FTag">
+            <summary>
+             Eine Integer zur Kennzeichnung eines CacheObjektes z.B. in Threadingszenarien
+            </summary>
+        </member>
         <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.RestoreUserTree">
             <summary>
              Diese Funktion ersetzt den Default Inhaltsbaum durch einen eventuell gesicherten Userdefinierten
@@ -149,6 +154,11 @@
             <seealso cref="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnCachedEventHandler"/>
             </summary>
         </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.Tag">
+            <summary>
+             Setzt oder liest eine Integerkennzeichnung für eine Instanz eines Cachobjektes.
+            </summary>
+        </member>
         <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.IsCached">
             <summary>
              zeigt, ob Modulcache für die aktuelle Instanz schon erstellt wurde.
@@ -162,6 +172,11 @@
         <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.GetBibleName">
             <summary>
             Gibt den Bibelnamen für den Cache zurück
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.GetInfoPath">
+            <summary>
+            Gibt den info.xml path für den Cache zurück
             </summary>
         </member>
         <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.HaveUserTree">
@@ -181,7 +196,7 @@
             <seealso cref="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CacheBaseDirectory"/>
             </summary>
         </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.PathToModul">
+        <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.GetPathToModul">
             <summary>
             Die Eigenschaft "PathToModul" der Klasse ZefaniaCache liefert den Pfad zum Zefania XML Modul zurück;
             <seealso cref="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache"/>
@@ -221,31 +236,14 @@
             ModulCache.
             </summary>
         </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FPathListOfCachedModuls">
+        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FIncomingModulPaths">
             <summary>
-            Diese Liste enthält alle Pfade zu den Modulen in den Eingangsverzeichnissen,
-            die  im Cache sind.
+            Die Dateipfade aller Module in den Eingangsverzeichnissen
             </summary>
         </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FPathListOfIncomingModuls">
+        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FCachedInfoFilesPaths">
             <summary>
-            Diese Liste enthält alle Pfade zu den Modulen in den Eingangsverzeichnissen,
-            die nicht im Cache sind.
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FNameListOfBibles">
-            <summary>
-            Diese Liste enthält die Namen aller Bibelmodule im Cache.
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FNamePathListOfBibles">
-            <summary>
-            Diese Liste enthält die Namen und Pfade aller Bibelmodule im Cache.
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FNameListOfSelectedBibles">
-            <summary>
-            Diese Liste enthält die Namen der Bibelmodule, die gerade vom User ausgewählt wurden.
+            Die Dateipfade aller info.xml 
             </summary>
         </member>
         <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FListOfModulInputDirectories">
@@ -255,7 +253,7 @@
         </member>
         <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FListOfCacheDirectories">
             <summary>
-            Liste der Speicherorte für die erstellten ModulCaches
+            Liste der Speicherorte für  erstellte ModulCaches
             </summary>
         </member>
         <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.#ctor">
@@ -263,61 +261,62 @@
             Konstruktor
             </summary>
         </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.GetListOfModulPathsByBibleName(System.String)">
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CreateCacheFromModul(System.String,System.Int32,System.Boolean,System.Boolean)">
             <summary>
-            Liefert die Liste von CacheDir(s) zu einem Bibelnamen zurück
+            Diese Methode erstelle mit Hilfe der <see cref="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache"/> Klasse das Cachverzeichnis für das Modul.
             </summary>
-            <param name="BibleName">Der Bibelname</param>
-            <returns>Liste von CacheDir(s) zu einem Bibelnamen</returns>
+            <param name="ModulPath">Der Pfad zum Zefania XML Bibelmodul</param>
+            <param name="ID">Integerkennzeichnung für die Instanz der <see cref="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache"/>Klasse </param>
+            <param name="zipped">Wenn true, besteht der Cache aus zipped Files</param>
+            <param name="chapters">Wenn true ist der Cache vom Type x-chapters, sonst x-books</param>
         </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.MakeListOfIncomingModuls">
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.RefreshCacheItemsList(System.Boolean)">
             <summary>
-            erstellt die Pfadliste der Zefania Module in den Eingangsverzeichnissen
+             Das <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/> updaten und optional die MD5-Hashwerte checken
             </summary>
+            <param name="checkMd5">Wenn true, MD5 checken</param>
         </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.MakeListOfCachedBibles">
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.DeleteCacheByMD5(System.String)">
             <summary>
-             Liest alle info.xml Dateien von  Zefania XML Modulen im Cache und
-             setzt die füllt die interne Liste <see cref="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FNamePathListOfBibles"/>.
+            Löscht ein Cacheverzeichnis anhand des MD5-Hash Wertes
             </summary>
+            <param name="MD5">Der MD5 Verzeichnisname des Caches</param>
         </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ModulIsInCache(System.String)">
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.IsInConsistent(System.String)">
             <summary>
-             Prüft, ob für ein Modul im Eingangsverzeichnis ein Cache existiert.
+             Anhand des Sourcepfades im <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/> nach dem <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> suchen
+             und nachsehen, ob der in der info.xml hinterlegte MD5-Hashwert vom tatsächlichen MD5-Hash des Moduls abweicht.
             </summary>
-            <param name="PathToIncomingModul">Der komplette Pfad zum Eingangsmodul</param>
-            <returns>true, wenn Modul im Cache, sonst false</returns>
+            <remarks>Das kann geschehen, wenn das Sourcemodul editiert wurde</remarks>
+            <param name="SourcePath">Der Pfad zum Sourcemodul</param>
+            <returns>true, wenn MD5-Hash abweicht</returns>
         </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.NameListOfSelectedBibles">
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.DeleteSourcePath(System.String)">
             <summary>
-            Die Liste der gerade aktuell ausgewählten Bibelmodule.
+            Löscht  die Sourcedatei eine Caches
             </summary>
+            <param name="SourcePath"></param>
         </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.NameListOfBibles">
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.DeleteCacheBySourcePath(System.String)">
             <summary>
-            Die Liste der Bibelnamen im Cache.
+            Löscht einen Cache anhand des Sourcepfad des Moduls
             </summary>
+            <param name="SourcePath"></param>
         </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.NamePathListOfBibles">
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.refreshModulList(System.Boolean)">
             <summary>
-            Die Liste der vorhandenen BibelModule im Cache. Wird durch Aufruf
-            von <seealso cref="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.MakeListOfCachedBibles"/> gefüllt.
-            Die Liste enthält Paare von Einträgen Bibelname/Pfade zum Cache.
+            Alle Verzeichnislisten  und das <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/> aktualisieren.
+            </summary>
+            <param name="checkMd5">Wenn true, wird zusätzlich der MD5-Hashwert des Moduls überprüft.</param>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.RefreshIncomingModulPathList">
+            <summary>
+             Alle Eingangsverzeichnisse nach möglichen Modulen durchsuchen und in <see cref="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FIncomingModulPaths"/> auflisten.
             </summary>
         </member>
         <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfModulInputDirectories">
             <summary>
             Die Liste der Eingangsverzeichnisse für Zefania XML Bibelmodule.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfPathIncomingModuls">
-            <summary>
-             Die Liste der Module im Eingangverzeichnis, die nicht im Cache sind
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.PathListOfCachedModuls">
-            <summary>
-             Die Liste der Module im Eingangverzeichnis, die im Cache sind
             </summary>
         </member>
         <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfCacheDirectories">
@@ -328,6 +327,33 @@
         <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheVersion">
             <summary>
             Gibt die Versionsnummer der zefCacheMaintenance-Klasse zurück.
+            </summary>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem">
+            <summary>
+             Diese Hilfsklasse speichert alle wichtigen Infos über Module.
+             <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/>
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.CreateMD5Dir(System.IO.Stream)">
+            <summary>
+            Diese Methode berechnet aus dem Zefania XML Bibelmodul einen MD5-Hashwert, der als Verzeichnisname
+            für das in Bibelbücher(Kapitel) zerlegte Zefania XML Bibelmodul dient.
+            </summary>
+            <returns>
+              MD5-Hashwert des Zefania XML Bibelmoduls.
+            </returns>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.GetZippedModulContent(System.String)">
+            <summary>
+            Extrahiert ein Zefania XML Modul aus einem zip-archiv
+            </summary>
+            <param name="ModulPath">Pfade zur zip-datei</param>
+            <returns>Zefania XML Modul als Stream.</returns>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary">
+            <summary>
+            Ein Dictionary aller Module mit Instanzen von <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/>
             </summary>
         </member>
         <member name="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest">
@@ -555,37 +581,6 @@
             <summary>
             Gibt die Versionsnummer der zefMapNames-Klasse zurück.
             </summary>
-        </member>
-        <member name="T:NewTrueSharpSwordAPI.Utilities.zefRefMarker">
-            <summary>
-            Diese Klasse markiert in einem String Referenzen zu Bibelstellen.
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Utilities.zefRefMarker.FZefNames">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Utilities.zefRefMarker.#ctor(System.String)">
-            <summary>
-             Konstruktor
-            </summary>
-            <param name="pathToNamesFile">Pfad zu einer bnames Datei </param>
-        </member>
-        <member name="T:NewTrueSharpSwordAPI.Imports.Sword.zefSwordImp2ZefDic">
-            <summary>
-            Dieses Klasse konvertiert Sword imp-Format Files zu Zefania XML Lexika Files.
-            vergl: http://www.crosswire.org/sword/develop/swordmodule/  Abschnitt: 3.3.2
-            SwordModule können mit dem Tool mode2imp.exe aus Swordmodulen gewonnen werden.
-            vergl: http://crosswire.org/ftpmirror/pub/sword/utils/win32/
-            </summary>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Imports.Sword.zefSwordImp2ZefDic.#ctor(System.String,System.String)">
-            <summary>
-             Der Konstruktor
-            </summary>
-            <param name="pathToSwordMConfFile">Der Pfad zum SwordModul Conf-File</param>
-            <param name="pathToSwordImpFile">Der Pfad zur Sword Imp Datei.</param>
         </member>
     </members>
 </doc>

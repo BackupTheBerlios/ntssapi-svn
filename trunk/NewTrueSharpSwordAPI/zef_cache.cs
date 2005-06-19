@@ -84,6 +84,27 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// </summary>
 		private bool Cached=false;
 		/// <summary>
+		///  Eine Integer zur Kennzeichnung eines CacheObjektes z.B. in Threadingszenarien
+		/// </summary>
+		private int FTag;
+		/// <summary>
+		///  Setzt oder liest eine Integerkennzeichnung für eine Instanz eines Cachobjektes.
+		/// </summary>
+		public int Tag{
+		
+			get{
+			 
+				return FTag;
+			
+			}
+			set{
+			
+			    FTag=value;
+			
+			}
+		
+		}
+		/// <summary>
 		///  zeigt, ob Modulcache für die aktuelle Instanz schon erstellt wurde.
 		/// </summary>
 		public bool IsCached
@@ -117,6 +138,18 @@ namespace NewTrueSharpSwordAPI.Cache
 		}
 
 		/// <summary>
+		/// Gibt den info.xml path für den Cache zurück
+		/// </summary>
+		public string GetInfoPath
+		{
+			get
+			{
+				return FullCachePath+@"\info.xml";
+			}
+
+		}
+
+		/// <summary>
 		/// Gibt True zurück wenn User InhaltsBaum existiert
 		/// <seealso cref="RestoreUserTree"/>
 		/// </summary>
@@ -137,7 +170,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			get
 			{
-				Version v =new Version("0.1.0.19");
+				Version v =new Version("0.1.0.22");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
@@ -239,7 +272,7 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// <seealso cref="ZefaniaCache"/>
 		/// <seealso cref="ModulPath"/>
 		/// </summary>
-		public string PathToModul
+		public string GetPathToModul
 		{
 
 			get
@@ -325,6 +358,8 @@ namespace NewTrueSharpSwordAPI.Cache
 				string xmlbible="";
 				string bnumber;
 
+                
+           
 
 				if(Path.GetExtension(ModulPath)==".zip")
 				{
@@ -390,6 +425,11 @@ namespace NewTrueSharpSwordAPI.Cache
 						while(ModulReader.MoveToNextAttribute())
 						{
 
+							if(ModulReader.Name=="biblename"){
+							  
+                             BibleName=ModulReader.Value;
+							
+							}
 							xmlbible=xmlbible+ModulReader.Name+"=\""+ModulReader.Value+"\" ";
 
 						}
@@ -511,7 +551,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			catch(Exception e)
 			{
 
-				string x=e.Message;
+				
 			}
 
 		}// end CreateCacheBooks()
@@ -601,7 +641,12 @@ namespace NewTrueSharpSwordAPI.Cache
 
 						while(ModulReader.MoveToNextAttribute())
 						{
-
+							if(ModulReader.Name=="biblename")
+							{
+							  
+								BibleName=ModulReader.Value;
+							
+							}
 							xmlbible=xmlbible+ModulReader.Name+"=\""+ModulReader.Value+"\" ";
 
 						}
