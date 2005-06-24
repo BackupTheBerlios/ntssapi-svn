@@ -71,6 +71,7 @@ namespace NewTrueSharpSwordAPI.Cache
 		///   Feld ist true wenn Usertree existiert
 		/// </summary>
 		private bool UserDefTree;
+		
 		/// <summary>
 		///  Feld für Bibelname
 		/// </summary>
@@ -170,7 +171,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			get
 			{
-				Version v =new Version("0.1.0.22");
+				Version v =new Version("0.1.0.24");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
@@ -394,7 +395,7 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 				//ModulCacheInfos
 				XmlDocument CacheINFO=new XmlDocument();
-				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
+				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><volumetree hidden=\"false\" pos=\"0\"/><sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
 
 				XmlNode sourcepath=CacheINFO.SelectSingleNode("descendant::sourcepath");
 				sourcepath.InnerText=ModulPath;
@@ -611,7 +612,7 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 				// ModulCacheInfos
 				XmlDocument CacheINFO=new XmlDocument();
-				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
+				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><volumetree hidden=\"false\" pos=\"0\"/<sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
 
 				XmlNode sourcepath=CacheINFO.SelectSingleNode("descendant::sourcepath");
 				sourcepath.InnerText=ModulPath;
@@ -986,6 +987,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			{
 				if(File.Exists(FullCachePath+@"\info.xml"))
 				{
+					
 					ContentTree.Load(FullCachePath+@"\info.xml");
 					XmlNode UT=ContentTree.SelectSingleNode("descendant::tree/@userdef");
 					if(UT!=null)

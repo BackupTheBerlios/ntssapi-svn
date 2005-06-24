@@ -16,7 +16,6 @@ namespace NewTrueSharpSwordAPI.Cache
 	[Serializable]
 	public class zefCacheMaintenance
 	{
-
 		public delegate void OnCachedEventHandler(object sender, EventArgs e,string message);
 		[field:NonSerialized]
 		public event OnCachedEventHandler OnCacheProgress;
@@ -28,9 +27,6 @@ namespace NewTrueSharpSwordAPI.Cache
 		[field:NonSerialized]
 		public event OnCachedEventHandler OnBuildListsProgress;
 
-
-
-
 		/// <summary>
 		/// Die Dateipfade aller Module in den Eingangsverzeichnissen
 		/// </summary>
@@ -39,7 +35,6 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// Die Dateipfade aller info.xml 
 		/// </summary>
 		private StringCollection FCachedInfoFilesPaths=new StringCollection();	
-
 
 		private CacheInfoItemDictionary FCacheInfoDictionary=new CacheInfoItemDictionary();
 		/// <summary>
@@ -60,18 +55,12 @@ namespace NewTrueSharpSwordAPI.Cache
 			//
 		}
 
-
 		public CacheInfoItemDictionary CacheInfoDictionary
 		{
-
 			get
 			{
-
 				return FCacheInfoDictionary;
-
 			}
-
-
 		}
 
 		/// <summary>
@@ -79,18 +68,14 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// </summary>
 		public StringCollection ListOfModulInputDirectories
 		{
-
 			get
 			{
 				return FListOfModulInputDirectories;
 			}
 			set
 			{
-
 				FListOfModulInputDirectories=value;
-
 			}
-
 		}
 
 		/// <summary>
@@ -98,18 +83,14 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// </summary>
 		public StringCollection ListOfCacheDirectories
 		{
-
 			get
 			{
 				return FListOfCacheDirectories;
 			}
 			set
 			{
-
 				FListOfCacheDirectories=value;
-
 			}
-
 		}
 
 		// Cache erzeugen mit Threads
@@ -148,16 +129,15 @@ namespace NewTrueSharpSwordAPI.Cache
 			}
 		}
 
-        /// <summary>
+		/// <summary>
 		/// Diese Methode erstelle mit Hilfe der <see cref="ZefaniaCache"/> Klasse das Cachverzeichnis für das Modul.
-        /// </summary>
-        /// <param name="ModulPath">Der Pfad zum Zefania XML Bibelmodul</param>
-        /// <param name="ID">Integerkennzeichnung für die Instanz der <see cref="ZefaniaCache"/>Klasse </param>
-        /// <param name="zipped">Wenn true, besteht der Cache aus zipped Files</param>
-        /// <param name="chapters">Wenn true ist der Cache vom Type x-chapters, sonst x-books</param>
+		/// </summary>
+		/// <param name="ModulPath">Der Pfad zum Zefania XML Bibelmodul</param>
+		/// <param name="ID">Integerkennzeichnung für die Instanz der <see cref="ZefaniaCache"/>Klasse </param>
+		/// <param name="zipped">Wenn true, besteht der Cache aus zipped Files</param>
+		/// <param name="chapters">Wenn true ist der Cache vom Type x-chapters, sonst x-books</param>
 		public void CreateCacheFromModul(string ModulPath,int ID,bool zipped,bool chapters)
 		{
-
 			try
 			{  
 
@@ -178,14 +158,9 @@ namespace NewTrueSharpSwordAPI.Cache
 					CacheFetchBooks fetcher = new CacheFetchBooks (SingleCache,zipped);
 					new Thread (new ThreadStart (fetcher.Fetch)).Start();
 				}
-
-
-
 			}
 			catch(Exception e)
 			{
-
-
 			}
 		}
 
@@ -196,11 +171,8 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			if(OnCacheProgress!=null)
 			{
-
 				OnCacheProgress(sender,e,message[0].ToString());
-
 			}
-
 		}
 
 		private void SingleCache_OnCachedSuccess(object sender, EventArgs e, ArrayList message)
@@ -210,21 +182,17 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			string SP=(sender as ZefaniaCache).GetPathToModul;
 			string IP=(sender as ZefaniaCache).GetInfoPath;
-		
 
-            CacheInfoItem CII=new CacheInfoItem(IP,false);
+			CacheInfoItem CII=new CacheInfoItem(IP,false);
 
-            if(FCacheInfoDictionary.Contains(CII.Sourcepath)){FCacheInfoDictionary.Remove(CII.Sourcepath);}
+			if(FCacheInfoDictionary.Contains(CII.Sourcepath)){FCacheInfoDictionary.Remove(CII.Sourcepath);}
 
-            FCacheInfoDictionary.Add(SP,CII);
+			FCacheInfoDictionary.Add(SP,CII);
 
 			if(OnCacheFinished!=null)
 			{
-
 				OnCacheFinished(sender,e,message[0].ToString());
-
 			}
-
 		}
 		private void SingleCache_OnInvalidFileFormat(object sender, EventArgs e)
 		{
@@ -232,22 +200,14 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			if(OnInvalidFormat!=null)
 			{
-
-
 				OnInvalidFormat(this,e1,"");
-
 			}
 		}
 
-
 		// ende Cache erzeugen mit Thread;
-
-
-
 
 		private void RefreshCachedInfoFilesPathList()
 		{
-
 			try
 			{
 				FCachedInfoFilesPaths.Clear();
@@ -255,13 +215,10 @@ namespace NewTrueSharpSwordAPI.Cache
 				{
 					DirectoryInfo DI=new DirectoryInfo(Dir);
 					FindFilesInFolder("info.xml",DI,true,FCachedInfoFilesPaths,null);
-
 				}
-
 			}
 			catch(Exception e)
 			{
-
 			}
 		}
 
@@ -279,17 +236,13 @@ namespace NewTrueSharpSwordAPI.Cache
 				{
 					CacheInfoItem CI=new CacheInfoItem(InfoPath,checkMd5);
 
-
 					if(FCacheInfoDictionary.Contains(CI.Sourcepath)){FCacheInfoDictionary.Remove(CI.Sourcepath);}
-					
-					FCacheInfoDictionary.Add(CI.Sourcepath,CI);
 
+					FCacheInfoDictionary.Add(CI.Sourcepath,CI);
 
 					if(OnBuildListsProgress!=null)
 					{
-
 						OnBuildListsProgress(this,e1,CI.Title);
-
 					}
 				}
 
@@ -298,27 +251,19 @@ namespace NewTrueSharpSwordAPI.Cache
 					if(!CacheInfoDictionary.Contains(ModulPath))
 					{
 						CacheInfoItem CII=new CacheInfoItem(ModulPath,checkMd5);
-						
-						
-					
+
 						FCacheInfoDictionary.Add(CII.Sourcepath,CII);
 						if(OnBuildListsProgress!=null)
 						{
-
 							OnBuildListsProgress(this,e1,CII.Title);
-
 						}
 					}
 				}
-
 			}
-
 
 			catch(Exception e)
 			{
-
 			}
-
 		}
 		/// <summary>
 		/// Löscht ein Cacheverzeichnis anhand des MD5-Hash Wertes
@@ -334,25 +279,18 @@ namespace NewTrueSharpSwordAPI.Cache
 					CacheInfoItem CI=(CacheInfoItem) entry.Value;
 					if(CI.Modulmd5==MD5)
 					{
-
 						if(File.Exists(CI.Infopath))
 						{
-
 							// Cache löschen.
 							string p=Path.GetDirectoryName(CI.Infopath);
 							Directory.Delete(p,true);
 							CI.reset2NoneCached();
-
 						}
-
-
 					}
 				}
-
 			}
 			catch(Exception e)
 			{
-
 			}
 		}
 		/// <summary>
@@ -364,7 +302,6 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// <returns>true, wenn MD5-Hash abweicht</returns>
 		public bool IsInConsistent(string SourcePath)
 		{
-
 			try
 			{
 				foreach( DictionaryEntry entry in CacheInfoDictionary)
@@ -372,32 +309,24 @@ namespace NewTrueSharpSwordAPI.Cache
 					CacheInfoItem CI=(CacheInfoItem) entry.Value;
 					if(CI.Sourcepath==SourcePath)
 					{
-
-
 						return CI.Inconsistent;
-
 					}
 				}
 
 				return false;
-
 			}
 			catch(Exception e)
 			{
 				return true;
 			}
-
-
-
 		}
-       
+
 		/// <summary>
 		/// Löscht  die Sourcedatei eine Caches
 		/// </summary>
 		/// <param name="SourcePath"></param>
 		public void DeleteSourcePath(string SourcePath)
 		{
-
 			try
 			{
 				foreach( DictionaryEntry entry in CacheInfoDictionary)
@@ -405,39 +334,27 @@ namespace NewTrueSharpSwordAPI.Cache
 					CacheInfoItem CI=(CacheInfoItem) entry.Value;
 					if(CI.Sourcepath==SourcePath)
 					{
-
 						if(File.Exists(CI.Sourcepath))
 						{
-
 							// Source löschen.
-							
+
 							File.Delete(CI.Sourcepath);
 							CI.reset2Orphaned();
-						
-
 						}
-
-
 					}
 				}
-
 			}
 			catch(Exception e)
 			{
-				
 			}
-
-
 		}
-        
 
-        /// <summary>
-        /// Löscht einen Cache anhand des Sourcepfad des Moduls
-        /// </summary>
-        /// <param name="SourcePath"></param>
+		/// <summary>
+		/// Löscht einen Cache anhand des Sourcepfad des Moduls
+		/// </summary>
+		/// <param name="SourcePath"></param>
 		public void DeleteCacheBySourcePath(string SourcePath)
 		{
-
 			try
 			{
 				foreach( DictionaryEntry entry in CacheInfoDictionary)
@@ -445,28 +362,19 @@ namespace NewTrueSharpSwordAPI.Cache
 					CacheInfoItem CI=(CacheInfoItem) entry.Value;
 					if(CI.Sourcepath==SourcePath)
 					{
-
 						if(File.Exists(CI.Infopath))
 						{
-
 							// Cache löschen.
 							string p=Path.GetDirectoryName(CI.Infopath);
 							Directory.Delete(p,true);
 							CI.reset2NoneCached();
-
 						}
-
-
 					}
 				}
-
 			}
 			catch(Exception e)
 			{
-				
 			}
-
-
 		}
 
 		/// <summary>
@@ -475,17 +383,14 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// <param name="checkMd5">Wenn true, wird zusätzlich der MD5-Hashwert des Moduls überprüft.</param>
 		public void refreshModulList(bool checkMd5)
 		{
-
 			try
 			{
 				RefreshIncomingModulPathList();
 				RefreshCachedInfoFilesPathList();
 				RefreshCacheItemsList(checkMd5);
-
 			}
 			catch(Exception e)
 			{
-
 			}
 		}
 
@@ -494,7 +399,6 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// </summary>
 		private void RefreshIncomingModulPathList()
 		{
-
 			try
 			{
 				FIncomingModulPaths.Clear();
@@ -504,30 +408,23 @@ namespace NewTrueSharpSwordAPI.Cache
 					DirectoryInfo DI=new DirectoryInfo(Dir);
 					FindFilesInFolder("*.xml",DI,true,FIncomingModulPaths,null);
 					FindFilesInFolder("*.zip",DI,true,FIncomingModulPaths,null);
-
 				}
-
 			}
 			catch(Exception e)
 			{
-
 			}
 		}
-
 
 		/// <summary>
 		/// Gibt die Versionsnummer der zefCacheMaintenance-Klasse zurück.
 		/// </summary>
 		public string CacheVersion
 		{
-
 			get
 			{
-				Version v =new Version("0.0.0.9");
+				Version v =new Version("0.0.0.10");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
-
 			}
-
 		}
 
 		/// <summary>
@@ -549,19 +446,22 @@ namespace NewTrueSharpSwordAPI.Cache
 			private bool Fcached=false;
 			private bool Finconsistent=false;
 			private string Finfopath;
+			private string FVolumeTreePath;
+			private int FVolumeTreePos;
+			private bool FVolumTreeHidden;
+			[field:NonSerialized]
+			private XmlDocument INFO;
 
 			public CacheInfoItem(string InfoPath,bool checkMd5)
 			{
-
 				try
 				{
-
 					Fcached=false;
 					Forphaned=false;
 					Finfopath="";
 					if(InfoPath.EndsWith("info.xml"))
 					{
-						XmlDocument INFO=new XmlDocument();
+						INFO=new XmlDocument();
 						INFO.Load(InfoPath);
 						Finfopath=InfoPath;
 						XmlNode N=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/title");
@@ -569,7 +469,6 @@ namespace NewTrueSharpSwordAPI.Cache
 						{
 							Ftitle=N.InnerText;
 						}
-
 
 						N=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/sourcepath");
 
@@ -583,28 +482,26 @@ namespace NewTrueSharpSwordAPI.Cache
 						N=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/language");
 						if(N!=null)
 						{
-
 							Flanguage=N.InnerText;
+							if(VolumeTreePath==null)
+							{
+								VolumeTreePath=Flanguage;
+							}
 						}
-
 
 						N=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/identifier");
 
 						if(N!=null)
 						{
-
 							Fidentifier=N.InnerText;
 						}
-
 
 						N=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/date");
 
 						if(N!=null)
 						{
-
 							Fdate=N.InnerText;
 						}
-
 
 						N=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/zipped");
 
@@ -613,14 +510,35 @@ namespace NewTrueSharpSwordAPI.Cache
 							Fzipped=N.InnerText;
 						}
 
-
 						N=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/type");
 
 						if(N!=null)
 						{
 							Ftype=N.InnerText;
 						}
+						///
+						N=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/volumetree");
 
+						if(N!=null)
+						{
+							FVolumeTreePath=N.InnerText;
+							XmlNode ATT=N.Attributes.GetNamedItem("pos");
+							if(ATT!=null)
+							{
+								FVolumeTreePos=Convert.ToInt16(ATT.Value);
+							}
+							else
+								FVolumeTreePos=0;
+
+							ATT=N.Attributes.GetNamedItem("hidden");
+							if(ATT!=null)
+							{
+								FVolumTreeHidden=Convert.ToBoolean(ATT.Value.ToString());
+							}
+							else
+								FVolumTreeHidden=false;
+						}
+						///
 						N=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/modulmd5");
 
 						if(N!=null)
@@ -630,45 +548,32 @@ namespace NewTrueSharpSwordAPI.Cache
 							// noch mit dem Vermerk in der info.xml übereinstimmt.
 							if(checkMd5)
 							{
-
-
-
 								if(Path.GetExtension(Sourcepath)==".zip")
 								{
 									// Zefania Modul aus zip entpacken
 									Finconsistent=!(CreateMD5Dir(GetZippedModulContent(Sourcepath))==Fmodulmd5);
-
 								}
 								else
 								{
-
 									Finconsistent=!(CreateMD5Dir(File.OpenRead(Sourcepath))==Fmodulmd5);
-
-
 								}
 							}
-
 						}
 					}
 					else
 					{
-
 						Fsourcepath=InfoPath;
 						Ftitle=Path.GetFileName(InfoPath);
-
-
 					}
 				}
 
 				catch(Exception e)
 				{
-
 				}
 			}
 			// methoden
 			public void reset2NoneCached()
 			{
-			
 				Fcached=false;
 				Fdate="";
 				Fidentifier="";
@@ -680,11 +585,10 @@ namespace NewTrueSharpSwordAPI.Cache
 				Ftype="";
 				Fzipped="";
 			}
-            
+
 			public void reset2Orphaned()
 			{
-			    Forphaned=true;
-				
+				Forphaned=true;
 			}
 
 			/// <summary>
@@ -696,7 +600,6 @@ namespace NewTrueSharpSwordAPI.Cache
 			/// </returns>
 			private string CreateMD5Dir(Stream fs)
 			{
-
 				//FileStream fs = File.Open(Path);
 
 				try
@@ -718,7 +621,6 @@ namespace NewTrueSharpSwordAPI.Cache
 				{
 					return e.Message;
 				}
-
 			}
 
 			/// <summary>
@@ -728,42 +630,79 @@ namespace NewTrueSharpSwordAPI.Cache
 			/// <returns>Zefania XML Modul als Stream.</returns>
 			private ZipInputStream GetZippedModulContent(string ModulPath)
 			{
-
-
 				ZipEntry theEntry;
-
 
 				try
 				{
-
 					ZipInputStream s = new ZipInputStream(File.OpenRead(ModulPath));
 					while ((theEntry=s.GetNextEntry())!= null) 
 					{
-
 						if(theEntry.Size>40000)
 						{
-
 							return s;
-
 						}	
-
 					}
 					return null;
 				}
 
 				catch(Exception e)
 				{
-
 					return null;
 				}
 			}
 
-
-
-
 			// end methoden
 
 			// felder
+			public int VolumTreeHidden
+			{
+				get{return FVolumeTreePos;}
+				set
+				{
+					if(INFO!=null)
+					{
+						XmlNode VP=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/volumetree/@hidden");
+						if(VP!=null)
+						{
+							VP.InnerText=value.ToString();
+							INFO.Save(Finfopath);
+						}
+					}
+				}
+			}
+			public int VolumeTreePos
+			{
+				get{return FVolumeTreePos;}
+				set
+				{
+					if(INFO!=null)
+					{
+						XmlNode VP=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/volumetree/@pos");
+						if(VP!=null)
+						{
+							VP.InnerText=value.ToString();
+							INFO.Save(Finfopath);
+						}
+					}
+				}
+			}
+			public string VolumeTreePath
+			{
+				get{return FVolumeTreePath;}
+				set
+				{
+					if(INFO!=null)
+					{
+						XmlNode VP=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/volumetree");
+						if(VP!=null)
+						{
+							VP.InnerText=value;
+							INFO.Save(Finfopath);
+						}
+					}
+				}
+			}
+
 			public string Title
 			{
 				get{return Ftitle;}
@@ -793,40 +732,31 @@ namespace NewTrueSharpSwordAPI.Cache
 			public string Zipped
 			{
 				get{return Fzipped;}
-				
 			}
 			public string Type
 			{
 				get{return Ftype;}
-				
 			}
 			public string Modulmd5
 			{
 				get{return Fmodulmd5;}
-				
 			}
 
 			public bool Orphaned
 			{
 				get{return Forphaned;}
-				
-				
 			}
 			public bool Cached
 			{
 				get{return Fcached;}
-				
-				
 			}
 			public bool Inconsistent
 			{
 				get{return Finconsistent;}
-				
 			}
 			public string Infopath
 			{
 				get{return Finfopath;}
-				
 			}
 		}// end class CacheInfoItem
 		/// <summary>
@@ -843,7 +773,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			}
 			//add a CacheInfoItem to the collection
 			public void Add(string key, CacheInfoItem cacheinfoitem)
-            { 
+			{ 
 				this.Dictionary.Add(key, cacheinfoitem); 
 			} 
 			//see if collection contains an entry corresponding to key
@@ -857,16 +787,13 @@ namespace NewTrueSharpSwordAPI.Cache
 				this.Dictionary.Remove( key );
 			}
 
-
 			//we will get to this later
 			public ICollection Keys
 			{
 				get {return this.Dictionary.Keys;}
 			}
-
 		}// end CacheInfoItemCollection
 		//
-
 
 		// begin find files
 
@@ -920,9 +847,6 @@ namespace NewTrueSharpSwordAPI.Cache
 				resultFiles.Add(files[i].FullName);
 		}
 
-
 		// end find files
-
-
 	}
 }
