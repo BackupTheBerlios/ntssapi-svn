@@ -551,7 +551,8 @@ namespace NewTrueSharpSwordAPI.Cache
 			}
 			catch(Exception e)
 			{
-
+              
+				string ee=e.Message;
 				
 			}
 
@@ -612,7 +613,7 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 				// ModulCacheInfos
 				XmlDocument CacheINFO=new XmlDocument();
-				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><volumetree hidden=\"false\" pos=\"0\"/<sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
+				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><volumetree hidden=\"false\" pos=\"0\"/><sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
 
 				XmlNode sourcepath=CacheINFO.SelectSingleNode("descendant::sourcepath");
 				sourcepath.InnerText=ModulPath;

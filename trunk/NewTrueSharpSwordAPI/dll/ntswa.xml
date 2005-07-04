@@ -270,6 +270,12 @@
             <param name="zipped">Wenn true, besteht der Cache aus zipped Files</param>
             <param name="chapters">Wenn true ist der Cache vom Type x-chapters, sonst x-books</param>
         </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.AddCacheToModulDictionary(System.String)">
+            <summary>
+            Fügt ein <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> anhand des des info.xml Pfades des Cache in das <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/>
+            </summary>
+            <param name="infoFilePath">Pfad zur info.xml Datei des Caches</param>
+        </member>
         <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.RefreshCacheItemsList(System.Boolean)">
             <summary>
              Das <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/> updaten und optional die MD5-Hashwerte checken
