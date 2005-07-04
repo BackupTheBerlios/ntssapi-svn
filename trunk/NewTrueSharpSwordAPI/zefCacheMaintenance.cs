@@ -126,6 +126,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			public void Fetch()
 			{
 				my_cache.CreateCacheChapters(my_zipped);
+				
 			}
 		}
 
@@ -161,6 +162,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			}
 			catch(Exception e)
 			{
+				
 			}
 		}
 
@@ -221,6 +223,26 @@ namespace NewTrueSharpSwordAPI.Cache
 			{
 			}
 		}
+		/// <summary>
+		/// Fügt ein <see cref="CacheInfoItem"/> anhand des des info.xml Pfades des Cache in das <see cref="CacheInfoItemDictionary"/>
+		/// </summary>
+		/// <param name="infoFilePath">Pfad zur info.xml Datei des Caches</param>
+		private void AddCacheToModulDictionary(string infoFilePath)
+		{
+		
+		
+			try
+			{
+				CacheInfoItem CI=new CacheInfoItem(infoFilePath,false);
+				if(FCacheInfoDictionary.Contains(CI.Sourcepath)){FCacheInfoDictionary.Remove(CI.Sourcepath);}
+				FCacheInfoDictionary.Add(CI.Sourcepath,CI);
+
+			}
+			catch(Exception e)
+			{
+			}
+		
+		}
 
 		/// <summary>
 		///  Das <see cref="CacheInfoItemDictionary"/> updaten und optional die MD5-Hashwerte checken
@@ -239,6 +261,7 @@ namespace NewTrueSharpSwordAPI.Cache
 					if(FCacheInfoDictionary.Contains(CI.Sourcepath)){FCacheInfoDictionary.Remove(CI.Sourcepath);}
 
 					FCacheInfoDictionary.Add(CI.Sourcepath,CI);
+					
 
 					if(OnBuildListsProgress!=null)
 					{
@@ -349,6 +372,28 @@ namespace NewTrueSharpSwordAPI.Cache
 			}
 		}
 
+
+		public int CountCachedModuls()
+		{
+			try
+			{
+				int Count=0;
+				foreach( DictionaryEntry entry in CacheInfoDictionary)
+				{
+					CacheInfoItem CI=(CacheInfoItem) entry.Value;
+					if(CI.Cached)
+					{
+						Count++;
+					}
+				}
+				return Count;
+			}
+			catch(Exception e)
+			{
+				return -1;
+			}
+		}
+		
 		/// <summary>
 		/// Löscht einen Cache anhand des Sourcepfad des Moduls
 		/// </summary>
@@ -422,7 +467,7 @@ namespace NewTrueSharpSwordAPI.Cache
 		{
 			get
 			{
-				Version v =new Version("0.0.0.10");
+				Version v =new Version("0.0.0.12");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 			}
 		}
@@ -446,9 +491,9 @@ namespace NewTrueSharpSwordAPI.Cache
 			private bool Fcached=false;
 			private bool Finconsistent=false;
 			private string Finfopath;
-			private string FVolumeTreePath;
+			
 			private int FVolumeTreePos;
-			private bool FVolumTreeHidden;
+			private bool FVolumeTreeHidden;
 			[field:NonSerialized]
 			private XmlDocument INFO;
 
@@ -483,10 +528,7 @@ namespace NewTrueSharpSwordAPI.Cache
 						if(N!=null)
 						{
 							Flanguage=N.InnerText;
-							if(VolumeTreePath==null)
-							{
-								VolumeTreePath=Flanguage;
-							}
+							
 						}
 
 						N=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/identifier");
@@ -521,7 +563,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 						if(N!=null)
 						{
-							FVolumeTreePath=N.InnerText;
+							
 							XmlNode ATT=N.Attributes.GetNamedItem("pos");
 							if(ATT!=null)
 							{
@@ -533,10 +575,10 @@ namespace NewTrueSharpSwordAPI.Cache
 							ATT=N.Attributes.GetNamedItem("hidden");
 							if(ATT!=null)
 							{
-								FVolumTreeHidden=Convert.ToBoolean(ATT.Value.ToString());
+								FVolumeTreeHidden=Convert.ToBoolean(ATT.Value.ToString());
 							}
 							else
-								FVolumTreeHidden=false;
+								FVolumeTreeHidden=false;
 						}
 						///
 						N=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/modulmd5");
@@ -561,7 +603,7 @@ namespace NewTrueSharpSwordAPI.Cache
 						}
 					}
 					else
-					{
+					{   /// Falls keine info.xml übergeben wurde, sichern wir nur Pfad und den Filename als titel
 						Fsourcepath=InfoPath;
 						Ftitle=Path.GetFileName(InfoPath);
 					}
@@ -569,6 +611,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 				catch(Exception e)
 				{
+					string em=e.Message;
 				}
 			}
 			// methoden
@@ -654,9 +697,9 @@ namespace NewTrueSharpSwordAPI.Cache
 			// end methoden
 
 			// felder
-			public int VolumTreeHidden
+			public bool VolumeTreeHidden
 			{
-				get{return FVolumeTreePos;}
+				get{return FVolumeTreeHidden;}
 				set
 				{
 					if(INFO!=null)
@@ -665,6 +708,7 @@ namespace NewTrueSharpSwordAPI.Cache
 						if(VP!=null)
 						{
 							VP.InnerText=value.ToString();
+							FVolumeTreeHidden=value;
 							INFO.Save(Finfopath);
 						}
 					}
@@ -681,27 +725,13 @@ namespace NewTrueSharpSwordAPI.Cache
 						if(VP!=null)
 						{
 							VP.InnerText=value.ToString();
+							FVolumeTreePos=value;
 							INFO.Save(Finfopath);
 						}
 					}
 				}
 			}
-			public string VolumeTreePath
-			{
-				get{return FVolumeTreePath;}
-				set
-				{
-					if(INFO!=null)
-					{
-						XmlNode VP=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/volumetree");
-						if(VP!=null)
-						{
-							VP.InnerText=value;
-							INFO.Save(Finfopath);
-						}
-					}
-				}
-			}
+			
 
 			public string Title
 			{
