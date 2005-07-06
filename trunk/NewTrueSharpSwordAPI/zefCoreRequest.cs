@@ -5,8 +5,10 @@ using System.IO;
 using System.Text;
 using ICSharpCode.SharpZipLib.Zip;
 
+using NewTrueSharpSwordAPI.Cache;
 
 namespace NewTrueSharpSwordAPI.Queries
+
 {
 	/// <summary>
 	/// Mit zefCoreRequest kann ein Zefania XML Cache mit einer Liste von Bibelstellen im
@@ -36,6 +38,21 @@ namespace NewTrueSharpSwordAPI.Queries
 		/// <seealso cref="OnRequestPageEventHandler"/>
 		/// </summary>
 		public event OnRequestPageEventHandler OnPageRequest;
+		/// <summary>
+		/// <seealso cref="zefCacheMaintenance"/>
+		/// </summary>
+		private zefCacheMaintenance FCacheMaintenance=new zefCacheMaintenance();
+		/// <summary>
+		///  Property zum Andocken einer  <seealso cref="zefCacheMaintenance"/> Instanz.
+		/// </summary>
+		public zefCacheMaintenance CacheMaintenance
+		{
+			set
+			{
+				FCacheMaintenance=value;
+			}
+		
+		}
 		/// <summary>
 		/// Die Anzahl der Verse auf einer Ergebnisseite
 		/// </summary>
@@ -124,7 +141,7 @@ namespace NewTrueSharpSwordAPI.Queries
 
 			get
 			{
-				Version v =new Version("0.0.0.7");
+				Version v =new Version("0.0.0.8");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
@@ -218,7 +235,7 @@ namespace NewTrueSharpSwordAPI.Queries
 			string BN,CN,VN;
 			string PathToCachedFile="";
 			string[] VersItemArray;
-
+            string ModulMD5="";
 			ResultXMLStringX.Length=0;
 
 			try
@@ -238,14 +255,16 @@ namespace NewTrueSharpSwordAPI.Queries
 
 					int CountTransLations=0;
 
-					foreach(string ModulMD5 in FMD5ModulDirList)
+					foreach( DictionaryEntry entry in FCacheMaintenance.CacheRequestDictionary)
 					{
-						// wir durchsuchen CacheDIRS, die an verschiedenen Speicherorten liegen können.
+						zefCacheMaintenance.CacheInfoItem CI=(zefCacheMaintenance.CacheInfoItem) entry.Value;
+
+						ModulMD5=CI.ModulCacheDir;
+
 						CountTransLations++;
-						foreach(string CacheDir in FCacheDirectories)
-						{
+						
 							// teste ob ein file vom type x-books vorliegt
-							PathToCachedFile=CacheDir+@"\"+ModulMD5+@"\"+BN+".xml";
+							PathToCachedFile=ModulMD5+@"\"+BN+".xml";
 
 							if(File.Exists(PathToCachedFile))
 							{
@@ -260,7 +279,7 @@ namespace NewTrueSharpSwordAPI.Queries
 							}
 
 							// teste ob ein file vom type x-chapters vorliegt
-							PathToCachedFile=CacheDir+@"\"+ModulMD5+@"\"+BN+"_"+CN+".xml";
+							PathToCachedFile=ModulMD5+@"\"+BN+"_"+CN+".xml";
 							if(File.Exists(PathToCachedFile))
 							{
 								// Cache mit x-chapters gefunden	
@@ -271,7 +290,7 @@ namespace NewTrueSharpSwordAPI.Queries
 
 							//zip files
 
-							PathToCachedFile=CacheDir+@"\"+ModulMD5+@"\"+BN+".zip";
+							PathToCachedFile=ModulMD5+@"\"+BN+".zip";
 
 							if(File.Exists(PathToCachedFile))
 							{
@@ -283,7 +302,7 @@ namespace NewTrueSharpSwordAPI.Queries
 								continue;
 							}
 
-							PathToCachedFile=CacheDir+@"\"+ModulMD5+@"\"+BN+"_"+CN+".zip";
+							PathToCachedFile=ModulMD5+@"\"+BN+"_"+CN+".zip";
 							if(File.Exists(PathToCachedFile))
 							{
 								// Cache mit x-chapters gefunden	
@@ -297,7 +316,6 @@ namespace NewTrueSharpSwordAPI.Queries
 
 
 
-						}//end CacheDir
 
 					}	// end ModulMd5
 
@@ -775,8 +793,8 @@ namespace NewTrueSharpSwordAPI.Queries
 		{
 
 			XmlDocument XMLPage=new XmlDocument();
-			string PathToCachedInfoFile;
 			int CountTransLations=0;
+			
 
 			try
 			{
@@ -798,42 +816,22 @@ namespace NewTrueSharpSwordAPI.Queries
 				ATT2.Value="1.0.0.0";
 				APPINFO.Attributes.Append(ATT2);
 
-				foreach(string ModulMD5 in FMD5ModulDirList)
+				foreach( DictionaryEntry entry in FCacheMaintenance.CacheRequestDictionary)
 				{
-					// wir durchsuchen CacheDIRS, die an verschiedenen Speicherorten liegen können.
-					CountTransLations++;
-					foreach(string CacheDir in FCacheDirectories)
-					{
-						PathToCachedInfoFile=CacheDir+@"\"+ModulMD5+@"\info.xml";
+					zefCacheMaintenance.CacheInfoItem CI=(zefCacheMaintenance.CacheInfoItem) entry.Value;
+                    CountTransLations++;
+					
+					XmlNode TRANSLATION=XMLPage.CreateNode(XmlNodeType.Element,"TRANSLATION","");
+					TRANSLATION.InnerText=CI.Title;
+					XmlAttribute ATTID=XMLPage.CreateAttribute("","id","");
+					ATTID.Value=CountTransLations.ToString();
+					TRANSLATION.Attributes.Prepend(ATTID);
+					APPINFO.AppendChild(TRANSLATION);
+					XMLPage.DocumentElement.AppendChild(APPINFO);
 
-						if(File.Exists(PathToCachedInfoFile))
-						{
-							// Cache Info File gefunden
 
-							XmlTextReader ModulReader=new XmlTextReader(PathToCachedInfoFile);
-							while (ModulReader.Read()) 
-							{
-								if(ModulReader.Name=="title")
-								{   
-									XmlNode TRANSLATION=XMLPage.CreateNode(XmlNodeType.Element,"TRANSLATION","");
-									TRANSLATION.InnerText=ModulReader.ReadString();
-									XmlAttribute ATTID=XMLPage.CreateAttribute("","id","");
-									ATTID.Value=CountTransLations.ToString();
-									TRANSLATION.Attributes.Prepend(ATTID);
-									APPINFO.AppendChild(TRANSLATION);
-									XMLPage.DocumentElement.AppendChild(APPINFO);
+				  }
 
-								}
-
-							}
-
-							// ok nächste Modul ID
-
-						}
-
-					}//end CacheDir
-
-				}// end ModulMD5
 
 				return XMLPage.DocumentElement.OuterXml;
 
