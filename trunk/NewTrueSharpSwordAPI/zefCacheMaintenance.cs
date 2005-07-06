@@ -36,8 +36,16 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// Die Dateipfade aller info.xml 
 		/// </summary>
 		private StringCollection FCachedInfoFilesPaths=new StringCollection();	
-
+        /// <summary>
+        /// Das Dictionary aller verfügbaren <see cref="CacheInfoItem"/> s.
+         /// </summary>
 		private CacheInfoItemDictionary FCacheInfoDictionary=new CacheInfoItemDictionary();
+        /// <summary>
+        /// Das Dictionary aller verfügbaren <see cref="CacheInfoItem"/> s, die für eine Abfrage
+        /// ausgewählt sind. <seealso cref="zefCoreRequest"/>
+        /// </summary>
+		private CacheInfoItemDictionary FCacheRequestDictionary=new CacheInfoItemDictionary();
+
 		/// <summary>
 		/// Die Eingangsverzeichnisse für Zefania XML Module
 		/// </summary>
@@ -55,7 +63,9 @@ namespace NewTrueSharpSwordAPI.Cache
 			// TODO: Fügen Sie hier die Konstruktorlogik hinzu
 			//
 		}
-
+		/// <summary>
+		/// Property für das Dictionary aller verfügbaren <see cref="CacheInfoItem"/> s.
+		/// </summary>
 		public CacheInfoItemDictionary CacheInfoDictionary
 		{
 			get
@@ -63,6 +73,58 @@ namespace NewTrueSharpSwordAPI.Cache
 				return FCacheInfoDictionary;
 			}
 		}
+		// <summary>
+		/// Property für das Dictionary aller verfügbaren <see cref="CacheInfoItem"/> s, die für eine Abfrage
+		/// ausgewählt sind. <seealso cref="zefCoreRequest"/>
+		/// </summary>
+		public CacheInfoItemDictionary CacheRequestDictionary
+		{
+			get
+			{
+				return FCacheRequestDictionary;
+			}
+		}
+
+		/// <summary>
+		/// Fügt ein <see cref="CacheInfoItem"/> anhand des des info.xml Pfades des Cache in das <see cref="CacheRequestDictionary"/> hinzu.
+		/// </summary>
+		/// <param name="infoFilePath">Pfad zur info.xml Datei des Caches</param>
+		private void AddRequestModulToCacheRequestDictionary(string infoFilePath)
+		{
+		
+		
+			try
+			{
+				CacheInfoItem CI=new CacheInfoItem(infoFilePath,false);
+				if(FCacheRequestDictionary.Contains(CI.Sourcepath)){FCacheRequestDictionary.Remove(CI.Sourcepath);}
+				FCacheRequestDictionary.Add(CI.Sourcepath,CI);
+
+			}
+			catch(Exception e)
+			{
+			}
+		
+		}
+
+		/// <summary>
+		/// Entfernt ein <see cref="CacheInfoItem"/> anhand des des info.xml Pfades des Cache aus dem <see cref="CacheRequestDictionary"/>.
+		/// </summary>
+		/// <param name="infoFilePath">Pfad zur info.xml Datei des Caches</param>
+		private void RemoveModulFromCacheRequestDictionary(string infoFilePath)
+		{
+		    try
+			{
+				CacheInfoItem CI=new CacheInfoItem(infoFilePath,false);
+				if(FCacheRequestDictionary.Contains(CI.Sourcepath)){FCacheRequestDictionary.Remove(CI.Sourcepath);}
+				
+
+			}
+			catch(Exception e)
+			{
+			}
+		
+		}
+
 
 		/// <summary>
 		/// Die Liste der Eingangsverzeichnisse für Zefania XML Bibelmodule.
@@ -471,7 +533,7 @@ namespace NewTrueSharpSwordAPI.Cache
 		{
 			get
 			{
-				Version v =new Version("0.0.0.12");
+				Version v =new Version("0.0.0.14");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 			}
 		}
@@ -495,6 +557,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			private bool Fcached=false;
 			private bool Finconsistent=false;
 			private string Finfopath;
+			private string FModulCacheDir="";
 			
 			private int FVolumeTreePos;
 			private bool FVolumeTreeHidden;
@@ -513,6 +576,7 @@ namespace NewTrueSharpSwordAPI.Cache
 						INFO=new XmlDocument();
 						INFO.Load(InfoPath);
 						Finfopath=InfoPath;
+						FModulCacheDir=Path.GetDirectoryName(Finfopath);
 						XmlNode N=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/title");
 						if(N!=null)
 						{
@@ -607,7 +671,7 @@ namespace NewTrueSharpSwordAPI.Cache
 						}
 					}
 					else
-					{   /// Falls keine info.xml übergeben wurde, sichern wir nur Pfad und den Filename als titel
+					{   /// Falls keine info.xml übergeben wurde, sichern wir nur Pfad und  als title den Filenamen 
 						Fsourcepath=InfoPath;
 						Ftitle=Path.GetFileName(InfoPath);
 					}
@@ -626,6 +690,7 @@ namespace NewTrueSharpSwordAPI.Cache
 				Fidentifier="";
 				Finconsistent=false;
 				Finfopath="";
+				FModulCacheDir="";
 				Flanguage="";
 				Fmodulmd5="";
 				Forphaned=false;
@@ -731,6 +796,10 @@ namespace NewTrueSharpSwordAPI.Cache
 			public string Infopath
 			{
 				get{return Finfopath;}
+			}
+			public string ModulCacheDir
+			{
+				get{return FModulCacheDir;}
 			}
 		}// end class CacheInfoItem
 		/// <summary>

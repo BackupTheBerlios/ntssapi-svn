@@ -230,6 +230,17 @@
             Die Dateipfade aller info.xml 
             </summary>
         </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FCacheInfoDictionary">
+            <summary>
+            Das Dictionary aller verfügbaren <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> s.
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FCacheRequestDictionary">
+            <summary>
+            Das Dictionary aller verfügbaren <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> s, die für eine Abfrage
+            ausgewählt sind. <seealso cref="!:zefCoreRequest"/>
+            </summary>
+        </member>
         <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FListOfModulInputDirectories">
             <summary>
             Die Eingangsverzeichnisse für Zefania XML Module
@@ -244,6 +255,18 @@
             <summary>
             Konstruktor
             </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.AddRequestModulToCacheRequestDictionary(System.String)">
+            <summary>
+            Fügt ein <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> anhand des des info.xml Pfades des Cache in das <see cref="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheRequestDictionary"/> hinzu.
+            </summary>
+            <param name="infoFilePath">Pfad zur info.xml Datei des Caches</param>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.RemoveModulFromCacheRequestDictionary(System.String)">
+            <summary>
+            Entfernt ein <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> anhand des des info.xml Pfades des Cache aus dem <see cref="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheRequestDictionary"/>.
+            </summary>
+            <param name="infoFilePath">Pfad zur info.xml Datei des Caches</param>
         </member>
         <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CreateCacheFromModul(System.String,System.Int32,System.Boolean,System.Boolean)">
             <summary>
@@ -310,6 +333,12 @@
              Alle Eingangsverzeichnisse nach möglichen Modulen durchsuchen und in <see cref="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FIncomingModulPaths"/> auflisten.
             </summary>
         </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoDictionary">
+            <summary>
+            Property für das Dictionary aller verfügbaren <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> s.
+            </summary>
+        </member>
+        <!-- Schlecht gebildeter XML-Kommentar wurde für den Member "P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheRequestDictionary" ignoriert -->
         <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfModulInputDirectories">
             <summary>
             Die Liste der Eingangsverzeichnisse für Zefania XML Bibelmodule.
@@ -344,6 +373,11 @@
             56:12:7
             19:4:5
             abgefragt werden.
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Queries.zefCoreRequest.FCacheMaintenance">
+            <summary>
+            <seealso cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance"/>
             </summary>
         </member>
         <member name="F:NewTrueSharpSwordAPI.Queries.zefCoreRequest.FMaxVersePerPage">
@@ -436,6 +470,11 @@
         <member name="E:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnPageRequest">
             <summary>
             <seealso cref="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnRequestPageEventHandler"/>
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Queries.zefCoreRequest.CacheMaintenance">
+            <summary>
+             Property zum Andocken einer  <seealso cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance"/> Instanz.
             </summary>
         </member>
         <member name="P:NewTrueSharpSwordAPI.Queries.zefCoreRequest.CacheDirectories">
