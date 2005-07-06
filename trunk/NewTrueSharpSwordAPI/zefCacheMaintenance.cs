@@ -4,8 +4,9 @@ using System.IO;
 using System.Xml;
 using System.Threading;
 using System.Collections.Specialized;
-using ICSharpCode.SharpZipLib.Zip;
-using System.Security.Cryptography;
+
+
+using NewTrueSharpSwordAPI.Utilities;
 
 namespace NewTrueSharpSwordAPI.Cache
 {
@@ -216,7 +217,7 @@ namespace NewTrueSharpSwordAPI.Cache
 				foreach(string Dir in this.ListOfCacheDirectories)
 				{
 					DirectoryInfo DI=new DirectoryInfo(Dir);
-					FindFilesInFolder("info.xml",DI,true,FCachedInfoFilesPaths,null);
+					zefUtilities.FindFilesInFolder("info.xml",DI,true,FCachedInfoFilesPaths,null);
 				}
 			}
 			catch(Exception e)
@@ -372,7 +373,10 @@ namespace NewTrueSharpSwordAPI.Cache
 			}
 		}
 
-
+		/// <summary>
+		/// Zählt alle Module im <see cref="CacheInfoDictionary"/>, die gecached sind
+		/// </summary>
+		/// <returns>Anzahl der Modul im Cache</returns>
 		public int CountCachedModuls()
 		{
 			try
@@ -451,8 +455,8 @@ namespace NewTrueSharpSwordAPI.Cache
 				foreach(string Dir in ListOfModulInputDirectories)
 				{
 					DirectoryInfo DI=new DirectoryInfo(Dir);
-					FindFilesInFolder("*.xml",DI,true,FIncomingModulPaths,null);
-					FindFilesInFolder("*.zip",DI,true,FIncomingModulPaths,null);
+					zefUtilities.FindFilesInFolder("*.xml",DI,true,FIncomingModulPaths,null);
+					zefUtilities.FindFilesInFolder("*.zip",DI,true,FIncomingModulPaths,null);
 				}
 			}
 			catch(Exception e)
@@ -593,11 +597,11 @@ namespace NewTrueSharpSwordAPI.Cache
 								if(Path.GetExtension(Sourcepath)==".zip")
 								{
 									// Zefania Modul aus zip entpacken
-									Finconsistent=!(CreateMD5Dir(GetZippedModulContent(Sourcepath))==Fmodulmd5);
+									Finconsistent=!(zefUtilities.CreateMD5Dir(zefUtilities.GetZippedModulContent(Sourcepath))==Fmodulmd5);
 								}
 								else
 								{
-									Finconsistent=!(CreateMD5Dir(File.OpenRead(Sourcepath))==Fmodulmd5);
+									Finconsistent=!(zefUtilities.CreateMD5Dir(File.OpenRead(Sourcepath))==Fmodulmd5);
 								}
 							}
 						}
@@ -632,66 +636,6 @@ namespace NewTrueSharpSwordAPI.Cache
 			public void reset2Orphaned()
 			{
 				Forphaned=true;
-			}
-
-			/// <summary>
-			/// Diese Methode berechnet aus dem Zefania XML Bibelmodul einen MD5-Hashwert, der als Verzeichnisname
-			/// für das in Bibelbücher(Kapitel) zerlegte Zefania XML Bibelmodul dient.
-			/// </summary>
-			/// <returns>
-			///   MD5-Hashwert des Zefania XML Bibelmoduls.
-			/// </returns>
-			private string CreateMD5Dir(Stream fs)
-			{
-				//FileStream fs = File.Open(Path);
-
-				try
-				{
-					MD5CryptoServiceProvider cryptHandler;
-					cryptHandler = new MD5CryptoServiceProvider();
-					byte[] hash = cryptHandler.ComputeHash(fs);
-					string ret = "";
-					foreach (byte a in hash) 
-					{
-						if (a<16)
-							ret += "0" + a.ToString ("x");
-						else
-							ret += a.ToString ("x");
-					}
-					return ret ;
-				}
-				catch(Exception e)
-				{
-					return e.Message;
-				}
-			}
-
-			/// <summary>
-			/// Extrahiert ein Zefania XML Modul aus einem zip-archiv
-			/// </summary>
-			/// <param name="ModulPath">Pfade zur zip-datei</param>
-			/// <returns>Zefania XML Modul als Stream.</returns>
-			private ZipInputStream GetZippedModulContent(string ModulPath)
-			{
-				ZipEntry theEntry;
-
-				try
-				{
-					ZipInputStream s = new ZipInputStream(File.OpenRead(ModulPath));
-					while ((theEntry=s.GetNextEntry())!= null) 
-					{
-						if(theEntry.Size>40000)
-						{
-							return s;
-						}	
-					}
-					return null;
-				}
-
-				catch(Exception e)
-				{
-					return null;
-				}
 			}
 
 			// end methoden
@@ -796,7 +740,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			public class CacheInfoItemDictionary : DictionaryBase 
 		{   //strongly typed accessor 
 			public CacheInfoItem this[string key]
-			{
+			{  /// Als Key nehmen wir den Sourcepath des Moduls
 				get {return (CacheInfoItem) this.Dictionary[key]; }
 
 				set { this.Dictionary[key] = value; } 
@@ -825,58 +769,6 @@ namespace NewTrueSharpSwordAPI.Cache
 		}// end CacheInfoItemCollection
 		//
 
-		// begin find files
-
-		/* Delegate für eine Fortschrittsmeldung */
-
-		public delegate void FindProgress(string folderName);
-
-		/* Methode zum Suchen von Dateien in einem Ordner */
-		private static StringCollection FindFiles(string folderName,
-			string searchPattern, bool recurse, FindProgress findProgress)
-		{
-			// StringCollection-Objekt für die Rückgabe erzeugen
-			StringCollection resultFiles =  new StringCollection();
-
-			// DirectoryInfo-Objekt für den Ordner erzeugen
-			DirectoryInfo folder = new DirectoryInfo(folderName);
-
-			// Die rekursive Methode zum Suchen in einem Ordner aufrufen
-			FindFilesInFolder(searchPattern, folder, recurse, resultFiles, 
-				findProgress);
-
-			// StringCollection zurückgeben
-			return resultFiles;
-		}
-
-		/* Rekursive Methode zum Suchen von Dateien */
-		private static void FindFilesInFolder(string searchPattern, 
-			DirectoryInfo folder, bool recurse, StringCollection resultFiles,
-			FindProgress findProgress)
-		{
-			// Delegate aufrufen, falls dieser übergeben wurde
-			if (findProgress != null)
-				findProgress(folder.FullName); 
-
-			// Zunächst für alle Unterordner FindFilesInFolder rekursiv aufrufen, 
-			// wenn dies gewünscht ist
-			if (recurse)
-			{
-				DirectoryInfo[] subFolders = folder.GetDirectories();
-				for (int i = 0; i < subFolders.Length; i++)
-					FindFilesInFolder(searchPattern, subFolders[i], true, resultFiles,
-						findProgress);
-			}
-
-			// Alle Dateien ermitteln, die dem übergebenen Suchmuster entsprechen 
-			FileInfo[] files = folder.GetFiles(searchPattern);
-
-			// Die gefundenen Dateien durchgehen und deren vollen Namen an die
-			// StringCollection anhängen
-			for (int i = 0; i < files.Length; i++)
-				resultFiles.Add(files[i].FullName);
-		}
-
-		// end find files
+		
 	}
 }

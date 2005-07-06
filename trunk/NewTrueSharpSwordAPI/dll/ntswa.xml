@@ -89,15 +89,6 @@
             </remarks>
             <param name="pathToZefaniaModul">Dateipfad zu einem Zefania XML Bibelmodul</param>
         </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CreateMD5Dir(System.IO.Stream)">
-            <summary>
-            Diese Methode berechnet aus dem Zefania XML Bibelmodul einen MD5-Hashwert, der als Verzeichnisname
-            für das in Bibelbücher(Kapitel) zerlegte Zefania XML Bibelmodul dient.
-            </summary>
-            <returns>
-              MD5-Hashwert des Zefania XML Bibelmoduls.
-            </returns>
-        </member>
         <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CreateCacheBooks(System.Boolean)">
              <summary>
               Diese Methode erstellt den Cache für das Zefania XML Bibelmodul; Das Modul wird in einzelne Bibelbücher zerlegt.
@@ -111,13 +102,6 @@
             </summary>
             <remarks>Zerlegt ein Zefania XML Bibelmodul in einzelne Bibelkapitel; Sollte der Cache schon existieren wird er zuerst gelöscht.</remarks>
             <param name="zippedCache">Wenn zippedCache = true, werden die Bibelkapitel gezipped.</param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.GetZippedModulContent(System.String)">
-            <summary>
-            Extrahiert ein Zefania XML Modul aus einem zip-archiv
-            </summary>
-            <param name="ModulPath">Pfade zur zip-datei</param>
-            <returns>Zefania XML Modul als Stream.</returns>
         </member>
         <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CreateDefaultTree">
             <summary>
@@ -303,6 +287,12 @@
             </summary>
             <param name="SourcePath"></param>
         </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CountCachedModuls">
+            <summary>
+            Zählt alle Module im <see cref="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoDictionary"/>, die gecached sind
+            </summary>
+            <returns>Anzahl der Modul im Cache</returns>
+        </member>
         <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.DeleteCacheBySourcePath(System.String)">
             <summary>
             Löscht einen Cache anhand des Sourcepfad des Moduls
@@ -340,22 +330,6 @@
              Diese Hilfsklasse speichert alle wichtigen Infos über Module.
              <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/>
             </summary>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.CreateMD5Dir(System.IO.Stream)">
-            <summary>
-            Diese Methode berechnet aus dem Zefania XML Bibelmodul einen MD5-Hashwert, der als Verzeichnisname
-            für das in Bibelbücher(Kapitel) zerlegte Zefania XML Bibelmodul dient.
-            </summary>
-            <returns>
-              MD5-Hashwert des Zefania XML Bibelmoduls.
-            </returns>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.GetZippedModulContent(System.String)">
-            <summary>
-            Extrahiert ein Zefania XML Modul aus einem zip-archiv
-            </summary>
-            <param name="ModulPath">Pfade zur zip-datei</param>
-            <returns>Zefania XML Modul als Stream.</returns>
         </member>
         <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary">
             <summary>
@@ -587,6 +561,27 @@
             <summary>
             Gibt die Versionsnummer der zefMapNames-Klasse zurück.
             </summary>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Utilities.zefUtilities">
+            <summary>
+            zefUtilities enthält Methoden, die allgemein in den verschiedenen Klassen der API verwendbar sind.
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Utilities.zefUtilities.CreateMD5Dir(System.IO.Stream)">
+            <summary>
+            Diese Methode berechnet aus dem Zefania XML Bibelmodul einen MD5-Hashwert, der als Verzeichnisname
+            für das in Bibelbücher(Kapitel) zerlegte Zefania XML Bibelmodul dient.
+            </summary>
+            <returns>
+              MD5-Hashwert des Zefania XML Bibelmoduls.
+            </returns>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Utilities.zefUtilities.GetZippedModulContent(System.String)">
+            <summary>
+            Extrahiert eine Datei aus einem zip-archiv
+            </summary>
+            <param name="ModulPath">Pfade zur zip-datei</param>
+            <returns>Zefania XML Modul als Stream.</returns>
         </member>
     </members>
 </doc>

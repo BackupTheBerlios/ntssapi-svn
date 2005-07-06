@@ -7,6 +7,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Data;
 using System.Text;
 
+using NewTrueSharpSwordAPI.Utilities;
 
 namespace NewTrueSharpSwordAPI.Cache
 {
@@ -303,39 +304,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			//
 			BaseCacheDir=Environment.GetFolderPath(System.Environment.SpecialFolder.CommonApplicationData);
 		}
-		/// <summary>
-		/// Diese Methode berechnet aus dem Zefania XML Bibelmodul einen MD5-Hashwert, der als Verzeichnisname
-		/// für das in Bibelbücher(Kapitel) zerlegte Zefania XML Bibelmodul dient.
-		/// </summary>
-		/// <returns>
-		///   MD5-Hashwert des Zefania XML Bibelmoduls.
-		/// </returns>
-		private string CreateMD5Dir(Stream fs)
-		{
-
-			//FileStream fs = File.Open(Path);
-
-			try
-			{
-				MD5CryptoServiceProvider cryptHandler;
-				cryptHandler = new MD5CryptoServiceProvider();
-				byte[] hash = cryptHandler.ComputeHash(fs);
-				string ret = "";
-				foreach (byte a in hash) 
-				{
-					if (a<16)
-						ret += "0" + a.ToString ("x");
-					else
-						ret += a.ToString ("x");
-				}
-				return ret ;
-			}
-			catch(Exception e)
-			{
-				return e.Message;
-			}
-
-		}
+		
 
 		/// <summary>
 		///  Diese Methode erstellt den Cache für das Zefania XML Bibelmodul; Das Modul wird in einzelne Bibelbücher zerlegt.
@@ -365,14 +334,14 @@ namespace NewTrueSharpSwordAPI.Cache
 				if(Path.GetExtension(ModulPath)==".zip")
 				{
 
-					ModulReader=new XmlTextReader(GetZippedModulContent(ModulPath));
-					ModulCacheDir=CreateMD5Dir(GetZippedModulContent(ModulPath));
+					ModulReader=new XmlTextReader(zefUtilities.GetZippedModulContent(ModulPath));
+					ModulCacheDir=zefUtilities.CreateMD5Dir(zefUtilities.GetZippedModulContent(ModulPath));
 				}
 				else
 				{
 
 					ModulReader=new XmlTextReader(ModulPath);
-					ModulCacheDir=CreateMD5Dir(File.OpenRead(ModulPath));
+					ModulCacheDir=zefUtilities.CreateMD5Dir(File.OpenRead(ModulPath));
 
 				}
 
@@ -582,15 +551,15 @@ namespace NewTrueSharpSwordAPI.Cache
 				if(Path.GetExtension(ModulPath)==".zip")
 				{
 
-					ModulReader=new XmlTextReader(GetZippedModulContent(ModulPath));
-					ModulCacheDir=CreateMD5Dir(GetZippedModulContent(ModulPath));
+					ModulReader=new XmlTextReader(zefUtilities.GetZippedModulContent(ModulPath));
+					ModulCacheDir=zefUtilities.CreateMD5Dir(zefUtilities.GetZippedModulContent(ModulPath));
 				}
 				else
 				{
 
 					ModulReader=new XmlTextReader(ModulPath);
 					
-					ModulCacheDir=CreateMD5Dir(File.OpenRead(ModulPath));
+					ModulCacheDir=zefUtilities.CreateMD5Dir(File.OpenRead(ModulPath));
 
 				}
                 
@@ -772,45 +741,6 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			}
 		}// end CreateCacheBooks()
-
-
-		/// <summary>
-		/// Extrahiert ein Zefania XML Modul aus einem zip-archiv
-		/// </summary>
-		/// <param name="ModulPath">Pfade zur zip-datei</param>
-		/// <returns>Zefania XML Modul als Stream.</returns>
-		private ZipInputStream GetZippedModulContent(string ModulPath)
-		{
-
-
-			ZipEntry theEntry;
-
-
-			try
-			{
-
-				ZipInputStream s = new ZipInputStream(File.OpenRead(ModulPath));
-				while ((theEntry=s.GetNextEntry())!= null) 
-				{
-
-					if(theEntry.Size>40000)
-					{
-
-						return s;
-
-					}	
-
-				}
-				return null;
-			}
-
-			catch(Exception e)
-			{
-
-				return null;
-			}
-		}
-
 
 
 		/// <summary>
