@@ -304,7 +304,7 @@ div.sample div.contents a.documentation {
    background-color: #FFD;
    color: #069;
 }
-   /* Invert colors when hovering over link to open up window
+   /* Invert colors when hovering over link to open up window 
       displaying documentation */
 div.sample div.contents a.documentation:hover {
    color: #FFD;
@@ -387,7 +387,7 @@ var windowCount = 0;
 
 /**
  * Returns an element in the current HTML document.
- *
+ * 
  * @param elementID Identifier of HTML element
  * @return               HTML element object
  */
@@ -397,11 +397,11 @@ function getElementObject(elementID) {
         elemObj = document.getElementById(elementID);
     }
     return elemObj;
-}
+}             
 
 /**
  * Closes a collapseable box.
- *
+ * 
  * @param boxObj       Collapseable box
  * @param buttonObj Button controlling box
  */
@@ -412,7 +412,7 @@ function closeBox(boxObj, buttonObj) {
      // Change 'display' CSS property of box
      boxObj.style.display="none";
 
-     // Change text of button
+     // Change text of button 
      if (boxObj.style.display=="none") {
         buttonObj.value=" + ";
      }
@@ -421,7 +421,7 @@ function closeBox(boxObj, buttonObj) {
 
 /**
  * Opens a collapseable box.
- *
+ * 
  * @param boxObj       Collapseable box
  * @param buttonObj Button controlling box
  */
@@ -441,7 +441,7 @@ function openBox(boxObj, buttonObj) {
 
 /**
  * Sets the state of a collapseable box.
- *
+ * 
  * @param boxID Identifier of box
  * @param open If true, box is "opened",
  *             Otherwise, box is "closed".
@@ -465,7 +465,7 @@ function setState(boxID, open) {
 /**
  * Switches the state of a collapseable box, e.g.
  * if it's opened, it'll be closed, and vice versa.
- *
+ * 
  * @param boxID Identifier of box
  */
 function switchState(boxID) {
@@ -484,7 +484,7 @@ function switchState(boxID) {
 
 /**
  * Closes all boxes in a given list.
- *
+ * 
  * @param boxList Array of box IDs
  */
 function collapseAll(boxList) {
@@ -498,7 +498,7 @@ function collapseAll(boxList) {
 
 /**
  * Open all boxes in a given list.
- *
+ * 
  * @param boxList Array of box IDs
  */
 function expandAll(boxList) {
@@ -512,7 +512,7 @@ function expandAll(boxList) {
 
 /**
  * Makes all the control buttons of boxes appear.
- *
+ * 
  * @param boxList Array of box IDs
  */
 function viewControlButtons(boxList) {
@@ -527,7 +527,7 @@ function viewControlButtons(boxList) {
 
 /**
  * Makes all the control buttons of boxes disappear.
- *
+ * 
  * @param boxList Array of box IDs
  */
 function hideControlButtons(boxList) {
@@ -547,7 +547,7 @@ function hideControlButtons(boxList) {
  * In viewing mode, the page is more browsable.
  *
  * @param isPrinterVersion If true, display in
- *                                 printing mode; otherwise,
+ *                                 printing mode; otherwise, 
  *                                 in viewing mode
  */
 function displayMode(isPrinterVersion) {
@@ -625,10 +625,10 @@ function displayMode(isPrinterVersion) {
  * Opens up a window displaying the documentation
  * of a schema component in the XML Instance
  * Representation table.
- *
- * @param compDesc      Description of schema component
- * @param compName      Name of schema component
- * @param docTextArray Array containing the paragraphs
+ * 
+ * @param compDesc      Description of schema component 
+ * @param compName      Name of schema component 
+ * @param docTextArray Array containing the paragraphs 
  *                           of the new document
  */
 function viewDocumentation(compDesc, compName, docTextArray) {
@@ -683,7 +683,7 @@ var pc = getElementObject("printerControls");
 if (pc != null) {
    pc.style.display="block";
 }
-
+               
 // -->
 </script>
 <div id="globalControls" style="display:none">
@@ -699,7 +699,7 @@ var gc = getElementObject("globalControls");
 if (gc != null) {
    gc.style.display="block";
 }
-
+               
 // -->
 </script>
 </div>
@@ -837,7 +837,7 @@ setState('schema_scbox', false);
 <tr xmlns="">
 <th>Diagram</th>
 <td>
-<img src="http://code-off.de/xmlbible/lexika/schema/docu/images/element_dictionary.jpg" />
+<img src="images\element_dictionary.jpg" />
 </td>
 </tr>
 </table>
@@ -846,7 +846,7 @@ setState('schema_scbox', false);
 <input type="button" id="element_dictionary_xibox_button" class="control" onclick="switchState('element_dictionary_xibox'); return false;" style="display: none" /> <span class="caption">XML Instance Representation</span>
 </div>
 <div id="element_dictionary_xibox" class="contents">
-<div style="margin-left: 0em">&lt;dictionary<br /><span style="margin-left: 0.5em"> type="<span class="type"><a title="Jump to &quot;TEnumDicType&quot; type definition." href="#type_TEnumDicType">TEnumDicType</a></span> <span class="occurs">[1]</span>"</span><br /><span style="margin-left: 0.5em"> refbible="<span class="type">anysimpletype</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> revision="<span class="type">anysimpletype</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> dicversion="<span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> <span class="occurs">[1]</span>"</span>&gt; <br /><span class="group" style="margin-left: 1.5em">Start Choice <span class="occurs">[1..*]</span></span><br /><div style="margin-left: 3em">&lt;item&gt; <span class="type"><a title="Jump to &quot;TItem&quot; type definition." href="#type_TItem">TItem</a></span> &lt;/item&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;INFORMATION&gt; <span class="type"><a title="Jump to &quot;TINFORMATION&quot; type definition." href="#type_TINFORMATION">TINFORMATION</a></span> &lt;/INFORMATION&gt; <span class="occurs">[1]</span></div><span class="group" style="margin-left: 1.5em">End Choice</span><br />&lt;/dictionary&gt;</div>
+<div style="margin-left: 0em">&lt;dictionary<br /><span style="margin-left: 0.5em"> type="<span class="type"><a title="Jump to &quot;TEnumDicType&quot; type definition." href="#type_TEnumDicType">TEnumDicType</a></span> <span class="occurs">[1]</span>"</span><br /><span style="margin-left: 0.5em"> refbible="<span class="type">anySimpleType</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> revision="<span class="type">anySimpleType</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> dicversion="<span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> <span class="occurs">[1]</span>"</span>&gt; <br /><span class="group" style="margin-left: 1.5em">Start Choice <span class="occurs">[1..*]</span></span><br /><div style="margin-left: 3em">&lt;item&gt; <span class="type"><a title="Jump to &quot;TItem&quot; type definition." href="#type_TItem">TItem</a></span> &lt;/item&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;INFORMATION&gt; <span class="type"><a title="Jump to &quot;TINFORMATION&quot; type definition." href="#type_TINFORMATION">TINFORMATION</a></span> &lt;/INFORMATION&gt; <span class="occurs">[1]</span></div><span class="group" style="margin-left: 1.5em">End Choice</span><br />&lt;/dictionary&gt;</div>
 </div>
 <script type="text/javascript">
 <!--
@@ -907,7 +907,7 @@ setState('element_dictionary_scbox', false);
 <tr xmlns="">
 <th>Diagram</th>
 <td>
-<img src="http://code-off.de/xmlbible/lexika/schema/docu/images/element_description.jpg" />
+<img src="images\element_description.jpg" />
 </td>
 </tr>
 </table>
@@ -977,7 +977,7 @@ setState('element_description_scbox', false);
 <tr xmlns="">
 <th>Diagram</th>
 <td>
-<img src="http://code-off.de/xmlbible/lexika/schema/docu/images/element_paragraph.jpg" />
+<img src="images\element_paragraph.jpg" />
 </td>
 </tr>
 </table>
@@ -986,7 +986,7 @@ setState('element_description_scbox', false);
 <input type="button" id="element_paragraph_xibox_button" class="control" onclick="switchState('element_paragraph_xibox'); return false;" style="display: none" /> <span class="caption">XML Instance Representation</span>
 </div>
 <div id="element_paragraph_xibox" class="contents">
-<div style="margin-left: 0em">&lt;paragraph&gt; <br /><span class="other" style="margin-left: 1.5em">&lt;!-- Mixed content --&gt;</span><br /><span class="group" style="margin-left: 1.5em">Start Choice <span class="occurs">[0..*]</span></span><br /><div style="margin-left: 3em">&lt;paragraph&gt; <span class="type"><a title="Jump to &quot;TParagraph&quot; type definition." href="#type_TParagraph">TParagraph</a></span> &lt;/paragraph&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;content&gt; <span class="type"><a title="Jump to &quot;TContent&quot; type definition." href="#type_TContent">TContent</a></span> &lt;/content&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;title&gt; ... &lt;/title&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;reflink<br /><span style="margin-left: 0.5em"> mscope="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;see<br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TTarget&quot; type definition." href="#type_TTarget">TTarget</a></span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;transliteration&gt; ... &lt;/transliteration&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;pronunciation/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;STYLE&gt; <span class="type"><a title="Jump to &quot;TStyle&quot; type definition." href="#type_TStyle">TStyle</a></span> &lt;/STYLE&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;br&gt; ... &lt;/br&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;greek&gt; ... &lt;/greek&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;strong_id&gt; ... &lt;/strong_id&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;bib_link<br /><span style="margin-left: 0.5em"> bn="<span class="type">anysimpletype</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> cn1="<span class="type">anysimpletype</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> vn1="<span class="type">anysimpletype</span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;sub&gt; ... &lt;/sub&gt; <span class="occurs">[1]</span></div><span class="group" style="margin-left: 1.5em">End Choice</span><br />&lt;/paragraph&gt;</div>
+<div style="margin-left: 0em">&lt;paragraph<br /><span style="margin-left: 0.5em"> ID="<span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> <span class="occurs">[0..1]</span>"</span>&gt; <br /><span class="other" style="margin-left: 1.5em">&lt;!-- Mixed content --&gt;</span><br /><span class="group" style="margin-left: 1.5em">Start Choice <span class="occurs">[0..*]</span></span><br /><div style="margin-left: 3em">&lt;paragraph&gt; <span class="type"><a title="Jump to &quot;TParagraph&quot; type definition." href="#type_TParagraph">TParagraph</a></span> &lt;/paragraph&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;content&gt; <span class="type"><a title="Jump to &quot;TContent&quot; type definition." href="#type_TContent">TContent</a></span> &lt;/content&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;title&gt; ... &lt;/title&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;reflink<br /><span style="margin-left: 0.5em"> mscope="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;see<br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TTarget&quot; type definition." href="#type_TTarget">TTarget</a></span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;transliteration&gt; ... &lt;/transliteration&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;pronunciation/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;STYLE&gt; <span class="type"><a title="Jump to &quot;TStyle&quot; type definition." href="#type_TStyle">TStyle</a></span> &lt;/STYLE&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;br&gt; ... &lt;/br&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;greek&gt; ... &lt;/greek&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;strong_id&gt; ... &lt;/strong_id&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;bib_link<br /><span style="margin-left: 0.5em"> bn="<span class="type">anySimpleType</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> cn1="<span class="type">anySimpleType</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> vn1="<span class="type">anySimpleType</span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;sub&gt; ... &lt;/sub&gt; <span class="occurs">[1]</span></div><span class="group" style="margin-left: 1.5em">End Choice</span><br />&lt;/paragraph&gt;</div>
 </div>
 <script type="text/javascript">
 <!--
@@ -1031,7 +1031,7 @@ setState('element_paragraph_scbox', false);
 <tr xmlns="">
 <th>Diagram</th>
 <td>
-<img src="http://code-off.de/xmlbible/lexika/schema/docu/images/element_see.jpg" />
+<img src="images\element_see.jpg" />
 </td>
 </tr>
 </table>
@@ -1087,7 +1087,7 @@ setState('element_see_scbox', false);
 <tr xmlns="">
 <th>Diagram</th>
 <td>
-<img src="http://code-off.de/xmlbible/lexika/schema/docu/images/complextype_TItem.jpg" />
+<img src="images\complexType_TItem.jpg" />
 </td>
 </tr>
 </table>
@@ -1096,7 +1096,7 @@ setState('element_see_scbox', false);
 <input type="button" id="type_TItem_xibox_button" class="control" onclick="switchState('type_TItem_xibox'); return false;" style="display: none" /> <span class="caption">XML Instance Representation</span>
 </div>
 <div id="type_TItem_xibox" class="contents">
-<div style="margin-left: 0em">&lt;...<br /><span style="margin-left: 0.5em"> id="<span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span>&gt; <br /><span class="other" style="margin-left: 1.5em">&lt;!-- Mixed content --&gt;</span><br /><span class="group" style="margin-left: 1.5em">Start Choice <span class="occurs">[1..*]</span></span><br /><div style="margin-left: 3em">&lt;paragraph&gt; <span class="type"><a title="Jump to &quot;TParagraph&quot; type definition." href="#type_TParagraph">TParagraph</a></span> &lt;/paragraph&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;reflink<br /><span style="margin-left: 0.5em"> mscope="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;see<br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TTarget&quot; type definition." href="#type_TTarget">TTarget</a></span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;strong_id&gt; <span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> &lt;/strong_id&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;title&gt; ... &lt;/title&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;transliteration&gt; ... &lt;/transliteration&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;pronunciation&gt; ... &lt;/pronunciation&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;br&gt; ... &lt;/br&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;bib_link<br /><span style="margin-left: 0.5em"> bn="<span class="type">anysimpletype</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> cn1="<span class="type">anysimpletype</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> vn1="<span class="type">anysimpletype</span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;STYLE<br /><span style="margin-left: 0.5em"> css="<span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> <span class="occurs">[1]</span>"</span><br /><span style="margin-left: 0.5em"> ID="<span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><span class="group" style="margin-left: 1.5em">End Choice</span><br />&lt;/...&gt;</div>
+<div style="margin-left: 0em">&lt;...<br /><span style="margin-left: 0.5em"> id="<span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span>&gt; <br /><span class="other" style="margin-left: 1.5em">&lt;!-- Mixed content --&gt;</span><br /><span class="group" style="margin-left: 1.5em">Start Choice <span class="occurs">[1..*]</span></span><br /><div style="margin-left: 3em">&lt;paragraph&gt; <span class="type"><a title="Jump to &quot;TParagraph&quot; type definition." href="#type_TParagraph">TParagraph</a></span> &lt;/paragraph&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;reflink<br /><span style="margin-left: 0.5em"> mscope="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;see<br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TTarget&quot; type definition." href="#type_TTarget">TTarget</a></span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;strong_id&gt; <span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> &lt;/strong_id&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;title&gt; ... &lt;/title&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;transliteration&gt; ... &lt;/transliteration&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;pronunciation&gt; ... &lt;/pronunciation&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;br&gt; ... &lt;/br&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;bib_link<br /><span style="margin-left: 0.5em"> bn="<span class="type">anySimpleType</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> cn1="<span class="type">anySimpleType</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> vn1="<span class="type">anySimpleType</span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;STYLE<br /><span style="margin-left: 0.5em"> css="<span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> <span class="occurs">[1]</span>"</span><br /><span style="margin-left: 0.5em"> ID="<span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><span class="group" style="margin-left: 1.5em">End Choice</span><br />&lt;/...&gt;</div>
 </div>
 <script type="text/javascript">
 <!--
@@ -1143,7 +1143,7 @@ setState('type_TItem_scbox', false);
 <tr xmlns="">
 <th>Diagram</th>
 <td>
-<img src="http://code-off.de/xmlbible/lexika/schema/docu/images/complextype_TParagraph.jpg" />
+<img src="images\complexType_TParagraph.jpg" />
 </td>
 </tr>
 </table>
@@ -1152,7 +1152,7 @@ setState('type_TItem_scbox', false);
 <input type="button" id="type_TParagraph_xibox_button" class="control" onclick="switchState('type_TParagraph_xibox'); return false;" style="display: none" /> <span class="caption">XML Instance Representation</span>
 </div>
 <div id="type_TParagraph_xibox" class="contents">
-<div style="margin-left: 0em">&lt;...&gt; <br /><span class="other" style="margin-left: 1.5em">&lt;!-- Mixed content --&gt;</span><br /><span class="group" style="margin-left: 1.5em">Start Choice <span class="occurs">[0..*]</span></span><br /><div style="margin-left: 3em">&lt;paragraph&gt; <span class="type"><a title="Jump to &quot;TParagraph&quot; type definition." href="#type_TParagraph">TParagraph</a></span> &lt;/paragraph&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;content&gt; <span class="type"><a title="Jump to &quot;TContent&quot; type definition." href="#type_TContent">TContent</a></span> &lt;/content&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;title&gt; ... &lt;/title&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;reflink<br /><span style="margin-left: 0.5em"> mscope="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;see<br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TTarget&quot; type definition." href="#type_TTarget">TTarget</a></span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;transliteration&gt; ... &lt;/transliteration&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;pronunciation/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;STYLE&gt; <span class="type"><a title="Jump to &quot;TStyle&quot; type definition." href="#type_TStyle">TStyle</a></span> &lt;/STYLE&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;br&gt; ... &lt;/br&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;greek&gt; ... &lt;/greek&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;strong_id&gt; ... &lt;/strong_id&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;bib_link<br /><span style="margin-left: 0.5em"> bn="<span class="type">anysimpletype</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> cn1="<span class="type">anysimpletype</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> vn1="<span class="type">anysimpletype</span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;sub&gt; ... &lt;/sub&gt; <span class="occurs">[1]</span></div><span class="group" style="margin-left: 1.5em">End Choice</span><br />&lt;/...&gt;</div>
+<div style="margin-left: 0em">&lt;...<br /><span style="margin-left: 0.5em"> ID="<span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> <span class="occurs">[0..1]</span>"</span>&gt; <br /><span class="other" style="margin-left: 1.5em">&lt;!-- Mixed content --&gt;</span><br /><span class="group" style="margin-left: 1.5em">Start Choice <span class="occurs">[0..*]</span></span><br /><div style="margin-left: 3em">&lt;paragraph&gt; <span class="type"><a title="Jump to &quot;TParagraph&quot; type definition." href="#type_TParagraph">TParagraph</a></span> &lt;/paragraph&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;content&gt; <span class="type"><a title="Jump to &quot;TContent&quot; type definition." href="#type_TContent">TContent</a></span> &lt;/content&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;title&gt; ... &lt;/title&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;reflink<br /><span style="margin-left: 0.5em"> mscope="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;see<br /><span style="margin-left: 0.5em"> target="<span class="type"><a title="Jump to &quot;TTarget&quot; type definition." href="#type_TTarget">TTarget</a></span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;transliteration&gt; ... &lt;/transliteration&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;pronunciation/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;STYLE&gt; <span class="type"><a title="Jump to &quot;TStyle&quot; type definition." href="#type_TStyle">TStyle</a></span> &lt;/STYLE&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;br&gt; ... &lt;/br&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;greek&gt; ... &lt;/greek&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;strong_id&gt; ... &lt;/strong_id&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;bib_link<br /><span style="margin-left: 0.5em"> bn="<span class="type">anySimpleType</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> cn1="<span class="type">anySimpleType</span> <span class="occurs">[0..1]</span>"</span><br /><span style="margin-left: 0.5em"> vn1="<span class="type">anySimpleType</span> <span class="occurs">[0..1]</span>"</span>/&gt;  <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;sub&gt; ... &lt;/sub&gt; <span class="occurs">[1]</span></div><span class="group" style="margin-left: 1.5em">End Choice</span><br />&lt;/...&gt;</div>
 </div>
 <script type="text/javascript">
 <!--
@@ -1165,7 +1165,7 @@ setState('type_TParagraph_xibox', true);
 <input type="button" id="type_TParagraph_scbox_button" class="control" onclick="switchState('type_TParagraph_scbox'); return false;" style="display: none" /> <span class="caption">Schema Component Representation</span>
 </div>
 <div id="type_TParagraph_scbox" class="contents">
-<div style="margin-left: 0em">&lt;<span class="scTag">xsd:complexType</span> <span class="scTag">name</span>="<span class="scContent">TParagraph</span>" <span class="scTag">mixed</span>="<span class="scContent">true</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:choice</span> <span class="scTag">minOccurs</span>="<span class="scContent">0</span>" <span class="scTag">maxOccurs</span>="<span class="scContent">unbounded</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">paragraph</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a title="Jump to &quot;TParagraph&quot; type definition." href="#type_TParagraph">TParagraph</a></span></span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">content</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a title="Jump to &quot;TContent&quot; type definition." href="#type_TContent">TContent</a></span></span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">title</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">reflink</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:complexType</span> <span class="scTag">mixed</span>="<span class="scContent">true</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">mscope</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span></span>" <span class="scTag">use</span>="<span class="scContent">optional</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">target</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span></span>"/&gt;</div>&lt;/<span class="scTag">xsd:complexType</span>&gt;</div>&lt;/<span class="scTag">xsd:element</span>&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">see</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:complexType</span> <span class="scTag">mixed</span>="<span class="scContent">true</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">target</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a title="Jump to &quot;TTarget&quot; type definition." href="#type_TTarget">TTarget</a></span></span>"/&gt;</div>&lt;/<span class="scTag">xsd:complexType</span>&gt;</div>&lt;/<span class="scTag">xsd:element</span>&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">transliteration</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">pronunciation</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:complexType</span>/&gt;</div>&lt;/<span class="scTag">xsd:element</span>&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">STYLE</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a title="Jump to &quot;TStyle&quot; type definition." href="#type_TStyle">TStyle</a></span></span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">br</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">greek</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">strong_id</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">bib_link</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:complexType</span>&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">bn</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">cn1</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">vn1</span>"/&gt;</div>&lt;/<span class="scTag">xsd:complexType</span>&gt;</div>&lt;/<span class="scTag">xsd:element</span>&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">sub</span>"/&gt;</div>&lt;/<span class="scTag">xsd:choice</span>&gt;</div>&lt;/<span class="scTag">xsd:complexType</span>&gt;</div>
+<div style="margin-left: 0em">&lt;<span class="scTag">xsd:complexType</span> <span class="scTag">name</span>="<span class="scContent">TParagraph</span>" <span class="scTag">mixed</span>="<span class="scContent">true</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:choice</span> <span class="scTag">minOccurs</span>="<span class="scContent">0</span>" <span class="scTag">maxOccurs</span>="<span class="scContent">unbounded</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">paragraph</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a title="Jump to &quot;TParagraph&quot; type definition." href="#type_TParagraph">TParagraph</a></span></span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">content</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a title="Jump to &quot;TContent&quot; type definition." href="#type_TContent">TContent</a></span></span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">title</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">reflink</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:complexType</span> <span class="scTag">mixed</span>="<span class="scContent">true</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">mscope</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span></span>" <span class="scTag">use</span>="<span class="scContent">optional</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">target</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a title="Jump to &quot;TScope&quot; type definition." href="#type_TScope">TScope</a></span></span>"/&gt;</div>&lt;/<span class="scTag">xsd:complexType</span>&gt;</div>&lt;/<span class="scTag">xsd:element</span>&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">see</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:complexType</span> <span class="scTag">mixed</span>="<span class="scContent">true</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">target</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a title="Jump to &quot;TTarget&quot; type definition." href="#type_TTarget">TTarget</a></span></span>"/&gt;</div>&lt;/<span class="scTag">xsd:complexType</span>&gt;</div>&lt;/<span class="scTag">xsd:element</span>&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">transliteration</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">pronunciation</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:complexType</span>/&gt;</div>&lt;/<span class="scTag">xsd:element</span>&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">STYLE</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a title="Jump to &quot;TStyle&quot; type definition." href="#type_TStyle">TStyle</a></span></span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">br</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">greek</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">strong_id</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">bib_link</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:complexType</span>&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">bn</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">cn1</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">vn1</span>"/&gt;</div>&lt;/<span class="scTag">xsd:complexType</span>&gt;</div>&lt;/<span class="scTag">xsd:element</span>&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:element</span> <span class="scTag">name</span>="<span class="scContent">sub</span>"/&gt;</div>&lt;/<span class="scTag">xsd:choice</span>&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:attribute</span> <span class="scTag">name</span>="<span class="scContent">ID</span>" <span class="scTag">type</span>="<span class="scContent"><span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span></span>" <span class="scTag">use</span>="<span class="scContent">optional</span>"/&gt;</div>&lt;/<span class="scTag">xsd:complexType</span>&gt;</div>
 </div>
 <script type="text/javascript">
 <!--
@@ -1199,7 +1199,7 @@ setState('type_TParagraph_scbox', false);
 <tr xmlns="">
 <th>Diagram</th>
 <td>
-<img src="http://code-off.de/xmlbible/lexika/schema/docu/images/complextype_TContent.jpg" />
+<img src="images\complexType_TContent.jpg" />
 </td>
 </tr>
 </table>
@@ -1255,7 +1255,7 @@ setState('type_TContent_scbox', false);
 <tr xmlns="">
 <th>Diagram</th>
 <td>
-<img src="http://code-off.de/xmlbible/lexika/schema/docu/images/complextype_TINFORMATION.jpg" />
+<img src="images\complexType_TINFORMATION.jpg" />
 </td>
 </tr>
 </table>
@@ -1319,7 +1319,7 @@ setState('type_TINFORMATION_scbox', false);
 <tr xmlns="">
 <th>Diagram</th>
 <td>
-<img src="http://code-off.de/xmlbible/lexika/schema/docu/images/simpletype_TScope.jpg" />
+<img src="images\simpleType_TScope.jpg" />
 </td>
 </tr>
 </table>
@@ -1328,7 +1328,7 @@ setState('type_TINFORMATION_scbox', false);
 <input type="button" id="type_TScope_scbox_button" class="control" onclick="switchState('type_TScope_scbox'); return false;" style="display: none" /> <span class="caption">Schema Component Representation</span>
 </div>
 <div id="type_TScope_scbox" class="contents">
-<div style="margin-left: 0em">&lt;<span class="scTag">xsd:simpletype</span> <span class="scTag">name</span>="<span class="scContent">TScope</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:restriction</span> <span class="scTag">base</span>="<span class="scContent"><span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span></span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:pattern</span> <span class="scTag">value</span>="<span class="scContent">\d{1,3}-{0,1}\d{0,3};{0,3}\d{0,3}-{0,1}\d{0,3};{0,1}\d{0,3}-{0,1}\d{0,3}|XXX</span>"/&gt;</div>&lt;/<span class="scTag">xsd:restriction</span>&gt;</div>&lt;/<span class="scTag">xsd:simpletype</span>&gt;</div>
+<div style="margin-left: 0em">&lt;<span class="scTag">xsd:simpleType</span> <span class="scTag">name</span>="<span class="scContent">TScope</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:restriction</span> <span class="scTag">base</span>="<span class="scContent"><span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span></span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:pattern</span> <span class="scTag">value</span>="<span class="scContent">\d{1,3}-{0,1}\d{0,3};{0,3}\d{0,3}-{0,1}\d{0,3};{0,1}\d{0,3}-{0,1}\d{0,3}|XXX</span>"/&gt;</div>&lt;/<span class="scTag">xsd:restriction</span>&gt;</div>&lt;/<span class="scTag">xsd:simpleType</span>&gt;</div>
 </div>
 <script type="text/javascript">
 <!--
@@ -1362,7 +1362,7 @@ setState('type_TScope_scbox', false);
 <tr xmlns="">
 <th>Diagram</th>
 <td>
-<img src="http://code-off.de/xmlbible/lexika/schema/docu/images/complextype_TStyle.jpg" />
+<img src="images\complexType_TStyle.jpg" />
 </td>
 </tr>
 </table>
@@ -1371,7 +1371,7 @@ setState('type_TScope_scbox', false);
 <input type="button" id="type_TStyle_xibox_button" class="control" onclick="switchState('type_TStyle_xibox'); return false;" style="display: none" /> <span class="caption">XML Instance Representation</span>
 </div>
 <div id="type_TStyle_xibox" class="contents">
-<div style="margin-left: 0em">&lt;...<br /><span style="margin-left: 0.5em"> css="<span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> <span class="occurs">[1]</span>"</span><br /><span style="margin-left: 0.5em"> ID="<span class="type">anysimpletype</span> <span class="occurs">[0..1]</span>"</span>&gt; <br /><span class="other" style="margin-left: 1.5em">&lt;!-- Mixed content --&gt;</span><br /><span class="group" style="margin-left: 1.5em">Start Choice <span class="occurs">[0..*]</span></span><br /><div style="margin-left: 3em">&lt;STYLE&gt; <span class="type"><a title="Jump to &quot;TStyle&quot; type definition." href="#type_TStyle">TStyle</a></span> &lt;/STYLE&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;<a title="Jump to &quot;see&quot; element declaration." href="#element_see">see</a>&gt; ... &lt;/<a title="Jump to &quot;see&quot; element declaration." href="#element_see">see</a>&gt; <span class="occurs">[1]</span></div><span class="group" style="margin-left: 1.5em">End Choice</span><br />&lt;/...&gt;</div>
+<div style="margin-left: 0em">&lt;...<br /><span style="margin-left: 0.5em"> css="<span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span> <span class="occurs">[1]</span>"</span><br /><span style="margin-left: 0.5em"> ID="<span class="type">anySimpleType</span> <span class="occurs">[0..1]</span>"</span>&gt; <br /><span class="other" style="margin-left: 1.5em">&lt;!-- Mixed content --&gt;</span><br /><span class="group" style="margin-left: 1.5em">Start Choice <span class="occurs">[0..*]</span></span><br /><div style="margin-left: 3em">&lt;STYLE&gt; <span class="type"><a title="Jump to &quot;TStyle&quot; type definition." href="#type_TStyle">TStyle</a></span> &lt;/STYLE&gt; <span class="occurs">[1]</span></div><div style="margin-left: 3em">&lt;<a title="Jump to &quot;see&quot; element declaration." href="#element_see">see</a>&gt; ... &lt;/<a title="Jump to &quot;see&quot; element declaration." href="#element_see">see</a>&gt; <span class="occurs">[1]</span></div><span class="group" style="margin-left: 1.5em">End Choice</span><br />&lt;/...&gt;</div>
 </div>
 <script type="text/javascript">
 <!--
@@ -1419,14 +1419,14 @@ setState('type_TStyle_scbox', false);
 <ul><li>Base XSD Type: string</li></ul>
 <ul>
 <li>
-<em>pattern</em> = x-self|[A-z0-9]+</li>
+<em>pattern</em> = x-self|[A-z0-9]+|x-self-d</li>
 </ul>
 </td>
 </tr>
 <tr xmlns="">
 <th>Diagram</th>
 <td>
-<img src="http://code-off.de/xmlbible/lexika/schema/docu/images/simpletype_TTarget.jpg" />
+<img src="images\simpleType_TTarget.jpg" />
 </td>
 </tr>
 </table>
@@ -1435,7 +1435,7 @@ setState('type_TStyle_scbox', false);
 <input type="button" id="type_TTarget_scbox_button" class="control" onclick="switchState('type_TTarget_scbox'); return false;" style="display: none" /> <span class="caption">Schema Component Representation</span>
 </div>
 <div id="type_TTarget_scbox" class="contents">
-<div style="margin-left: 0em">&lt;<span class="scTag">xsd:simpletype</span> <span class="scTag">name</span>="<span class="scContent">TTarget</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:restriction</span> <span class="scTag">base</span>="<span class="scContent"><span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span></span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:pattern</span> <span class="scTag">value</span>="<span class="scContent">x-self|[A-z0-9]+</span>"/&gt;</div>&lt;/<span class="scTag">xsd:restriction</span>&gt;</div>&lt;/<span class="scTag">xsd:simpletype</span>&gt;</div>
+<div style="margin-left: 0em">&lt;<span class="scTag">xsd:simpleType</span> <span class="scTag">name</span>="<span class="scContent">TTarget</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:restriction</span> <span class="scTag">base</span>="<span class="scContent"><span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span></span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:pattern</span> <span class="scTag">value</span>="<span class="scContent">x-self|[A-z0-9]+|x-self-d</span>"/&gt;</div>&lt;/<span class="scTag">xsd:restriction</span>&gt;</div>&lt;/<span class="scTag">xsd:simpleType</span>&gt;</div>
 </div>
 <script type="text/javascript">
 <!--
@@ -1477,7 +1477,7 @@ setState('type_TTarget_scbox', false);
 <tr xmlns="">
 <th>Diagram</th>
 <td>
-<img src="http://code-off.de/xmlbible/lexika/schema/docu/images/simpletype_TEnumDicType.jpg" />
+<img src="images\simpleType_TEnumDicType.jpg" />
 </td>
 </tr>
 </table>
@@ -1486,7 +1486,7 @@ setState('type_TTarget_scbox', false);
 <input type="button" id="type_TEnumDicType_scbox_button" class="control" onclick="switchState('type_TEnumDicType_scbox'); return false;" style="display: none" /> <span class="caption">Schema Component Representation</span>
 </div>
 <div id="type_TEnumDicType_scbox" class="contents">
-<div style="margin-left: 0em">&lt;<span class="scTag">xsd:simpletype</span> <span class="scTag">name</span>="<span class="scContent">TEnumDicType</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:restriction</span> <span class="scTag">base</span>="<span class="scContent"><span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span></span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:enumeration</span> <span class="scTag">value</span>="<span class="scContent">x-dictionary</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:enumeration</span> <span class="scTag">value</span>="<span class="scContent">x-commentary</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:enumeration</span> <span class="scTag">value</span>="<span class="scContent">x-strong</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:enumeration</span> <span class="scTag">value</span>="<span class="scContent">x-daily</span>"/&gt;</div>&lt;/<span class="scTag">xsd:restriction</span>&gt;</div>&lt;/<span class="scTag">xsd:simpletype</span>&gt;</div>
+<div style="margin-left: 0em">&lt;<span class="scTag">xsd:simpleType</span> <span class="scTag">name</span>="<span class="scContent">TEnumDicType</span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:restriction</span> <span class="scTag">base</span>="<span class="scContent"><span class="type"><a href="#ns_xsd" title="Find out namespace of 'xsd' prefix">xsd</a>:string</span></span>"&gt;<div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:enumeration</span> <span class="scTag">value</span>="<span class="scContent">x-dictionary</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:enumeration</span> <span class="scTag">value</span>="<span class="scContent">x-commentary</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:enumeration</span> <span class="scTag">value</span>="<span class="scContent">x-strong</span>"/&gt;</div><div style="margin-left: 1.5em">&lt;<span class="scTag">xsd:enumeration</span> <span class="scTag">value</span>="<span class="scContent">x-daily</span>"/&gt;</div>&lt;/<span class="scTag">xsd:restriction</span>&gt;</div>&lt;/<span class="scTag">xsd:simpleType</span>&gt;</div>
 </div>
 <script type="text/javascript">
 <!--
