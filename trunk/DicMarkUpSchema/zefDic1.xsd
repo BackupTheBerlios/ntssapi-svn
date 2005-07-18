@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-	<!--Version 1.0.0.4-->
+	<!--Version 1.0.0.6-->
 
 	<xsd:element name="dictionary">
 		<xsd:complexType>
@@ -16,7 +16,7 @@
 			<xsd:attribute name="dicversion" type="xsd:string" use="required"/>
 		</xsd:complexType>
 	</xsd:element>
-		<!--<xsd:element name="description" substitutionGroup="paragraph"/>-->
+	<!--<xsd:element name="description" substitutionGroup="paragraph"/>-->
 	<xsd:element name="paragraph" type="TParagraph"/>
 	<xsd:element name="see">
 		<xsd:complexType mixed="true">
@@ -28,8 +28,21 @@
 			<xsd:element name="paragraph" type="TParagraph"/>
 			<xsd:element name="reflink">
 				<xsd:complexType mixed="true">
-					<xsd:attribute name="mscope" type="TScope"/>
-					<xsd:attribute name="target" type="TScope"/>
+					<xsd:attribute name="mscope" type="TScope">
+						<xsd:annotation>
+							<xsd:documentation>
+								<!--Eine Bibelstellangabe in sprachunabhängiger Form.-->
+								<!--http://forum.mybible.de/viewtopic.php?p=3495-->
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="target" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>
+								<!--Eine Bibelstellenangabe im Klartext.-->
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
 				</xsd:complexType>
 			</xsd:element>
 			<xsd:element name="see" maxOccurs="1">
@@ -55,9 +68,11 @@
 					<xsd:attribute name="ID" type="xsd:string"/>
 				</xsd:complexType>
 			</xsd:element>
-		<xsd:element name="description" type="TParagraph"/></xsd:choice>
+			<xsd:element name="description" type="TParagraph"/>
+		</xsd:choice>
 		<xsd:attribute name="id" use="optional" type="xsd:string"/>
 		<xsd:attribute name="target" type="TScope" use="optional"/>
+		<xsd:attribute name="mscope" type="TScope"/>
 	</xsd:complexType>
 	<xsd:complexType name="TParagraph" mixed="true">
 
@@ -99,8 +114,10 @@
 
 
 			<xsd:element name="sub"/>
-		<xsd:element name="description" type="TParagraph"/></xsd:choice>
-	<xsd:attribute name="ID" type="xsd:string" use="optional"/></xsd:complexType>
+			<xsd:element name="description" type="TParagraph"/>
+		</xsd:choice>
+		<xsd:attribute name="ID" type="xsd:string" use="optional"/>
+	</xsd:complexType>
 	<xsd:complexType name="TContent" mixed="true">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="reflink">
