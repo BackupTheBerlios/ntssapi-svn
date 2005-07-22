@@ -333,12 +333,32 @@
              Alle Eingangsverzeichnisse nach möglichen Modulen durchsuchen und in <see cref="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FIncomingModulPaths"/> auflisten.
             </summary>
         </member>
+        <member name="E:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.OnCacheProgress">
+            <summary>
+             Fortschrittsevent für die Cacheerstellung
+            </summary>
+        </member>
+        <member name="E:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.OnCacheFinished">
+            <summary>
+            Event, wenn ein Cache erstellt wurde.
+            </summary>
+        </member>
+        <member name="E:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.OnInvalidFormat">
+            <summary>
+            Event, wenn versucht wurde ein non Zefania file zu cachen
+            </summary>
+        </member>
         <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoDictionary">
             <summary>
             Property für das Dictionary aller verfügbaren <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> s.
             </summary>
         </member>
-        <!-- Schlecht gebildeter XML-Kommentar wurde für den Member "P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheRequestDictionary" ignoriert -->
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheRequestDictionary">
+            <summary>
+            Property für das Dictionary aller verfügbaren <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> s, die für eine Abfrage
+            ausgewählt sind. <seealso cref="!:zefCoreRequest"/>
+            </summary>
+        </member>
         <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfModulInputDirectories">
             <summary>
             Die Liste der Eingangsverzeichnisse für Zefania XML Bibelmodule.
@@ -354,10 +374,103 @@
             Gibt die Versionsnummer der zefCacheMaintenance-Klasse zurück.
             </summary>
         </member>
+        <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.OnCachedEventHandler">
+            <summary>
+             Fortschrittsevent für die Cacheerstellung
+            </summary>
+        </member>
         <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem">
             <summary>
              Diese Hilfsklasse speichert alle wichtigen Infos über Module.
              <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/>
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.#ctor(System.String,System.Boolean)">
+             <summary>
+              Konstruktor fuer ein CacheInfoItem, das einige Infos über ein Zefania XML Modul im Cache enthält.
+             </summary>
+             <param name="InfoPath">Der Pfad zu einer Cache-info.xml Datei</param>
+             <param name="checkMd5">Wenn true wird überprüft, ob der MD5-Hashwert der Quelldatei noch mit dem Vermerk in der info.xml übereinstimmt.</param>
+            <remarks>Mann kann das CacheInfoItem auch mit dem Pfad zu einer Quelldatei aufrufen.</remarks>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.reset2NoneCached">
+            <summary>
+            Setzt den Status des CacheInfoItem auf none cached zurück.
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.reset2Orphaned">
+            <summary>
+            Setzt den Status auf orphaned.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.VolumeTreeHidden">
+            <summary>
+             Signalisiert, ob das Modul in einer Darstellung der verfügbaren Module sichtbar sein soll.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Title">
+            <summary>
+            Der Titel des Moduls aus der Cache info.xml des Moduls.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Sourcepath">
+            <summary>
+            Der Dateipfad zur Quelldatei des Moduls im Cache
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Language">
+            <summary>
+            Die SprachId des Moduls aus der Cache info.xml des Moduls.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Identifier">
+            <summary>
+            Der Identifier aus der Cache info.xml des Moduls.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Date">
+            <summary>
+            Das Datum aus der Cache info.xml des Moduls.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Zipped">
+            <summary>
+             Wenn true ist Cache gezipped
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Type">
+            <summary>
+            x-books oder x-chapters
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Modulmd5">
+            <summary>
+            Der MD5-Hashwert der Ausgangsmoduls
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Orphaned">
+            <summary>
+            Wenn true, ist der Pfad zu der in der Cache info.xml angegebenen Sourcedatei ungültig.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Cached">
+            <summary>
+            Wenn true, wurde cache erstellt.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Inconsistent">
+            <summary>
+            Wenn true stimmt der MD5 -Hashwert der Sourcedatei nicht mehr mit der Angabe in der Cache-info.xml überein.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Infopath">
+            <summary>
+            Der Dateipfad zur info.xml
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.ModulCacheDir">
+            <summary>
+            Der Pfad zum Cachverzeichnis des Moduls.
             </summary>
         </member>
         <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary">

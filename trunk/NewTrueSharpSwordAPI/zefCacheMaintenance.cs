@@ -16,12 +16,23 @@ namespace NewTrueSharpSwordAPI.Cache
 	/// </summary>
 	[Serializable]
 	public class zefCacheMaintenance
-	{
+	{/// <summary>
+		///  Fortschrittsevent für die Cacheerstellung
+		/// </summary>
 		public delegate void OnCachedEventHandler(object sender, EventArgs e,string message);
+		/// <summary>
+		///  Fortschrittsevent für die Cacheerstellung
+		/// </summary>
 		[field:NonSerialized]
 		public event OnCachedEventHandler OnCacheProgress;
+		/// <summary>
+		/// Event, wenn ein Cache erstellt wurde.
+		/// </summary>
 		[field:NonSerialized]
 		public event OnCachedEventHandler OnCacheFinished;
+		/// <summary>
+		/// Event, wenn versucht wurde ein non Zefania file zu cachen
+		/// </summary>
 		[field:NonSerialized]
 		public event OnCachedEventHandler OnInvalidFormat;
 
@@ -36,14 +47,14 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// Die Dateipfade aller info.xml 
 		/// </summary>
 		private StringCollection FCachedInfoFilesPaths=new StringCollection();	
-        /// <summary>
-        /// Das Dictionary aller verfügbaren <see cref="CacheInfoItem"/> s.
-         /// </summary>
+		/// <summary>
+		/// Das Dictionary aller verfügbaren <see cref="CacheInfoItem"/> s.
+		/// </summary>
 		private CacheInfoItemDictionary FCacheInfoDictionary=new CacheInfoItemDictionary();
-        /// <summary>
-        /// Das Dictionary aller verfügbaren <see cref="CacheInfoItem"/> s, die für eine Abfrage
-        /// ausgewählt sind. <seealso cref="zefCoreRequest"/>
-        /// </summary>
+		/// <summary>
+		/// Das Dictionary aller verfügbaren <see cref="CacheInfoItem"/> s, die für eine Abfrage
+		/// ausgewählt sind. <seealso cref="zefCoreRequest"/>
+		/// </summary>
 		private CacheInfoItemDictionary FCacheRequestDictionary=new CacheInfoItemDictionary();
 
 		/// <summary>
@@ -73,7 +84,7 @@ namespace NewTrueSharpSwordAPI.Cache
 				return FCacheInfoDictionary;
 			}
 		}
-		// <summary>
+		/// <summary>
 		/// Property für das Dictionary aller verfügbaren <see cref="CacheInfoItem"/> s, die für eine Abfrage
 		/// ausgewählt sind. <seealso cref="zefCoreRequest"/>
 		/// </summary>
@@ -112,7 +123,7 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// <param name="infoFilePath">Pfad zur info.xml Datei des Caches</param>
 		private void RemoveModulFromCacheRequestDictionary(string infoFilePath)
 		{
-		    try
+			try
 			{
 				CacheInfoItem CI=new CacheInfoItem(infoFilePath,false);
 				if(FCacheRequestDictionary.Contains(CI.Sourcepath)){FCacheRequestDictionary.Remove(CI.Sourcepath);}
@@ -533,7 +544,7 @@ namespace NewTrueSharpSwordAPI.Cache
 		{
 			get
 			{
-				Version v =new Version("0.0.0.14");
+				Version v =new Version("0.0.0.16");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 			}
 		}
@@ -558,12 +569,15 @@ namespace NewTrueSharpSwordAPI.Cache
 			private bool Finconsistent=false;
 			private string Finfopath;
 			private string FModulCacheDir="";
-			
-			private int FVolumeTreePos;
 			private bool FVolumeTreeHidden;
 			[field:NonSerialized]
 			private XmlDocument INFO;
-
+			/// <summary>
+			///  Konstruktor fuer ein CacheInfoItem, das einige Infos über ein Zefania XML Modul im Cache enthält.
+			/// </summary>
+			/// <param name="InfoPath">Der Pfad zu einer Cache-info.xml Datei</param>
+			/// <param name="checkMd5">Wenn true wird überprüft, ob der MD5-Hashwert der Quelldatei noch mit dem Vermerk in der info.xml übereinstimmt.</param>
+			///<remarks>Mann kann das CacheInfoItem auch mit dem Pfad zu einer Quelldatei aufrufen.</remarks>
 			public CacheInfoItem(string InfoPath,bool checkMd5)
 			{
 				try
@@ -626,21 +640,12 @@ namespace NewTrueSharpSwordAPI.Cache
 						{
 							Ftype=N.InnerText;
 						}
-						///
+						
 						N=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/volumetree");
 
 						if(N!=null)
 						{
-							
-							XmlNode ATT=N.Attributes.GetNamedItem("pos");
-							if(ATT!=null)
-							{
-								FVolumeTreePos=Convert.ToInt16(ATT.Value);
-							}
-							else
-								FVolumeTreePos=0;
-
-							ATT=N.Attributes.GetNamedItem("hidden");
+							XmlNode ATT=N.Attributes.GetNamedItem("hidden");
 							if(ATT!=null)
 							{
 								FVolumeTreeHidden=Convert.ToBoolean(ATT.Value.ToString());
@@ -648,7 +653,7 @@ namespace NewTrueSharpSwordAPI.Cache
 							else
 								FVolumeTreeHidden=false;
 						}
-						///
+						
 						N=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/modulmd5");
 
 						if(N!=null)
@@ -671,7 +676,7 @@ namespace NewTrueSharpSwordAPI.Cache
 						}
 					}
 					else
-					{   /// Falls keine info.xml übergeben wurde, sichern wir nur Pfad und  als title den Filenamen 
+					{   // Falls keine info.xml übergeben wurde, sichern wir nur Pfad und als title den Filenamen 
 						Fsourcepath=InfoPath;
 						Ftitle=Path.GetFileName(InfoPath);
 					}
@@ -683,6 +688,9 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 			}
 			// methoden
+			/// <summary>
+			/// Setzt den Status des CacheInfoItem auf none cached zurück.
+			/// </summary>
 			public void reset2NoneCached()
 			{
 				Fcached=false;
@@ -698,6 +706,9 @@ namespace NewTrueSharpSwordAPI.Cache
 				Fzipped="";
 			}
 
+			/// <summary>
+			/// Setzt den Status auf orphaned.
+			/// </summary>
 			public void reset2Orphaned()
 			{
 				Forphaned=true;
@@ -706,6 +717,9 @@ namespace NewTrueSharpSwordAPI.Cache
 			// end methoden
 
 			// felder
+			/// <summary>
+			///  Signalisiert, ob das Modul in einer Darstellung der verfügbaren Module sichtbar sein soll.
+			/// </summary>
 			public bool VolumeTreeHidden
 			{
 				get{return FVolumeTreeHidden;}
@@ -723,80 +737,167 @@ namespace NewTrueSharpSwordAPI.Cache
 					}
 				}
 			}
-			public int VolumeTreePos
+			
+			/// <summary>
+			/// Der Titel des Moduls aus der Cache info.xml des Moduls.
+			/// </summary>
+			public string Title
 			{
-				get{return FVolumeTreePos;}
+				get{return Ftitle;}
+				set
+				{
+					
+					if(INFO!=null)
+					{
+						XmlNode VP=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/title");
+						if(VP!=null)
+						{
+							VP.InnerText=value;
+							Ftitle=value;
+							INFO.Save(Finfopath);
+						}
+					}
+				
+				}
+			}
+			/// <summary>
+			/// Der Dateipfad zur Quelldatei des Moduls im Cache
+			/// </summary>
+			public string Sourcepath
+			{
+				get{return Fsourcepath;}
 				set
 				{
 					if(INFO!=null)
 					{
-						XmlNode VP=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/volumetree/@pos");
+						XmlNode VP=INFO.DocumentElement.SelectSingleNode("descendant::cacheinfo/sourcepath");
 						if(VP!=null)
 						{
-							VP.InnerText=value.ToString();
-							FVolumeTreePos=value;
+							VP.InnerText=value;
+							Fsourcepath=value;
 							INFO.Save(Finfopath);
 						}
 					}
+				
 				}
 			}
-			
-
-			public string Title
-			{
-				get{return Ftitle;}
-				set{Ftitle=value;}
-			}
-			public string Sourcepath
-			{
-				get{return Fsourcepath;}
-				set{Fsourcepath=value;}
-			}
+			/// <summary>
+			/// Die SprachId des Moduls aus der Cache info.xml des Moduls.
+			/// </summary>
 			public string Language
 			{
 				get{return Flanguage;}
-				set{Flanguage=value;}
+				set
+				{
+					if(INFO!=null)
+					{
+						XmlNode VP=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/language");
+						if(VP!=null)
+						{
+							VP.InnerText=value;
+							Flanguage=value;
+							INFO.Save(Finfopath);
+						}
+					}
+
+				}
 			}
+			/// <summary>
+			/// Der Identifier aus der Cache info.xml des Moduls.
+			/// </summary>
 			public string Identifier
 			{
 				get{return Fidentifier;}
-				set{Fidentifier=value;}
+				set
+				{
+				
+					if(INFO!=null)
+					{
+						XmlNode VP=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/identifier");
+						if(VP!=null)
+						{
+							VP.InnerText=value;
+							Fidentifier=value;
+							INFO.Save(Finfopath);
+						}
+					}
+				
+				}
 			}
-
+			/// <summary>
+			/// Das Datum aus der Cache info.xml des Moduls.
+			/// </summary>
 			public string Date
 			{
 				get{return Fdate;}
-				set{Fdate=value;}
+				set
+				{
+					if(INFO!=null)
+					{
+						XmlNode VP=INFO.DocumentElement.SelectSingleNode("descendant::INFORMATION/date");
+						if(VP!=null)
+						{
+							VP.InnerText=value;
+							Fdate=value;
+							INFO.Save(Finfopath);
+						}
+					}
+				
+				}
 			}
+			/// <summary>
+			///  Wenn true ist Cache gezipped
+			/// </summary>
 			public string Zipped
 			{
 				get{return Fzipped;}
 			}
+			/// <summary>
+			/// x-books oder x-chapters
+			/// </summary>
 			public string Type
 			{
 				get{return Ftype;}
 			}
+			/// <summary>
+			/// Der MD5-Hashwert der Ausgangsmoduls
+			/// </summary>
 			public string Modulmd5
 			{
 				get{return Fmodulmd5;}
 			}
 
+			/// <summary>
+			/// Wenn true, ist der Pfad zu der in der Cache info.xml angegebenen Sourcedatei ungültig.
+			/// </summary>
 			public bool Orphaned
 			{
 				get{return Forphaned;}
 			}
+			/// <summary>
+			/// Wenn true, wurde cache erstellt.
+			/// </summary>
 			public bool Cached
 			{
 				get{return Fcached;}
 			}
+			/// <summary>
+			/// Wenn true stimmt der MD5 -Hashwert der Sourcedatei nicht mehr mit der Angabe in der Cache-info.xml überein.
+			/// </summary>
 			public bool Inconsistent
 			{
 				get{return Finconsistent;}
 			}
+			/// <summary>
+			/// Der Dateipfad zur info.xml
+			/// </summary>
 			public string Infopath
 			{
 				get{return Finfopath;}
 			}
+			/// <summary>
+			/// Der Pfad zum Cachverzeichnis des Moduls.
+			/// </summary>
 			public string ModulCacheDir
 			{
 				get{return FModulCacheDir;}
@@ -809,7 +910,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			public class CacheInfoItemDictionary : DictionaryBase 
 		{   //strongly typed accessor 
 			public CacheInfoItem this[string key]
-			{  /// Als Key nehmen wir den Sourcepath des Moduls
+			{  // Als Key nehmen wir den Sourcepath des Moduls
 				get {return (CacheInfoItem) this.Dictionary[key]; }
 
 				set { this.Dictionary[key] = value; } 
