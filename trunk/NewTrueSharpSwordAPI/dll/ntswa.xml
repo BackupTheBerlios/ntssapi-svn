@@ -6,7 +6,7 @@
     <members>
         <member name="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache">
             <summary>
-            Die Klasse ZefCache stellt Methoden zur Erstellung eines
+            Die Klasse ZefCache stellt  Methoden zur Erstellung eines
             Cache für Zefania XML Bibelmodule zur Verfügung.
             </summary>
         </member>
@@ -23,6 +23,11 @@
         <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.UserDefTree">
             <summary>
               Feld ist true wenn Usertree existiert
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.FMD5">
+            <summary>
+            Feld speichert den Md5-Wert des Moduls;
             </summary>
         </member>
         <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.BibleName">
@@ -216,7 +221,7 @@
         </member>
         <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance">
             <summary>
-            zefCacheMaintenance verwaltet, erstellt und liefert Informationen über den Zefania XML 
+            zefCacheMaintenance ver waltet, erstellt und liefert Informationen über den Zefania XML 
             ModulCache.
             </summary>
         </member>
@@ -480,7 +485,7 @@
         </member>
         <member name="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest">
             <summary>
-            Mit zefCoreRequest kann ein Zefania XML Cache mit einer Liste von Bibelstellen im
+            Mit zefCoreRequest kann  ein Zefania XML Cache mit einer Liste von Bibelstellen im
             Format:
             40:7:9
             56:12:7
@@ -628,7 +633,7 @@
         </member>
         <member name="T:NewTrueSharpSwordAPI.Queries.BookNameType">
             <summary>
-            maps  Bibelbuchnummer zu Buchbezeichnungen und umgekehrt.
+            maps  Bibelbuchnummer  zu Buchbezeichnungen und umgekehrt.
             z.B.  10==&gt; 2Sam
             </summary>
             <summary>
@@ -716,7 +721,7 @@
         </member>
         <member name="T:NewTrueSharpSwordAPI.Utilities.zefUtilities">
             <summary>
-            zefUtilities enthält Methoden, die allgemein in den verschiedenen Klassen der API verwendbar sind.
+            zefUtilities enthäl t Methoden, die allgemein in den verschiedenen Klassen der API verwendbar sind.
             </summary>
         </member>
         <member name="M:NewTrueSharpSwordAPI.Utilities.zefUtilities.CreateMD5Dir(System.IO.Stream)">

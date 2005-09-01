@@ -4,7 +4,6 @@ using System.Security.Cryptography;
 using System.Collections;
 using System.Xml;
 using ICSharpCode.SharpZipLib.Zip;
-using System.Data;
 using System.Text;
 
 using NewTrueSharpSwordAPI.Utilities;
@@ -13,7 +12,7 @@ namespace NewTrueSharpSwordAPI.Cache
 {
 
 	/// <summary>
-	/// Die Klasse ZefCache stellt Methoden zur Erstellung eines
+	/// Die Klasse ZefCache stellt  Methoden zur Erstellung eines
 	/// Cache für Zefania XML Bibelmodule zur Verfügung.
 	/// </summary>
 	public class ZefaniaCache
@@ -72,7 +71,20 @@ namespace NewTrueSharpSwordAPI.Cache
 		///   Feld ist true wenn Usertree existiert
 		/// </summary>
 		private bool UserDefTree;
+		/// <summary>
+		/// Feld speichert den Md5-Wert des Moduls;
+		/// </summary>
+		private string FMD5="0";
+		public string ModulMD5
+		{
 		
+			get
+			{
+			 
+				return FMD5;
+			
+			}
+		}
 		/// <summary>
 		///  Feld für Bibelname
 		/// </summary>
@@ -327,10 +339,6 @@ namespace NewTrueSharpSwordAPI.Cache
 				string book;
 				string xmlbible="";
 				string bnumber;
-
-                
-           
-
 				if(Path.GetExtension(ModulPath)==".zip")
 				{
 
@@ -477,7 +485,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 				}
 				ModulReader.Close();
-				Cached=true;
+
 				// Invalid File Format
 				if(IsZefaniaFormat==false)
 				{
@@ -487,6 +495,10 @@ namespace NewTrueSharpSwordAPI.Cache
 
 				}
 				// end invalid file format
+
+				Cached=true;
+				FMD5=ModulCacheDir;
+				
 
 				CacheINFO.Save(FullCachePath+@"\info.xml");
 				// Inhaltsbaum aufbauen
@@ -521,7 +533,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			catch(Exception e)
 			{
               
-				string ee=e.Message;
+			
 				
 			}
 
@@ -546,7 +558,11 @@ namespace NewTrueSharpSwordAPI.Cache
 				string xmlbook="";
 				string bnumber="0";
 				string cnumber;
-
+                
+				if(!File.Exists(ModulPath))
+				{
+					throw  new FileNotFoundException();
+				}
 
 				if(Path.GetExtension(ModulPath)==".zip")
 				{
@@ -701,21 +717,22 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 				ModulReader.Close();
 				// Invalid File Format
+                 
 				if(IsZefaniaFormat==false)
 				{
-					// Invalid file event auslösen
-					OnInvalidFileFormat(this,e1);
-					return;
-
+					throw  new FormatException();
 				}
+				
 				// end invalid file format
-
-				Cached=true;
+                Cached=true;
+				FMD5=ModulCacheDir;
+				// Invalid File Format
 				CacheINFO.Save(FullCachePath+@"\info.xml");
 				// Inhaltsbaum aufbauen
 				CreateDefaultTree();
 				// end Inhaltsbaum
 				// eventuell userdefinierten Inhaltsbaum per Event melden
+
 				if(OnUserTree!=null)
 				{
 					if(UserDefTree)
@@ -726,6 +743,7 @@ namespace NewTrueSharpSwordAPI.Cache
 					}
 				}
 				// end 
+
 				if(OnCachedSuccess!=null)
 				{
 					List.Clear();
@@ -736,9 +754,23 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 
 			}
+			catch( FormatException e)
+			{
+			    
+				throw new FormatException(ModulPath+"\n Is not a Zefania XML Bible file!");
+
+			
+			}
+			catch( FileNotFoundException e)
+			{
+			
+				throw  new FileNotFoundException("File not found: ",ModulPath);
+			
+			}
 			catch(Exception e)
 			{
-
+			   
+               throw new Exception();
 			}
 		}// end CreateCacheBooks()
 

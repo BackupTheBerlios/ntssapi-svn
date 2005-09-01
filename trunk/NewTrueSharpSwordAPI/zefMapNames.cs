@@ -6,7 +6,7 @@ using System.Collections;
 namespace NewTrueSharpSwordAPI.Queries
 {
 	/// <summary>
-	/// maps  Bibelbuchnummer zu Buchbezeichnungen und umgekehrt.
+	/// maps  Bibelbuchnummer  zu Buchbezeichnungen und umgekehrt.
 	/// z.B.  10==> 2Sam
 	/// </summary>
 	/// <summary>

@@ -11,7 +11,7 @@ namespace NewTrueSharpSwordAPI.Queries
 
 {
 	/// <summary>
-	/// Mit zefCoreRequest kann ein Zefania XML Cache mit einer Liste von Bibelstellen im
+	/// Mit zefCoreRequest kann  ein Zefania XML Cache mit einer Liste von Bibelstellen im
 	/// Format:
 	/// 40:7:9
 	/// 56:12:7

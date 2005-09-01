@@ -11,7 +11,7 @@ using NewTrueSharpSwordAPI.Utilities;
 namespace NewTrueSharpSwordAPI.Cache
 {
 	/// <summary>
-	/// zefCacheMaintenance verwaltet, erstellt und liefert Informationen über den Zefania XML 
+	/// zefCacheMaintenance ver waltet, erstellt und liefert Informationen über den Zefania XML 
 	/// ModulCache.
 	/// </summary>
 	[Serializable]
