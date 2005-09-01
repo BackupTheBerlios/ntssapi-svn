@@ -3,8 +3,6 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
-using System.Xml.XPath;
-using System.Xml.Xsl;
 using System.Text;
 using System.Collections.Specialized;
 using ICSharpCode.SharpZipLib.Zip;
@@ -22,32 +20,7 @@ namespace NewTrueSharpSwordAPI.Utilities
 		private zefUtilities(){}
 
 
-		/* Methode zum Transformieren eines XML-Dokuments 
-         * mit einem XSLT-Dokument */
-		public static void TransformXmlFile(string xmlSourceFileName,
-			string xslFileName, string xmlDestFileName)
-		{
-			try
-			{
-				XPathDocument xmldoc = new XPathDocument(xmlSourceFileName);
-				// Instanz der Klasse XslTransform erzeugen
-				XslTransform xslTransform = new XslTransform();
-                // XSL-Datei laden
-				xslTransform.Load(xslFileName);
-				//Create an XmlTextWriter which outputs to the console.
-				XmlWriter writer = new XmlTextWriter(xmlDestFileName,Encoding.UTF8);
-
-                
-				// XML-Datei transformieren
-				xslTransform.Transform(xmldoc,null,writer, null);
-
-			}
-			catch(XmlException e){
-			
-			
-			}
-		}
-
+		
 		/// <summary>
 		/// Diese Methode berechnet aus dem Zefania XML Bibelmodul einen MD5-Hashwert, der als Verzeichnisname
 		/// für das in Bibelbücher(Kapitel) zerlegte Zefania XML Bibelmodul dient.

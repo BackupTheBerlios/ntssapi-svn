@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Security.Cryptography;
 using System.Collections;
 using System.Xml;
 using ICSharpCode.SharpZipLib.Zip;
@@ -12,7 +11,7 @@ namespace NewTrueSharpSwordAPI.Cache
 {
 
 	/// <summary>
-	/// Die Klasse ZefCache stellt  Methoden zur Erstellung eines
+	/// Die Klasse ZefCache stellt Methoden zur Erstellung eines
 	/// Cache für Zefania XML Bibelmodule zur Verfügung.
 	/// </summary>
 	public class ZefaniaCache
@@ -184,7 +183,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			get
 			{
-				Version v =new Version("0.1.0.24");
+				Version v =new Version("0.1.0.25");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
