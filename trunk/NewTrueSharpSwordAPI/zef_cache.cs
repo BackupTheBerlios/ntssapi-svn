@@ -183,7 +183,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 			get
 			{
-				Version v =new Version("0.1.0.25");
+				Version v =new Version("0.1.0.26");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
@@ -983,6 +983,51 @@ namespace NewTrueSharpSwordAPI.Cache
 			}
 
 		}
+		/// <summary>
+		/// Packt den erzeugten Cache mit dem MD5 Wert als Dateinamen zu einem single File.
+		/// </summary>
+		public bool PackCache(){
+			try{
+                // checken, ob Cache schon erstellt wurde
+				if(!IsCached){return false;}
+				// alle Dateien im angegebenen Ordner werden komprimiert
+				string[] aFilenames = Directory.GetFiles(Path.GetDirectoryName(GetInfoPath));
+    
+				// der Name der Zipdatei ist der MD5-Wert des Moduls
+				ZipOutputStream s = new ZipOutputStream(File.Create(ModulMD5+".zip"));
+                
+				// Komprimierungslevel setzen: 0 [keine] - 9 [stärkste]
+				s.SetLevel(9); 
+    
+				for (int i=0; i < aFilenames.Length; i++)
+				{
+					FileStream fs = File.OpenRead(aFilenames[i]);
+      
+					// im Normalfall allokiert man die Buffer im voraus
+					// hier aus Klarheitsgründen pro Datei einmal
+					byte[] buffer = new byte[fs.Length];
+					fs.Read(buffer, 0, buffer.Length);
+
+					// und jetzt schreiben wir einen ZipEntry & die Daten      
+					ZipEntry entry = new ZipEntry(ModulMD5+@"\"+Path.GetFileName(aFilenames[i]));
+					
+					s.PutNextEntry(entry);
+					s.Write(buffer, 0, buffer.Length);
+				}
+    
+				s.Finish();
+				s.Close();
+				return true;
+			
+			}
+			catch(Exception e)
+			{
+				return false;
+				  
+			}
+		
+		}
+
 	}
 
 }	

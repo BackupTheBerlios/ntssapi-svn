@@ -121,6 +121,11 @@
             </summary>
             <returns>Gibt True zurück, wenn ein Userdefinierter Inhaltsbaum gefunden wurde.</returns>
         </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.PackCache">
+            <summary>
+            Packt den erzeugten Cache mit dem MD5 Wert als Dateinamen zu einem single File.
+            </summary>
+        </member>
         <member name="E:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnInvalidFileFormat">
             <summary>
             <seealso cref="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnInvalidFileFormatEventHandler"/>

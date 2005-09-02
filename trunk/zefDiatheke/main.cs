@@ -33,6 +33,13 @@ namespace zefDiatheke
 					return;
 				
 				}
+				if(args[0]=="ccp")
+				{
+				  
+					CreateCacheAndPack(args);
+					return;
+				
+				}
 				if(args[0]=="lb")
 				{
 				  
@@ -155,7 +162,9 @@ namespace zefDiatheke
 				ZefaniaCache ZefCache = new ZefaniaCache(Path2ZefModul);
 				ZefCache.BaseCacheDir=AppPath;
 				
+				Console.WriteLine("Starte Cacherstellung.... bitte warten/wait");
 				ZefCache.CreateCacheChapters(false);
+				Console.WriteLine("Cache ist fertig/ready");
                 
 				System.Xml.XmlDocument Config=new XmlDocument();
 
@@ -209,6 +218,86 @@ namespace zefDiatheke
 		
 		
 		}
+		static void CreateCacheAndPack(string[] args)
+		{
+			try
+			{
+				string Path2ZefModul=args[1];
+				
+				string AppPath=GetApplicationFolderName();
+				
+				if(Path.GetDirectoryName(Path2ZefModul)=="")
+				{
+				  
+					Path2ZefModul=AppPath+@"\"+ Path2ZefModul;
+				}
+				
+				ZefaniaCache ZefCache = new ZefaniaCache(Path2ZefModul);
+
+				ZefCache.BaseCacheDir=AppPath;
+				Console.WriteLine("Starte Cacherstellung.... bitte warten/wait");
+				ZefCache.CreateCacheChapters(false);
+                Console.WriteLine("Cache ist fertig/ready");
+				Console.WriteLine("Packe Cache..... bitte warten/wait");
+				ZefCache.PackCache();
+				Console.WriteLine("Cache ist gepackt-fertig/ready");
+                
+				System.Xml.XmlDocument Config=new XmlDocument();
+
+				if(File.Exists(AppPath+@"\config.xml"))
+				{
+                   
+					Config.Load(AppPath+@"\config.xml");
+				
+				}
+				else
+				{
+					Config.LoadXml("<module></module>");
+				}
+				
+				XmlNode Modul=Config.DocumentElement.SelectSingleNode("descendant::modul[@name='"+ZefCache.GetBibleName+"' and text()='"+ZefCache.ModulMD5+"']");
+				
+				if(Modul==null)
+				{
+					Modul =Config.CreateNode(XmlNodeType.Element,"modul","");
+					XmlNode Attrib=Config.CreateAttribute("name");
+					Attrib.InnerText=ZefCache.GetBibleName;
+					Modul.InnerText=ZefCache.ModulMD5;
+					Modul.Attributes.SetNamedItem(Attrib);
+					Config.DocumentElement.AppendChild(Modul);
+					Config.Save(AppPath+@"\config.xml");
+				  
+				}
+				Environment.Exit(1000);
+                    
+                   
+				
+			}
+			catch( FormatException e)
+			{
+			
+				Console.WriteLine("Exception {0}", e);
+				Environment.Exit(1200);
+			
+			}
+			  
+			catch( FileNotFoundException e)
+			{
+			
+				Console.WriteLine("Exception {0}", e);
+				Environment.Exit(1500);
+			
+			}
+				// Verbleibende Ausnahmen auffangen
+			catch (Exception e)
+			{
+				Console.WriteLine("Exception {0}", e);
+				Environment.Exit(1900);
+			}
+		
+		
+		}
+
 		/* Methode zum Auslesen des Ordnernamens einer Anwendung */
 		static string GetApplicationFolderName()
 		{
