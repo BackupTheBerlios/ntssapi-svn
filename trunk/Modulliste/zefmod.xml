@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <?xml-stylesheet href="" type="text/xsl"?>
 <zefania-modules version="1.10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///e:/data_cvs/bible_install_manager/reposschema.xsd">
 	<zefania-modules-list-servers>
@@ -33,7 +33,7 @@
 
 			<module filename="luther1912_rev1.zip" identifier="luth1912" lang="deutsch" language="GER" name="Luther 1912" revision="1" type="bible"/>
 			<module filename="luther1912_apok_Rev1.zip" identifier="luth1912ap" lang="deutsch" language="GER" name="Luther 1912 mit Apokryphen" revision="1" type="bible"/>
-			<module filename="sf_elberfelder1905_rev4.zip" identifier="elb1905" lang="deutsch" language="GER" name="Elberfelder 1905" revision="4" type="bible"/>
+			<module filename="Elberfelder_1905_Rev_5.zip" identifier="elb1905" lang="deutsch" language="GER" name="Elberfelder 1905" revision="5" type="bible"/>
 			<module filename="sf_gerben.rev1.zip" identifier="Bible.GerBen" lang="deutsch" language="GER" name="Bengel NT" revision="1" type="bible"/>
 			<module filename="sf_luther1545.zip" identifier="luth1545" lang="deutsch" language="GER" name="Luther 1545" revision="0" type="bible"/>
 			<module filename="sf_elberfelder1871.zip" identifier="Bible.GerElb1871" lang="deutsch" language="GER" name="Elberfelder 1871" revision="0" type="bible"/>
