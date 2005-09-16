@@ -103,16 +103,19 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// <summary>
 		///  Setzt oder liest eine Integerkennzeichnung für eine Instanz eines Cachobjektes.
 		/// </summary>
-		public int Tag{
+		public int Tag
+		{
 		
-			get{
+			get
+			{
 			 
 				return FTag;
 			
 			}
-			set{
+			set
+			{
 			
-			    FTag=value;
+				FTag=value;
 			
 			}
 		
@@ -352,7 +355,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 				}
 
-                FullCachePath=BaseCacheDir+@"\zefcache\"+ModulCacheDir;
+				FullCachePath=BaseCacheDir+@"\zefcache\"+ModulCacheDir;
 				// eventuell schon vorhandenen Inhaltsbaum sichern
 				UserDefTree=CatchUserTree();
 				// end
@@ -371,7 +374,7 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 				//ModulCacheInfos
 				XmlDocument CacheINFO=new XmlDocument();
-				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><volumetree hidden=\"false\" pos=\"0\"/><sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
+				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><revision/><volumetree hidden=\"false\" pos=\"0\"/><sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
 
 				XmlNode sourcepath=CacheINFO.SelectSingleNode("descendant::sourcepath");
 				sourcepath.InnerText=ModulPath;
@@ -395,18 +398,34 @@ namespace NewTrueSharpSwordAPI.Cache
 					{
 
 						xmlbible="";
-
 						ModulReader.MoveToFirstAttribute();
 						xmlbible=ModulReader.Name+"=\""+ModulReader.Value+"\" ";
 
 						while(ModulReader.MoveToNextAttribute())
 						{
 
-							if(ModulReader.Name=="biblename"){
+							if(ModulReader.Name=="biblename")
+							{
 							  
-                             BibleName=ModulReader.Value;
+								BibleName=ModulReader.Value;
 							
 							}
+							if(ModulReader.Name=="revision")
+							{
+								string rev=ModulReader.Value;
+								XmlNode revn=CacheINFO.SelectSingleNode("descendant::revision");
+								if(rev!=null)
+								{
+									revn.InnerText=rev;
+						
+								}
+								else
+								{
+						
+									revn.InnerText="0";
+								}
+							}
+
 							xmlbible=xmlbible+ModulReader.Name+"=\""+ModulReader.Value+"\" ";
 
 						}
@@ -597,7 +616,7 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 				// ModulCacheInfos
 				XmlDocument CacheINFO=new XmlDocument();
-				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><volumetree hidden=\"false\" pos=\"0\"/><sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
+				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><revision/><volumetree hidden=\"false\" pos=\"0\"/><sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
 
 				XmlNode sourcepath=CacheINFO.SelectSingleNode("descendant::sourcepath");
 				sourcepath.InnerText=ModulPath;
@@ -623,6 +642,7 @@ namespace NewTrueSharpSwordAPI.Cache
 						xmlbible="";
 
 						ModulReader.MoveToFirstAttribute();
+
 						xmlbible=ModulReader.Name+"=\""+ModulReader.Value+"\" ";
 
 						while(ModulReader.MoveToNextAttribute())
@@ -633,6 +653,24 @@ namespace NewTrueSharpSwordAPI.Cache
 								BibleName=ModulReader.Value;
 							
 							}
+
+							if(ModulReader.Name=="revision")
+							{
+								string rev=ModulReader.Value;
+								XmlNode revn=CacheINFO.SelectSingleNode("descendant::revision");
+								if(rev!=null)
+								{
+									revn.InnerText=rev;
+						
+								}
+								else
+								{
+						
+									revn.InnerText="0";
+								}
+							}
+
+
 							xmlbible=xmlbible+ModulReader.Name+"=\""+ModulReader.Value+"\" ";
 
 						}
@@ -723,7 +761,7 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 				
 				// end invalid file format
-                Cached=true;
+				Cached=true;
 				FMD5=ModulCacheDir;
 				// Invalid File Format
 				CacheINFO.Save(FullCachePath+@"\info.xml");
@@ -769,7 +807,7 @@ namespace NewTrueSharpSwordAPI.Cache
 			catch(Exception e)
 			{
 			   
-               throw new Exception();
+				throw new Exception();
 			}
 		}// end CreateCacheBooks()
 
@@ -986,15 +1024,17 @@ namespace NewTrueSharpSwordAPI.Cache
 		/// <summary>
 		/// Packt den erzeugten Cache mit dem MD5 Wert als Dateinamen zu einem single File.
 		/// </summary>
-		public bool PackCache(){
-			try{
-                // checken, ob Cache schon erstellt wurde
+		public bool PackCache()
+		{
+			try
+			{
+				// checken, ob Cache schon erstellt wurde
 				if(!IsCached){return false;}
 				// alle Dateien im angegebenen Ordner werden komprimiert
 				string[] aFilenames = Directory.GetFiles(Path.GetDirectoryName(GetInfoPath));
     
 				// der Name der Zipdatei ist der MD5-Wert des Moduls
-				ZipOutputStream s = new ZipOutputStream(File.Create(ModulMD5+".zip"));
+				ZipOutputStream s = new ZipOutputStream(File.Create(BaseCacheDir+@"\zefcache\"+ModulMD5+".zip"));
                 
 				// Komprimierungslevel setzen: 0 [keine] - 9 [stärkste]
 				s.SetLevel(9); 

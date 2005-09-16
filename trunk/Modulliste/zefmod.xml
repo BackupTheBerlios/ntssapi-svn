@@ -35,7 +35,11 @@
 			<module filename="luther1912_apok_Rev1.zip" identifier="luth1912ap" lang="deutsch" language="GER" name="Luther 1912 mit Apokryphen" revision="1" type="bible"/>
 			<module filename="Elberfelder_1905_Rev_5.zip" identifier="elb1905" lang="deutsch" language="GER" name="Elberfelder 1905" revision="5" type="bible"/>
 			<module filename="sf_gerben.rev1.zip" identifier="Bible.GerBen" lang="deutsch" language="GER" name="Bengel NT" revision="1" type="bible"/>
-			<module filename="sf_luther1545.zip" identifier="luth1545" lang="deutsch" language="GER" name="Luther 1545" revision="0" type="bible"/>
+			
+			<module filename="luther1545_rev2.zip" identifier="luth1545" lang="deutsch" language="GER" name="Luther 1545" revision="2" type="bible"/>
+			<module filename="Luther1545_rev1_Strong.zip" identifier="luth1545str" lang="deutsch" language="GER" name="Luther 1545" revision="1" type="bible"/>
+
+			
 			<module filename="sf_elberfelder1871.zip" identifier="Bible.GerElb1871" lang="deutsch" language="GER" name="Elberfelder 1871" revision="0" type="bible"/>
 			<module filename="sf_schlachter1951_rev1_b.zip" identifier="sch1951" lang="deutsch" language="GER" name="Schlachter 1951" revision="1" type="bible"/>
 			<module filename="sf_koran_ger.zip" identifier="KORd" lang="deutsch" language="GER" name="Der Heilige Koran" revision="0" type="x-quran"/>

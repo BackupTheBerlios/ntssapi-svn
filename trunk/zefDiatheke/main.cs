@@ -62,10 +62,17 @@ namespace zefDiatheke
 					return;
 
 				}
+				if(args[0]=="ccpdir")
+				{
+
+					ProcessDir(args);
+					return;
+
+				}
 				if(args[0]=="v")
 				{
 
-					Console.WriteLine("ZefDiatheke Version 0.0.0.1");
+					Console.WriteLine("ZefDiatheke Version 0.0.0.3");
 					Console.WriteLine("Visit  www.zefania.de for newer version if available");
 					return;
 
@@ -288,6 +295,33 @@ namespace zefDiatheke
 
 
 		}
+
+		static void ProcessDir(string[] args)
+		{
+
+			try
+			{
+				string[] blah = new string[3];
+				// Process the list of files found in the directory.
+				string [] fileEntries = Directory.GetFiles(args[1].ToString());
+				foreach(string fileName in fileEntries)
+				{
+					blah[0]="ccp";blah[1]=fileName;
+					CreateCacheAndPack(blah);
+				
+				}
+					
+				Environment.Exit(1000);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("Exception {0}", e);
+				Environment.Exit(1201);
+			}
+		
+		}
+
+
 		static void CreateCacheAndPack(string[] args)
 		{
 			try
@@ -307,6 +341,62 @@ namespace zefDiatheke
 				ZefCache.BaseCacheDir=AppPath;
 				Console.WriteLine("Starte Cacherstellung.... bitte warten/wait");
 				ZefCache.CreateCacheChapters(false);
+
+				if(File.Exists(AppPath+@"\zefmodppc.xml"))
+				{
+				     
+					System.Xml.XmlDocument ModullistePPC=new XmlDocument();
+					ModullistePPC.Load(AppPath+@"\zefmodppc.xml");
+					//nachsehen, ob ein Eintrag für dieses Modul schon in der Modulliste ist.
+					XmlNode ModulEntry=ModullistePPC.DocumentElement.SelectSingleNode("descendant::modul[@filename='"+ZefCache.ModulMD5+".zip']");
+					if(ModulEntry==null)
+					{
+						// nein neu anlegen
+						XmlDocument INFO=new XmlDocument();
+						INFO.Load(ZefCache.GetInfoPath);
+						ModulEntry=ModullistePPC.CreateNode(XmlNodeType.Element,"modul","");
+					  
+						XmlNode AttFilename=ModullistePPC.CreateNode(XmlNodeType.Attribute,"filename","");
+						AttFilename.Value=ZefCache.ModulMD5+".zip";
+						ModulEntry.Attributes.SetNamedItem(AttFilename);
+
+						XmlNode Attidentifier=ModullistePPC.CreateNode(XmlNodeType.Attribute,"identifier","");
+						Attidentifier.Value=INFO.SelectSingleNode("descendant::identifier").InnerText;
+						ModulEntry.Attributes.SetNamedItem(Attidentifier);
+
+						XmlNode Attlang=ModullistePPC.CreateNode(XmlNodeType.Attribute,"lang","");
+						Attlang.Value=INFO.SelectSingleNode("descendant::language").InnerText;
+						ModulEntry.Attributes.SetNamedItem(Attlang);
+
+						XmlNode Attlanguage=ModullistePPC.CreateNode(XmlNodeType.Attribute,"language","");
+						Attlanguage.Value=INFO.SelectSingleNode("descendant::language").InnerText;
+						ModulEntry.Attributes.SetNamedItem(Attlanguage);
+
+						XmlNode Attname=ModullistePPC.CreateNode(XmlNodeType.Attribute,"name","");
+						string name=ZefCache.GetBibleName;
+						name=name.Replace("XML","");
+						Attname.Value=name.Trim();
+						ModulEntry.Attributes.SetNamedItem(Attname);
+
+						XmlNode Attrevision=ModullistePPC.CreateNode(XmlNodeType.Attribute,"revision","");
+						Attrevision.Value=INFO.SelectSingleNode("descendant::revision").InnerText;
+						ModulEntry.Attributes.SetNamedItem(Attrevision);
+
+						XmlNode Atttype=ModullistePPC.CreateNode(XmlNodeType.Attribute,"type","");
+						Atttype.Value="bible";
+						ModulEntry.Attributes.SetNamedItem(Atttype);
+						// und einfügen
+						ModullistePPC.DocumentElement.SelectSingleNode("descendant::modules").AppendChild(ModulEntry);
+                      
+						ModullistePPC.Save(AppPath+@"\zefmodppc.xml");
+					  
+					}
+                    
+
+				
+				}
+
+
 				Console.WriteLine("Cache ist fertig/ready");
 				Console.WriteLine("Packe Cache..... bitte warten/wait");
 				ZefCache.PackCache();
@@ -338,7 +428,7 @@ namespace zefDiatheke
 					Config.Save(AppPath+@"\config.xml");
 
 				}
-				Environment.Exit(1000);
+				
 
 
 
@@ -408,8 +498,8 @@ namespace zefDiatheke
 						}
 						else
 						{ 
-							XmlDocument INFO=new XmlDocument();
-							INFO.Load(PathToCacheInfoFile);
+							XPathDocument INFO = new XPathDocument(PathToCacheInfoFile);
+							XPathNavigator nav = INFO.CreateNavigator();
 
 							if(Targetfile!=null)
 							{   
@@ -425,21 +515,39 @@ namespace zefDiatheke
 							}
 
 							writer.Formatting = Formatting.Indented;
+
 							writer.WriteStartElement("XMLBIBLE");
+							
+							XPathNodeIterator BOOKFiles=null;
+							if(BN=="all")
+							{  // Bücher und Kapitel sortieren
+								System.Xml.XPath.XPathExpression expr  = nav.Compile("descendant::item");
+								// erst nach Buchnummern
+								expr.AddSort("@bn", XmlSortOrder.Ascending, XmlCaseOrder.None, "", XmlDataType.Number);
+								BOOKFiles  = nav.Select(expr);
+								// dann nach Kapitelnummern
+								expr.AddSort("@cn", XmlSortOrder.Ascending, XmlCaseOrder.None, "", XmlDataType.Number);
+								BOOKFiles  = nav.Select(expr);
+							}
+							else
+							{   // Kapitel in Buch BN sortieren
+								System.Xml.XPath.XPathExpression expr  = nav.Compile("descendant::item[@bn='"+BN+"']");
+								expr.AddSort("@cn", XmlSortOrder.Ascending, XmlCaseOrder.None, "", XmlDataType.Number);
+								BOOKFiles  = nav.Select(expr);
+							}
 
+							
 
-
-
-							XmlNodeList BOOKFiles=INFO.DocumentElement.SelectNodes("descendant::item[@bn='"+BN+"']");
-
-							string PathToChapterFile=AppPath+@"\zefcache\"+ML.InnerText+@"\"+BN;
+							string PathToChapterFile=AppPath+@"\zefcache\"+ML.InnerText;
 							string CN=null;
 							bool foundXMLBIBLE=false;
-
-							foreach(XmlNode Chapterfile in BOOKFiles)
+                            
+                            
+							while (BOOKFiles.MoveNext())
 							{
-								CN=Chapterfile.Attributes.GetNamedItem("cn").Value;
-								XmlTextReader reader = new XmlTextReader(PathToChapterFile+@"_"+CN+".xml");
+								CN=BOOKFiles.Current.GetAttribute("cn","").ToString();
+								BN=BOOKFiles.Current.GetAttribute("bn","").ToString();
+								XmlTextReader reader = new XmlTextReader(PathToChapterFile+@"\"+BN+"_"+CN+".xml");
 
 
 								while (reader.Read())
