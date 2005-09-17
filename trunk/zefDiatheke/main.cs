@@ -72,10 +72,17 @@ namespace zefDiatheke
 				if(args[0]=="v")
 				{
 
-					Console.WriteLine("ZefDiatheke Version 0.0.0.3");
+					Console.WriteLine("ZefDiatheke Version 0.0.0.5");
 					Console.WriteLine("Visit  www.zefania.de for newer version if available");
 					return;
 
+				}
+				if(args[0]=="lid")
+				{
+				  ListLangIDs(args);
+				  Console.ReadLine();
+				  return;
+				  
 				}
 
 			}
@@ -457,12 +464,67 @@ namespace zefDiatheke
 
 
 		}
+		static void ListLangIDs(string[] args){
+			try{
+			   
+				string AppPath=GetApplicationFolderName();
+
+				if(File.Exists(AppPath+@"\bnames.xml"))
+				{
+					XPathDocument Bnames = new XPathDocument(AppPath+@"\bnames.xml");
+					XPathNavigator navnames = Bnames.CreateNavigator();
+                    XPathExpression exprnames=null; 
+					XPathNodeIterator BookNames=null;
+					if(args.Length==2)
+					{
+						exprnames=navnames.Compile("descendant-or-self::ID[position()='"+args[1].ToString()+"']/BOOK");
+						BookNames=navnames.Select(exprnames);
+						while(BookNames.MoveNext())
+						{
+							
+							Console.Write("["+BookNames.Current.GetAttribute("bnumber","").ToString()+"] ");
+							Console.Write(BookNames.Current.GetAttribute("bshort","").ToString()+" - ");
+							Console.WriteLine(BookNames.Current.Value);
+							
+
+                        }
+                        
+						
+					
+					}
+					else
+					{
+						exprnames=navnames.Compile("descendant::ID");
+						BookNames=navnames.Select(exprnames);
+						while(BookNames.MoveNext())
+						{
+							Console.WriteLine(BookNames.CurrentPosition.ToString()+": "+BookNames.Current.GetAttribute("descr","").ToString());
+					
+						}
+					}
+
+				}
+				else{
+
+				  Console.WriteLine(AppPath+@"\bnames.xml nicht gefunden/not found!");
+				  Console.WriteLine("Download at http://tinyurl.com/8uw2u");
+
+				
+				}
+		     }
+			catch (Exception e)
+			{
+				Console.WriteLine("Exception {0}", e);
+				Environment.Exit(1900);
+			}
+		}
 		static void GetTextBook(string[] args)
 		{
 			try
 			{
 				string AppPath=GetApplicationFolderName();
 				string TMPPath=Path.GetTempFileName();
+
 				XmlTextWriter writer;
 
 				if(File.Exists(AppPath+@"\config.xml"))
@@ -471,14 +533,36 @@ namespace zefDiatheke
 
 					string BibleName=args[1];
 					string BN=args[2];
-					string XSLT="";
+					string XSLT=null;
 					string Targetfile=null;
+					string LangID=null;
+					XPathDocument Bnames=null;
+					XPathNavigator navnames=null;
+					XPathExpression exprnames  = null;
+					XPathNodeIterator BookNames=null;
 
 					if(args.Length==5)
 					{
 						XSLT=args[3];
 						Targetfile=args[4];
 					}
+
+					if(args.Length==6)
+					{
+						XSLT=args[3];
+						Targetfile=args[4];
+						LangID=args[5];
+
+						if(File.Exists(AppPath+@"\bnames.xml"))
+						{
+							Bnames = new XPathDocument(AppPath+@"\bnames.xml");
+							navnames = Bnames.CreateNavigator();
+							exprnames=navnames.Compile("descendant::ID[@descr='"+LangID+"']/BOOK");
+							BookNames=navnames.Select(exprnames);
+						}
+						
+					}
+
 
 					Config.Load(AppPath+@"\config.xml");
 					XmlNode ML=Config.DocumentElement.SelectSingleNode("descendant::modul[@name='"+BibleName+"']");
@@ -490,6 +574,7 @@ namespace zefDiatheke
 					{
 
 						string PathToCacheInfoFile=AppPath+@"\zefcache\"+ML.InnerText+@"\info.xml";
+
 						if(!File.Exists(PathToCacheInfoFile))
 						{
 							Console.WriteLine(PathToCacheInfoFile);
@@ -516,12 +601,13 @@ namespace zefDiatheke
 
 							writer.Formatting = Formatting.Indented;
 
-							writer.WriteStartElement("XMLBIBLE");
+							
 							
 							XPathNodeIterator BOOKFiles=null;
 							if(BN=="all")
 							{  // Bücher und Kapitel sortieren
-								System.Xml.XPath.XPathExpression expr  = nav.Compile("descendant::item");
+								XPathExpression expr  = nav.Compile("descendant::item");
+								
 								// erst nach Buchnummern
 								expr.AddSort("@bn", XmlSortOrder.Ascending, XmlCaseOrder.None, "", XmlDataType.Number);
 								BOOKFiles  = nav.Select(expr);
@@ -540,8 +626,29 @@ namespace zefDiatheke
 
 							string PathToChapterFile=AppPath+@"\zefcache\"+ML.InnerText;
 							string CN=null;
-							bool foundXMLBIBLE=false;
-                            
+
+							string LastBookNumber="-1";
+						    bool secondBook=false;
+
+							writer.WriteStartDocument();
+							writer.WriteComment("created with zefDiatheke.exe");
+							writer.WriteComment("visit: http://www.zefania.de");
+
+							writer.WriteStartElement("XMLBIBLE"); 
+							writer.WriteAttributeString("biblename",BibleName);
+                            writer.WriteAttributeString("type","x-bible");
+
+							writer.WriteStartElement("INFORMATION");
+                            XPathExpression expr2  = nav.Compile("descendant::INFORMATION/*");
+                            XPathNodeIterator INFORMATION=nav.Select(expr2);
+
+							while(INFORMATION.MoveNext())
+							{
+								writer.WriteElementString(INFORMATION.Current.Name,INFORMATION.Current.Value);
+							}
+						    
+                              
+							writer.WriteEndElement();// end information
                             
 							while (BOOKFiles.MoveNext())
 							{
@@ -549,36 +656,57 @@ namespace zefDiatheke
 								BN=BOOKFiles.Current.GetAttribute("bn","").ToString();
 								XmlTextReader reader = new XmlTextReader(PathToChapterFile+@"\"+BN+"_"+CN+".xml");
 
-
-								while (reader.Read())
+								if(LastBookNumber!=BN)
 								{
-
-									if(reader.Name=="XMLBIBLE"&!foundXMLBIBLE)
-									{   
-
-										foundXMLBIBLE=true;
-										reader.MoveToFirstAttribute();
-										writer.WriteAttributeString(reader.Name,reader.Value);
-
-										while(reader.MoveToNextAttribute())
+									if(secondBook){
+									   
+										writer.WriteEndElement();
+									
+									}
+									
+									writer.WriteStartElement("BIBLEBOOK");
+									
+									writer.WriteAttributeString("bnumber",BN);
+									if(BookNames!=null){
+									    
+										while(BookNames.MoveNext())
 										{
+											if(BookNames.Current.GetAttribute("bnumber","").ToString()==BN)
+											{
+												string bshort=BookNames.Current.GetAttribute("bshort","").ToString();
+												string blong=BookNames.Current.Value;
+												writer.WriteAttributeString("bsname",bshort);
+												writer.WriteAttributeString("bname",blong);
+												break;
 
-											writer.WriteAttributeString(reader.Name,reader.Value);
-
+											}
 										}
-
+										
+									
 									}
-									if(reader.Name=="BIBLEBOOK")
-									{
 
-										writer.WriteNode(reader,true);
-
-									}
+									secondBook=true;
+									LastBookNumber=BN;
+									
 
 								}
 
-							}
-							writer.WriteElementString("INFORMATION","");
+                                
+								while (reader.Read())
+								{
+
+									if(reader.Name=="BIBLEBOOK"&reader.NodeType == XmlNodeType.Element)
+									{
+										reader.Read();
+
+										writer.WriteNode(reader,true);
+									}
+
+								}// end reader.read
+
+								
+	
+							}// BOOKFiles.MoveNext
 							writer.WriteEndElement();// end xmlbible
 							writer.Flush();
 							writer.Close();
