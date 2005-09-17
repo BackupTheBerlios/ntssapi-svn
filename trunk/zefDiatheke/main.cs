@@ -79,10 +79,10 @@ namespace zefDiatheke
 				}
 				if(args[0]=="lid")
 				{
-				  ListLangIDs(args);
-				  Console.ReadLine();
-				  return;
-				  
+					ListLangIDs(args);
+
+					return;
+
 				}
 
 			}
@@ -315,9 +315,9 @@ namespace zefDiatheke
 				{
 					blah[0]="ccp";blah[1]=fileName;
 					CreateCacheAndPack(blah);
-				
+
 				}
-					
+
 				Environment.Exit(1000);
 			}
 			catch (Exception e)
@@ -325,7 +325,7 @@ namespace zefDiatheke
 				Console.WriteLine("Exception {0}", e);
 				Environment.Exit(1201);
 			}
-		
+
 		}
 
 
@@ -351,7 +351,7 @@ namespace zefDiatheke
 
 				if(File.Exists(AppPath+@"\zefmodppc.xml"))
 				{
-				     
+
 					System.Xml.XmlDocument ModullistePPC=new XmlDocument();
 					ModullistePPC.Load(AppPath+@"\zefmodppc.xml");
 					//nachsehen, ob ein Eintrag für dieses Modul schon in der Modulliste ist.
@@ -362,7 +362,7 @@ namespace zefDiatheke
 						XmlDocument INFO=new XmlDocument();
 						INFO.Load(ZefCache.GetInfoPath);
 						ModulEntry=ModullistePPC.CreateNode(XmlNodeType.Element,"modul","");
-					  
+
 						XmlNode AttFilename=ModullistePPC.CreateNode(XmlNodeType.Attribute,"filename","");
 						AttFilename.Value=ZefCache.ModulMD5+".zip";
 						ModulEntry.Attributes.SetNamedItem(AttFilename);
@@ -394,13 +394,13 @@ namespace zefDiatheke
 						ModulEntry.Attributes.SetNamedItem(Atttype);
 						// und einfügen
 						ModullistePPC.DocumentElement.SelectSingleNode("descendant::modules").AppendChild(ModulEntry);
-                      
-						ModullistePPC.Save(AppPath+@"\zefmodppc.xml");
-					  
-					}
-                    
 
-				
+						ModullistePPC.Save(AppPath+@"\zefmodppc.xml");
+
+					}
+
+
+
 				}
 
 
@@ -435,7 +435,7 @@ namespace zefDiatheke
 					Config.Save(AppPath+@"\config.xml");
 
 				}
-				
+
 
 
 
@@ -464,16 +464,18 @@ namespace zefDiatheke
 
 
 		}
-		static void ListLangIDs(string[] args){
-			try{
-			   
+		static void ListLangIDs(string[] args)
+		{
+			try
+			{
+
 				string AppPath=GetApplicationFolderName();
 
 				if(File.Exists(AppPath+@"\bnames.xml"))
 				{
 					XPathDocument Bnames = new XPathDocument(AppPath+@"\bnames.xml");
 					XPathNavigator navnames = Bnames.CreateNavigator();
-                    XPathExpression exprnames=null; 
+					XPathExpression exprnames=null; 
 					XPathNodeIterator BookNames=null;
 					if(args.Length==2)
 					{
@@ -481,16 +483,16 @@ namespace zefDiatheke
 						BookNames=navnames.Select(exprnames);
 						while(BookNames.MoveNext())
 						{
-							
+
 							Console.Write("["+BookNames.Current.GetAttribute("bnumber","").ToString()+"] ");
 							Console.Write(BookNames.Current.GetAttribute("bshort","").ToString()+" - ");
 							Console.WriteLine(BookNames.Current.Value);
-							
 
-                        }
-                        
-						
-					
+
+						}
+
+
+
 					}
 					else
 					{
@@ -499,19 +501,20 @@ namespace zefDiatheke
 						while(BookNames.MoveNext())
 						{
 							Console.WriteLine(BookNames.CurrentPosition.ToString()+": "+BookNames.Current.GetAttribute("descr","").ToString());
-					
+
 						}
 					}
 
 				}
-				else{
+				else
+				{
 
-				  Console.WriteLine(AppPath+@"\bnames.xml nicht gefunden/not found!");
-				  Console.WriteLine("Download at http://tinyurl.com/8uw2u");
+					Console.WriteLine(AppPath+@"\bnames.xml nicht gefunden/not found!");
+					Console.WriteLine("Download at http://tinyurl.com/8uw2u");
 
-				
+
 				}
-		     }
+			}
 			catch (Exception e)
 			{
 				Console.WriteLine("Exception {0}", e);
@@ -560,7 +563,7 @@ namespace zefDiatheke
 							exprnames=navnames.Compile("descendant::ID[@descr='"+LangID+"']/BOOK");
 							BookNames=navnames.Select(exprnames);
 						}
-						
+
 					}
 
 
@@ -601,13 +604,13 @@ namespace zefDiatheke
 
 							writer.Formatting = Formatting.Indented;
 
-							
-							
+
+
 							XPathNodeIterator BOOKFiles=null;
 							if(BN=="all")
 							{  // Bücher und Kapitel sortieren
 								XPathExpression expr  = nav.Compile("descendant::item");
-								
+
 								// erst nach Buchnummern
 								expr.AddSort("@bn", XmlSortOrder.Ascending, XmlCaseOrder.None, "", XmlDataType.Number);
 								BOOKFiles  = nav.Select(expr);
@@ -622,13 +625,13 @@ namespace zefDiatheke
 								BOOKFiles  = nav.Select(expr);
 							}
 
-							
+
 
 							string PathToChapterFile=AppPath+@"\zefcache\"+ML.InnerText;
 							string CN=null;
 
 							string LastBookNumber="-1";
-						    bool secondBook=false;
+							bool secondBook=false;
 
 							writer.WriteStartDocument();
 							writer.WriteComment("created with zefDiatheke.exe");
@@ -636,20 +639,20 @@ namespace zefDiatheke
 
 							writer.WriteStartElement("XMLBIBLE"); 
 							writer.WriteAttributeString("biblename",BibleName);
-                            writer.WriteAttributeString("type","x-bible");
+							writer.WriteAttributeString("type","x-bible");
 
 							writer.WriteStartElement("INFORMATION");
-                            XPathExpression expr2  = nav.Compile("descendant::INFORMATION/*");
-                            XPathNodeIterator INFORMATION=nav.Select(expr2);
+							XPathExpression expr2  = nav.Compile("descendant::INFORMATION/*");
+							XPathNodeIterator INFORMATION=nav.Select(expr2);
 
 							while(INFORMATION.MoveNext())
 							{
 								writer.WriteElementString(INFORMATION.Current.Name,INFORMATION.Current.Value);
 							}
-						    
-                              
+
+
 							writer.WriteEndElement();// end information
-                            
+
 							while (BOOKFiles.MoveNext())
 							{
 								CN=BOOKFiles.Current.GetAttribute("cn","").ToString();
@@ -658,17 +661,19 @@ namespace zefDiatheke
 
 								if(LastBookNumber!=BN)
 								{
-									if(secondBook){
-									   
+									if(secondBook)
+									{
+
 										writer.WriteEndElement();
-									
+
 									}
-									
+
 									writer.WriteStartElement("BIBLEBOOK");
-									
+
 									writer.WriteAttributeString("bnumber",BN);
-									if(BookNames!=null){
-									    
+									if(BookNames!=null)
+									{
+
 										while(BookNames.MoveNext())
 										{
 											if(BookNames.Current.GetAttribute("bnumber","").ToString()==BN)
@@ -681,17 +686,17 @@ namespace zefDiatheke
 
 											}
 										}
-										
-									
+
+
 									}
 
 									secondBook=true;
 									LastBookNumber=BN;
-									
+
 
 								}
 
-                                
+
 								while (reader.Read())
 								{
 
@@ -704,8 +709,8 @@ namespace zefDiatheke
 
 								}// end reader.read
 
-								
-	
+
+
 							}// BOOKFiles.MoveNext
 							writer.WriteEndElement();// end xmlbible
 							writer.Flush();
