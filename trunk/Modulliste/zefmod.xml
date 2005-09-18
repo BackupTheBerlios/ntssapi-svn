@@ -37,7 +37,7 @@
 			<module filename="sf_gerben.rev1.zip" identifier="Bible.GerBen" lang="deutsch" language="GER" name="Bengel NT" revision="1" type="bible"/>
 			
 			<module filename="luther1545_rev2.zip" identifier="luth1545" lang="deutsch" language="GER" name="Luther 1545" revision="2" type="bible"/>
-			<module filename="Luther1545_rev1_Strong.zip" identifier="luth1545str" lang="deutsch" language="GER" name="Luther 1545" revision="1" type="bible"/>
+			<module filename="Luther1545_rev1_Strong.zip" identifier="luth1545str" lang="deutsch" language="GER" name="Luther 1545 mit Strongs" revision="1" type="bible"/>
 
 			
 			<module filename="sf_elberfelder1871.zip" identifier="Bible.GerElb1871" lang="deutsch" language="GER" name="Elberfelder 1871" revision="0" type="bible"/>
@@ -59,7 +59,7 @@
 
 
 			<module filename="Geneva_rev1.zip" identifier="GB" lang="englisch" language="ENG" name="1599 Geneva Bible" revision="1" type="bible"/>
-			<module filename="sf_rkjnt.zip" identifier="RKJVNT" lang="englisch" language="ENG" name="Revised King James NT" revision="0" type="bible"/>
+			<module filename="sf_rkjntb.zip" identifier="RKJVNT" lang="englisch" language="ENG" name="Revised King James NT" revision="0" type="bible"/>
 			<module filename="sf_nwt_rev1.zip" identifier="nwt" lang="englisch" language="ENG" name="New World Translation" revision="1" type="bible"/>
 			<module filename="sf_bom.zip" identifier="bom" lang="englisch" language="ENG" name="THE BOOK OF MORMON" revision="0" type="bible"/>
 			<module filename="sf_jubilee2000.zip" identifier="jubl2000" lang="englisch" language="ENG" name="English Jubilee 2000 bible" revision="0" type="bible"/>
@@ -102,9 +102,9 @@
 			<module filename="sf_rus_strongs.zip" identifier="RusVZh" lang="russisch" language="rus" name="Russian New Testament (Strongs)" revision="0" type="bible"/>
 			<module filename="sf_basque_1571_nt.zip" identifier="basq1571" lang="baskisch" language="baq" name="Basque Navarro-Labourdin) NT" revision="0" type="bible"/>
 			<module filename="sf_tagalog_rev1.zip" identifier="TlgAngBiblia" lang="tagalog" language="TGL" name="Ang Dating Biblia" revision="1" type="bible"/>
-			<module filename="sf_deje.zip" identifier="dejer" lang="französisch" language="FRE" name="La Bible de Jérusalem" revision="0" type="bible"/>
-			<module filename="sf_ostervald.zip" identifier="ostv1996" lang="französisch" language="FRE" name="La Bible Ostervald (1744, révisée en 1996)" revision="0" type="bible"/>
-			<module filename="sf_crampon23_4.zip" identifier="cramp23" lang="französisch" language="FRE" name="La Bible Augustin Crampon 1923" revision="0" type="bible"/>
+			<module filename="sf_dejeb.zip" identifier="dejer" lang="französisch" language="FRE" name="La Bible de Jérusalem" revision="0" type="bible"/>
+			<module filename="sf_ostervaldb.zip" identifier="ostv1996" lang="französisch" language="FRE" name="La Bible Ostervald (1744, révisée en 1996)" revision="0" type="bible"/>
+			<module filename="sf_crampon23_4b.zip" identifier="cramp23" lang="französisch" language="FRE" name="La Bible Augustin Crampon 1923" revision="0" type="bible"/>
 			<module filename="sf_turkce-at-nt.zip" identifier="BB31" lang="türkisch" language="TUR" name="Turkish AT/NT" revision="0" type="bible"/>
 			<module filename="iso-sf_afr3353.zip" identifier="afr3353" lang="afrikaans" language="AFR" name="Afrikaans Bybel (1933/1953)" revision="0" type="bible"/>
 			<module filename="sf_manx_gaelic.zip" identifier="GLA2" lang="englisch" language="GLA" name="Manx Gaelic " revision="0" type="bible"/>
@@ -132,7 +132,7 @@
 			<module filename="sf_tischendorf.zip" identifier="grtisch8" lang="griechisch" language="GRC" name="Greek NT Tischendorf 8th Ed" revision="0" type="bible"/>
 			<module filename="sf_gnt_variants.zip" identifier="GNT-V" lang="griechisch" language="GRC" name="Greek New Testament w/ variants" revision="0" type="bible"/>
 			<module filename="sf_moderngreek.zip" identifier="greekm" lang="griechisch" language="GRC" name="Modern Greek" revision="0" type="bible"/>
-			<module filename="sf_lxx.zip" identifier="LXX" lang="griechisch" language="GRC" name="Greek OT Septuaginta LXX" revision="2" type="bible"/>
+			<module filename="sf_lxxb.zip" identifier="LXX" lang="griechisch" language="GRC" name="Greek OT Septuaginta LXX" revision="2" type="bible"/>
 			<module filename="sf_greekwh.zip" identifier="greekwh" lang="griechisch" language="GRC" name="Greek NT Westcott-Hort" revision="0" type="bible"/>
 			<module filename="sf_greeknt1896.zip" identifier="greek1894" lang="griechisch" language="GRC" name="Greek NT Scrivener-1894" revision="0" type="bible"/>
 			<module filename="sf_greeknt1550.zip" identifier="greek1550" lang="griechisch" language="GRC" name="Greek NT Stephanos-1550" revision="0" type="bible"/>
