@@ -23,27 +23,23 @@ namespace zefPocket
 	public class frmmain : System.Windows.Forms.Form
 	{
 		private Microsoft.WindowsCE.Forms.InputPanel inputPanel1;
-		private System.Windows.Forms.MenuItem menuItem1;
-		private System.Windows.Forms.MenuItem menuItem3;
-		private System.Windows.Forms.MenuItem menuItem4;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
-		private System.Windows.Forms.MenuItem menuItem6;
 		private System.Windows.Forms.ImageList imageList1;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPageBibel;
-		private System.Windows.Forms.Panel paneldict;
 		private System.Windows.Forms.Panel panelbase;
-		private System.Windows.Forms.Panel panelmain;
-		private OpenNETCF.Windows.Forms.ComboBoxEx comboBoxBibles;
-		private OpenNETCF.Windows.Forms.WebBrowser webBrowserBible;
 		private System.Windows.Forms.Panel panelHead;
-		private System.Windows.Forms.ToolBar toolBar1;
-		private System.Windows.Forms.ToolBarButton toolBarButton1;
-		private System.Windows.Forms.ToolBarButton toolBarButton2;
-		private System.Windows.Forms.ToolBarButton toolBarButton3;
-		private System.Windows.Forms.ToolBarButton toolBarButton4;
-		private System.Windows.Forms.ToolBarButton toolBarButton5;
-		private System.Windows.Forms.MenuItem menuItemBibledownloader;
+		private OpenNETCF.Windows.Forms.ButtonEx buttonNextChapter;
+		private OpenNETCF.Windows.Forms.ButtonEx buttonPrevChapter;
+		private System.Windows.Forms.Panel panelmain;
+		private System.Windows.Forms.Panel paneldict;
+		private OpenNETCF.Windows.Forms.WebBrowser webBrowserBible;
+		private System.Windows.Forms.MenuItem menuItem1;
+		private System.Windows.Forms.MenuItem menuItem2;
+		private System.Windows.Forms.MenuItem menuItem3;
+		private System.Windows.Forms.MenuItem menuItem4;
+		private System.Windows.Forms.MenuItem menuItem5;
+		private System.Windows.Forms.MenuItem menuItem6;
 		private System.Windows.Forms.MainMenu mainMenu1;
 
 		
@@ -78,27 +74,23 @@ namespace zefPocket
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(frmmain));
 			this.mainMenu1 = new System.Windows.Forms.MainMenu();
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
-			this.menuItem6 = new System.Windows.Forms.MenuItem();
-			this.menuItem4 = new System.Windows.Forms.MenuItem();
-			this.menuItemBibledownloader = new System.Windows.Forms.MenuItem();
+			this.menuItem2 = new System.Windows.Forms.MenuItem();
 			this.menuItem3 = new System.Windows.Forms.MenuItem();
+			this.menuItem4 = new System.Windows.Forms.MenuItem();
+			this.menuItem5 = new System.Windows.Forms.MenuItem();
+			this.menuItem6 = new System.Windows.Forms.MenuItem();
 			this.inputPanel1 = new Microsoft.WindowsCE.Forms.InputPanel();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
 			this.panelbase = new System.Windows.Forms.Panel();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPageBibel = new System.Windows.Forms.TabPage();
-			this.paneldict = new System.Windows.Forms.Panel();
 			this.panelmain = new System.Windows.Forms.Panel();
+			this.paneldict = new System.Windows.Forms.Panel();
 			this.webBrowserBible = new OpenNETCF.Windows.Forms.WebBrowser();
 			this.panelHead = new System.Windows.Forms.Panel();
-			this.comboBoxBibles = new OpenNETCF.Windows.Forms.ComboBoxEx();
+			this.buttonPrevChapter = new OpenNETCF.Windows.Forms.ButtonEx();
+			this.buttonNextChapter = new OpenNETCF.Windows.Forms.ButtonEx();
 			this.imageList1 = new System.Windows.Forms.ImageList();
-			this.toolBar1 = new System.Windows.Forms.ToolBar();
-			this.toolBarButton1 = new System.Windows.Forms.ToolBarButton();
-			this.toolBarButton2 = new System.Windows.Forms.ToolBarButton();
-			this.toolBarButton3 = new System.Windows.Forms.ToolBarButton();
-			this.toolBarButton4 = new System.Windows.Forms.ToolBarButton();
-			this.toolBarButton5 = new System.Windows.Forms.ToolBarButton();
 			// 
 			// mainMenu1
 			// 
@@ -106,37 +98,41 @@ namespace zefPocket
 			// 
 			// menuItem1
 			// 
+			this.menuItem1.MenuItems.Add(this.menuItem2);
+			this.menuItem1.MenuItems.Add(this.menuItem5);
 			this.menuItem1.MenuItems.Add(this.menuItem6);
-			this.menuItem1.MenuItems.Add(this.menuItem4);
-			this.menuItem1.MenuItems.Add(this.menuItem3);
 			this.menuItem1.Text = "View";
-			this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
 			// 
-			// menuItem6
+			// menuItem2
 			// 
-			this.menuItem6.Text = "SplitView";
-			this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
-			// 
-			// menuItem4
-			// 
-			this.menuItem4.MenuItems.Add(this.menuItemBibledownloader);
-			this.menuItem4.Text = "Installieren";
-			// 
-			// menuItemBibledownloader
-			// 
-			this.menuItemBibledownloader.Text = "Bibelmodul(e)";
-			this.menuItemBibledownloader.Click += new System.EventHandler(this.menuItem5_Click);
+			this.menuItem2.MenuItems.Add(this.menuItem3);
+			this.menuItem2.MenuItems.Add(this.menuItem4);
+			this.menuItem2.Text = "Module";
 			// 
 			// menuItem3
 			// 
-			this.menuItem3.Text = "Exit";
-			this.menuItem3.Click += new System.EventHandler(this.menuItem3_Click);
+			this.menuItem3.Text = "aktualisieren";
+			this.menuItem3.Click += new System.EventHandler(this.menuItem2_Click);
+			// 
+			// menuItem4
+			// 
+			this.menuItem4.Text = "Downloader";
+			this.menuItem4.Click += new System.EventHandler(this.menuItem4_Click);
+			// 
+			// menuItem5
+			// 
+			this.menuItem5.Text = "Exit";
+			// 
+			// menuItem6
+			// 
+			this.menuItem6.Text = "Bibelselektor";
+			this.menuItem6.Click += new System.EventHandler(this.menuItem5_Click_1);
 			// 
 			// panelbase
 			// 
 			this.panelbase.BackColor = System.Drawing.Color.DarkGray;
 			this.panelbase.Controls.Add(this.tabControl1);
-			this.panelbase.Size = new System.Drawing.Size(246, 248);
+			this.panelbase.Size = new System.Drawing.Size(246, 272);
 			// 
 			// tabControl1
 			// 
@@ -146,84 +142,70 @@ namespace zefPocket
 			// 
 			// tabPageBibel
 			// 
-			this.tabPageBibel.Controls.Add(this.paneldict);
 			this.tabPageBibel.Controls.Add(this.panelmain);
 			this.tabPageBibel.Controls.Add(this.panelHead);
 			this.tabPageBibel.Location = new System.Drawing.Point(4, 4);
 			this.tabPageBibel.Size = new System.Drawing.Size(232, 246);
 			this.tabPageBibel.Text = "Bibel";
 			// 
+			// panelmain
+			// 
+			this.panelmain.BackColor = System.Drawing.Color.RosyBrown;
+			this.panelmain.Controls.Add(this.paneldict);
+			this.panelmain.Controls.Add(this.webBrowserBible);
+			this.panelmain.Location = new System.Drawing.Point(0, 25);
+			this.panelmain.Size = new System.Drawing.Size(232, 218);
+			// 
 			// paneldict
 			// 
 			this.paneldict.BackColor = System.Drawing.Color.MistyRose;
 			this.paneldict.Location = new System.Drawing.Point(0, 168);
-			this.paneldict.Size = new System.Drawing.Size(232, 80);
-			// 
-			// panelmain
-			// 
-			this.panelmain.BackColor = System.Drawing.Color.RosyBrown;
-			this.panelmain.Controls.Add(this.webBrowserBible);
-			this.panelmain.Location = new System.Drawing.Point(0, 35);
-			this.panelmain.Size = new System.Drawing.Size(232, 133);
+			this.paneldict.Size = new System.Drawing.Size(232, 56);
 			// 
 			// webBrowserBible
 			// 
-			this.webBrowserBible.BackColor = System.Drawing.Color.Snow;
-			this.webBrowserBible.Size = new System.Drawing.Size(232, 136);
+			this.webBrowserBible.BackColor = System.Drawing.Color.LightCoral;
+			this.webBrowserBible.Font = new System.Drawing.Font("Arial Unicode MS", 8.25F, System.Drawing.FontStyle.Regular);
+			this.webBrowserBible.Size = new System.Drawing.Size(232, 176);
 			this.webBrowserBible.Text = "webBrowser1";
 			this.webBrowserBible.Url = null;
 			// 
 			// panelHead
 			// 
 			this.panelHead.BackColor = System.Drawing.Color.PeachPuff;
-			this.panelHead.Controls.Add(this.comboBoxBibles);
-			this.panelHead.Size = new System.Drawing.Size(246, 35);
+			this.panelHead.Controls.Add(this.buttonPrevChapter);
+			this.panelHead.Controls.Add(this.buttonNextChapter);
+			this.panelHead.Size = new System.Drawing.Size(240, 24);
 			// 
-			// comboBoxBibles
+			// buttonPrevChapter
 			// 
-			this.comboBoxBibles.Location = new System.Drawing.Point(8, 8);
-			this.comboBoxBibles.Size = new System.Drawing.Size(120, 21);
+			this.buttonPrevChapter.ActiveForeColor = System.Drawing.Color.PeachPuff;
+			this.buttonPrevChapter.BackColor = System.Drawing.Color.PaleGoldenrod;
+			this.buttonPrevChapter.Location = new System.Drawing.Point(152, 3);
+			this.buttonPrevChapter.Size = new System.Drawing.Size(32, 18);
+			this.buttonPrevChapter.Text = "<";
+			this.buttonPrevChapter.TextAlign = OpenNETCF.Drawing.ContentAlignment.MiddleCenter;
+			this.buttonPrevChapter.Click += new System.EventHandler(this.buttonPrevChapter_Click);
+			// 
+			// buttonNextChapter
+			// 
+			this.buttonNextChapter.BackColor = System.Drawing.Color.PaleGoldenrod;
+			this.buttonNextChapter.Location = new System.Drawing.Point(192, 3);
+			this.buttonNextChapter.Size = new System.Drawing.Size(32, 18);
+			this.buttonNextChapter.Text = ">";
+			this.buttonNextChapter.TextAlign = OpenNETCF.Drawing.ContentAlignment.MiddleCenter;
+			this.buttonNextChapter.Click += new System.EventHandler(this.buttonNextChapter_Click);
 			// 
 			// imageList1
 			// 
 			this.imageList1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource"))));
 			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-			// 
-			// toolBar1
-			// 
-			this.toolBar1.Buttons.Add(this.toolBarButton1);
-			this.toolBar1.Buttons.Add(this.toolBarButton2);
-			this.toolBar1.Buttons.Add(this.toolBarButton3);
-			this.toolBar1.Buttons.Add(this.toolBarButton4);
-			this.toolBar1.Buttons.Add(this.toolBarButton5);
-			this.toolBar1.ImageList = this.imageList1;
-			this.toolBar1.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.toolBar1_ButtonClick);
-			// 
-			// toolBarButton1
-			// 
-			this.toolBarButton1.ImageIndex = 0;
-			// 
-			// toolBarButton2
-			// 
-			this.toolBarButton2.ImageIndex = 0;
-			// 
-			// toolBarButton3
-			// 
-			this.toolBarButton3.ImageIndex = 0;
-			// 
-			// toolBarButton4
-			// 
-			this.toolBarButton4.ImageIndex = 0;
-			// 
-			// toolBarButton5
-			// 
-			this.toolBarButton5.ImageIndex = 0;
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			// 
 			// frmmain
 			// 
+			this.ClientSize = new System.Drawing.Size(240, 273);
 			this.Controls.Add(this.panelbase);
-			this.Controls.Add(this.toolBar1);
 			this.Menu = this.mainMenu1;
 			this.Text = "Zefania PPC";
 			this.Load += new System.EventHandler(this.frmmain_Load);
@@ -235,8 +217,16 @@ namespace zefPocket
 		private string CachePath=Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName)+@"\zefcache\";
 		private cfhtmlpages HTMLPAGER =new cfhtmlpages();
 		private XmlNode Moduls;
+		private System.Xml.XmlDocument INFO=new XmlDocument();
+		private string selectedBiblePath=null;
 		private bool ViewIsSplitted=false;
 		frdownloader frDown =null;
+		private string ChapterNumber="1";
+		private string BookNumber="1";
+		private OpenNETCF.Windows.Forms.ComboBoxEx cbBibles=new OpenNETCF.Windows.Forms.ComboBoxEx();
+		private OpenNETCF.Windows.Forms.ComboBoxEx cbBibleGroup=new OpenNETCF.Windows.Forms.ComboBoxEx();
+
+	
 		
 		/// <summary>
 		/// Der Haupteinstiegspunkt für die Anwendung.
@@ -255,21 +245,52 @@ namespace zefPocket
 				SplittView(ViewIsSplitted);
 				AppPath=Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
 				PopulateBiblesCombo();
-				comboBoxBibles.SelectedIndex=0;
+				
+				this.cbBibles.SelectedIndexChanged+=new EventHandler(cbBibles_SelectedIndexChanged);
+				this.cbBibleGroup.SelectedIndexChanged+=new EventHandler(cbBibleGroup_SelectedIndexChanged);
+			
 				Directory.CreateDirectory(AppPath+@"\zefcache");
 				
 			}
 			catch(Exception ex)
 			{
-			
+				MessageBox.Show(ex.Message,"Zefania PPC");
 			}
+		}
+		public void ChangeBibleGroup(string group)
+		{
+			try
+			{   
+				
+				this.cbBibles.Items.Clear();
+				XmlDocument Config=new XmlDocument();
+				if(File.Exists(AppPath+@"\config.xml"))
+				{
+					Config.Load(AppPath+@"\config.xml");
+					Moduls=Config.DocumentElement;
+					foreach(XmlNode m in Moduls.ChildNodes)
+					{
+						if(m.Attributes.GetNamedItem("group").Value==group)
+						{
+							this.cbBibles.Items.Add(m.Attributes.GetNamedItem("name").InnerText);
+						}
+					}
+				}
+				
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.Message,"Zefania PPC");
+			}
+		
+		
 		}
 		
 		public  void PopulateBiblesCombo()
 		{
 			try
 			{
-				comboBoxBibles.Items.Clear();
+				this.cbBibleGroup.Items.Clear();
 				XmlDocument Config=new XmlDocument();
                 
 				
@@ -279,7 +300,11 @@ namespace zefPocket
 					Moduls=Config.DocumentElement;
 					foreach(XmlNode m in Moduls.ChildNodes)
 					{
-						comboBoxBibles.Items.Add(m.Attributes.GetNamedItem("name").InnerText);
+						XmlNode G=m.Attributes.GetNamedItem("group");
+						if(G!=null)
+						{
+							this.cbBibleGroup.Items.Add(G.Value.ToString());
+						}
 					}
 					 
 				}
@@ -288,7 +313,7 @@ namespace zefPocket
 			}
 			catch(Exception ex)
 			{
-			
+				MessageBox.Show(ex.Message,"Zefania PPC");
 			}
 			
 		}
@@ -300,42 +325,32 @@ namespace zefPocket
 			  
 				if(isSplitted)
 				{
-					panelmain.Height=152;
-					paneldict.Height=80;
-					webBrowserBible.Height=panelmain.Height;
-					paneldict.Location=new Point(paneldict.Location.X,tabPageBibel.ClientSize.Height-80);
-					paneldict.Width=tabPageBibel.ClientSize.Width;
+					
+					panelmain.Width=tabPageBibel.ClientSize.Width-5;
+					paneldict.Height=70;
+					webBrowserBible.Height=panelmain.Height-paneldict.Height;
+					paneldict.Location=new Point(paneldict.Location.X,panelmain.Height-69);
+					paneldict.Width=panelmain.Width;
 				}
 				else
 				{
 					
-					
-
-					panelbase.Width=ClientSize.Width;
-					panelbase.Height=this.ClientSize.Height;
-					
-					tabControl1.Width=panelbase.Width;
-					tabControl1.Height=panelbase.Height;
-					panelHead.Location=new Point(0,0);
-					panelHead.Height=35;
-					panelHead.Width=tabPageBibel.ClientSize.Width;
-					panelmain.Location=new Point(0,panelHead.Height);
-					panelmain.Height=tabPageBibel.ClientSize.Height-panelHead.Height;
-					panelmain.Width=tabPageBibel.ClientSize.Width;
-					webBrowserBible.Width=panelmain.Width;
-					webBrowserBible.Height=panelmain.Height;
+					panelmain.Width=tabPageBibel.ClientSize.Width-5;
 					paneldict.Height=0;
+					paneldict.Width=panelmain.Width;
+					webBrowserBible.Height=panelmain.Height;
+					webBrowserBible.Width=panelmain.Width;
 				
 				}
 			}
 			catch(Exception ex)
 			{
-			
+				MessageBox.Show(ex.Message,"Zefania PPC");
 			}
 		
 		}
 
-		private void LoadBibleChapterToScreen(string BookNumber,string ChapterNumber)
+		private void SelectBiblePath()
 		{
 
 			try
@@ -345,7 +360,7 @@ namespace zefPocket
 
 				foreach(XmlNode m in Moduls.ChildNodes)
 				{
-					if(m.Attributes.GetNamedItem("name").InnerText=="comboBoxBibles.SelectedItem.ToString()")
+					if(m.Attributes.GetNamedItem("name").InnerText==cbBibles.SelectedItem.ToString())
 					{
 					  
 						MD5Dir=m.InnerText;
@@ -354,195 +369,291 @@ namespace zefPocket
 					}
 				}	
                 
-				HTMLPAGER.CachePathForModul=AppPath+@"\zefcache\"+MD5Dir;
-				//webBrowser1.DocumentText=HTMLPAGER.GetChapterAsFlowText(BookNumber,ChapterNumber);
+				
+				this.selectedBiblePath=AppPath+@"\zefcache\"+MD5Dir;
+				this.INFO.Load(selectedBiblePath+@"\info.xml");
+				HTMLPAGER.CachePathForModul=selectedBiblePath;
 				
 			}
 			catch(Exception ex)
 			{
-			
+				MessageBox.Show(ex.Message,"Zefania PPC");
 			}
 		
 		}
-		
-		private void menuItem1_Click(object sender, System.EventArgs e)
-		{
-			PopulateBiblesCombo();
-		}
 
-		private void buttonEx1_Click(object sender, System.EventArgs e)
-		{
-			//LoadBibleChapterToScreen(textBoxEx1.Text,textBoxEx2.Text);
-		}
-
-		private void menuItem3_Click(object sender, System.EventArgs e)
-		{
-			Application.Exit();
-		}
-		
-		private void menuItem5_Click(object sender, System.EventArgs e)
-		{
+		private void SetOnFirstBookAndChapter()
+		{   
+			bool found=false;
 			try
-			{   
-				if(frDown==null){
-				
-				   frDown=new frdownloader();
-				   frDown.Text=Text;
-				
-				}
-				frDown.Show();
-			}
+			{
+				XmlNodeList GROUPS=this.INFO.GetElementsByTagName("group");
 
+				foreach(XmlNode group in GROUPS)
+				{
+				  
+					foreach(XmlNode item in group.ChildNodes)
+					{
+						    
+						this.BookNumber=item.Attributes.GetNamedItem("bn").InnerText;
+						if(BookNumber=="10"){BookNumber="1";};
+						this.ChapterNumber=item.Attributes.GetNamedItem("cn").InnerText;
+						this.SetActiveChapter(BookNumber,ChapterNumber);
+						found=true;
+						break;
+					}
+					if(found){break;}
+				}
+			}
+		
 			catch(Exception ex)
 			{
-		         MessageBox.Show(ex.Message);
+				MessageBox.Show(ex.Message,"Zefania PPC");
 			}
-
 		}
+		
+		
+		private void ShowActivChapter()
+		{
+			bool activChapterFound=false;
+			
 
+			try
+			{
+				XmlNodeList GROUPS=this.INFO.GetElementsByTagName("group");
+
+				foreach(XmlNode group in GROUPS)
+				{
+				  
+					foreach(XmlNode item in group.ChildNodes)
+					{
+						
+						if(item.Attributes.GetNamedItem("active").InnerText=="True")
+						{
+							
+							activChapterFound=true;
+							this.BookNumber=item.Attributes.GetNamedItem("bn").InnerText;
+							this.ChapterNumber=item.Attributes.GetNamedItem("cn").InnerText;
+							break;
+						}
+					}
+
+					if(activChapterFound){break;}
+				}
+
+				
+                 
+				webBrowserBible.DocumentText=HTMLPAGER.GetChapterAsHtmlTable(BookNumber,ChapterNumber); 
+			  
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.Message,"Zefania PPC");
+			}
+		}
+		
+		
+		
 		private void menuItem6_Click(object sender, System.EventArgs e)
 		{
 			ViewIsSplitted=!ViewIsSplitted;
 			SplittView(ViewIsSplitted);
 		}
 
-		private void toolBar1_ButtonClick(object sender, System.Windows.Forms.ToolBarButtonClickEventArgs e)
-		{
-			try
-			{
-			  
-				
-			
-			}
-			catch(Exception ex)
-			{
-				MessageBox.Show(ex.Message);
-			}
-		}
-
-		private void InstallPPC_OnChapter(object sender, EventArgs e, string message)
-		{
-			foreach(Control c in this.paneldict.Controls)
-			{
-			  
-				c.Text=message;
-			
-			}
-			Application.DoEvents();
-		}
-	}
-	class InstallThread
-	{
-		public delegate void OnGetChapter(object sender, EventArgs e,string message);
-		public event OnGetChapter OnChapter;
 		
-		public string AppPath=null;
-		public void Imstall()
-		{
+		
 
+		private void menuItem2_Click(object sender, System.EventArgs e)
+		{
+			this.PopulateBiblesCombo();
+		}
+
+		
+
+		private void menuItem5_Click_1(object sender, System.EventArgs e)
+		{
+			ViewIsSplitted=!ViewIsSplitted;
+			
+			this.paneldict.Controls.Clear();
+			this.paneldict.Controls.Add(this.cbBibles);
+			cbBibles.Left=10;cbBibles.Top=10;
+			cbBibles.Width=paneldict.Width-20;
+			this.paneldict.Controls.Add(this.cbBibleGroup);
+			cbBibleGroup.Left=paneldict.Width-cbBibleGroup.Width-10;cbBibleGroup.Top=40;
+
+			this.SplittView(ViewIsSplitted);
+
+
+		}
+
+		private bool SetInActiveChapter(string bn,string cn)
+		{
 			try
 			{
-				string[] ppcmoduls=Directory.GetFiles(AppPath,"*.zip");
-				foreach(string path in ppcmoduls)
+				string cnn=null;
+				string bnn=null;
+				XmlNodeList GROUPS=this.INFO.GetElementsByTagName("group");
+
+				foreach(XmlNode group in GROUPS)
 				{
-					InstallBibleModul(path);
+					
+					
+					foreach(XmlNode item in group.ChildNodes)
+					{
+						bnn=item.Attributes.GetNamedItem("bn").InnerText;
+						cnn=item.Attributes.GetNamedItem("cn").InnerText;
+
+						if((bn==bnn)&(cn==cnn))
+						{
+							item.Attributes.GetNamedItem("active").InnerText="False";
+							//INFO.Save(selectedBiblePath+@"\info.xml");
+							return true;
+							
+						}
+					}		
+				
 				}
+
+				return false;
+
+			
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+				return false;
+			}
+		
+		}
+
+		private bool SetActiveChapter(string bn,string cn)
+		{
+			try
+			{
+				string cnn=null;
+				string bnn=null;
+				XmlNodeList GROUPS=this.INFO.GetElementsByTagName("group");
+
+				foreach(XmlNode group in GROUPS)
+				{
+					
+					
+					foreach(XmlNode item in group.ChildNodes)
+					{
+						bnn=item.Attributes.GetNamedItem("bn").InnerText;
+						cnn=item.Attributes.GetNamedItem("cn").InnerText;
+
+						if((bn==bnn)&(cn==cnn))
+						{
+							item.Attributes.GetNamedItem("active").InnerText="True";
+							//INFO.Save(selectedBiblePath+@"\info.xml");
+							return true;
+							
+						}
+					}		
+				
+				}
+
+				return false;
+
+			
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+				return false;
+			}
+		
+		}
+
+		private void MoveToNextChapter()
+		{
+			try
+			{
+			
+               
+			
 			}
 			catch(Exception ex)
 			{
 				MessageBox.Show(ex.Message);
 			}
-			
 		}
-		
-		/// <summary>
-		/// istalliert ein gezipptes PPC-Bibelmodul im Cacheverzeichnis
-		/// </summary>
-		/// <param name="modulzip">z.B.  "b2fb38b57a339c691417a94d77c2cc9d.zip"</param>
-		private void InstallBibleModul(string modulzip)
+
+		private void cbBibles_SelectedIndexChanged(object sender, EventArgs e)
 		{
-             
-			
+			this.SelectBiblePath();
+			SetOnFirstBookAndChapter();
+			this.ShowActivChapter();
+			INFO.Save(selectedBiblePath+@"\info.xml");
+		}
+
+		private void cbBibleGroup_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			this.ChangeBibleGroup(cbBibleGroup.SelectedItem.ToString());
+		}
+
+		
+
+		private void menuItem4_Click(object sender, System.EventArgs e)
+		{
 			try
 			{   
-				EventArgs e1=new EventArgs();
-				string BibleName=null;
-				string directoryName=null;
-				ZipInputStream s = new ZipInputStream(File.OpenRead(modulzip));
-				ZipEntry theEntry;
-            
-				while ((theEntry = s.GetNextEntry()) != null)
-				{
-						
-						
-					directoryName = Path.GetDirectoryName(theEntry.Name);
-					string fileName      = Path.GetFileName(theEntry.Name);
-            
-					// create directory
-					Directory.CreateDirectory(AppPath+@"\zefcache\"+directoryName);
-                    
-					if (fileName != String.Empty)
-					{
-						FileStream streamWriter = File.Create(AppPath+@"\zefcache\"+directoryName+@"\"+fileName);
-                            
-						int size = 2048;
-						byte[] data = new byte[2048];
-						while (true)
-						{
-							size = s.Read(data, 0, data.Length);
-							if (size > 0)
-							{
-								streamWriter.Write(data, 0, size);
-							}
-							else
-							{
-								break;
-							}
-						}
-						if(OnChapter!=null)
-						{
-							   
-							OnChapter(this,e1,fileName);
-						}
-						streamWriter.Close();
-						
-						
-					}
-				}// end while
 				
-				// im realen Gerät würde man das PPC-Modulzip jetzt aus Platzgründen löschen
-				
-				File.Delete(modulzip);
-
-				// aktuallisiere config.xml
-				XmlDocument INFO=new XmlDocument();
-				XmlDocument Config=new XmlDocument();
-				INFO.Load(AppPath+@"\zefcache\"+directoryName+@"\info.xml");
-				Config.Load(AppPath+@"\config.xml");
-
-				XmlNodeList TITLE=INFO.GetElementsByTagName("title");
-				foreach(XmlNode title in TITLE)
+				if(frDown==null)
 				{
-					BibleName=title.InnerText;
-					XmlNode newModul=Config.CreateNode(XmlNodeType.Element,"modul","");
-					XmlNode Att=Config.CreateNode(XmlNodeType.Attribute,"name","");
-					Att.Value=BibleName;
-					newModul.Attributes.SetNamedItem(Att);
-					newModul.InnerText=directoryName;
-					Config.DocumentElement.AppendChild(newModul);
-					Config.Save(AppPath+@"\config.xml");
-					 
+					frDown=new frdownloader();
+					frDown.Text=Text+"(DL)";
+					frDown.DataDirectory=AppPath;
 				}
-				s.Close();
+				
+				frDown.Show();
 			}
 
-			finally
+			catch(Exception ex)
 			{
-				
+				frDown=null;
 			}
-																		   
-			
+
 		}
+
+		private void buttonNextChapter_Click(object sender, System.EventArgs e)
+		{
+			SetInActiveChapter(BookNumber,ChapterNumber);
+			int nc=Convert.ToInt16(ChapterNumber)+1;
+			ChapterNumber=nc.ToString();
+			if(SetActiveChapter(BookNumber,ChapterNumber))
+			{
+				ShowActivChapter();
+			}
+			else
+			{
+				// Buchende erreicht;
+			
+			}
+		}
+
+		private void buttonPrevChapter_Click(object sender, System.EventArgs e)
+		{
+			SetInActiveChapter(BookNumber,ChapterNumber);
+			int nc=Convert.ToInt16(ChapterNumber)-1;
+			if (nc==0){nc=1;};
+			ChapterNumber=nc.ToString();
+			if(SetActiveChapter(BookNumber,ChapterNumber))
+			{
+				ShowActivChapter();
+			}
+			else
+			{
+				// Buchanfang erreicht;
+			
+			}
+		}
+
+		
+
+		
 	}
+	
 }
 

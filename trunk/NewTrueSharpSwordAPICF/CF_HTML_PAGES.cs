@@ -81,6 +81,126 @@ namespace NewTrueSharpSwordAPICF
 		/// <summary>
 		/// Liefert den HTML-Text in Flieﬂtextdarstellung.
 		/// </summary>
+		public string GetChapterAsFlowText2(string BookNumber,string ChapterNumber)
+		{
+			try
+			{
+				
+				string pathToChapterFile=CachePathForModul+@"\"+BookNumber+"_"+ChapterNumber+@".xml";
+				XmlDocument doc=new XmlDocument();
+				doc.Load(pathToChapterFile);
+				return doc.OuterXml;
+			}
+			catch(Exception e)
+			{
+			
+				return "<html><body><div>"+BookNumber+"_"+ChapterNumber+@".xml not found!</div></body></html>";
+			}
+		
+		}
+
+		/// <summary>
+		/// Liefert den HTML-Text in html-table Darstellung.
+		/// </summary>
+		public string GetChapterAsHtmlTable(string BookNumber,string ChapterNumber)
+		{
+			try
+			{
+				StringWriter sw = new StringWriter();
+				XmlTextWriter writer = new XmlTextWriter(sw);
+				//writer.Formatting = Formatting.Indented;
+				writer.WriteStartElement("html");
+				
+
+				writer.WriteStartElement("body");
+				writer.WriteStartElement("TABLE");
+					
+				writer.WriteStartElement("colgroup");
+					writer.WriteAttributeString("","width","","100");
+					writer.WriteAttributeString("","span","","1");
+				writer.WriteEndElement();
+			
+
+				string pathToChapterFile=CachePathForModul+@"\"+BookNumber+"_"+ChapterNumber+@".xml";
+				
+				XmlTextReader reader = new XmlTextReader(pathToChapterFile);
+				reader.MoveToContent();
+
+				while (reader.Read())
+
+				{
+					
+
+					if(reader.Name=="VERS"&&reader.NodeType == XmlNodeType.Element)
+					{
+						writer.WriteStartElement("TR");
+						writer.WriteStartElement("TD");
+					  
+
+						reader.MoveToFirstAttribute();
+
+						writer.WriteStartElement("span");
+						writer.WriteAttributeString("style","color:darkred;font-weight:bold");
+						writer.WriteString(reader.Value+" ");
+						writer.WriteEndElement();
+					}
+					
+					if(reader.Name==""&&reader.NodeType == XmlNodeType.Text)
+					{
+						
+						writer.WriteString(reader.ReadString());
+						
+						
+					}
+
+					if (reader.Name == "NOTE") 
+					{
+						writer.WriteStartElement("span");
+
+						writer.WriteAttributeString("style","color:darkgreen;font-weight:lighter");
+						writer.WriteString("{"+reader.ReadString()+"}");
+
+						writer.WriteEndElement();
+					}
+
+					if (reader.Name == "STYLE") 
+					{
+						
+						
+						writer.WriteStartElement("span");
+						writer.WriteAttributeString("style",reader.GetAttribute("css",""));
+                        writer.WriteString(reader.ReadString());
+						writer.WriteEndElement();
+						
+					}
+
+
+
+					if(reader.Name=="VERS"&&reader.NodeType == XmlNodeType.EndElement)
+					{
+						writer.WriteEndElement();
+						writer.WriteEndElement();
+										    
+					}
+				}
+               
+				writer.WriteEndElement();
+				writer.WriteEndElement();
+				writer.Close();
+				reader.Close();
+				return sw.ToString();
+			}
+			catch(Exception e)
+			{
+			
+				return "<html><body><div>"+e.Message+"</div></body></html>";
+			}
+		
+		}
+
+		/// <summary>
+		/// Liefert den HTML-Text in Flieﬂtextdarstellung.
+		/// </summary>
 		public string GetChapterAsFlowText(string BookNumber,string ChapterNumber)
 		{
 			try
@@ -114,8 +234,9 @@ namespace NewTrueSharpSwordAPICF
 					
 					if(reader.Name==""&&reader.NodeType == XmlNodeType.Text)
 					{
-						
+						writer.WriteStartElement("span");
 						writer.WriteString(reader.ReadString());
+						writer.WriteEndElement();
 						
 					}
 

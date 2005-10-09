@@ -67,8 +67,9 @@ namespace NewTrueSharpSwordAPI.Utilities
 				ZipInputStream s = new ZipInputStream(File.OpenRead(ModulPath));
 				while ((theEntry=s.GetNextEntry())!= null) 
 				{
-					if(theEntry.Size>40000)
+					if(theEntry.Size>10000 & (Path.GetExtension(theEntry.Name)==".xml"))
 					{
+						
 						return s;
 					}	
 				}

@@ -1,83 +1,59 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="" type="text/xsl"?>
-<zefania-modules version="1.10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///e:/data_cvs/bible_install_manager/reposschema.xsd">
+<zefania-modules version="1.10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\ZefaniaXML\SVN2\Modulliste\modullist.xsd">
 	<zefania-modules-list-servers>
 		<server>http://zefania-sharp.sourceforge.net</server>
-		
 	</zefania-modules-list-servers>
 	<repository>
 		<modules>
-
-
 			<!-- === GER ===================================== -->
-
-			<module filename="sf_de_DE_reinhardt1910_eva_0.zip" identifier="rei10ev" lang="deutsch" language="GER" name="Reinhardt 1910 Evangelien"  revision="0" type="bible"/>
+			<module filename="sf_de_DE_reinhardt1910_eva_0.zip" identifier="rei10ev" lang="deutsch" language="GER" name="Reinhardt 1910 Evangelien" revision="0" type="bible"/>
 			<module filename="de_NDS_Daut_niee_Testament_en_de_Psalme_JFriesen_0_a.zip" identifier="DNTF" lang="deutsch" language="GER" name="Daut niee Testament" revision="1" type="bible"/>
-
 			<module filename="DE_de_alemannische_1_nt.zip" identifier="almnt" language="GER" lang="deutsch" revision="1" name="Alemannische Bibel NT" type="bible"/>
 			<module filename="de_NDS_ReimerNT2001_0_a.zip" identifier="ReimerNT" language="GER" lang="deutsch" name="Reimer 2001 NT" revision="0" type="bible"/>
 			<module filename="fb2004_2005_01_08_r2.zip" identifier="fb2004" language="GER" lang="deutsch" name="FreeBible2004(08/01/05 http://www.flagsoft.ch/fb2004)" revision="2" type="bible"/>
 			<module filename="sf_greber_nt.zip" identifier="GREB" lang="deutsch" language="GER" name="Greber 1936 NT" revision="0" type="bible"/>
 			<module filename="sf_albrecht1926.zip" identifier="ALB" lang="deutsch" language="GER" name="Ludwig Albrecht NT 1926" revision="1" type="bible"/>
-
 			<module filename="sf.knt2.zip" identifier="knt" lang="deutsch" language="GER" name="Konkordantes NT" revision="0" type="bible"/>
-
-
 			<module filename="de_DE_Schlachter2000_1_NRS.zip" identifier="SCH2000NEU" lang="deutsch" language="GER" name="Schlachter 2000 neue Rechtschreibung" revision="1" type="bible"/>
-
 			<module filename="de_DE_Schlachter2000_3_ARS.zip" identifier="SCH2000ars" lang="deutsch" language="GER" name="Schlachter 2000 alte Rechtschreibung" revision="3" type="bible"/>
-
 			<module filename="sf_neue_revision_2.zip" identifier="NeÜ" lang="deutsch" language="GER" name="Neue evangelistische Übersetzung (Textstand 11. Dez 2004)" revision="2" type="bible"/>
-
 			<module filename="sf_tafelbibel_rev1.zip" identifier="TAF" lang="deutsch" language="GER" name="Die Tafelbibel" revision="1" type="bible"/>
-
 			<module filename="luther1912_rev1.zip" identifier="luth1912" lang="deutsch" language="GER" name="Luther 1912" revision="1" type="bible"/>
 			<module filename="luther1912_apok_Rev1.zip" identifier="luth1912ap" lang="deutsch" language="GER" name="Luther 1912 mit Apokryphen" revision="1" type="bible"/>
 			<module filename="Elberfelder_1905_Rev_5.zip" identifier="elb1905" lang="deutsch" language="GER" name="Elberfelder 1905" revision="5" type="bible"/>
 			<module filename="sf_gerben.rev1.zip" identifier="Bible.GerBen" lang="deutsch" language="GER" name="Bengel NT" revision="1" type="bible"/>
-			
 			<module filename="luther1545_rev2.zip" identifier="luth1545" lang="deutsch" language="GER" name="Luther 1545" revision="2" type="bible"/>
 			<module filename="Luther1545_rev1_Strong.zip" identifier="luth1545str" lang="deutsch" language="GER" name="Luther 1545 mit Strongs" revision="1" type="bible"/>
-
-			
 			<module filename="sf_elberfelder1871.zip" identifier="Bible.GerElb1871" lang="deutsch" language="GER" name="Elberfelder 1871" revision="0" type="bible"/>
 			<module filename="sf_schlachter1951_rev1_b.zip" identifier="sch1951" lang="deutsch" language="GER" name="Schlachter 1951" revision="1" type="bible"/>
 			<module filename="sf_koran_ger.zip" identifier="KORd" lang="deutsch" language="GER" name="Der Heilige Koran" revision="0" type="x-quran"/>
 			<module filename="sf_nwue.zip" identifier="NWUE" lang="deutsch" language="GER" name="NWÜ deutsch" revision="0" type="bible"/>
 			<module filename="sf_elb1871str_rev2.zip" identifier="elb1871strnt" lang="deutsch" language="GER" name="Elberfelder 1871 mit Strongs im NT" revision="2" type="bible"/>
-
-
 			<!-- === ENG ===================================== -->
+			<module filename="worsleys_nt_rev_1.zip" identifier="WORNT" lang="englisch" language="ENG" name="Worsleys NT" revision="1" type="bible"/>
+			<module filename="KJC_NT_Rev_1.zip" identifier="KJVCNT" lang="englisch" language="ENG" name="King James Clarified NT" revision="1" type="bible"/>
+			<module filename="Living_Oracles_NT_Rev_1.zip" identifier="LONT" lang="englisch" language="ENG" name="Living Oracles NT" revision="1" type="bible"/>
+			<module filename="Revised_Young_Literal_Translation_NT_Rev_1.zip" identifier="RYLT-NT" lang="englisch" language="Eng" name="Revised Youngs Literal Translation NT" revision="1" type="bible"/>
 			<module filename="en_gb_RWebster_1_Strong.zip" identifier="RWebster+" lang="englisch" language="ENG" name="Revised 1833 Webster Strongs" revision="1" type="bible"/>
 			<module filename="en_gb_KJV2000_1.zip" identifier="KJV2000" lang="englisch" language="ENG" name="King James Version 2000" revision="1" type="bible"/>
 			<module filename="en_gb_RWebster_1_ab.zip" identifier="RWebster" lang="englisch" language="ENG" name="Revised 1833 Webster Version" revision="1" type="bible"/>
 			<module filename="en_GB_AConservativeVersion_0_a.zip" identifier="ACV" lang="englisch" language="ENG" name="A Conservative Version" revision="0" type="bible"/>
 			<module filename="sf_a_wesley_nt.zip" identifier="Wesley's" lang="englisch" language="ENG" name="Wesley's New Testament (1755)" revision="0" type="bible"/>
-
 			<module filename="sf_ukjv.zip" identifier="UKJV" lang="englisch" language="ENG" name="Updated King James Version" revision="0" type="bible"/>
 			<module filename="sf_updv_2.zip" identifier="UPDV" lang="englisch" language="ENG" name="Updated Bible Version" revision="0" type="bible"/>
-
-
 			<module filename="Geneva_rev1.zip" identifier="GB" lang="englisch" language="ENG" name="1599 Geneva Bible" revision="1" type="bible"/>
 			<module filename="sf_rkjntb.zip" identifier="RKJVNT" lang="englisch" language="ENG" name="Revised King James NT" revision="0" type="bible"/>
 			<module filename="sf_nwt_rev1.zip" identifier="nwt" lang="englisch" language="ENG" name="New World Translation" revision="1" type="bible"/>
 			<module filename="sf_bom.zip" identifier="bom" lang="englisch" language="ENG" name="THE BOOK OF MORMON" revision="0" type="bible"/>
 			<module filename="sf_jubilee2000.zip" identifier="jubl2000" lang="englisch" language="ENG" name="English Jubilee 2000 bible" revision="0" type="bible"/>
-
 			<module filename="sf_orthjbc2.zip" identifier="orthjbc" lang="englisch" language="ENG" name="THE ORTHODOX JEWISH BRIT CHADASHA" revision="0" type="bible"/>
-
 			<module filename="sf_bwe.zip" identifier="bwe" lang="englisch" language="ENG" name="Bible in Worldwide English NT" revision="0" type="bible"/>
-
 			<module filename="sf_montgomery_nt.zip" identifier="mont" lang="englisch" language="ENG" name="Montgomery New Testament" revision="0" type="bible"/>
-
 			<module filename="sf_rsv.zip" identifier="rsv" lang="englisch" language="ENG" name="Revised Standard Version" revision="0" type="bible"/>
-
-			<module filename="sf_gal_maciron.zip" identifier="MARCGAL" lang="englisch" language="ENG" name="The Epistle to the Galatians (Hermann Detering)" revision="0" type="bible"/>
-
+			<module filename="sf_gal_maciron.zip" identifier="MARCGAL" lang="englisch" language="ENG" name="The Epistle to the Galatians" revision="0" type="bible"/>
 			<module filename="sf_kjv62.zip" identifier="mkjv1962" lang="englisch" language="ENG" name="Modern King James 1962" revision="1" type="bible"/>
-
 			<module filename="sf_kjv_apok.zip" identifier="kjv-apok" lang="englisch" language="ENG" name="King James with Apocrypha" revision="0" type="bible"/>
-
 			<module filename="sf_isv_nt.zip" identifier="ISV" lang="englisch" language="ENG" name="International Standard Version NT" revision="0" type="bible"/>
 			<module filename="sf_jps.zip" identifier="JPS" lang="englisch" language="ENG" name="Jewish Publication Society AT" revision="0" type="bible"/>
 			<module filename="sf_rotherham.zip" identifier="Roth" lang="englisch" language="ENG" name="Rotherham Version" revision="0" type="bible"/>
@@ -94,10 +70,8 @@
 			<module filename="sf_akjv.zip" identifier="Bible.AKJV" lang="englisch" language="ENG" name="American King James Version" revision="0" type="bible"/>
 			<module filename="sf_kjv.zip" identifier="kjv" lang="englisch" language="ENG" name="King James Version" revision="0" type="bible"/>
 			<module filename="sf_kjv_strongs_rev1b.zip" identifier="kjv+" lang="englisch" language="ENG" name="King James Version with strongs" revision="1" type="bible"/>
-
-
 			<!-- === divers ===================================== -->
-			<module filename="sf_por_acf_0.zip"  identifier="acf" lang="portugiesisch" language="POR" name="Portuguese Corrigida Fiel (1753/1995)" revision="0" type="bible"/>
+			<module filename="sf_por_acf_0.zip" identifier="acf" lang="portugiesisch" language="POR" name="Portuguese Corrigida Fiel (1753/1995)" revision="0" type="bible"/>
 			<module filename="sf_hunju.zip" identifier="HunUj" lang="ungarisch" language="hun" name="Hungarian New Translation Bible" revision="0" type="bible"/>
 			<module filename="sf_rus_strongs.zip" identifier="RusVZh" lang="russisch" language="rus" name="Russian New Testament (Strongs)" revision="0" type="bible"/>
 			<module filename="sf_basque_1571_nt.zip" identifier="basq1571" lang="baskisch" language="baq" name="Basque Navarro-Labourdin) NT" revision="0" type="bible"/>
@@ -108,27 +82,18 @@
 			<module filename="sf_turkce-at-nt.zip" identifier="BB31" lang="türkisch" language="TUR" name="Turkish AT/NT" revision="0" type="bible"/>
 			<module filename="iso-sf_afr3353.zip" identifier="afr3353" lang="afrikaans" language="AFR" name="Afrikaans Bybel (1933/1953)" revision="0" type="bible"/>
 			<module filename="sf_manx_gaelic.zip" identifier="GLA2" lang="englisch" language="GLA" name="Manx Gaelic " revision="0" type="bible"/>
-
 			<module filename="sf_scots_gaelic.zip" identifier="gaes" lang="englisch" language="GAE" name="Gaelic Gospel of Mark" revision="0" type="bible"/>
-
-
-            <module filename="sf_aleppo_o_ot.zip" identifier="alep" lang="hebräisch" language="HEB" name="Aleppo-Codex" revision="0" type="bible"/>
+			<module filename="sf_aleppo_o_ot.zip" identifier="alep" lang="hebräisch" language="HEB" name="Aleppo-Codex" revision="0" type="bible"/>
 			<module filename="sf_hebmodern.zip" identifier="HEBm" lang="hebräisch" language="HEB" name="Modern Hebrew Bible" revision="0" type="bible"/>
 			<module filename="sf_bibhebr.zip" identifier="bhs" lang="hebräisch" language="HEB" name="Biblia Hebraica" revision="0" type="bible"/>
 			<module filename="sf_wcl.zip" identifier="wcl" lang="hebräisch" language="HEB" name="Westminster Leningrad Codex" revision="0" type="bible"/>
-
 			<module filename="sf_czecep.zip" identifier="CzeCEP" lang="tschechisch" language="CZE" name="Czech Ekumenicky Cesky preklad" revision="0" type="bible"/>
 			<module filename="sf_czech_bkr.zip" identifier="czbkr" lang="tschechisch" language="CZE" name="Czech Bible Kralicka" revision="0" type="bible"/>
 			<module filename="sf_spanish_sev.zip" identifier="SEV" lang="spanisch" language="SPA" name="Las Sagradas Escrituras" revision="0" type="bible"/>
 			<module filename="sf_sprv.zip" identifier="Bible.SpaRV" lang="spanisch" language="SPA" name="Spanish Reina Valera" revision="0" type="bible"/>
-
-
 			<module filename="sf_gnt_rob_str.zip" identifier="GNT" lang="griechisch" language="GRC" name="Robinson/Pierpont Byzantine NT Strong's Numbers" revision="0" type="bible"/>
-
 			<module filename="sf_gnt_wh_str.zip" identifier="GNT-WH" lang="griechisch" language="GRC" name="Greek NT Westcott-Hort with Strongs" revision="0" type="bible"/>
-
 			<module filename="sf_gnt_tr_str.zip" identifier="GNT-TR" lang="griechisch" language="GRC" name="Textus Receptus NT w/ Strong's Numbers" revision="0" type="bible"/>
-
 			<module filename="sf_tischendorf.zip" identifier="grtisch8" lang="griechisch" language="GRC" name="Greek NT Tischendorf 8th Ed" revision="0" type="bible"/>
 			<module filename="sf_gnt_variants.zip" identifier="GNT-V" lang="griechisch" language="GRC" name="Greek New Testament w/ variants" revision="0" type="bible"/>
 			<module filename="sf_moderngreek.zip" identifier="greekm" lang="griechisch" language="GRC" name="Modern Greek" revision="0" type="bible"/>
@@ -136,35 +101,23 @@
 			<module filename="sf_greekwh.zip" identifier="greekwh" lang="griechisch" language="GRC" name="Greek NT Westcott-Hort" revision="0" type="bible"/>
 			<module filename="sf_greeknt1896.zip" identifier="greek1894" lang="griechisch" language="GRC" name="Greek NT Scrivener-1894" revision="0" type="bible"/>
 			<module filename="sf_greeknt1550.zip" identifier="greek1550" lang="griechisch" language="GRC" name="Greek NT Stephanos-1550" revision="0" type="bible"/>
-
 			<module filename="sf_bzy2000.zip" identifier="bzy2000" lang="griechisch" language="GRC" name="Byzantine/Majority Text (2000)" revision="0" type="bible"/>
-
-
-
 			<module filename="sf_cei74.zip" identifier="CEI74" lang="italienisch" language="ITA" name="La Bibbia CEI 1974" revision="1" type="bible"/>
 			<module filename="sf_italian.zip" identifier="italian1" lang="italienisch" language="ITA" name="Italian Version" revision="0" type="bible"/>
 			<module filename="sf_itadio.zip" identifier="ItaDio" lang="italienisch" language="ITA" name="1649 Italian Giovanni Diodati" revision="0" type="bible"/>
-
-
 			<module filename="sf_vulgata.zip" identifier="Bible.Vulgata" lang="lateinisch" language="LAT" name="Biblia Sacra Vulgata" revision="0" type="bible"/>
 			<module filename="sf_nvulgata_rev3.zip" identifier="nvla" lang="lateinisch" language="LAT" name="Nova Vulgata Rev 3" revision="3" type="bible"/>
 			<module filename="sf_clvulg_a.zip" identifier="clvul" lang="lateinisch" language="LAT" name="Clementine Vulgate" revision="0" type="bible"/>
-
-
 			<module filename="sf_fdarby.zip" identifier="frdarb" lang="französisch" language="FRE" name="French Darby" revision="2" type="bible"/>
 			<module filename="sf_louissegond.zip" identifier="fren" lang="französisch" language="FRE" name="Louis Segond 1910" revision="1" type="bible"/>
 			<module filename="sf_fremartin.zip" identifier="BM1844" lang="französisch" language="FRE" name="Bible Martin 1844" revision="0" type="bible"/>
-
 			<module filename="sf_turkish2.zip" identifier="TNT" lang="türkisch" language="TUR" name="Turkish NT" revision="0" type="bible"/>
-
-
 			<module filename="sf_peshittax.zip" identifier="SYP" lang="syrisch" language="SYR" name="Syriac Peshitta" revision="0" type="bible"/>
 			<module filename="sf_klingon.zip" identifier="i-klingon" lang="klingonisch" language="tlh" name="Klingon Language Version of the World English Bible" revision="0" type="bible"/>
 			<module filename="sf_swahili_nt.zip" identifier="SWA" lang="swahili" language="SWA" name="Swahili NT " revision="0" type="bible"/>
 			<module filename="sf_uma_nt.zip" identifier="UMA" lang="uma" language="UND" name="Uma NT " revision="0" type="bible"/>
 			<module filename="sf_rumanian.zip" identifier="RU" lang="rumänisch" language="RUM" name="Rumanian Version " revision="0" type="bible"/>
 			<module filename="sf_svedish1917.zip" identifier="SVD" lang="schwedisch" language="SWE" name="Swedish Version " revision="0" type="bible"/>
-
 			<module filename="sf_lativian_nt.zip" identifier="LATV" lang="lettisch" language="LAV" name="Lativian NT" revision="0" type="bible"/>
 			<module filename="sf_maori.zip" identifier="MAO" lang="maori" language="MAO" name="Maori Version" revision="0" type="bible"/>
 			<module filename="sf_norwegian.zip" identifier="NOR" lang="norwegisch" language="NOR" name="Norwegian Version" revision="0" type="bible"/>
@@ -172,40 +125,27 @@
 			<module filename="sf_shuar_nt.zip" identifier="SHU" lang="shuar" language="" name="Shuar NT " revision="0" type="bible"/>
 			<module filename="sf_vietnamese.zip" identifier="VIE" lang="vietnamesisch" language="VIE" name="Vietnamese Version" revision="0" type="bible"/>
 			<module filename="sf_dutchstv.zip" identifier="dutv" lang="holländisch" language="NL" name="Dutch Statenvertaling" revision="0" type="bible"/>
-
 			<module filename="sf_ukrainian.zip" identifier="ukrub" lang="ukrainisch" language="RUS" name="Ukrainian Version" revision="0" type="bible"/>
 			<module filename="sf_russian.zip" identifier="russub" lang="russisch" language="RUS" name="Russian Version" revision="0" type="bible"/>
 			<module filename="sf_gothic_AA_Mss.zip" identifier="gota" lang="gotisch" language="GOT" name="Gothic Codex Ambrosianus A" revision="0" type="bible"/>
 			<module filename="sf_gothic_AB_Car.zip" identifier="gotb" lang="gotisch" language="GOT" name="Gothic Codices Ambrosianus B" revision="0" type="bible"/>
 			<module filename="sf_korian.zip" identifier="kor" lang="korianisch" language="KOR" name="Korian Version" revision="0" type="bible"/>
 			<module filename="sf_hungarian2.zip" identifier="hun" lang="ungarisch" language="HUN" name="Hungarian Version" revision="0" type="bible"/>
-
 			<module filename="sf_haiti.zip" identifier="hat" lang="haitisches Creole" language="HAT" name="Haitian Creole Version" revision="0" type="bible"/>
 			<module filename="sf_finish.zip" identifier="fin" lang="finnisch" language="FIN" name="Finish Version" revision="0" type="bible"/>
 			<module filename="sf_danish2.zip" identifier="dan" lang="dänisch" language="DAN" name="Danish Version" revision="0" type="bible"/>
-
 			<module filename="sf_croatian.zip" identifier="croat" lang="kroatisch" language="SCR" name="Croatian Version" revision="0" type="bible"/>
 			<module filename="sf_china.zip" identifier="chi" lang="chinesisch" language="CHI" name="Chinese Union Version" revision="0" type="bible"/>
 			<module filename="sf_chiuns3.zip" identifier="chius" lang="chinesisch" language="CHI" name="Chinese Union Version Simplified" revision="0" type="bible"/>
 			<module filename="sf_cebuano2.zip" identifier="ceb" lang="cebuano" language="CEB" name="Cebuano Version" revision="0" type="bible"/>
-
 			<module filename="sf_ncv.zip" identifier="cvs" lang="chinesisch" language="CHI" name="New Chinese Version Simplified" revision="0" type="bible"/>
-
 			<module filename="sf_bulgarian.zip" identifier="bulg1" lang="bulgarisch" language="xx" name="Bulgarian Version" revision="0" type="bible"/>
-
-
 			<module filename="sf_alban.zip" identifier="alb1" lang="albanisch" language="ALB" name="Albanian Version" revision="0" type="bible"/>
 			<module filename="sf_esperanto.zip" identifier="esp" lang="esperanto" language="ESP" name="Esperanto Bible" revision="0" type="bible"/>
-
 			<module filename="sf_arabic.zip" identifier="AraSVD" lang="arabisch" language="ARA" name="Arabic Version " revision="0" type="bible"/>
 			<module filename="sf_polish2.zip" identifier="poland" lang="polnisch" language="POL" name="Polska Biblia Gdanska" revision="1" type="bible"/>
 		</modules>
-
-
-
 		<mirrors urlinfix="prdownloads.sourceforge.net/zefania-sharp/">
-
-
 			<mirror location="Lausanne-Switzerland" name="Switch" subdomain="" suffix="?use_mirror=switch"/>
 			<mirror location="Switzerland" name="Puzzle itc" subdomain="" suffix="?use_mirror=puzzle"/>
 			<mirror location="Moscow-Russia" name="CitKit" subdomain="" suffix="?use_mirror=citkit"/>

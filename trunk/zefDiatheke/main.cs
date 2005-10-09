@@ -72,7 +72,7 @@ namespace zefDiatheke
 				if(args[0]=="v")
 				{
 
-					Console.WriteLine("ZefDiatheke Version 0.0.0.5");
+					Console.WriteLine("ZefDiatheke Version 0.0.0.7");
 					Console.WriteLine("Visit  www.zefania.de for newer version if available");
 					return;
 
@@ -239,10 +239,10 @@ namespace zefDiatheke
 
 					Path2ZefModul=AppPath+@"\"+ Path2ZefModul;
 				}
-
+                
 				ZefaniaCache ZefCache = new ZefaniaCache(Path2ZefModul);
 				ZefCache.BaseCacheDir=AppPath;
-
+				Console.WriteLine(Path.GetFileName(Path2ZefModul));
 				Console.WriteLine("Starte Cacherstellung.... bitte warten/wait");
 				ZefCache.CreateCacheChapters(false);
 				Console.WriteLine("Cache ist fertig/ready");
@@ -346,6 +346,7 @@ namespace zefDiatheke
 				ZefaniaCache ZefCache = new ZefaniaCache(Path2ZefModul);
 
 				ZefCache.BaseCacheDir=AppPath;
+				Console.WriteLine(Path.GetFileName(Path2ZefModul));
 				Console.WriteLine("Starte Cacherstellung.... bitte warten/wait");
 				ZefCache.CreateCacheChapters(false);
 
@@ -405,6 +406,7 @@ namespace zefDiatheke
 
 
 				Console.WriteLine("Cache ist fertig/ready");
+				
 				Console.WriteLine("Packe Cache..... bitte warten/wait");
 				ZefCache.PackCache();
 				Console.WriteLine("Cache ist gepackt-fertig/ready");
@@ -479,7 +481,7 @@ namespace zefDiatheke
 					XPathNodeIterator BookNames=null;
 					if(args.Length==2)
 					{
-						exprnames=navnames.Compile("descendant-or-self::ID[position()='"+args[1].ToString()+"']/BOOK");
+						exprnames=navnames.Compile("descendant-or-self::ID[position()='"+args[1].ToString()+"']/book");
 						BookNames=navnames.Select(exprnames);
 						while(BookNames.MoveNext())
 						{
@@ -560,7 +562,7 @@ namespace zefDiatheke
 						{
 							Bnames = new XPathDocument(AppPath+@"\bnames.xml");
 							navnames = Bnames.CreateNavigator();
-							exprnames=navnames.Compile("descendant::ID[@descr='"+LangID+"']/BOOK");
+							exprnames=navnames.Compile("descendant::ID[@descr='"+LangID+"']/book");
 							BookNames=navnames.Select(exprnames);
 						}
 
@@ -717,8 +719,8 @@ namespace zefDiatheke
 							writer.Close();
 							if(File.Exists(AppPath+@"\"+XSLT)&(Targetfile!=null))
 							{
-								TransformXmlFile(TMPPath,AppPath+@"\"+XSLT,AppPath+@"\"+Targetfile);
-								StreamReader sr = File.OpenText(TMPPath);
+								TransformXmlFile(AppPath+@"\"+Targetfile,AppPath+@"\"+XSLT,AppPath+@"\"+Targetfile);
+								StreamReader sr = File.OpenText(AppPath+@"\"+Targetfile);
 								String input;
 								while ((input=sr.ReadLine())!=null) 
 								{
