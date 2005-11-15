@@ -110,15 +110,7 @@ namespace NewTrueSharpSwordAPICF
 				XmlTextWriter writer = new XmlTextWriter(sw);
 				//writer.Formatting = Formatting.Indented;
 				writer.WriteStartElement("html");
-				
-
 				writer.WriteStartElement("body");
-				writer.WriteStartElement("TABLE");
-					
-				writer.WriteStartElement("colgroup");
-					writer.WriteAttributeString("","width","","100");
-					writer.WriteAttributeString("","span","","1");
-				writer.WriteEndElement();
 			
 
 				string pathToChapterFile=CachePathForModul+@"\"+BookNumber+"_"+ChapterNumber+@".xml";
@@ -133,8 +125,7 @@ namespace NewTrueSharpSwordAPICF
 
 					if(reader.Name=="VERS"&&reader.NodeType == XmlNodeType.Element)
 					{
-						writer.WriteStartElement("TR");
-						writer.WriteStartElement("TD");
+						
 					  
 
 						reader.MoveToFirstAttribute();
@@ -143,12 +134,14 @@ namespace NewTrueSharpSwordAPICF
 						writer.WriteAttributeString("style","color:darkred;font-weight:bold");
 						writer.WriteString(reader.Value+" ");
 						writer.WriteEndElement();
+						
 					}
 					
 					if(reader.Name==""&&reader.NodeType == XmlNodeType.Text)
 					{
 						
 						writer.WriteString(reader.ReadString());
+					
 						
 						
 					}
@@ -174,11 +167,29 @@ namespace NewTrueSharpSwordAPICF
 						
 					}
 
+					if (reader.Name == "gr") 
+					{
+						
+						
+						   
+								
+						    
+						        writer.WriteStartElement("A");
 
+						       writer.WriteAttributeString("href",reader.GetAttribute("str",""));
+						       writer.WriteString(" ("+reader.GetAttribute("str","")+") ");
+						       
+						     writer.WriteEndElement();//A
+
+
+						writer.WriteString(reader.ReadString());
+					
+						
+					}
 
 					if(reader.Name=="VERS"&&reader.NodeType == XmlNodeType.EndElement)
 					{
-						writer.WriteEndElement();
+						writer.WriteStartElement("br");
 						writer.WriteEndElement();
 										    
 					}

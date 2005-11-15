@@ -9,6 +9,7 @@ using System.Data;
 using System.Threading;
 using System.Reflection;
 
+
 using NewTrueSharpSwordAPICF;
 using ICSharpCode.SharpZipLib.Zip;
 
@@ -20,8 +21,12 @@ namespace zefPocket
 	/// <summary>
 	/// Zusammenfassung für Form1.
 	/// </summary>
+	
+	
+	
 	public class frmmain : System.Windows.Forms.Form
 	{
+		
 		private Microsoft.WindowsCE.Forms.InputPanel inputPanel1;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
 		private System.Windows.Forms.ImageList imageList1;
@@ -36,10 +41,11 @@ namespace zefPocket
 		private OpenNETCF.Windows.Forms.WebBrowser webBrowserBible;
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuItem2;
-		private System.Windows.Forms.MenuItem menuItem3;
 		private System.Windows.Forms.MenuItem menuItem4;
 		private System.Windows.Forms.MenuItem menuItem5;
 		private System.Windows.Forms.MenuItem menuItem6;
+		private OpenNETCF.Windows.Forms.ButtonEx buttonprevBook;
+		private OpenNETCF.Windows.Forms.ButtonEx buttonnextBook;
 		private System.Windows.Forms.MainMenu mainMenu1;
 
 		
@@ -75,7 +81,6 @@ namespace zefPocket
 			this.mainMenu1 = new System.Windows.Forms.MainMenu();
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
 			this.menuItem2 = new System.Windows.Forms.MenuItem();
-			this.menuItem3 = new System.Windows.Forms.MenuItem();
 			this.menuItem4 = new System.Windows.Forms.MenuItem();
 			this.menuItem5 = new System.Windows.Forms.MenuItem();
 			this.menuItem6 = new System.Windows.Forms.MenuItem();
@@ -91,6 +96,8 @@ namespace zefPocket
 			this.buttonPrevChapter = new OpenNETCF.Windows.Forms.ButtonEx();
 			this.buttonNextChapter = new OpenNETCF.Windows.Forms.ButtonEx();
 			this.imageList1 = new System.Windows.Forms.ImageList();
+			this.buttonprevBook = new OpenNETCF.Windows.Forms.ButtonEx();
+			this.buttonnextBook = new OpenNETCF.Windows.Forms.ButtonEx();
 			// 
 			// mainMenu1
 			// 
@@ -99,20 +106,14 @@ namespace zefPocket
 			// menuItem1
 			// 
 			this.menuItem1.MenuItems.Add(this.menuItem2);
-			this.menuItem1.MenuItems.Add(this.menuItem5);
 			this.menuItem1.MenuItems.Add(this.menuItem6);
+			this.menuItem1.MenuItems.Add(this.menuItem5);
 			this.menuItem1.Text = "View";
 			// 
 			// menuItem2
 			// 
-			this.menuItem2.MenuItems.Add(this.menuItem3);
 			this.menuItem2.MenuItems.Add(this.menuItem4);
 			this.menuItem2.Text = "Module";
-			// 
-			// menuItem3
-			// 
-			this.menuItem3.Text = "aktualisieren";
-			this.menuItem3.Click += new System.EventHandler(this.menuItem2_Click);
 			// 
 			// menuItem4
 			// 
@@ -173,6 +174,8 @@ namespace zefPocket
 			// panelHead
 			// 
 			this.panelHead.BackColor = System.Drawing.Color.PeachPuff;
+			this.panelHead.Controls.Add(this.buttonnextBook);
+			this.panelHead.Controls.Add(this.buttonprevBook);
 			this.panelHead.Controls.Add(this.buttonPrevChapter);
 			this.panelHead.Controls.Add(this.buttonNextChapter);
 			this.panelHead.Size = new System.Drawing.Size(240, 24);
@@ -181,7 +184,7 @@ namespace zefPocket
 			// 
 			this.buttonPrevChapter.ActiveForeColor = System.Drawing.Color.PeachPuff;
 			this.buttonPrevChapter.BackColor = System.Drawing.Color.PaleGoldenrod;
-			this.buttonPrevChapter.Location = new System.Drawing.Point(152, 3);
+			this.buttonPrevChapter.Location = new System.Drawing.Point(104, 3);
 			this.buttonPrevChapter.Size = new System.Drawing.Size(32, 18);
 			this.buttonPrevChapter.Text = "<";
 			this.buttonPrevChapter.TextAlign = OpenNETCF.Drawing.ContentAlignment.MiddleCenter;
@@ -190,7 +193,7 @@ namespace zefPocket
 			// buttonNextChapter
 			// 
 			this.buttonNextChapter.BackColor = System.Drawing.Color.PaleGoldenrod;
-			this.buttonNextChapter.Location = new System.Drawing.Point(192, 3);
+			this.buttonNextChapter.Location = new System.Drawing.Point(144, 3);
 			this.buttonNextChapter.Size = new System.Drawing.Size(32, 18);
 			this.buttonNextChapter.Text = ">";
 			this.buttonNextChapter.TextAlign = OpenNETCF.Drawing.ContentAlignment.MiddleCenter;
@@ -200,6 +203,25 @@ namespace zefPocket
 			// 
 			this.imageList1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource"))));
 			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+			// 
+			// buttonprevBook
+			// 
+			this.buttonprevBook.ActiveForeColor = System.Drawing.Color.PeachPuff;
+			this.buttonprevBook.BackColor = System.Drawing.Color.OrangeRed;
+			this.buttonprevBook.Location = new System.Drawing.Point(64, 3);
+			this.buttonprevBook.Size = new System.Drawing.Size(32, 18);
+			this.buttonprevBook.Text = "<<";
+			this.buttonprevBook.TextAlign = OpenNETCF.Drawing.ContentAlignment.MiddleCenter;
+			this.buttonprevBook.Click += new System.EventHandler(this.buttonprevBook_Click);
+			// 
+			// buttonnextBook
+			// 
+			this.buttonnextBook.BackColor = System.Drawing.Color.OrangeRed;
+			this.buttonnextBook.Location = new System.Drawing.Point(184, 3);
+			this.buttonnextBook.Size = new System.Drawing.Size(32, 18);
+			this.buttonnextBook.Text = ">>";
+			this.buttonnextBook.TextAlign = OpenNETCF.Drawing.ContentAlignment.MiddleCenter;
+			this.buttonnextBook.Click += new System.EventHandler(this.buttonnextBook_Click);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			// 
 			// frmmain
@@ -223,8 +245,10 @@ namespace zefPocket
 		frdownloader frDown =null;
 		private string ChapterNumber="1";
 		private string BookNumber="1";
+
 		private OpenNETCF.Windows.Forms.ComboBoxEx cbBibles=new OpenNETCF.Windows.Forms.ComboBoxEx();
 		private OpenNETCF.Windows.Forms.ComboBoxEx cbBibleGroup=new OpenNETCF.Windows.Forms.ComboBoxEx();
+		private OpenNETCF.Windows.Forms.ButtonEx   cbBibleRefresh=new OpenNETCF.Windows.Forms.ButtonEx();
 
 	
 		
@@ -243,11 +267,14 @@ namespace zefPocket
 			{   
 				
 				SplittView(ViewIsSplitted);
+				
 				AppPath=Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
+				
 				PopulateBiblesCombo();
 				
-				this.cbBibles.SelectedIndexChanged+=new EventHandler(cbBibles_SelectedIndexChanged);
-				this.cbBibleGroup.SelectedIndexChanged+=new EventHandler(cbBibleGroup_SelectedIndexChanged);
+				cbBibles.SelectedIndexChanged+=new EventHandler(cbBibles_SelectedIndexChanged);
+				cbBibleGroup.SelectedIndexChanged+=new EventHandler(cbBibleGroup_SelectedIndexChanged);
+				cbBibleRefresh.Click+=new EventHandler(cbBibleRefresh_Click);
 			
 				Directory.CreateDirectory(AppPath+@"\zefcache");
 				
@@ -382,6 +409,8 @@ namespace zefPocket
 		
 		}
 
+
+
 		private void SetOnFirstBookAndChapter()
 		{   
 			bool found=false;
@@ -463,10 +492,7 @@ namespace zefPocket
 		
 		
 
-		private void menuItem2_Click(object sender, System.EventArgs e)
-		{
-			this.PopulateBiblesCombo();
-		}
+		
 
 		
 
@@ -474,19 +500,37 @@ namespace zefPocket
 		{
 			ViewIsSplitted=!ViewIsSplitted;
 			
-			this.paneldict.Controls.Clear();
-			this.paneldict.Controls.Add(this.cbBibles);
-			cbBibles.Left=10;cbBibles.Top=10;
-			cbBibles.Width=paneldict.Width-20;
-			this.paneldict.Controls.Add(this.cbBibleGroup);
-			cbBibleGroup.Left=paneldict.Width-cbBibleGroup.Width-10;cbBibleGroup.Top=40;
+			AddBibleSelector();
 
-			this.SplittView(ViewIsSplitted);
+			SplittView(ViewIsSplitted);
 
 
 		}
+		private void AddBibleSelector(){
+			try{
+			
+				paneldict.Controls.Clear();
+				
+				paneldict.Controls.Add(this.cbBibles);
+				cbBibles.Left=10;cbBibles.Top=10;
+				cbBibles.Width=paneldict.Width-20;
+				paneldict.Controls.Add(this.cbBibleGroup);
+                cbBibleGroup.Left=10;cbBibleGroup.Top=40;
+				paneldict.Controls.Add(this.cbBibleRefresh);
+				this.cbBibleRefresh.Text="R";
+				this.cbBibleRefresh.Left=cbBibleGroup.Width+20;cbBibleRefresh.Top=40;
 
-		private bool SetInActiveChapter(string bn,string cn)
+			
+			}
+		
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+				
+			}
+		}
+
+		private bool unSetActiveChapter(string bn,string cn)
 		{
 			try
 			{
@@ -619,7 +663,7 @@ namespace zefPocket
 
 		private void buttonNextChapter_Click(object sender, System.EventArgs e)
 		{
-			SetInActiveChapter(BookNumber,ChapterNumber);
+			unSetActiveChapter(BookNumber,ChapterNumber);
 			int nc=Convert.ToInt16(ChapterNumber)+1;
 			ChapterNumber=nc.ToString();
 			if(SetActiveChapter(BookNumber,ChapterNumber))
@@ -635,7 +679,7 @@ namespace zefPocket
 
 		private void buttonPrevChapter_Click(object sender, System.EventArgs e)
 		{
-			SetInActiveChapter(BookNumber,ChapterNumber);
+			unSetActiveChapter(BookNumber,ChapterNumber);
 			int nc=Convert.ToInt16(ChapterNumber)-1;
 			if (nc==0){nc=1;};
 			ChapterNumber=nc.ToString();
@@ -650,9 +694,46 @@ namespace zefPocket
 			}
 		}
 
-		
+		private void cbBibleRefresh_Click(object sender, EventArgs e)
+		{
+                  this.PopulateBiblesCombo();
+		}
 
-		
+		private void buttonnextBook_Click(object sender, System.EventArgs e)
+		{
+		    unSetActiveChapter(BookNumber,ChapterNumber);
+			int nc=Convert.ToInt16(BookNumber)+1;
+			BookNumber=nc.ToString();
+			ChapterNumber="1";
+			if(SetActiveChapter(BookNumber,ChapterNumber))
+			{
+				ShowActivChapter();
+			}
+			else
+			{
+				// Buchanfang erreicht;
+			
+			}
+
+		}
+
+		private void buttonprevBook_Click(object sender, System.EventArgs e)
+		{
+			unSetActiveChapter(BookNumber,ChapterNumber);
+			int nc=Convert.ToInt16(BookNumber)-1;
+			if (nc==0){nc=1;};
+			BookNumber=nc.ToString();
+			ChapterNumber="1";
+			if(SetActiveChapter(BookNumber,ChapterNumber))
+			{
+				ShowActivChapter();
+			}
+			else
+			{
+				// Buchanfang erreicht;
+			
+			}
+		}
 	}
 	
 }
