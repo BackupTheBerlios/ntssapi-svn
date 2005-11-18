@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- edited with XMLSPY v5 rel. 3 U (http://www.xmlspy.com) by Snowbird (wtg) -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<!--Version 1.0.0.6-->
+	<!--Version 1.0.0.10-->
 	<xsd:element name="dictionary">
 		<xsd:complexType>
 			<xsd:choice maxOccurs="unbounded">
