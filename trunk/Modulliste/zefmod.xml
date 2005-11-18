@@ -7,6 +7,7 @@
 	<repository>
 		<modules>
 			<!-- === GER ===================================== -->
+			<module filename="elberfelder1905_rev1_strong.zip" identifier="elb1905str" lang="deutsch" language="GER" name="Elberfelder 1905 mit Strongs" revision="1" type="bible"/>
 			<module filename="sf_de_DE_reinhardt1910_eva_0.zip" identifier="rei10ev" lang="deutsch" language="GER" name="Reinhardt 1910 Evangelien" revision="0" type="bible"/>
 			<module filename="de_NDS_Daut_niee_Testament_en_de_Psalme_JFriesen_0_a.zip" identifier="DNTF" lang="deutsch" language="GER" name="Daut niee Testament" revision="1" type="bible"/>
 			<module filename="DE_de_alemannische_1_nt.zip" identifier="almnt" language="GER" lang="deutsch" revision="1" name="Alemannische Bibel NT" type="bible"/>
