@@ -1,13 +1,11 @@
 <?xml version="1.0"?>
+<!-- edited with XMLSPY v5 rel. 3 U (http://www.xmlspy.com) by Snowbird (wtg) -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
-	<!--Version 1.0.0.4-->
-
+	<!--Version 1.0.0.6-->
 	<xsd:element name="dictionary">
 		<xsd:complexType>
 			<xsd:choice maxOccurs="unbounded">
-				<xsd:element name="item" type="TItem">
-				</xsd:element>
+				<xsd:element name="item" type="TItem"/>
 				<xsd:element name="INFORMATION" type="TINFORMATION"/>
 			</xsd:choice>
 			<xsd:attribute name="type" type="TEnumDicType" use="required"/>
@@ -16,7 +14,7 @@
 			<xsd:attribute name="dicversion" type="xsd:string" use="required"/>
 		</xsd:complexType>
 	</xsd:element>
-		<!--<xsd:element name="description" substitutionGroup="paragraph"/>-->
+	<!--<xsd:element name="description" substitutionGroup="paragraph"/>-->
 	<xsd:element name="paragraph" type="TParagraph"/>
 	<xsd:element name="see">
 		<xsd:complexType mixed="true">
@@ -32,12 +30,12 @@
 					<xsd:attribute name="target" type="TScope"/>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="see" maxOccurs="1">
+			<xsd:element name="see">
 				<xsd:complexType mixed="true">
 					<xsd:attribute name="target" type="TTarget"/>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="strong_id" type="xsd:string" maxOccurs="1"/>
+			<xsd:element name="strong_id" type="xsd:string"/>
 			<xsd:element name="title"/>
 			<xsd:element name="transliteration"/>
 			<xsd:element name="pronunciation"/>
@@ -55,19 +53,19 @@
 					<xsd:attribute name="ID" type="xsd:string"/>
 				</xsd:complexType>
 			</xsd:element>
-		<xsd:element name="description" type="TParagraph"/></xsd:choice>
-		<xsd:attribute name="id" use="optional" type="xsd:string"/>
+			<xsd:element name="description" type="TParagraph"/>
+		</xsd:choice>
+		<xsd:attribute name="id" type="xsd:string" use="optional"/>
 		<xsd:attribute name="target" type="TScope" use="optional"/>
 	</xsd:complexType>
 	<xsd:complexType name="TParagraph" mixed="true">
-
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="paragraph" type="TParagraph"/>
 			<xsd:element name="content" type="TContent"/>
 			<xsd:element name="title"/>
 			<xsd:element name="reflink">
 				<xsd:complexType mixed="true">
-					<xsd:attribute name="mscope" use="optional" type="TScope"/>
+					<xsd:attribute name="mscope" type="TScope" use="optional"/>
 					<xsd:attribute name="target" type="TScope"/>
 				</xsd:complexType>
 			</xsd:element>
@@ -76,18 +74,14 @@
 					<xsd:attribute name="target" type="TTarget"/>
 				</xsd:complexType>
 			</xsd:element>
-
-
 			<xsd:element name="transliteration"/>
 			<xsd:element name="pronunciation">
-				<xsd:complexType>
-				</xsd:complexType>
+				<xsd:complexType/>
 			</xsd:element>
 			<xsd:element name="STYLE" type="TStyle"/>
 			<xsd:element name="br"/>
 			<xsd:element name="greek"/>
 			<xsd:element name="strong_id"/>
-
 			<xsd:element name="bib_link">
 				<xsd:complexType>
 					<xsd:attribute name="bn"/>
@@ -95,12 +89,11 @@
 					<xsd:attribute name="vn1"/>
 				</xsd:complexType>
 			</xsd:element>
-
-
-
 			<xsd:element name="sub"/>
-		<xsd:element name="description" type="TParagraph"/></xsd:choice>
-	<xsd:attribute name="ID" type="xsd:string" use="optional"/></xsd:complexType>
+			<xsd:element name="description" type="TParagraph"/>
+		</xsd:choice>
+		<xsd:attribute name="id" type="xsd:string" use="optional"/>
+	</xsd:complexType>
 	<xsd:complexType name="TContent" mixed="true">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="reflink">
@@ -118,11 +111,9 @@
 			<xsd:element name="br"/>
 		</xsd:choice>
 	</xsd:complexType>
-
-
-	<xsd:complexType mixed="false" name="TINFORMATION">
+	<xsd:complexType name="TINFORMATION" mixed="false">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
-			<xsd:element name="title" type="xsd:string" minOccurs="1">
+			<xsd:element name="title" type="xsd:string">
 				<xsd:annotation>
 					<xsd:documentation>Titel des Moduls</xsd:documentation>
 				</xsd:annotation>
@@ -152,7 +143,6 @@
 				<xsd:annotation>
 					<xsd:documentation>Name von weiteren beteiligten Personen/Institutionen/Gruppen</xsd:documentation>
 					<xsd:documentation>Zusätzliche Person(en) und Organisation(en) zu jenen, die im Element CREATOR genannt wurden, die einen bedeutsamen intelektuellen Beitrag zur Ressource geleistet haben, deren Beitrag aber sekundär im Verhältnis zu denen im Element CREATOR zu betrachten ist.</xsd:documentation>
-
 					<xsd:documentation>Im Falle mehrerer Personen / Organisationen ist jede weitere in einem zusätzlichen Meta-Element aufzuführen.</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
@@ -161,13 +151,13 @@
 					<xsd:documentation>Das Datum Format:YYYY-MM-DD</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="type" type="xsd:string" minOccurs="0" maxOccurs="1"/>
-			<xsd:element name="format" type="xsd:string" minOccurs="1" fixed="Zefania XML Dictionary Markup Language">
+			<xsd:element name="type" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="format" type="xsd:string" fixed="Zefania XML Dictionary Markup Language">
 				<xsd:annotation>
 					<xsd:documentation>Datentechnisches Format des Moduls</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="identifier" type="xsd:string" minOccurs="1">
+			<xsd:element name="identifier" type="xsd:string">
 				<xsd:annotation>
 					<xsd:documentation>Kennung, die das Modul eindeutig identifiziert</xsd:documentation>
 				</xsd:annotation>
@@ -177,7 +167,7 @@
 					<xsd:documentation>Werk, gedruckt oder elektronisch, aus dem das vorliegende Dokument stammt</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="language" type="xsd:string" minOccurs="1">
+			<xsd:element name="language" type="xsd:string">
 				<xsd:annotation>
 					<xsd:documentation>Sprache des Inhalts des Moduls</xsd:documentation>
 					<xsd:documentation>Sprache(n) des intellektuellen Inhalts der Ressource. Falls möglich sollte der 3-stellige Sprachcode für "geschriebene Sprachen" aus ISO 639 verwendet werden.http://www.w3.org/WAI/ER/IG/ert/iso639.htm</xsd:documentation>
@@ -191,20 +181,13 @@
 			</xsd:element>
 		</xsd:choice>
 	</xsd:complexType>
-
-
-
-
-
-
-
 	<xsd:simpleType name="TScope">
 		<xsd:restriction base="xsd:string">
 			<xsd:pattern value="\d{1,3}-{0,1}\d{0,3};{0,3}\d{0,3}-{0,1}\d{0,3};{0,1}\d{0,3}-{0,1}\d{0,3}|XXX"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="TStyle" mixed="true">
-		<xsd:choice maxOccurs="unbounded" minOccurs="0">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="STYLE" type="TStyle"/>
 			<xsd:element ref="see"/>
 		</xsd:choice>
