@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- edited with XMLSPY v5 rel. 3 U (http://www.xmlspy.com) by Snowbird (wtg) -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<!--Version 1.0.0.10-->
+	<!--Version 1.0.0.12-->
 	<xsd:element name="dictionary">
 		<xsd:complexType>
 			<xsd:choice maxOccurs="unbounded">
@@ -57,6 +57,7 @@
 		</xsd:choice>
 		<xsd:attribute name="id" type="xsd:string" use="optional"/>
 		<xsd:attribute name="target" type="TScope" use="optional"/>
+		<xsd:attribute name="strong-id" type="xsd:string" use="optional"/>
 	</xsd:complexType>
 	<xsd:complexType name="TParagraph" mixed="true">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
