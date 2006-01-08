@@ -1,0 +1,919 @@
+<ConversionLog>
+    <Settings>
+        <Setting
+            Name = "LogFile"
+            Value = "greekkonverterNET.xml"
+        />
+        <Setting
+            Name = "ProjectName"
+            Value = "greekkonverterNET"
+        />
+        <Setting
+            Name = "OutputDir"
+            Value = "C:\download\greekconverter\greekkonverterNET.NET"
+        />
+        <Setting
+            Name = "ProjectPath"
+            Value = "C:\download\greekconverter"
+        />
+    </Settings>
+    <File
+        OldPath = "C:\download\greekconverter\AsciiToBetacode.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\AsciiToBetacode.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\BetacodeToSPIonic.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\BetacodeToSPIonic.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\BetacodeToUnicode.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\BetacodeToUnicode.cs"
+    >
+        <Issue
+            Type = "ToDo"
+            Number = "1137"
+            Severity = "2"
+        >Die getBreathing-Methode wurde in &quot;get accessor&quot; konvertiert. Dieser Name steht mit einer anderen Eigenschaft in Konflikt.</Issue>
+        <Issue
+            Type = "ToDo"
+            Number = "1137"
+            Severity = "2"
+        >Die getAccent-Methode wurde in &quot;get accessor&quot; konvertiert. Dieser Name steht mit einer anderen Eigenschaft in Konflikt.</Issue>
+        <Issue
+            Type = "ToDo"
+            Number = "1137"
+            Severity = "2"
+        >Die getIota-Methode wurde in &quot;get accessor&quot; konvertiert. Dieser Name steht mit einer anderen Eigenschaft in Konflikt.</Issue>
+        <Issue
+            Type = "ToDo"
+            Number = "1137"
+            Severity = "2"
+        >Die getDiaeresis-Methode wurde in &quot;get accessor&quot; konvertiert. Dieser Name steht mit einer anderen Eigenschaft in Konflikt.</Issue>
+    </File>
+    <File
+        OldPath = "C:\download\greekconverter\BibleWorksToBetacode.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\BibleWorksToBetacode.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\BibleWorksToUnicode.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\BibleWorksToUnicode.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\CodeCharts.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\CodeCharts.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\DynShortArray.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\DynShortArray.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\GreekConvCaps.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\GreekConvCaps.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\GreekConverter.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\GreekConverter.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\GreekFileConverter.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\GreekFileConverter.cs"
+    >
+        <Class Name = "greekconverter.GreekFileConverter" >
+            <Section Name = "openInput(java.lang.String,java.lang.String,int)" >
+                <Issue
+                    Type = "ToDo"
+                    Number = "1073"
+                    Severity = "2"
+                >Constructor 'java.io.InputStreamReader.InputStreamReader' wurde in 'System.IO.StreamReader' konvertiert und weist ein anderes Verhalten auf.</Issue>
+                <Issue
+                    Type = "ToDo"
+                    Number = "1092"
+                    Severity = "2"
+                >Expected value der Parameter von constructor 'java.io.BufferedReader.BufferedReader' sind in der entsprechende Zuordnung von .NET unterschiedlich.</Issue>
+            </Section>
+            <Section Name = "openOutput(java.lang.String,java.lang.String,int)" >
+                <Issue
+                    Type = "ToDo"
+                    Number = "1043"
+                    Severity = "2"
+                >Die Entsprechung method 'java.io.InputStreamReader.getEncoding'  in .NET gibt möglicherweise einen anderen Wert zurück.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaioBufferedWriterBufferedWriter_javaioWriter"
+                    Severity = "1"
+                >Constructor 'java.io.BufferedWriter.BufferedWriter' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaioOutputStreamWritergetEncoding"
+                    Severity = "1"
+                >Method 'java.io.OutputStreamWriter.getEncoding' wurde nicht konvertiert.</Issue>
+            </Section>
+            <Section Name = "closeInput()" >
+                <Issue
+                    Type = "ToDo"
+                    Number = "1073"
+                    LinkKeywordParam = "_javaioFilterInputStreamclose"
+                    Severity = "2"
+                >Method 'java.io.FilterInputStream.close' wurde in 'System.IO.BinaryReader.Close' konvertiert und weist ein anderes Verhalten auf.</Issue>
+            </Section>
+        </Class>
+    </File>
+    <File
+        OldPath = "C:\download\greekconverter\GreekKeysToUnicode.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\GreekKeysToUnicode.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\MessageHandler.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\MessageHandler.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\Nereus.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\Nereus.cs"
+    >
+        <Class Name = "greekconverter.Nereus" >
+            <Section Name = "launchFrame()" >
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagLayout"
+                    Severity = "1"
+                >Constructor 'java.awt.GridBagLayout.GridBagLayout' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Constructor 'java.awt.GridBagConstraints.GridBagConstraints' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.insets' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.insets' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.NONE' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.EAST' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.VERTICAL' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.REMAINDER' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.NONE' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.CENTER' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.EAST' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridx' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridx' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.RELATIVE' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.REMAINDER' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.WEST' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.EAST' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.VERTICAL' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.REMAINDER' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.NONE' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.CENTER' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.EAST' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridx' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridx' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.RELATIVE' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.REMAINDER' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.WEST' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.EAST' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridheight' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridheight' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.HORIZONTAL' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.WEST' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridheight' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridheight' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.REMAINDER' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.fill' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.NONE' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.CENTER' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.EAST' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridx' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridx' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.RELATIVE' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.REMAINDER' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.WEST' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridwidth' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.EAST' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridx' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.gridx' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.RELATIVE' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.anchor' wurde nicht konvertiert.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1000"
+                    LinkKeywordParam = "_javaawtGridBagConstraints"
+                    Severity = "1"
+                >Field 'java.awt.GridBagConstraints.WEST' wurde nicht konvertiert.</Issue>
+            </Section>
+            <Section Name = "actionPerformed(java.awt.event.ActionEvent)" >
+                <Issue
+                    Type = "Compile"
+                    Number = "1086"
+                    Severity = "2"
+                >Member &quot;'java.awt.Cursor.getPredefinedCursor'&quot; wurde in &quot;'System.Windows.Forms.Cursor'&quot; konvertiert, und kann einer ganzen Zahl nicht zugewiesen werden.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1086"
+                    Severity = "2"
+                >Member &quot;'java.awt.Cursor.WAIT_CURSOR'&quot; wurde in &quot;'System.Windows.Forms.Cursors.WaitCursor'&quot; konvertiert, und kann einer ganzen Zahl nicht zugewiesen werden.</Issue>
+                <Issue
+                    Type = "Compile"
+                    Number = "1086"
+                    Severity = "2"
+                >Member &quot;'java.awt.Cursor.getDefaultCursor'&quot; wurde in &quot;'System.Windows.Forms.Cursors.Default'&quot; konvertiert, und kann einer ganzen Zahl nicht zugewiesen werden.</Issue>
+            </Section>
+        </Class>
+        <Issue
+            Type = "Compile"
+            Number = "1000"
+            LinkKeywordParam = "_javaawtGridBagLayout"
+            Severity = "1"
+        >Class 'java.awt.GridBagLayout' wurde nicht konvertiert.</Issue>
+        <Issue
+            Type = "Compile"
+            Number = "1000"
+            LinkKeywordParam = "_javaawtGridBagConstraints"
+            Severity = "1"
+        >Class 'java.awt.GridBagConstraints' wurde nicht konvertiert.</Issue>
+    </File>
+    <File
+        OldPath = "C:\download\greekconverter\UC.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\UC.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\UnicodeDecompose.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\UnicodeDecompose.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\UnicodePrecompose.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\UnicodePrecompose.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\UnicodeToAscii.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\UnicodeToAscii.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\UnicodeToBetacode.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\UnicodeToBetacode.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\UnicodeToGreekKeys.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\UnicodeToGreekKeys.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\UnicodeToHtml.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\UnicodeToHtml.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\UnicodeToName.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\UnicodeToName.cs"
+    />
+    <File
+        OldPath = "C:\download\greekconverter\VersionInfo.java"
+        NewPath = "C:\download\greekconverter\greekkonverterNET.NET\VersionInfo.cs"
+    />
+    <Issue
+        Type = "Global Warning"
+        Number = "4007"
+        Severity = "2"
+    >Die Startklasse &quot;&quot; ist in dem Projekt nicht vorhanden.</Issue>
+</ConversionLog>
+
