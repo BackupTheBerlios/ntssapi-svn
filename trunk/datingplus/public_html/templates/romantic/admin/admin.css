@@ -1,0 +1,92 @@
+input {
+font-size: 9pt;
+font-family: Arial;
+}
+textarea {
+font-size: 9pt;
+font-family: Arial;
+}
+select {
+font-size: 9pt;
+font-family: Arial;
+}
+td {
+font-size: 10pt;
+font-family: Arial;
+}
+.searchtitle {
+font-size: 14pt;
+font-family: Verdana,Arial;
+font-weight: bold;
+color: #003366;
+}
+.title {
+font-size: 20pt;
+font-weight: bold;
+}
+.subtitle {
+font-size: 16pt;
+font-weight: bold;
+}
+a.menulink {
+font-size: 9pt;
+font-weight: bold;
+font-family: Verdana,Arial;
+color: #FFFFFF;
+text-decoration: none;
+}
+a.menulink:hover {
+font-size: 9pt;
+font-weight: bold;
+font-family: Verdana,Arial;
+color: #FFFFFF;
+text-decoration: none;
+}
+.footer {
+background-color: #4E8EC8;
+}
+a.footerlink {
+font-size: 8pt;
+font-family: Verdana,Arial;
+color: #FFFFFF;
+text-decoration: none;
+}
+a.footerlink:hover {
+font-size: 8pt;
+font-family: Verdana,Arial;
+color: #FFFFFF;
+text-decoration: none;
+}
+.copyright{
+font-size: 9pt;
+font-family: Verdana,Arial;
+color: #003366;
+text-decoration: none;
+}
+
+a.admin_panel_link {
+	font-size: 8pt;
+	font-family: Verdana,Arial;
+	color: #003366;
+	text-decoration: none;
+}
+a.admin_panel_link:hover {
+	font-size: 8pt;
+	font-family: Verdana,Arial;
+	color: #003366;
+	text-decoration: underline;
+}
+.headertable {
+	background-color: #003366;
+}
+.paneltable {
+	background-color: #99CCFF;
+}
+.admintitle {
+	font-size: 16pt;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+.errormsg {
+	color: #FF0000;
+}

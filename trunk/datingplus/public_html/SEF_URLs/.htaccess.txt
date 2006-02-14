@@ -1,0 +1,16 @@
+RewriteEngine on
+
+# Replace with site url prefix. If osdate is in your site root, set this to just / symbol
+# If osdate is in a subdirectory, set to /subdirectory/
+RewriteBase /
+
+RewriteRule ^privacy.html$ index.php?page=privacy
+RewriteRule ^terms_of_use.html$ index.php?page=terms_of_use
+RewriteRule ^services.html$ index.php?page=services
+RewriteRule ^faq.html$ index.php?page=faq
+RewriteRule ^articles.html$ index.php?page=articles
+RewriteRule ^news([^/]+).htm$ index.php?page=shownews&newsid=$1
+RewriteRule ^allnews.html$ index.php?page=allnews
+
+# Translates {$id}.htm to showprofile.php?id={$id}
+RewriteRule ^([^/]+).htm$ showprofile.php?id=$1
