@@ -156,6 +156,16 @@ namespace NewTrueSharpSwordAPICF
 						writer.WriteEndElement();
 					}
 
+					if (reader.Name == "CAPTION") 
+					{
+						writer.WriteStartElement("span");
+
+						writer.WriteAttributeString("style","color:blue;font-weight:lighter");
+						writer.WriteString(reader.ReadString()+"<br>");
+
+						writer.WriteEndElement();
+					}
+
 					if (reader.Name == "STYLE") 
 					{
 						
