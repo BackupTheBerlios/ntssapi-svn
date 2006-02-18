@@ -1,1 +1,0 @@
-This folder left deliberately empty, since this template's admin pages are identical to default-blue's admin pages.
