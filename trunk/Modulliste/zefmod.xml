@@ -7,20 +7,18 @@
 	</zefania-modules-list-servers>
 	<repository>
 		<modules>
-		      <!-- === dictionaries ===================================== -->
-		      <module filename="sf_tcr_0_eng_full.zip" identifier="tct" lang="englisch" language="ENG" name="Thompson Chain Topics - ALPHA" revision="0" type="dictionary"/>
-		      <module filename="sf_smith_0_eng.zip" identifier="smith" lang="englisch" language="ENG" name="Smiths Bible Dictionary - ALPHA" revision="0" type="dictionary"/>
-		      <module filename="sf_robinson_0_eng.zip" identifier="robin" lang="englisch" language="ENG" name="Robinsons Morphological Analysis Codes " revision="0" type="dictionary"/>
-		      <module filename="sf_rieger_0_ger.zip" identifier="rieg" lang="deutsch" language="GER" name="Carl Heinrich Riegers Kommentar - ALPHA" revision="0" type="dictionary"/>
-		      <module filename="en_en_nave_3.zip" identifier="navetb" lang="englisch" language="ENG" name="Naves Topical Bible" revision="0" type="dictionary"/>
-		      <module filename="sf_easton_0_eng.zip" identifier="" lang="englisch" language="ENG" name="Easton Dictionary - ALPHA" revision="0" type="dictionary"/>
-		      <module filename="rwebster-lex_rev1.zip" identifier="RWebster-lex" lang="englisch" language="ENG" name="Strong Dictionary R.Webster" revision="1" type="s-dictionary"/>
-		      <module filename="luther1912-lex_rev1.zip" identifier="luth1912-lex" lang="deutsch" language="GER" name="Strong Dictionary Luther 1912" revision="1" type="s-dictionary"/>
-		      <module filename="elberfelder1905-lex_rev1.zip" identifier="elb1905-lex" lang="deutsch" language="GER" name="Strong Dictionary Elberfelder 1905" revision="1" type="s-dictionary"/>
-		      <module filename="elberfelder1871-lex_rev1.zip" identifier="elb1871-lex" lang="deutsch" language="GER" name="Strong Dictionary Elberfelder 1871" revision="1" type="s-dictionary"/>
-		      
-		      
-		      
+			<!-- === dictionaries ===================================== -->
+			<module filename="kjv-lex_rev1.zip" identifier="kjv-lex" lang="englisch" language="ENG" name="Strong Dictionary King James" revision="1" type="s-dictionary"/>
+			<module filename="sf_tcr_0_eng_full.zip" identifier="tct" lang="englisch" language="ENG" name="Thompson Chain Topics - ALPHA" revision="0" type="dictionary"/>
+			<module filename="sf_smith_0_eng.zip" identifier="smith" lang="englisch" language="ENG" name="Smiths Bible Dictionary - ALPHA" revision="0" type="dictionary"/>
+			<module filename="sf_robinson_0_eng.zip" identifier="robin" lang="englisch" language="ENG" name="Robinsons Morphological Analysis Codes " revision="0" type="dictionary"/>
+			<module filename="DE_de_rieger_1b.zip" identifier="rieg" lang="deutsch" language="GER" name="Carl Heinrich Riegers Kommentar - BETA" revision="1" type="dictionary"/>
+			<module filename="en_en_nave_3.zip" identifier="navetb" lang="englisch" language="ENG" name="Naves Topical Bible" revision="0" type="dictionary"/>
+			<module filename="sf_easton_0_eng.zip" identifier="" lang="englisch" language="ENG" name="Easton Dictionary - ALPHA" revision="0" type="dictionary"/>
+			<module filename="rwebster-lex_rev1.zip" identifier="RWebster-lex" lang="englisch" language="ENG" name="Strong Dictionary R.Webster" revision="1" type="s-dictionary"/>
+			<module filename="luther1912-lex_rev1.zip" identifier="luth1912-lex" lang="deutsch" language="GER" name="Strong Dictionary Luther 1912" revision="1" type="s-dictionary"/>
+			<module filename="elberfelder1905-lex_rev1.zip" identifier="elb1905-lex" lang="deutsch" language="GER" name="Strong Dictionary Elberfelder 1905" revision="1" type="s-dictionary"/>
+			<module filename="elberfelder1871-lex_rev1.zip" identifier="elb1871-lex" lang="deutsch" language="GER" name="Strong Dictionary Elberfelder 1871" revision="1" type="s-dictionary"/>
 			<!-- === GER ========================================= -->
 			<module filename="luther1912_strong_rev0.zip" identifier="luth1912+" lang="deutsch" language="GER" name="Luther 1912 mit Strongs" revision="0" type="bible"/>
 			<module filename="sf_lu1546_rev1.zip" identifier="lu1546NT" lang="deutsch" language="GER" name="Luther 1546 (original) NT" revision="1" type="bible"/>
@@ -44,7 +42,8 @@
 			<module filename="luther1545_rev2.zip" identifier="luth1545" lang="deutsch" language="GER" name="Luther 1545" revision="2" type="bible"/>
 			<module filename="Luther1545_rev1_Strong.zip" identifier="luth1545str" lang="deutsch" language="GER" name="Luther 1545 mit Strongs" revision="1" type="bible"/>
 			<module filename="sf_elberfelder1871.zip" identifier="Bible.GerElb1871" lang="deutsch" language="GER" name="Elberfelder 1871" revision="0" type="bible"/>
-			<module filename="sf_schlachter1951_rev1_b.zip" identifier="sch1951" lang="deutsch" language="GER" name="Schlachter 1951" revision="1" type="bible"/>
+			<module filename="schlachter1951_rev2.zip" identifier="sch1951" lang="deutsch" language="GER" name="Schlachter 1951" revision="2" type="bible"/>
+			<module filename=" 	schlachter1951_strong_rev0.zip" identifier="sch1951+" lang="deutsch" language="GER" name="Schlachter 1951 mit Strongs" revision="0" type="bible"/>
 			<module filename="sf_koran_ger.zip" identifier="KORd" lang="deutsch" language="GER" name="Der Heilige Koran" revision="0" type="x-quran"/>
 			<module filename="sf_nwue.zip" identifier="NWUE" lang="deutsch" language="GER" name="NWÜ deutsch" revision="0" type="bible"/>
 			<module filename="sf_elb1871str_rev2.zip" identifier="elb1871strnt" lang="deutsch" language="GER" name="Elberfelder 1871 mit Strongs im NT" revision="2" type="bible"/>
@@ -155,7 +154,8 @@
 			<module filename="sf_croatian.zip" identifier="croat" lang="kroatisch" language="SCR" name="Croatian Version" revision="0" type="bible"/>
 			<module filename="sf_china.zip" identifier="chi" lang="chinesisch" language="CHI" name="Chinese Union Version" revision="0" type="bible"/>
 			<module filename="sf_chiuns3.zip" identifier="chius" lang="chinesisch" language="CHI" name="Chinese Union Version Simplified" revision="0" type="bible"/>
-			<module filename="sf_cebuano2.zip" identifier="ceb" lang="cebuano" language="CEB" name="Cebuano Version" revision="0" type="bible"/>
+			<module filename="Cebuano_Ang_Biblia_Bugna_rev1.0.8.zip" identifier="ceb-b" lang="cebuano" language="CEB" name="Cebuano Ang Biblia (Bugna Version) " revision="1" type="bible"/>
+			<module filename="Cebuano_Ang_Biblia_Pinadayag_rev1.0.8.zip" identifier="ceb-p" lang="cebuano" language="CEB" name="Cebuano Pinadayag" revision="1" type="bible"/>
 			<module filename="sf_ncv.zip" identifier="cvs" lang="chinesisch" language="CHI" name="New Chinese Version Simplified" revision="0" type="bible"/>
 			<module filename="sf_bulgarian.zip" identifier="bulg1" lang="bulgarisch" language="xx" name="Bulgarian Version" revision="0" type="bible"/>
 			<module filename="sf_alban.zip" identifier="alb1" lang="albanisch" language="ALB" name="Albanian Version" revision="0" type="bible"/>
