@@ -72,7 +72,7 @@ namespace zefDiatheke
 				if(args[0]=="v")
 				{
 
-					Console.WriteLine("ZefDiatheke Version 0.0.0.7");
+					Console.WriteLine("ZefDiatheke Version 0.0.0.9");
 					Console.WriteLine("Visit  www.zefania.de for newer version if available");
 					return;
 
@@ -512,7 +512,7 @@ namespace zefDiatheke
 				{
 
 					Console.WriteLine(AppPath+@"\bnames.xml nicht gefunden/not found!");
-					Console.WriteLine("Download at http://tinyurl.com/8uw2u");
+					Console.WriteLine("Download bei/at http://tinyurl.com/8uw2u");
 
 
 				}

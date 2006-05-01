@@ -34,18 +34,17 @@ namespace zefPocket
 		private System.Windows.Forms.TabPage tabPageBibel;
 		private System.Windows.Forms.Panel panelbase;
 		private System.Windows.Forms.Panel panelHead;
-		private OpenNETCF.Windows.Forms.ButtonEx buttonNextChapter;
-		private OpenNETCF.Windows.Forms.ButtonEx buttonPrevChapter;
+		
+		
 		private System.Windows.Forms.Panel panelmain;
 		private System.Windows.Forms.Panel paneldict;
-		private OpenNETCF.Windows.Forms.WebBrowser webBrowserBible;
+		
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuItem2;
 		private System.Windows.Forms.MenuItem menuItem4;
 		private System.Windows.Forms.MenuItem menuItem5;
 		private System.Windows.Forms.MenuItem menuItem6;
-		private OpenNETCF.Windows.Forms.ButtonEx buttonprevBook;
-		private OpenNETCF.Windows.Forms.ButtonEx buttonnextBook;
+		
 		private System.Windows.Forms.MainMenu mainMenu1;
 
 		
@@ -153,7 +152,7 @@ namespace zefPocket
 			// 
 			this.panelmain.BackColor = System.Drawing.Color.RosyBrown;
 			this.panelmain.Controls.Add(this.paneldict);
-			this.panelmain.Controls.Add(this.webBrowserBible);
+		
 			this.panelmain.Location = new System.Drawing.Point(0, 25);
 			this.panelmain.Size = new System.Drawing.Size(232, 218);
 			// 
@@ -174,10 +173,7 @@ namespace zefPocket
 			// panelHead
 			// 
 			this.panelHead.BackColor = System.Drawing.Color.PeachPuff;
-			this.panelHead.Controls.Add(this.buttonnextBook);
-			this.panelHead.Controls.Add(this.buttonprevBook);
-			this.panelHead.Controls.Add(this.buttonPrevChapter);
-			this.panelHead.Controls.Add(this.buttonNextChapter);
+			
 			this.panelHead.Size = new System.Drawing.Size(240, 24);
 			// 
 			// buttonPrevChapter
