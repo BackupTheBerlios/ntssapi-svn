@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- edited with XMLSPY v5 rel. 3 U (http://www.xmlspy.com) by Snowbird (wtg) -->
 <?xml-stylesheet href="" type="text/xsl"?>
-<zefania-modules version="1.10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\ZefaniaXML\SVN2\Modulliste\modullist.xsd">
+<zefania-modules version="1.10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\ZefaniaXML\SVN2\NewTrueSharpSwordAPI\resourcen\Untitled1.xsd">
 	<zefania-modules-list-servers>
 		<server>http://zefania-sharp.sourceforge.net</server>
 	</zefania-modules-list-servers>
@@ -22,7 +22,6 @@
 			<module filename="elberfelder1871-lex_rev1.zip" identifier="elb1871-lex" lang="deutsch" language="GER" name="Strong Dictionary Elberfelder 1871" revision="1" type="s-dictionary"/>
 			<!-- === GER ========================================= -->
 			<module filename="sf_pattloch80.zip" identifier="pat80" lang="deutsch" language="GER" name="Pattloch Bibel" revision="1" type="bible"/>
-
 			<module filename="sf_gruenewald1924.zip" identifier="gruen" lang="deutsch" language="GER" name="Grünewaldbibel 1924" revision="1" type="bible"/>
 			<module filename="luther1912_strong_rev0.zip" identifier="luth1912+" lang="deutsch" language="GER" name="Luther 1912 mit Strongs" revision="0" type="bible"/>
 			<module filename="sf_lu1546_rev1.zip" identifier="lu1546NT" lang="deutsch" language="GER" name="Luther 1546 (original) NT" revision="1" type="bible"/>
@@ -37,7 +36,7 @@
 			<module filename="sf.knt2.zip" identifier="knt" lang="deutsch" language="GER" name="Konkordantes NT" revision="0" type="bible"/>
 			<module filename="de_DE_Schlachter2000_1_NRS.zip" identifier="SCH2000NEU" lang="deutsch" language="GER" name="Schlachter 2000 neue Rechtschreibung" revision="1" type="bible"/>
 			<module filename="de_DE_Schlachter2000_3_ARS.zip" identifier="SCH2000ars" lang="deutsch" language="GER" name="Schlachter 2000 alte Rechtschreibung" revision="3" type="bible"/>
-			<module filename="sf_neue_revision_2.zip" identifier="NeÜ" lang="deutsch" language="GER" name="Neue evangelistische Übersetzung (Textstand 11. Dez 2004)" revision="2" type="bible"/>
+			<module filename="sf_neue_revision_4.zip" identifier="NeÜ" lang="deutsch" language="GER" name="Neue evangelistische Übersetzung (Textstand 01.04.2006)" revision="4" type="bible"/>
 			<module filename="sf_tafelbibel_rev1.zip" identifier="TAF" lang="deutsch" language="GER" name="Die Tafelbibel" revision="1" type="bible"/>
 			<module filename="luther1912_rev1.zip" identifier="luth1912" lang="deutsch" language="GER" name="Luther 1912" revision="1" type="bible"/>
 			<module filename="luther1912_apok_Rev1.zip" identifier="luth1912ap" lang="deutsch" language="GER" name="Luther 1912 mit Apokryphen" revision="1" type="bible"/>
@@ -52,6 +51,11 @@
 			<module filename="sf_nwue.zip" identifier="NWUE" lang="deutsch" language="GER" name="NWÜ deutsch" revision="0" type="bible"/>
 			<module filename="sf_elb1871str_rev2.zip" identifier="elb1871strnt" lang="deutsch" language="GER" name="Elberfelder 1871 mit Strongs im NT" revision="2" type="bible"/>
 			<!-- === ENG ===================================== -->
+			
+			
+			<module filename="sf_leeser_rev1.zip" identifier="Leeser" lang="englisch" language="ENG" name="Leeser Old Testament - 1853" revision="1" type="bible"/>
+			<module filename="sf_noyes_translation_rev1.zip" identifier="Noyes" lang="englisch" language="ENG" name="Noyes Translation (Job - Re) - 1869" revision="1" type="bible"/>
+			
 			<module filename="worsleys_nt_rev_1.zip" identifier="WORNT" lang="englisch" language="ENG" name="Worsleys NT" revision="1" type="bible"/>
 			<module filename="KJC_NT_Rev_1.zip" identifier="KJVCNT" lang="englisch" language="ENG" name="King James Clarified NT" revision="1" type="bible"/>
 			<module filename="Living_Oracles_NT_Rev_1.zip" identifier="LONT" lang="englisch" language="ENG" name="Living Oracles NT" revision="1" type="bible"/>
@@ -114,6 +118,9 @@
 			<module filename="sf_sprv.zip" identifier="Bible.SpaRV" lang="spanisch" language="SPA" name="Spanish Reina Valera" revision="0" type="bible"/>
 			<module filename="sf_gnt_rob_str.zip" identifier="GNT" lang="griechisch" language="GRC" name="Robinson/Pierpont Byzantine NT Strong's Numbers" revision="0" type="bible"/>
 			<module filename="sf_gnt_wh_str.zip" identifier="GNT-WH" lang="griechisch" language="GRC" name="Greek NT Westcott-Hort with Strongs" revision="0" type="bible"/>
+
+	<module filename="sf_tischendorf_greek_nt_rev1.zip" identifier="Tischendorf" lang="griechisch" language="GRC" name="Tischendorf Greek NT - 1872" revision="1" type="bible"/>
+
 			<module filename="sf_gnt_tr_str.zip" identifier="GNT-TR" lang="griechisch" language="GRC" name="Textus Receptus NT w/ Strong's Numbers" revision="0" type="bible"/>
 			<module filename="sf_tischendorf.zip" identifier="grtisch8" lang="griechisch" language="GRC" name="Greek NT Tischendorf 8th Ed" revision="0" type="bible"/>
 			<module filename="sf_gnt_variants.zip" identifier="GNT-V" lang="griechisch" language="GRC" name="Greek New Testament w/ variants" revision="0" type="bible"/>
@@ -168,8 +175,8 @@
 			<module filename="sf_polish2.zip" identifier="poland" lang="polnisch" language="POL" name="Polska Biblia Gdanska" revision="1" type="bible"/>
 		</modules>
 		<mirrors urlinfix="prdownloads.sourceforge.net/zefania-sharp/">
-		        <mirror location="McLean-Virginia" name="Superb Internet 1" subdomain="" suffix="?use_mirror=superb-east"/>
-		        <mirror location="Seattle-Washington" name="Superb Internet 2" subdomain="" suffix="?use_mirror=superb-west"/>
+			<mirror location="McLean-Virginia" name="Superb Internet 1" subdomain="" suffix="?use_mirror=superb-east"/>
+			<mirror location="Seattle-Washington" name="Superb Internet 2" subdomain="" suffix="?use_mirror=superb-west"/>
 			<mirror location="Irland" name="HEAnet" subdomain="" suffix="?use_mirror=heanet"/>
 			<mirror location="Amsterdam" name="SURFnet" subdomain="" suffix="?use_mirror=surfnet"/>
 			<mirror location="Sydney-Australien" name="OPTUSnet" subdomain="" suffix="?use_mirror=optusnet"/>
