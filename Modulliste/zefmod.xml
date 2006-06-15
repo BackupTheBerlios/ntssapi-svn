@@ -46,7 +46,7 @@
 			<module filename="Luther1545_rev1_Strong.zip" identifier="luth1545str" lang="deutsch" language="GER" name="Luther 1545 mit Strongs" revision="1" type="bible"/>
 			<module filename="sf_elberfelder1871.zip" identifier="Bible.GerElb1871" lang="deutsch" language="GER" name="Elberfelder 1871" revision="0" type="bible"/>
 			<module filename="schlachter1951_rev2.zip" identifier="sch1951" lang="deutsch" language="GER" name="Schlachter 1951" revision="2" type="bible"/>
-			<module filename=" 	schlachter1951_strong_rev0.zip" identifier="sch1951+" lang="deutsch" language="GER" name="Schlachter 1951 mit Strongs" revision="0" type="bible"/>
+			<module filename="schlachter1951_strong_rev0.zip" identifier="sch1951+" lang="deutsch" language="GER" name="Schlachter 1951 mit Strongs" revision="0" type="bible"/>
 			<module filename="sf_koran_ger.zip" identifier="KORd" lang="deutsch" language="GER" name="Der Heilige Koran" revision="0" type="x-quran"/>
 			<module filename="sf_nwue.zip" identifier="NWUE" lang="deutsch" language="GER" name="NWÜ deutsch" revision="0" type="bible"/>
 			<module filename="sf_elb1871str_rev2.zip" identifier="elb1871strnt" lang="deutsch" language="GER" name="Elberfelder 1871 mit Strongs im NT" revision="2" type="bible"/>
