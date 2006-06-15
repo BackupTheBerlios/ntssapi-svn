@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="BibelCard3toZef">
+</Property><Property Name="Solution File" Value="C:\ZefaniaXML\SVN2\BibelCard3toZef\BibelCard3toZef.sln">
+</Property><Property Name="User Options File" Value="C:\ZefaniaXML\SVN2\BibelCard3toZef\BibelCard3toZef.suo">
+</Property><Property Name="Date" Value="Freitag, 16. Dezember 2005">
+</Property><Property Name="Time" Value="19:49">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="BibelCard3toZef.sln" Description="File successfully backed up as C:\ZefaniaXML\SVN2\BibelCard3toZef\Backup\BibelCard3toZef.sln">
+</Event><Event ErrorLevel="0" Project="" Source="BibelCard3toZef.suo" Description="File successfully backed up as C:\ZefaniaXML\SVN2\BibelCard3toZef\Backup\BibelCard3toZef.suo">
+</Event><Event ErrorLevel="0" Project="BibelCard3toZef" Source="BibelCard3toZef.csproj" Description="Project file successfully backed up as C:\ZefaniaXML\SVN2\BibelCard3toZef\Backup\BibelCard3toZef.csproj">
+</Event><Event ErrorLevel="0" Project="BibelCard3toZef" Source="BibelCard3toZef.csproj.user" Description="Project user file successfully backed up as C:\ZefaniaXML\SVN2\BibelCard3toZef\Backup\BibelCard3toZef.csproj.user">
+</Event><Event ErrorLevel="0" Project="BibelCard3toZef" Source="AssemblyInfo.cs" Description="File successfully backed up as C:\ZefaniaXML\SVN2\BibelCard3toZef\Backup\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="BibelCard3toZef" Source="Form1.cs" Description="File successfully backed up as C:\ZefaniaXML\SVN2\BibelCard3toZef\Backup\Form1.cs">
+</Event><Event ErrorLevel="0" Project="BibelCard3toZef" Source="App.ico" Description="File successfully backed up as C:\ZefaniaXML\SVN2\BibelCard3toZef\Backup\App.ico">
+</Event><Event ErrorLevel="0" Project="BibelCard3toZef" Source="Form1.resx" Description="File successfully backed up as C:\ZefaniaXML\SVN2\BibelCard3toZef\Backup\Form1.resx">
+</Event><Event ErrorLevel="0" Project="BibelCard3toZef" Source="BibelCard3toZef.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="BibelCard3toZef" Source="BibelCard3toZef.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="BibelCard3toZef.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="BibelCard3toZef.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="BibelCard3toZef" Source="BibelCard3toZef.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
