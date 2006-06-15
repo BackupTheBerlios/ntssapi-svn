@@ -1,0 +1,8 @@
+obj\Debug\zefDiatheke.exe
+obj\Debug\zefDiatheke.pdb
+bin\Debug\zefDiatheke.exe
+bin\Debug\zefDiatheke.pdb
+bin\Debug\NewTrueSharpSwordAPI.dll
+bin\Debug\ICSharpCode.SharpZipLib.dll
+bin\Debug\NewTrueSharpSwordAPI.pdb
+obj\Debug\ResolveAssemblyReference.cache

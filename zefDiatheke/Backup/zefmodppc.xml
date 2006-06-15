@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="" type="text/xsl"?>
+<zefania-modules version="1.10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="reposschema.xsd">
+  <zefania-modules-list-servers>
+    <server>http://zefania-sharp.sourceforge.net</server>
+  </zefania-modules-list-servers>
+  <repository>
+    <modules>
+      
+    </modules>
+    <mirrors urlinfix="prdownloads.sourceforge.net/zefania-sharp/">
+      <mirror location="Lausanne-Switzerland" name="Switch" subdomain="" suffix="?use_mirror=switch" />
+      <mirror location="Switzerland" name="Puzzle itc" subdomain="" suffix="?use_mirror=puzzle" />
+      <mirror location="Moscow-Russia" name="CitKit" subdomain="" suffix="?use_mirror=citkit" />
+      <mirror location="Duesseldorf-Germany" name="Mesh-Solutions" subdomain="" suffix="?use_mirror=mesh" />
+      <mirror location="Belgium" name="Belnet" subdomain="" suffix="?use_mirror=belnet" />
+      <mirror location="Sydney-Australien" name="OPTUSnet" subdomain="" suffix="?use_mirror=optusnet" />
+      <mirror location="NewYork" name="VOXROX" subdomain="" suffix="?use_mirror=voxel" />
+      <mirror location="Nordamerika" name="University of Minnesota" subdomain="" suffix="?use_mirror=umn" />
+      <mirror location="Irland" name="HEAnet" subdomain="" suffix="?use_mirror=heanet" />
+      <mirror location="AtlantaGA" name="INTERNAP" subdomain="" suffix="?use_mirror=internap" />
+      <mirror location="Nordamerika" name="Ibiblio" subdomain="" suffix="?use_mirror=unc" />
+      <mirror location="Nordamerika" name="Aleron" subdomain="" suffix="?use_mirror=aleron" />
+      <mirror location="Paris-France" name="OVH.COM" subdomain="" suffix="?use_mirror=ovh" />
+      <mirror location="Ishikawa-Japan" name="JAIST" subdomain="" suffix="?use_mirror=jaist" />
+      <mirror location="Tainan-Taiwan" name="NCHC" subdomain="" suffix="?use_mirror=nchc" />
+      <mirror location="University-of-Kent-UK" name="UKMIRROR_SERVICE" subdomain="" suffix="?use_mirror=kent" />
+    </mirrors>
+  </repository>
+</zefania-modules>

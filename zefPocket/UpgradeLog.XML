@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="zefPocket">
+</Property><Property Name="Solution File" Value="C:\ZefaniaXML\SVN2\zefPocket\zefPocket.sln">
+</Property><Property Name="Date" Value="Montag, 19. Dezember 2005">
+</Property><Property Name="Time" Value="20:14">
+</Property></Properties><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="..\NewTrueSharpSwordAPICF\NewTrueSharpSwordAPICF.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="NewTrueSharpSwordAPICF" Source="..\NewTrueSharpSwordAPICF\NewTrueSharpSwordAPICF.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\visualstudiofiles\NewTrueSharpSwordAPI.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\visualstudiofiles\NewTrueSharpSwordAPI.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="zefPocket.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="zefPocket.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\visualstudiofiles\NewTrueSharpSwordAPI.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

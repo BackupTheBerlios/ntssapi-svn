@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NewTrueSharpSwordAPI</name>
+    </assembly>
+    <members>
+        <member name="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache">
+            <summary>
+            Die Klasse ZefCache stellt Methoden zur Erstellung eines
+            Cache für Zefania XML Bibelmodule zur Verfügung.
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.ContentTree">
+            <summary>
+            Variable zu Zwischenspeicherung des Inhaltsbaumes
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.UserDefTree">
+            <summary>
+              Feld ist true wenn Usertree existiert
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.BibleName">
+            <summary>
+             Feld für Bibelname
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.Zipped">
+            <summary>
+            Cache ist gezipped
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.Cached">
+            <summary>
+             Signalisiert intern, ob der Cache für das Zefania XML Bibelmodul schon erstellt wurde.
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.RestoreUserTree">
+            <summary>
+             Diese Funktion ersetzt den Default Inhaltsbaum durch einen eventuell gesicherten Userdefinierten
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.FullCachePath">
+            <summary>
+             Der komplette Pfad zum ModulCache-Verzeichnis
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.ModulCacheDir">
+            <summary>
+             Diese Variable enthält das Modulverzeichnis für das in einzelnen Bibelbücher zerlegte Zefania XML-Modul.
+             <seealso cref="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CacheBaseDirectory"/>
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CacheBaseDirectory">
+            <summary>
+            Diese Variable enthält das Basisverzeichnis für den anzulegenden Cache.
+            <seealso cref="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.BaseCacheDir"/>
+            </summary>
+            <remarks>
+             Voreinstellung ist das Verzeichnis, das als allgemeines Repository für programmspezifische Daten verwendet wird, die von allen Benutzern verwendet werden.
+            </remarks>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.ModulPath">
+            <summary>
+            Die Variable enthält den Dateipfad zum Zefania XML Bibelmodul.
+            <seealso cref="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache"/>
+            <seealso cref="T:System.IO.Path"/>
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.#ctor(System.String)">
+            <summary>
+            Konstruktor für die ZefaniaCache Klasse.
+            <seealso cref="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.ModulPath"/>
+            <seealso cref="T:System.IO.Path"/>
+            </summary>
+            <remarks>
+             Setzt das Cache-Basisverzeichnis auf das allgemeine Repository das für programmspezifische Daten verwendet wird, die von allen Benutzern verwendet werden.
+             <seealso cref="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CacheBaseDirectory"/>
+            </remarks>
+            <param name="pathToZefaniaModul">Dateipfad zu einem Zefania XML Bibelmodul</param>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CreateMD5Dir">
+            <summary>
+            Diese Methode berechnet aus dem Zefania XML Bibelmodul einen MD5-Hashwert, der als Verzeichnisname
+            für das in Bibelbücher(Kapitel) zerlegte Zefania XML Bibelmodul dient.
+            </summary>
+            <returns>
+              MD5-Hashwert des Zefania XML Bibelmoduls.
+            </returns>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CreateCacheBooks(System.Boolean)">
+             <summary>
+              Diese Methode erstellt den Cache für das Zefania XML Bibelmodul; Das Modul wird in einzelne Bibelbücher zerlegt.
+             </summary>
+             <remarks>Zerlegt ein Zefania XML Bibelmodul in einzelne Bibelbücher; Sollte der Cache schon existieren wird er zuerst gelöscht.</remarks>
+            <param name="zippedCache">Wenn zippedCache = true, werden die Bibelbücher gezipped</param>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CreateCacheChapters(System.Boolean)">
+            <summary>
+             Diese Methode erstellt den Cache für das Zefania XML Bibelmodul; Das Modul wird in einzelne Kapitel zerlegt.
+            </summary>
+            <remarks>Zerlegt ein Zefania XML Bibelmodul in einzelne Bibelkapitel; Sollte der Cache schon existieren wird er zuerst gelöscht.</remarks>
+            <param name="zippedCache">Wenn zippedCache = true, werden die Bibelkapitel gezipped.</param>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CreateDefaultTree">
+            <summary>
+             Diese Methode erzeugt aus dem Zefania XML Modul einen Inhaltsbaum für die Verwendung 
+             in Bibelnavigations Klassen. 
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CatchUserTree">
+            <summary>
+             Liest eine eventuell vorhandene Cache Info Datei und sichert, falls vorhanden, einen durch den User veränderten Inhaltsbaum
+             in der Variable ContentTree <seealso cref="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.ContentTree"/>
+            </summary>
+            <returns>Gibt True zurück, wenn ein Userdefinierter Inhaltsbaum gefunden wurde.</returns>
+        </member>
+        <member name="E:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnInvalidFileFormat">
+            <summary>
+             <see cref="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnInvalidFileFormatEventHandler"/>
+            </summary>
+        </member>
+        <member name="E:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnUserTree">
+            <summary>
+             <see cref="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnUserTreeEventHandler"/>
+            </summary>
+        </member>
+        <member name="E:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnSplitted">
+            <summary>
+            Das Spliced Ereignis selbst.
+            <seealso cref="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnSplittedEventHandler"/>
+            </summary>
+        </member>
+        <member name="E:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnCachedSuccess">
+            <summary>
+            Das Cached-Ereignis selbst.
+            <seealso cref="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnCachedEventHandler"/>
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.IsCached">
+            <summary>
+             zeigt, ob Modulcache für die aktuelle Instanz schon erstellt wurde.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.IsZipped">
+            <summary>
+            Zeigt, ob Cache gezipped ist.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.GetBibleName">
+            <summary>
+            Gibt den Bibelnamen für den Cache zurück
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.HaveUserTree">
+            <summary>
+            Gibt True zurück wenn User InhaltsBaum existiert
+            <seealso cref="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.RestoreUserTree"/>
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CacheVersion">
+            <summary>
+            Gibt die Versionsnummer der ZefaniaCache-Klasse zurück.
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.BaseCacheDir">
+            <summary>
+            Setzt oder liest das Basisverzeichnis für den Cache.
+            <seealso cref="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CacheBaseDirectory"/>
+            </summary>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Cache.ZefaniaCache.PathToModul">
+            <summary>
+            Die Eigenschaft "PathToModul" der Klasse ZefaniaCache liefert den Pfad zum Zefania XML Modul zurück;
+            <seealso cref="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache"/>
+            <seealso cref="F:NewTrueSharpSwordAPI.Cache.ZefaniaCache.ModulPath"/>
+            </summary>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnInvalidFileFormatEventHandler">
+            <summary>
+             Dieser Event wird ausgelöst, wenn versucht wird ein nicht Zefania Modul zu cachen.
+            </summary>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnUserTreeEventHandler">
+            <summary>
+             Dieser Event wird ausgelöst, wenn ein Userdefinierter Inhaltsbaum endeckt wurde.
+            </summary>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CacheType">
+            <summary>
+             Aufzählungstype, der die Art des Caches beschreibt
+             <seealso cref="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CreateCacheBooks(System.Boolean)"/>
+             <seealso cref="M:NewTrueSharpSwordAPI.Cache.ZefaniaCache.CreateCacheChapters(System.Boolean)"/>
+            </summary>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnSplittedEventHandler">
+            <summary>
+            Ereignishandler ausgelöst, wenn eine Zerlegung in Buch, Kapitel oder Vers stattgefunden hat.
+            </summary>
+            <remarks>
+             Die ArrayList enthält im Index 0 einen Eintrag der Form x.x.x = BuchNr.KapitelNr.VersNr 
+             Die ArrayList enthält im Index 1 den Dateipfad zur zerlegten Datei.
+            </remarks>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache.OnCachedEventHandler">
+            <summary>
+             Ereignishandler ausgelöst, wenn Cache erstellt ist.
+            </summary>
+            <remarks>
+             Die ArrayList enthält im Index 0 den Pfad zum Cacheverzeichnis.
+            </remarks>
+        </member>
+    </members>
+</doc>

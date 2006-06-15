@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zefDiatheke", "zefDiatheke.csproj", "{03D34360-AB21-447F-97A6-F810692AB8FE}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewTrueSharpSwordAPI", "..\NewTrueSharpSwordAPI\visualstudiofiles\NewTrueSharpSwordAPI.csproj", "{29AEA1D5-0C8C-4D0D-A470-16F5B4B19037}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{03D34360-AB21-447F-97A6-F810692AB8FE}.Debug.ActiveCfg = Debug|.NET
+		{03D34360-AB21-447F-97A6-F810692AB8FE}.Debug.Build.0 = Debug|.NET
+		{03D34360-AB21-447F-97A6-F810692AB8FE}.Release.ActiveCfg = Release|.NET
+		{03D34360-AB21-447F-97A6-F810692AB8FE}.Release.Build.0 = Release|.NET
+		{29AEA1D5-0C8C-4D0D-A470-16F5B4B19037}.Debug.ActiveCfg = Debug|.NET
+		{29AEA1D5-0C8C-4D0D-A470-16F5B4B19037}.Debug.Build.0 = Debug|.NET
+		{29AEA1D5-0C8C-4D0D-A470-16F5B4B19037}.Release.ActiveCfg = Release|.NET
+		{29AEA1D5-0C8C-4D0D-A470-16F5B4B19037}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

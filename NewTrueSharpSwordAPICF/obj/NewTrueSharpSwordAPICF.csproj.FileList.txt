@@ -1,0 +1,5 @@
+bin\Debug\NewTrueSharpSwordAPICF.dll
+bin\Debug\NewTrueSharpSwordAPICF.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\NewTrueSharpSwordAPICF.dll
+obj\Debug\NewTrueSharpSwordAPICF.pdb

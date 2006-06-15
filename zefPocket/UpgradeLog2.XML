@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="zefPocket">
+</Property><Property Name="Projektmappendatei" Value="C:\ZefaniaXML\SVN2\zefPocket\zefPocket.sln">
+</Property><Property Name="Benutzeroptionendatei" Value="C:\ZefaniaXML\SVN2\zefPocket\zefPocket.suo">
+</Property><Property Name="Date" Value="Donnerstag, 23. Februar 2006">
+</Property><Property Name="Time" Value="07:22">
+</Property><Property Name="Protokollnummer" Value="2">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="zefPocket.sln" Description="Datei wurde erfolgreich als &quot;C:\ZefaniaXML\SVN2\zefPocket\Backup\zefPocket.sln&quot; gesichert">
+</Event><Event ErrorLevel="0" Project="" Source="zefPocket.suo" Description="Datei wurde erfolgreich als &quot;C:\ZefaniaXML\SVN2\zefPocket\Backup\zefPocket.suo&quot; gesichert">
+</Event><Event ErrorLevel="0" Project="zefPocket" Source="zefPocket.csdproj" Description="Projektdatei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\zefPocket.csdproj">
+</Event><Event ErrorLevel="0" Project="zefPocket" Source="zefPocket.csdproj.user" Description="Die Projektbenutzerdatei wurde erfolgreich als &quot;C:\ZefaniaXML\SVN2\zefPocket\Backup\zefPocket.csdproj.user&quot; gesichert.">
+</Event><Event ErrorLevel="0" Project="zefPocket" Source="AssemblyInfo.cs" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="zefPocket" Source="frdownloader.cs" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\frdownloader.cs">
+</Event><Event ErrorLevel="0" Project="zefPocket" Source="frmmain.cs" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\frmmain.cs">
+</Event><Event ErrorLevel="0" Project="zefPocket" Source="config.xml" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\config.xml">
+</Event><Event ErrorLevel="0" Project="zefPocket" Source="frdownloader.resx" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\frdownloader.resx">
+</Event><Event ErrorLevel="0" Project="zefPocket" Source="frmmain.resx" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\frmmain.resx">
+</Event><Event ErrorLevel="0" Project="zefPocket" Source="zefPocket.csproj" Description="Projekt erfolgreich konvertiert">
+</Event><Event ErrorLevel="3" Project="zefPocket" Source="zefPocket.csproj" Description="Converted">
+</Event><Event ErrorLevel="1" Project="NewTrueSharpSwordAPICF" Source="..\NewTrueSharpSwordAPICF\NewTrueSharpSwordAPICF.csproj" Description="Warnung: Die Sicherungskopie der Projektdatei wird in einem relativen Pfad erstellt, der vom relativen Pfad der ursprünglichen Projektmappe abweicht. Der Unterschied in der Ordnerhierarchie kann zu Problemen beim Öffnen oder Erstellen der gesicherten Projektm">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="..\NewTrueSharpSwordAPICF\NewTrueSharpSwordAPICF.csproj" Description="Projektdatei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPICF\NewTrueSharpSwordAPICF.csproj">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="..\NewTrueSharpSwordAPICF\NewTrueSharpSwordAPICF.csproj.user" Description="Die Projektbenutzerdatei wurde erfolgreich als &quot;C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPICF\NewTrueSharpSwordAPICF.csproj.user&quot; gesichert.">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="..\NewTrueSharpSwordAPICF\AssemblyInfo.cs" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPICF\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="..\NewTrueSharpSwordAPICF\CF_HTML_PAGES.cs" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPICF\CF_HTML_PAGES.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="..\NewTrueSharpSwordAPICF\CF_WEBDOWNLOAD.cs" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPICF\CF_WEBDOWNLOAD.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="..\NewTrueSharpSwordAPICF\NewTrueSharpSwordAPICF.csproj" Description="Die Projektdatei erfordert keine Konvertierung.">
+</Event><Event ErrorLevel="3" Project="NewTrueSharpSwordAPICF" Source="..\NewTrueSharpSwordAPICF\NewTrueSharpSwordAPICF.csproj" Description="Keine Konvertierung erforderlich">
+</Event><Event ErrorLevel="1" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\visualstudiofiles\NewTrueSharpSwordAPI.csproj" Description="Warnung: Die Sicherungskopie der Projektdatei wird in einem relativen Pfad erstellt, der vom relativen Pfad der ursprünglichen Projektmappe abweicht. Der Unterschied in der Ordnerhierarchie kann zu Problemen beim Öffnen oder Erstellen der gesicherten Projektm">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\visualstudiofiles\NewTrueSharpSwordAPI.csproj" Description="Projektdatei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\NewTrueSharpSwordAPI.csproj">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\visualstudiofiles\NewTrueSharpSwordAPI.csproj.user" Description="Die Projektbenutzerdatei wurde erfolgreich als &quot;C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\NewTrueSharpSwordAPI.csproj.user&quot; gesichert.">
+</Event><Event ErrorLevel="1" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\zefCacheMaintenance.cs" Description="Das gesicherte Projekt wird möglicherweise nicht erstellt, da es eine verknüpfte Datei enthält: C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\zefCacheMaintenance.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\zefCacheMaintenance.cs" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\zefCacheMaintenance.cs">
+</Event><Event ErrorLevel="1" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\zefCoreRequest.cs" Description="Das gesicherte Projekt wird möglicherweise nicht erstellt, da es eine verknüpfte Datei enthält: C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\zefCoreRequest.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\zefCoreRequest.cs" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\zefCoreRequest.cs">
+</Event><Event ErrorLevel="1" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\zefMapNames.cs" Description="Das gesicherte Projekt wird möglicherweise nicht erstellt, da es eine verknüpfte Datei enthält: C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\zefMapNames.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\zefMapNames.cs" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\zefMapNames.cs">
+</Event><Event ErrorLevel="1" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\zefUtilities.cs" Description="Das gesicherte Projekt wird möglicherweise nicht erstellt, da es eine verknüpfte Datei enthält: C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\zefUtilities.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\zefUtilities.cs" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\zefUtilities.cs">
+</Event><Event ErrorLevel="1" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\zef_cache.cs" Description="Das gesicherte Projekt wird möglicherweise nicht erstellt, da es eine verknüpfte Datei enthält: C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\zef_cache.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\zef_cache.cs" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\zef_cache.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\visualstudiofiles\AssemblyInfo.cs" Description="Datei erfolgreich gesichert als C:\ZefaniaXML\SVN2\zefPocket\Backup\NewTrueSharpSwordAPI\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\visualstudiofiles\NewTrueSharpSwordAPI.csproj" Description="Die Projektdatei erfordert keine Konvertierung.">
+</Event><Event ErrorLevel="3" Project="NewTrueSharpSwordAPI" Source="..\NewTrueSharpSwordAPI\visualstudiofiles\NewTrueSharpSwordAPI.csproj" Description="Keine Konvertierung erforderlich">
+</Event><Event ErrorLevel="0" Project="" Source="zefPocket.sln" Description="Die Projektmappendatei erfordert keine Konvertierung.">
+</Event><Event ErrorLevel="3" Project="" Source="zefPocket.sln" Description="Keine Konvertierung erforderlich">
+</Event><Event ErrorLevel="0" Project="zefPocket" Source="zefPocket.csproj" Description="Überprüfung abgeschlossen: Aktualisierung von Projektdateien nicht erforderlich.">
+</Event></UpgradeLog>

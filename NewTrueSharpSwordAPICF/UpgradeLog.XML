@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="NewTrueSharpSwordAPICF">
+</Property><Property Name="Solution File" Value="C:\ZefaniaXML\SVN2\NewTrueSharpSwordAPICF\NewTrueSharpSwordAPICF.sln">
+</Property><Property Name="User Options File" Value="C:\ZefaniaXML\SVN2\NewTrueSharpSwordAPICF\NewTrueSharpSwordAPICF.suo">
+</Property><Property Name="Date" Value="Montag, 19. Dezember 2005">
+</Property><Property Name="Time" Value="20:13">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="NewTrueSharpSwordAPICF.sln" Description="File successfully backed up as C:\ZefaniaXML\SVN2\NewTrueSharpSwordAPICF\Backup\NewTrueSharpSwordAPICF.sln">
+</Event><Event ErrorLevel="0" Project="" Source="NewTrueSharpSwordAPICF.suo" Description="File successfully backed up as C:\ZefaniaXML\SVN2\NewTrueSharpSwordAPICF\Backup\NewTrueSharpSwordAPICF.suo">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="NewTrueSharpSwordAPICF.csproj" Description="Project file successfully backed up as C:\ZefaniaXML\SVN2\NewTrueSharpSwordAPICF\Backup\NewTrueSharpSwordAPICF.csproj">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="NewTrueSharpSwordAPICF.csproj.user" Description="Project user file successfully backed up as C:\ZefaniaXML\SVN2\NewTrueSharpSwordAPICF\Backup\NewTrueSharpSwordAPICF.csproj.user">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="AssemblyInfo.cs" Description="File successfully backed up as C:\ZefaniaXML\SVN2\NewTrueSharpSwordAPICF\Backup\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="CF_HTML_PAGES.cs" Description="File successfully backed up as C:\ZefaniaXML\SVN2\NewTrueSharpSwordAPICF\Backup\CF_HTML_PAGES.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="CF_WEBDOWNLOAD.cs" Description="File successfully backed up as C:\ZefaniaXML\SVN2\NewTrueSharpSwordAPICF\Backup\CF_WEBDOWNLOAD.cs">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="NewTrueSharpSwordAPICF.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="NewTrueSharpSwordAPICF" Source="NewTrueSharpSwordAPICF.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="NewTrueSharpSwordAPICF.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="NewTrueSharpSwordAPICF.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="NewTrueSharpSwordAPICF" Source="NewTrueSharpSwordAPICF.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
