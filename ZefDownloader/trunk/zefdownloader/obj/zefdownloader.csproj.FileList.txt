@@ -1,0 +1,6 @@
+bin\Debug\zefdownloader.dll.config
+bin\Debug\zefdownloader.dll
+bin\Debug\zefdownloader.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\zefdownloader.dll
+obj\Debug\zefdownloader.pdb
