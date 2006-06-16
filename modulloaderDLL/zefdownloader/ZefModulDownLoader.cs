@@ -29,6 +29,7 @@ namespace zefdownloader
 
         public delegate void ModulListEventHandler(object sender, EventArgs e, XmlNode modulnode, XmlNode ISO639);
         public delegate void ModulServerEventHandler(object sender, XmlNode server);
+        public delegate void ModulListServerEventHandler(object sender, XmlNode server);
 
         public delegate void WebEventExecptionHandler(object sender, WebException e);
         public event ModulListEventHandler OnModulNode;
@@ -267,11 +268,7 @@ namespace zefdownloader
 
         void ModulClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            lock (this)
-            {
-                File.Delete(FModullisteFileName);
-                File.Delete(FMirrorPageFileName);
-            }
+            
             if (DownloadCompleted != null)
             {
                 DownloadCompleted(this, e);
@@ -316,7 +313,7 @@ namespace zefdownloader
             {
                 WebClient ClientModulList = new WebClient();
                 Uri siteUri = new Uri(FUrlModulList);
-                Uri siteUri2 = new Uri(@"http://zykloide.de/iso639_codes.xml");
+                Uri siteUri2 = new Uri(@"http://zefania-sharp.sourceforge.net/iso639_codes.xml");
                 if (ForceRefresh)
                 {
 
