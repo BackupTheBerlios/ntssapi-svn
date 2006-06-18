@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Threading;
+
 using System.ComponentModel;
 using System.Net;
 using System.Xml;
+
 
 
 namespace zefdownloader
@@ -15,7 +17,7 @@ namespace zefdownloader
         /// <summary>
         /// Die url zur Modulliste auf dem Server
         /// </summary>
-        private string FUrlModulList = "http://zefania-sharp.sourceforge.net/zefmod.xml";
+        private string FUrlModulList = "http://";
 
         /// <summary>
         /// Feld speichert Pfad zum DownloadDirectory
@@ -277,7 +279,7 @@ namespace zefdownloader
 
         //****************************************************************************************
         /// <summary>
-        ///  Holt die Modulliste vom Server
+        /// Holt die Modulliste vom Server
         /// </summary>
         private void GetModulListFromServer()
         {
@@ -312,7 +314,18 @@ namespace zefdownloader
             try
             {
                 WebClient ClientModulList = new WebClient();
+
+                if (!FUrlModulList.EndsWith(".xml")) { 
+                
+                  FUrlModulList=FUrlModulList+@"/zefmod.xml";
+                }
                 Uri siteUri = new Uri(FUrlModulList);
+
+
+                
+
+
+
                 Uri siteUri2 = new Uri(@"http://zefania-sharp.sourceforge.net/iso639_codes.xml");
                 if (ForceRefresh)
                 {
@@ -409,8 +422,7 @@ namespace zefdownloader
             }
         }
 
-
-
+        
 
     }
 }

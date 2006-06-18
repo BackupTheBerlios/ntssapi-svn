@@ -2,11 +2,25 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Font Name="Tahoma" Size="8.25" />
   <Class Name="zefdownloader.ZefModulDownLoader">
-    <Position X="0.5" Y="0.5" Width="2.75" />
+    <Position X="0.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
       <FileName>ZefModulDownLoader.cs</FileName>
       <HashCode>AEQACEAAAcAAAwABAAACAAAAAQFAAACaAAAAICAQiAA=</HashCode>
     </TypeIdentifier>
+    <Members>
+      <Field Name="FDownloadDirectory" Hidden="true" />
+      <Field Name="FFinalDownloadURL" Hidden="true" />
+      <Field Name="FMirrorPageFileName" Hidden="true" />
+      <Field Name="FModullisteFileName" Hidden="true" />
+      <Field Name="FModulName" Hidden="true" />
+      <Field Name="FServerName" Hidden="true" />
+      <Field Name="FUrlModulList" Hidden="true" />
+      <Method Name="GetModulListFromServer" Hidden="true" />
+      <Method Name="ModulClient_DownloadFileCompleted" Hidden="true" />
+      <Method Name="ModulClient_DownloadProgressChanged" Hidden="true" />
+      <Method Name="WebClientMirrorPage_DownloadFileCompleted" Hidden="true" />
+      <Method Name="WebClientModulListe_DownloadFileCompleted" Hidden="true" />
+    </Members>
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -21,12 +35,12 @@
           <NewMemberFileName>ZefModulDownLoader.cs</NewMemberFileName>
         </TypeIdentifier>
       </Delegate>
-      <Delegate Name="zefdownloader.ZefModulDownLoader.WebEventExecptionHandler" Collapsed="true">
+      <Delegate Name="zefdownloader.ZefModulDownLoader.ModulListServerEventHandler" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>ZefModulDownLoader.cs</NewMemberFileName>
         </TypeIdentifier>
       </Delegate>
-      <Delegate Name="zefdownloader.ZefModulDownLoader.ModulListServerEventHandler" Collapsed="true">
+      <Delegate Name="zefdownloader.ZefModulDownLoader.WebEventExecptionHandler" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>ZefModulDownLoader.cs</NewMemberFileName>
         </TypeIdentifier>
