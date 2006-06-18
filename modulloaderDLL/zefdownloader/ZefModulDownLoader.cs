@@ -105,6 +105,12 @@ namespace zefdownloader
 
                 WebClient WebClientModulListe = new WebClient();
                 WebClientModulListe.DownloadFileCompleted += new AsyncCompletedEventHandler(WebClientModulListe_DownloadFileCompleted);
+                if (!FUrlModulList.EndsWith(".xml"))
+                {
+
+                    FUrlModulList = FUrlModulList + @"/zefmod.xml";
+                }
+                
                 Uri siteUri = new Uri(FUrlModulList);
                 /// Modulliste herunterladen
                 WebClientModulListe.DownloadFileAsync(siteUri, FModullisteFileName);
@@ -186,8 +192,15 @@ namespace zefdownloader
                 //**************************************************
                 if (ModulURL.IndexOf("prdownloads.sourceforge.net") == -1)
                 {
-                    //Falls wir nicht von sourceforge laden, geben wir die url unverändert zurück.
+                    //Falls wir nicht von sourceforge laden, überpringen wir das herunterladen der SF Mirrorpage
+                    // und laden das Modul sofort herunter.
                     FFinalDownloadURL = ModulURL;
+                    WebClient ModulClient = new WebClient();
+                    ModulClient.DownloadFileCompleted += new AsyncCompletedEventHandler(ModulClient_DownloadFileCompleted);
+                    ModulClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ModulClient_DownloadProgressChanged);
+                    Uri siteUri2 = new Uri(FFinalDownloadURL);
+                    String MFileName = siteUri2.Segments[siteUri2.Segments.Length - 1];
+                    ModulClient.DownloadFileAsync(siteUri2, this.FDownloadDirectory + @"/" + MFileName);
 
                 }
                 else

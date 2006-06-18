@@ -29,6 +29,7 @@ namespace ModulDownloader
         ZefModulDownLoader MDL = new ZefModulDownLoader();
         ZefModulDownLoader MLoader;
         private string FServerName = "Irland";
+        private string FModulListServer = "http://";
 
 
         public MainForm()
@@ -60,7 +61,7 @@ namespace ModulDownloader
                     percentage = Node.Nodes.Add("0");
                     percentage.ImageIndex = 226;
                     percentage.SelectedImageIndex = 226;
-                    Node.Toggle();
+                    Node.Expand();
                 }
 
                 percentage.Text = Percentage;
@@ -86,6 +87,8 @@ namespace ModulDownloader
                 Node.ForeColor = Color.Green;
                 Node.Checked = false;
                 Node.FirstNode.Remove();
+                DownLoadListe.Remove(Node);
+              
             }
         }
 
@@ -96,7 +99,12 @@ namespace ModulDownloader
             MDL.OnModulNode += new ZefModulDownLoader.ModulListEventHandler(MDL_OnModulNode);
             MDL.OnServerNode += new ZefModulDownLoader.ModulServerEventHandler(MDL_OnServerNode);
             texts.Add("Select Preferred Download Mirror");
-             string file1 = Path.Combine(Application.UserAppDataPath, "menu.dat");
+            texts.Add("Download Mirror auswählen");
+            texts.Add("Please select at least one Download Mirror!");
+            texts.Add("Bitte mindestens einen Download Mirror asuswählen!");
+
+
+            string file1 = Path.Combine(Application.UserAppDataPath, "menu.dat");
             if(File.Exists(file1)){
             ModulListServers=(List<string>)DeserializeFromFile(file1);
             }
@@ -230,8 +238,8 @@ namespace ModulDownloader
                 MLoader.DownloadProgress += new System.Net.DownloadProgressChangedEventHandler(MLoader_DownloadProgress);
                 MLoader.DownloadCompleted += new AsyncCompletedEventHandler(MLoader_DownloadCompleted);
                 MLoader.OnWebExeption += new ZefModulDownLoader.WebEventExecptionHandler(MLoader_OnWebExeption);
-
-                MLoader.GetModulByName(N.Text, this.FServerName);
+                MLoader.UrlModulList = this.FModulListServer;
+                MLoader.GetModulByName(N.Text, N.ToolTipText);
             }
         }
 
@@ -249,7 +257,7 @@ namespace ModulDownloader
 
                 if (N.Text == Key)
                 {
-                    this.updateAfterDownload(Key, N);
+                    updateAfterDownload(Key, N);
                     MDL.DeleteTempFiles();
                     break;
 
@@ -258,7 +266,29 @@ namespace ModulDownloader
 
         }
 
+        private string SelectDownloadServer() {
 
+           TreeNode ServerNodes=treeView1.TopNode.FirstNode;
+           int x = -1;
+           foreach (TreeNode Server in ServerNodes.Nodes) {
+
+               if (Server.Checked) {
+
+                   x = x + 1;
+               
+               }  
+           
+           }
+           if (x == -1) {
+
+               MessageBox.Show(texts[2]);
+               return "";
+           
+           }
+           Random r = new Random(unchecked((int)DateTime.Now.Ticks) * this.GetHashCode());
+           return ServerNodes.Nodes[r.Next(x)].Text;
+        
+        }
 
         void MLoader_DownloadProgress(object sender, System.Net.DownloadProgressChangedEventArgs e)
         {
@@ -327,7 +357,9 @@ namespace ModulDownloader
                 if (e.Node.Tag.ToString() == "8888")
                 {
 
-                    if (e.Node.ForeColor == Color.Red) { e.Node.ForeColor = Color.Black; } else { e.Node.ForeColor = Color.Red; }
+                    if (e.Node.ForeColor == Color.Red) 
+                     { e.Node.ForeColor = Color.Black; } 
+                    else { e.Node.ForeColor = Color.Red; }
 
                 }
             }
@@ -350,8 +382,15 @@ namespace ModulDownloader
 
                         if (!DownLoadListe.Contains(e.Node))
                         {
+                            e.Node.ToolTipText =SelectDownloadServer();
+                            if (e.Node.ToolTipText == "") {
+
+                                e.Node.Checked = false;
+                                return;
+                            
+                            }
                             DownLoadListe.Add(e.Node);
-                            this.button2.Enabled = true;
+                            button2.Enabled = true;
                         }
                     }
 
@@ -483,6 +522,7 @@ namespace ModulDownloader
         void TI_Click(object sender, EventArgs e)
         {
             MDL.UrlModulList = (sender as ToolStripItem).Text;
+            FModulListServer = MDL.UrlModulList;
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
