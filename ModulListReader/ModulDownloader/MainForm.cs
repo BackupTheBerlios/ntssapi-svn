@@ -10,9 +10,12 @@ using System.Globalization;
 using zefdownloader;
 using System.Threading;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 
+using System.Runtime.Serialization.Formatters.Binary;
+using ICSharpCode.SharpZipLib.Zip;
 using DocuTrackProSE;
+
+
 
 namespace ModulDownloader
 {
@@ -20,12 +23,20 @@ namespace ModulDownloader
     {
 
         private List<string> texts = new List<string>();
+        private List<string> ModulListServers = new List<string>();
+        private List<string> MyBibleInstall = new List<string>();
+
+        
 
         private List<TreeNode> DownLoadListe = new List<TreeNode>();
-        private List<string> ModulListServers = new List<string>();
+
+
         delegate void SetTextCallback(string ModulName, string Percentage, TreeNode Node);
         delegate void RemoveTextCallback(string ModulName, TreeNode Node);
-        private BackgroundWorker demoThread;
+        delegate void BuildServerTreeCallback();
+
+
+        private BackgroundWorker DownloadThread;
         ZefModulDownLoader MDL = new ZefModulDownLoader();
         ZefModulDownLoader MLoader;
         private string FServerName = "Irland";
@@ -37,7 +48,25 @@ namespace ModulDownloader
             InitializeComponent();
         }
 
+        private void BuildServerTree()
+        {
 
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (treeView1.InvokeRequired)
+            {
+
+                BuildServerTreeCallback d = new BuildServerTreeCallback(BuildServerTree);
+                this.Invoke(d);
+            }
+            else
+            {
+
+                ReadModullistFromServer();
+
+            }
+        }
 
 
         private void SetText(string ModulName, string Percentage, TreeNode Node)
@@ -87,26 +116,37 @@ namespace ModulDownloader
                 Node.ForeColor = Color.Green;
                 Node.Checked = false;
                 Node.FirstNode.Remove();
+
                 DownLoadListe.Remove(Node);
-              
+
+                if (DownLoadListe.Count == 0) {
+
+                    CreateMyBibleInstallFile();
+                
+                }
+                
+
             }
         }
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            MDL.DownloadDirectory = Application.UserAppDataPath;
+            MDL.DownloadDirectory = Application.CommonAppDataPath;
             MDL.OnModulNode += new ZefModulDownLoader.ModulListEventHandler(MDL_OnModulNode);
             MDL.OnServerNode += new ZefModulDownLoader.ModulServerEventHandler(MDL_OnServerNode);
             texts.Add("Select Preferred Download Mirror");
             texts.Add("Download Mirror auswählen");
             texts.Add("Please select at least one Download Mirror!");
-            texts.Add("Bitte mindestens einen Download Mirror asuswählen!");
+            texts.Add("Bitte mindestens einen Download Mirror auswählen!");
+            texts.Add("Be patient read modul list from server .....");
+            texts.Add("Bitte einen Augenblick Geduld, lese Modulliste vom Server....");
 
 
             string file1 = Path.Combine(Application.UserAppDataPath, "menu.dat");
-            if(File.Exists(file1)){
-            ModulListServers=(List<string>)DeserializeFromFile(file1);
+            if (File.Exists(file1))
+            {
+                ModulListServers = (List<string>)DeserializeFromFile(file1);
             }
 
         }
@@ -116,7 +156,8 @@ namespace ModulDownloader
 
             string srv = server.Attributes.GetNamedItem("location").Value;
 
-            TreeNode Mirror = treeView1.TopNode.FirstNode.Nodes.Add(srv, srv);
+            TreeNode Mirror = treeView1.Nodes[0].Nodes[0].Nodes.Add(srv, srv);
+
             Mirror.SelectedImageIndex = 231;
             Mirror.ImageIndex = 231;
             Mirror.Tag = "8888";
@@ -220,21 +261,15 @@ namespace ModulDownloader
 
         }
 
-
-
-
-
-
-
         void demoThread_DoWork(object sender, DoWorkEventArgs e)
         {
             List<TreeNode> LVS = (e.Argument as List<TreeNode>);
-
+            
             foreach (TreeNode N in LVS)
             {
 
                 MLoader = new ZefModulDownLoader();
-                MLoader.DownloadDirectory = Application.UserAppDataPath;
+                MLoader.DownloadDirectory = Application.CommonAppDataPath;
                 MLoader.DownloadProgress += new System.Net.DownloadProgressChangedEventHandler(MLoader_DownloadProgress);
                 MLoader.DownloadCompleted += new AsyncCompletedEventHandler(MLoader_DownloadCompleted);
                 MLoader.OnWebExeption += new ZefModulDownLoader.WebEventExecptionHandler(MLoader_OnWebExeption);
@@ -246,19 +281,36 @@ namespace ModulDownloader
         void MLoader_OnWebExeption(object sender, System.Net.WebException e)
         {
             string Key = (sender as ZefModulDownLoader).ModulName;
-            //this.SetText(Key, e.Message);
+            //this.SetText(Key, e.Message,);
         }
 
         void MLoader_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
+            ZefModulDownLoader ML = (sender as ZefModulDownLoader);
             string Key = (sender as ZefModulDownLoader).ModulName;
+           
             foreach (TreeNode N in DownLoadListe)
             {
 
                 if (N.Text == Key)
                 {
+                    
+                    string pathXML=Path.ChangeExtension(ML.LocalFilePath, ".xml");
+
+                    if (checkBox1.Checked)
+                    {
+
+                        FileStream fs = new FileStream(pathXML, FileMode.Create);
+                        ReadWriteStream(GetZippedModulContent(ML.LocalFilePath), fs);
+                        if(!MyBibleInstall.Contains(pathXML)){
+                          MyBibleInstall.Add(pathXML);
+                        }
+                    }
+
                     updateAfterDownload(Key, N);
-                    MDL.DeleteTempFiles();
+                    ML.DeleteTempFiles();
+
+                    
                     break;
 
                 }
@@ -266,28 +318,34 @@ namespace ModulDownloader
 
         }
 
-        private string SelectDownloadServer() {
+        private string SelectDownloadServer()
+        {
 
-           TreeNode ServerNodes=treeView1.TopNode.FirstNode;
-           int x = -1;
-           foreach (TreeNode Server in ServerNodes.Nodes) {
+            TreeNode ServerNodes = treeView1.Nodes[0].Nodes[0];
 
-               if (Server.Checked) {
 
-                   x = x + 1;
-               
-               }  
-           
-           }
-           if (x == -1) {
+            int x = -1;
+            foreach (TreeNode Server in ServerNodes.Nodes)
+            {
 
-               MessageBox.Show(texts[2]);
-               return "";
-           
-           }
-           Random r = new Random(unchecked((int)DateTime.Now.Ticks) * this.GetHashCode());
-           return ServerNodes.Nodes[r.Next(x)].Text;
-        
+                if (Server.Checked)
+                {
+
+                    x = x + 1;
+
+                }
+
+            }
+            if (x == -1)
+            {
+
+                MessageBox.Show(texts[2]);
+                return "";
+
+            }
+            Random r = new Random(unchecked((int)DateTime.Now.Ticks) * this.GetHashCode());
+            return ServerNodes.Nodes[r.Next(x)].Text;
+
         }
 
         void MLoader_DownloadProgress(object sender, System.Net.DownloadProgressChangedEventArgs e)
@@ -300,6 +358,7 @@ namespace ModulDownloader
 
                 if (N.Text == Key)
                 {
+
                     SetText(Key, e.BytesReceived.ToString() + "/" + e.TotalBytesToReceive.ToString(), N);
                     break;
 
@@ -357,8 +416,8 @@ namespace ModulDownloader
                 if (e.Node.Tag.ToString() == "8888")
                 {
 
-                    if (e.Node.ForeColor == Color.Red) 
-                     { e.Node.ForeColor = Color.Black; } 
+                    if (e.Node.ForeColor == Color.Red)
+                    { e.Node.ForeColor = Color.Black; }
                     else { e.Node.ForeColor = Color.Red; }
 
                 }
@@ -382,12 +441,13 @@ namespace ModulDownloader
 
                         if (!DownLoadListe.Contains(e.Node))
                         {
-                            e.Node.ToolTipText =SelectDownloadServer();
-                            if (e.Node.ToolTipText == "") {
+                            e.Node.ToolTipText = SelectDownloadServer();
+                            if (e.Node.ToolTipText == "")
+                            {
 
                                 e.Node.Checked = false;
                                 return;
-                            
+
                             }
                             DownLoadListe.Add(e.Node);
                             button2.Enabled = true;
@@ -423,17 +483,15 @@ namespace ModulDownloader
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
+
+        private void ReadModullistFromServer()
+        {
             try
             {
 
-                
+
                 Uri URL = new Uri(MDL.UrlModulList);
-
-
-
                 treeView1.BeginUpdate();
 
                 treeView1.Nodes.Clear();
@@ -441,6 +499,8 @@ namespace ModulDownloader
                 TreeNode Mirror = Root.Nodes.Add(texts[0], texts[0]);
                 Mirror.SelectedImageIndex = 231;
                 Mirror.ImageIndex = 231;
+
+                DownLoadListe.Clear();
 
 
                 Root.ForeColor = Color.Maroon;
@@ -462,19 +522,17 @@ namespace ModulDownloader
 
         private void button2_Click(object sender, EventArgs e)
         {
-            demoThread = new BackgroundWorker();
-            demoThread.DoWork += new DoWorkEventHandler(demoThread_DoWork);
-            demoThread.RunWorkerAsync(DownLoadListe);
+            
+            DownloadThread = new BackgroundWorker();
+            DownloadThread.DoWork += new DoWorkEventHandler(demoThread_DoWork);
+            MyBibleInstall.Clear();
+            DownloadThread.RunWorkerAsync(DownLoadListe);
         }
 
 
         /// <summary>
         /// Replacement for VB InputBox, returns user input string.
-        ///
-        ///
-        ///
-        ///
-        /// </summary>
+        ///</summary>
         public static string InputBox(string prompt,
           string title, string defaultValue)
         {
@@ -488,41 +546,51 @@ namespace ModulDownloader
             return s;
         }
 
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+
+        /// <summary>
+        /// Extrahiert eine Datei aus einem zip-archiv
+        /// </summary>
+        /// <param name="ModulPath">Pfade zur zip-datei</param>
+        /// <returns>Zefania XML Modul als Stream.</returns>
+        public static ZipInputStream GetZippedModulContent(string ModulPath)
         {
+            ZipEntry theEntry;
 
-            contextMenuStrip1.Items.Clear();
-            ToolStripItem TII = contextMenuStrip1.Items.Add("add a modul list server");
-            TII.Click += new EventHandler(TII_Click);
-            TII.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            foreach (string ListServer in ModulListServers)
+            try
             {
+                ZipInputStream s = new ZipInputStream(File.OpenRead(ModulPath));
+                while ((theEntry = s.GetNextEntry()) != null)
+                {
+                    if (theEntry.Size > 10000 & (Path.GetExtension(theEntry.Name) == ".xml"))
+                    {
 
+                        return s;
+                    }
+                }
+                return null;
+            }
 
-
-                ToolStripItem TI = contextMenuStrip1.Items.Add(ListServer);
-
-                TI.Click += new EventHandler(TI_Click);
-                TI.DisplayStyle = ToolStripItemDisplayStyle.Text;
-
-
+            catch (Exception e)
+            {
+                return null;
             }
         }
 
-        void TII_Click(object sender, EventArgs e)
+        // readStream is the stream you need to read
+        // writeStream is the stream you want to write to
+        public  void ReadWriteStream(Stream readStream, Stream writeStream)
         {
-            string ListServer = InputBox("Add a modul list server url", "Add a modul list server url", "");
-            if (ListServer != "")
+            int Length = 256;
+            Byte[] buffer = new Byte[Length];
+            int bytesRead = readStream.Read(buffer, 0, Length);
+            // write the required bytes
+            while (bytesRead > 0)
             {
-
-                ModulListServers.Add(ListServer);
+                writeStream.Write(buffer, 0, bytesRead);
+                bytesRead = readStream.Read(buffer, 0, Length);
             }
-        }
-
-        void TI_Click(object sender, EventArgs e)
-        {
-            MDL.UrlModulList = (sender as ToolStripItem).Text;
-            FModulListServer = MDL.UrlModulList;
+            readStream.Close();
+            writeStream.Close();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -564,6 +632,7 @@ namespace ModulDownloader
                 // Objekt deserialisieren
                 BinaryFormatter bf = new BinaryFormatter();
                 return bf.Deserialize(fileStream);
+                
             }
             finally
             {
@@ -572,13 +641,73 @@ namespace ModulDownloader
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+
+
+
+
+        private void comboBox1_DropDown(object sender, EventArgs e)
         {
-            
+            comboBox1.Items.Clear();
+            foreach (string Server in ModulListServers)
+            {
+
+                comboBox1.Items.Add(Server);
+            }
+
+        }
+
+        private void CreateMyBibleInstallFile(){
+        
+         try{
+
+             
+             string install_lst = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MyBible\Modules\install.lst";
+
+             using (StreamWriter sw = new StreamWriter(install_lst, false))
+             {
+                 foreach (string XmlModulPath in MyBibleInstall)
+                 {
+                     sw.WriteLine(XmlModulPath);
+                 }
+                 sw.Flush();
+             }
+         }
+        catch(Exception e) {
+         
+         
+         }
+        
+        
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MDL.UrlModulList = comboBox1.Text;
+            FModulListServer = MDL.UrlModulList;
+            treeView1.Nodes.Clear();
+            treeView1.Nodes.Add(texts[4]);
+            bWModullist.RunWorkerAsync();
+
+        }
+
+        private void bWModullist_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BuildServerTree();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            string ListServer = InputBox("add a modul list server ", "ad a modul list server", "");
+
+            if (ListServer != "")
+            {
+
+                ModulListServers.Add(ListServer);
+            }
         }
 
     }
-    //***********************************************************************************
+
 
 }
 

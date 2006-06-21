@@ -28,6 +28,7 @@ namespace zefdownloader
         private string FServerName;
         private string FModullisteFileName;
         private string FMirrorPageFileName;
+        private string FLocalFilePath;
 
         public delegate void ModulListEventHandler(object sender, EventArgs e, XmlNode modulnode, XmlNode ISO639);
         public delegate void ModulServerEventHandler(object sender, XmlNode server);
@@ -80,6 +81,15 @@ namespace zefdownloader
                 return FModulName;
             }
 
+        }
+
+        public string LocalFilePath
+        {
+            get
+            {
+                return FLocalFilePath;
+            }
+            
         }
 
         //****************************************************************************************
@@ -200,7 +210,8 @@ namespace zefdownloader
                     ModulClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ModulClient_DownloadProgressChanged);
                     Uri siteUri2 = new Uri(FFinalDownloadURL);
                     String MFileName = siteUri2.Segments[siteUri2.Segments.Length - 1];
-                    ModulClient.DownloadFileAsync(siteUri2, this.FDownloadDirectory + @"/" + MFileName);
+                    FLocalFilePath = this.FDownloadDirectory + @"\" + MFileName;
+                    ModulClient.DownloadFileAsync(siteUri2, FLocalFilePath);
 
                 }
                 else
@@ -260,7 +271,8 @@ namespace zefdownloader
                 ModulClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ModulClient_DownloadProgressChanged);
                 Uri siteUri2 = new Uri(FFinalDownloadURL);
                 String MFileName = siteUri2.Segments[siteUri2.Segments.Length - 1];
-                ModulClient.DownloadFileAsync(siteUri2, this.FDownloadDirectory + @"/" + MFileName);
+                FLocalFilePath = this.FDownloadDirectory + @"\" + MFileName;
+                ModulClient.DownloadFileAsync(siteUri2,FLocalFilePath );
             }
 
 
