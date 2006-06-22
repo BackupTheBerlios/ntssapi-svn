@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
 [assembly: AssemblyTitle("ModulDownloader")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Zefania XML Downloader")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("myself")]
+[assembly: AssemblyCompany("Theologische Initiative Freiburg")]
 [assembly: AssemblyProduct("ModulDownloader")]
 [assembly: AssemblyCopyright("Copyright © myself 2006")]
 [assembly: AssemblyTrademark("")]

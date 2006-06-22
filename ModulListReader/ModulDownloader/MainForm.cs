@@ -82,20 +82,21 @@ namespace ModulDownloader
             }
             else
             {
-
+               treeView1.BeginUpdate();
                 TreeNode percentage = Node.FirstNode;
                 if (percentage == null)
                 {
-
+                  
                     percentage = Node.Nodes.Add("0");
                     percentage.ImageIndex = 226;
                     percentage.SelectedImageIndex = 226;
                     Node.Expand();
+                    
                 }
 
                 percentage.Text = Percentage;
 
-
+                treeView1.EndUpdate();
 
             }
         }
@@ -139,10 +140,15 @@ namespace ModulDownloader
             texts.Add("Download Mirror auswählen");
             texts.Add("Please select at least one Download Mirror!");
             texts.Add("Bitte mindestens einen Download Mirror auswählen!");
-            texts.Add("Be patient read modul list from server .....");
+            texts.Add("Be patient read modules list from server .....");
             texts.Add("Bitte einen Augenblick Geduld, lese Modulliste vom Server....");
 
+            if (GetMyBibleModulesDirectory() != string.Empty) {
 
+                this.groupBox1.Visible = true;
+                this.checkBox1.Checked = true;
+            
+            }
             string file1 = Path.Combine(Application.UserAppDataPath, "menu.dat");
             if (File.Exists(file1))
             {
@@ -295,15 +301,15 @@ namespace ModulDownloader
                 if (N.Text == Key)
                 {
                     
-                    string pathXML=Path.ChangeExtension(ML.LocalFilePath, ".xml");
+                   
 
                     if (checkBox1.Checked)
                     {
-
+                        string pathXML = GetMyBibleModulesDirectory() + @"\" + Path.GetFileNameWithoutExtension(ML.LocalFilePath) + ".xml";
                         FileStream fs = new FileStream(pathXML, FileMode.Create);
                         ReadWriteStream(GetZippedModulContent(ML.LocalFilePath), fs);
                         if(!MyBibleInstall.Contains(pathXML)){
-                          MyBibleInstall.Add(pathXML);
+                          MyBibleInstall.Add(Path.GetFileName(pathXML));
                         }
                     }
 
@@ -695,16 +701,62 @@ namespace ModulDownloader
             BuildServerTree();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            string ListServer = InputBox("add a modul list server ", "ad a modul list server", "");
+        private string GetMyBibleModulesDirectory() {
 
-            if (ListServer != "")
+            try {
+
+              string MyBibleMDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MyBible\Modules\";
+              if(Directory.Exists(MyBibleMDir)){
+              
+                 return MyBibleMDir;
+              
+              }
+
+              MyBibleMDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\MyBible\Modules\";
+              if (Directory.Exists(MyBibleMDir))
+              {
+
+                  return MyBibleMDir;
+
+              }
+              else {
+
+                  return "";
+              
+              }
+            }
+
+
+            catch (Exception e)
             {
 
-                ModulListServers.Add(ListServer);
+                return "";
+
+            }
+        
+        }
+
+      
+
+        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            string ListServer=comboBox1.Text;
+            
+            if (e.KeyCode == Keys.Enter) {
+                
+                if(ModulListServers.Contains(ListServer)){
+                   ModulListServers.Add(ListServer);
+                   FModulListServer = MDL.UrlModulList;
+                   treeView1.Nodes.Clear();
+                   treeView1.Nodes.Add(texts[4]);
+                   bWModullist.RunWorkerAsync();
+                   
+                }
+            
             }
         }
+
+        
 
     }
 

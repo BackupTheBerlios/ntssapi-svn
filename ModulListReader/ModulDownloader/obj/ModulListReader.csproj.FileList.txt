@@ -10,3 +10,8 @@ bin\Debug\zefdownloader.pdb
 obj\Debug\ModulDownloader.exe
 obj\Debug\ModulDownloader.pdb
 bin\Debug\ICSharpCode.SharpZipLib.dll
+bin\Debug\ModulDownloader.exe.manifest
+bin\Debug\ModulDownloader.application
+obj\Debug\ModulDownloader.TrustInfo.xml
+obj\Debug\ModulDownloader.exe.manifest
+obj\Debug\ModulDownloader.application

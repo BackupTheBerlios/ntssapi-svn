@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModulListReader", "ModulDownloader\ModulListReader.csproj", "{DF1A0C06-C9D9-4D28-A179-666E0B2DCFC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zefdownloader", "..\..\..\..\..\..\ZefaniaXML\repository\modulloaderDLL\zefdownloader\zefdownloader.csproj", "{FC6F8416-C7E2-43BE-A8D2-462F7A9F6C7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zefdownloader", "..\modulloaderDLL\zefdownloader\zefdownloader.csproj", "{FC6F8416-C7E2-43BE-A8D2-462F7A9F6C7A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{DF1A0C06-C9D9-4D28-A179-666E0B2DCFC3} = {DF1A0C06-C9D9-4D28-A179-666E0B2DCFC3}
 	EndProjectSection
