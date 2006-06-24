@@ -15,7 +15,7 @@
     <ManifestCertificateThumbprint>CC36FFFBDABF712CE4F1ECCE0731789AF97CE32A</ManifestCertificateThumbprint>
     <ManifestKeyFile>ModulListReader_TemporaryKey.pfx</ManifestKeyFile>
     <SignManifests>true</SignManifests>
-    <PublishUrl>ftp://zykloide.de/httpdocs/website/</PublishUrl>
+    <PublishUrl>ftp://zykloide.de/httpdocs/download/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -25,7 +25,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://www.zykloide.de/website/</InstallUrl>
+    <InstallUrl>http://zykloide.de/downloader/</InstallUrl>
     <SupportUrl>http://www.mantis.zykloide.de</SupportUrl>
     <ProductName>Zefania XML Downloader</ProductName>
     <PublisherName>Theologische Initiative Freiburg</PublisherName>
@@ -72,18 +72,19 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InputBoxForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="MainForm.de.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputBoxForm.resx">
+    <EmbeddedResource Include="MainForm.en.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>InputBoxForm.cs</DependentUpon>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -95,6 +96,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="ModulDownloader_ml.mlb" />
     <BaseApplicationManifest Include="Properties\app.manifest" />
     <None Include="ModulListReader_TemporaryKey.pfx" />

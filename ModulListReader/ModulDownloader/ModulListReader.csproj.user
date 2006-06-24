@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>ftp://zykloide.de/httpdocs/website/|C:\Dokumente und Einstellungen\chef\Desktop\|http://localhost/ModulDownloader/</PublishUrlHistory>
-    <InstallUrlHistory>http://www.zykloide.de/website/|http://www.zykloide.de/</InstallUrlHistory>
+    <PublishUrlHistory>ftp://zykloide.de/httpdocs/download/|ftp://zykloide.de/httpdocs/downloader/|ftp://publish.zykloide.de/httpdocs/downloader/|ftp://publish.zykloide.de/httpdocs/|ftp://zykloide.de/httpdocs/website/</PublishUrlHistory>
+    <InstallUrlHistory>http://zykloide.de/downloader/|http://publish.zykloide.de/downloader/|http://publish.zykloide.de/|http://www.zykloide.de/|http://www.zykloide.de/website/</InstallUrlHistory>
     <SupportUrlHistory>http://www.mantis.zykloide.de</SupportUrlHistory>
     <UpdateUrlHistory>
     </UpdateUrlHistory>
@@ -10,5 +10,6 @@
     <ApplicationRevision>5</ApplicationRevision>
     <FallbackCulture>de-DE</FallbackCulture>
     <VerifyUploadedFiles>true</VerifyUploadedFiles>
+    <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
 </Project>
