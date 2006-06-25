@@ -10,6 +10,7 @@ using System.Globalization;
 using zefdownloader;
 using System.Threading;
 using System.IO;
+using System.Diagnostics;
 
 using System.Runtime.Serialization.Formatters.Binary;
 using ICSharpCode.SharpZipLib.Zip;
@@ -31,6 +32,7 @@ namespace ModulDownloader
         private string[][] LangArray = new string[2][];
 
         private List<TreeNode> DownLoadListe = new List<TreeNode>();
+        private List<TreeNode> MyBibleYetToInstall = new List<TreeNode>();
 
 
         delegate void SetTextCallback(string ModulName, string Percentage, TreeNode Node);
@@ -43,7 +45,7 @@ namespace ModulDownloader
         ZefModulDownLoader MLoader;
      
         private string FModulListServer = "http://";
-        private const string myVersion="Beta 0.1";
+        private const string myVersion="Beta 0.5";
 
         public MainForm()
         {
@@ -84,16 +86,22 @@ namespace ModulDownloader
             }
             else
             {
-               treeView1.BeginUpdate();
-                TreeNode percentage = Node.FirstNode;
-                if (percentage == null)
+                treeView1.BeginUpdate();
+                TreeNode percentage;
+                int index=Node.Nodes.IndexOfKey("percent");
+                
+                if (index ==-1)
                 {
-                  
-                    percentage = Node.Nodes.Add("0");
+
+                    percentage =Node.Nodes.Insert(0, "percent","0"); 
                     percentage.ImageIndex = 226;
                     percentage.SelectedImageIndex = 226;
                     Node.Expand();
                     
+                }else
+                {
+                  
+                    percentage = Node.Nodes[index]; 
                 }
 
                 percentage.Text = Percentage;
@@ -192,9 +200,9 @@ namespace ModulDownloader
         private void LanguageTexts()
         {
 
-            LangArray[0]= new string[]{"Select Preferred Download Mirror", "Please select at least one Download Mirror!", "Be patient read modules list from server ....."};
+            LangArray[0]= new string[]{"Select Preferred Download Mirror", "Please select at least one Download Mirror!", "Be patient read modules list from server .....","was already downloaded! Will you download it again?"};
 
-            LangArray[1] = new string[] { "Download Mirror auswählen", "Bitte mindestens einen Download Mirror auswählen!", "Bitte einen Augenblick Geduld, lese Modulliste vom Server...." };
+            LangArray[1] = new string[] { "Download Mirror auswählen", "Bitte mindestens einen Download Mirror auswählen!", "Bitte einen Augenblick Geduld, lese Modulliste vom Server....","wurde schon heruntergeladen! Wollen Sie das Modul erneut herunterladen?" };
            
         }
 
@@ -203,8 +211,8 @@ namespace ModulDownloader
             if (GetMyBibleModulesDirectory() != string.Empty)
             {
 
-                this.groupBox1.Visible = true;
-                this.checkBox1.Checked = true;
+                groupBox1.Visible = true;
+                checkBox1.Checked = true;
 
             }
         }
@@ -231,6 +239,7 @@ namespace ModulDownloader
             string ModulName = modulnode.Attributes.GetNamedItem("name").Value;
             string ModulType = modulnode.Attributes.GetNamedItem("type").Value;
             string FileName = modulnode.Attributes.GetNamedItem("filename").Value;
+            string Revision = modulnode.Attributes.GetNamedItem("revision").Value;
             if (ISO != null)
             {
                 XmlNode ImageIx = ISO.Attributes.GetNamedItem("ix");
@@ -254,7 +263,8 @@ namespace ModulDownloader
 
                 MName = LG.Nodes.Add(ModulName, ModulName);
 
-
+                MName.Nodes.Add(FileName, FileName);
+                MName.Nodes.Add(Revision, "Revision " + Revision);
 
             }
             else
@@ -266,7 +276,9 @@ namespace ModulDownloader
                     LG = MType.Nodes.Add(Language, Language);
 
                     MName = LG.Nodes.Add(ModulName, ModulName);
-
+                   
+                    MName.Nodes.Add(FileName, FileName);
+                    MName.Nodes.Add(Revision, "Revision " + Revision);
 
                 }
                 else
@@ -274,7 +286,9 @@ namespace ModulDownloader
 
                     LG = MType.Nodes[index2];
                     MName = LG.Nodes.Add(ModulName, ModulName);
-
+                    
+                    MName.Nodes.Add(FileName, FileName);
+                    MName.Nodes.Add(Revision, "Revision " + Revision);
 
                 }
 
@@ -362,7 +376,7 @@ namespace ModulDownloader
 
                     if (checkBox1.Checked)
                     {
-                        string pathXML = GetMyBibleModulesDirectory() + @"\" + Path.GetFileNameWithoutExtension(ML.LocalFilePath) + ".xml";
+                        string pathXML = GetMyBibleModulesDirectory() + GetModulNameFromZippedModul(ML.LocalFilePath);
                         FileStream fs = new FileStream(pathXML, FileMode.Create);
                         ReadWriteStream(GetZippedModulContent(ML.LocalFilePath), fs);
                         if(!MyBibleInstall.Contains(pathXML)){
@@ -458,7 +472,23 @@ namespace ModulDownloader
             }
         }
 
-       
+        // search all child tree nodes not installed in Mybible recursively.
+        private void SearchAllChildNodes(TreeNode treeNode)
+        {
+            foreach (TreeNode node in treeNode.Nodes)
+            {
+                if (node.ForeColor == Color.Green) {
+
+                    MyBibleYetToInstall.Add(node);
+                
+                }
+                if (node.Nodes.Count > 0)
+                {
+                    // If the current node has child nodes, call the SearchAllChildsNodes method recursively.
+                    this.SearchAllChildNodes(node);
+                }
+            }
+        }
 
         
 
@@ -500,6 +530,20 @@ namespace ModulDownloader
                                 return;
 
                             }
+
+                            if ((e.Node.ForeColor == Color.Green)||(e.Node.ForeColor == Color.Blue)) {
+
+                                DialogResult DR = MessageBox.Show(e.Node.Text+" "+LangArray[this.LangID][3], "!!", MessageBoxButtons.YesNo);
+                                if (DR == DialogResult.No) {
+
+                                    e.Node.Checked = false;
+                                    return;
+                                
+                                }
+
+                            
+                            }
+
                             DownLoadListe.Add(e.Node);
                             button2.Enabled = true;
                         }
@@ -749,7 +793,9 @@ namespace ModulDownloader
             MDL.UrlModulList = comboBox1.Text;
             FModulListServer = MDL.UrlModulList;
             treeView1.Nodes.Clear();
-            treeView1.Nodes.Add(LangArray[LangID][2]);
+            TreeNode N=treeView1.Nodes.Add(LangArray[LangID][2]);
+            N.SelectedImageIndex = 227;
+            N.ImageIndex = 227;
             bWModullist.RunWorkerAsync();
 
         }
@@ -844,6 +890,28 @@ namespace ModulDownloader
                 
 
             }
+
+        }
+
+        
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (LangID == 0)
+            {
+                Process.Start("http://zykloide.de/supporters/");
+            }
+            else
+            {
+                Process.Start("http://zykloide.de/supporter/");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MyBibleYetToInstall.Clear();
+            SearchAllChildNodes(treeView1.Nodes[0]);
+            
 
         }
 
