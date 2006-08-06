@@ -1,19 +1,18 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- edited with XMLSPY v5 rel. 3 U (http://www.xmlspy.com) by Snowbird (wtg) -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
 	<xsd:element name="XMLBIBLE">
-
 		<xsd:annotation>
 			<xsd:documentation>Das Wurzelelement einer Zefania XML Bibel</xsd:documentation>
 			<xsd:appinfo>version:2.0.0.2</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexType>
-			<xsd:sequence maxOccurs="1">
+			<xsd:sequence>
 				<xsd:element ref="INFORMATION"/>
 				<xsd:element ref="BIBLEBOOK" maxOccurs="unbounded"/>
 				<xsd:element ref="APPINFO" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:sequence>
-			<xsd:attribute type="xsd:string" use="required" name="biblename">
+			<xsd:attribute name="biblename" type="xsd:string" use="required">
 				<xsd:annotation>
 					<xsd:documentation>Der Name der Bibel z.B. Luther 1984</xsd:documentation>
 				</xsd:annotation>
@@ -45,12 +44,12 @@
 		<xsd:complexType mixed="true">
 			<xsd:attribute name="ID" type="xsd:string"/>
 		</xsd:complexType>
-	</xsd:element><xsd:element name="APPINFO">
+	</xsd:element>
+	<xsd:element name="APPINFO">
 		<xsd:complexType mixed="true">
 			<xsd:choice maxOccurs="unbounded">
-			  <xsd:element ref="TRANSLATION"/>
+				<xsd:element ref="TRANSLATION"/>
 			</xsd:choice>
-
 			<xsd:attribute name="client"/>
 			<xsd:attribute name="version"/>
 		</xsd:complexType>
@@ -81,7 +80,7 @@
 			<xsd:documentation>Markiert die Grenzen eines Bibelkapitels</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexType>
-			<xsd:choice minOccurs="1" maxOccurs="unbounded">
+			<xsd:choice maxOccurs="unbounded">
 				<xsd:element ref="PROLOG" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="CAPTION" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="VERS" maxOccurs="unbounded"/>
@@ -92,7 +91,6 @@
 			<xsd:attribute name="cnumber" type="Tvref" use="required"/>
 		</xsd:complexType>
 	</xsd:element>
-
 	<xsd:element name="VERS">
 		<xsd:annotation>
 			<xsd:documentation>Markiert die Grenzen eines Bibelverses</xsd:documentation>
@@ -126,7 +124,11 @@
 			<xsd:attribute name="vref" type="Tvref" use="required"/>
 		</xsd:complexType>
 	</xsd:element>
-	<xsd:element name="MEDIA" type="TMedia"/>
+	<xsd:element name="MEDIA" type="TMedia">
+		<xsd:annotation>
+			<xsd:documentation>Medieninhalte</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="CAPTION">
 		<xsd:annotation>
 			<xsd:documentation>Markiert eine Überschrift</xsd:documentation>
@@ -190,118 +192,15 @@
 			<xsd:documentation>Markiert grammatische Informationen</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexType mixed="true">
-			<xsd:choice maxOccurs="unbounded" minOccurs="0">
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
 				<xsd:element ref="GRAM"/>
 				<xsd:element ref="STYLE"/>
 			</xsd:choice>
-			<xsd:attribute name="woa" use="optional">
+			<xsd:attribute name="woa" type="enumWoa" use="optional">
 				<xsd:annotation>
 					<xsd:documentation>Die Wortart</xsd:documentation>
 				</xsd:annotation>
 				<!--Die Wortart-->
-				<xsd:simpleType>
-					<xsd:restriction base="xsd:string">
-						<xsd:enumeration value="g-subst">
-							<xsd:annotation>
-								<xsd:documentation>Substantiv</xsd:documentation>
-							</xsd:annotation>
-							<!--Substantiv-->
-						</xsd:enumeration>
-						<xsd:enumeration value="g-adj">
-							<xsd:annotation>
-								<xsd:documentation>Adjektiv</xsd:documentation>
-							</xsd:annotation>
-							<!--Adjektiv-->
-						</xsd:enumeration>
-						<xsd:enumeration value="g-verb">
-							<xsd:annotation>
-								<xsd:documentation>Verb</xsd:documentation>
-							</xsd:annotation>
-							<!--Verb-->
-						</xsd:enumeration>
-						<xsd:enumeration value="g-art">
-							<xsd:annotation>
-								<xsd:documentation>Artikel</xsd:documentation>
-							</xsd:annotation>
-							<!--Artikel-->
-						</xsd:enumeration>
-						<xsd:enumeration value="g-pro">
-							<xsd:annotation>
-								<xsd:documentation>Pronomen</xsd:documentation>
-							</xsd:annotation>
-							<!--Pronomen-->
-						</xsd:enumeration>
-						<xsd:enumeration value="g-adv">
-							<xsd:annotation>
-								<xsd:documentation>Adverb</xsd:documentation>
-							</xsd:annotation>
-							<!--Adverb-->
-						</xsd:enumeration>
-						<xsd:enumeration value="g-pre">
-							<xsd:annotation>
-								<xsd:documentation>Preposition</xsd:documentation>
-							</xsd:annotation>
-							<!--Preposition-->
-						</xsd:enumeration>
-						<xsd:enumeration value="g-par">
-							<xsd:annotation>
-								<xsd:documentation>Partikel</xsd:documentation>
-							</xsd:annotation>
-							<!--Partikel-->
-						</xsd:enumeration>
-						<xsd:enumeration value="g-konj">
-							<xsd:annotation>
-								<xsd:documentation>Konjunktion</xsd:documentation>
-							</xsd:annotation>
-							<!--Konjunktion-->
-						</xsd:enumeration>
-						<xsd:enumeration value="g-num">
-							<xsd:annotation>
-								<xsd:documentation>Numerale</xsd:documentation>
-							</xsd:annotation>
-						</xsd:enumeration>
-						<xsd:enumeration value="grc-verb">
-							<!--Verb-->
-						</xsd:enumeration>
-						<xsd:enumeration value="grc-subst">
-							<!--Substantiv-->
-						</xsd:enumeration>
-						<xsd:enumeration value="grc-adj">
-							<!--Adjektiv-->
-						</xsd:enumeration>
-						<xsd:enumeration value="grc-art">
-							<!--Artikel-->
-						</xsd:enumeration>
-						<xsd:enumeration value="grc-pro">
-							<!--Pronomen-->
-						</xsd:enumeration>
-						<xsd:enumeration value="grc-adv">
-							<!--Adverb-->
-						</xsd:enumeration>
-						<xsd:enumeration value="grc-pre">
-							<!--Preposition-->
-						</xsd:enumeration>
-						<xsd:enumeration value="grc-par">
-							<!--andere Partikel-->
-						</xsd:enumeration>
-						<xsd:enumeration value="grc-konj">
-							<!--Konjunktion-->
-						</xsd:enumeration>
-						<xsd:enumeration value="grc-subj">
-							<!--Subjunktionen-->
-						</xsd:enumeration>
-						<xsd:enumeration value="grc-num"/>
-						<!--Numerale-->
-
-
-						<xsd:enumeration value="grc-int">
-							<!--interjektionen-->
-						</xsd:enumeration>
-						<xsd:enumeration value="grc-neg">
-							<!--Negationen-->
-						</xsd:enumeration>
-					</xsd:restriction>
-				</xsd:simpleType>
 			</xsd:attribute>
 			<xsd:attribute name="gen" use="optional">
 				<xsd:annotation>
@@ -324,18 +223,13 @@
 								<xsd:documentation>Neutrum</xsd:documentation>
 							</xsd:annotation>
 						</xsd:enumeration>
-
 						<xsd:enumeration value="grc-mask"/>
-						<!--Maskulinum/Maennlich-->
 						<xsd:enumeration value="grc-fem"/>
-						<!--Femininum/Weiblich-->
 						<xsd:enumeration value="grc-neut"/>
-						<!--Neutrum/Saechlich-->
 					</xsd:restriction>
 				</xsd:simpleType>
 			</xsd:attribute>
 			<xsd:attribute name="kas" use="optional">
-				<!--Der Fall-->
 				<xsd:simpleType>
 					<xsd:restriction base="xsd:string">
 						<xsd:enumeration value="g-nom">
@@ -359,19 +253,15 @@
 							</xsd:annotation>
 						</xsd:enumeration>
 						<xsd:enumeration value="grc-nom"/>
-						<!--Nominativ-->
 						<xsd:enumeration value="grc-gen"/>
-						<!--Genitiv-->
 						<xsd:enumeration value="grc-dat"/>
-						<!--Dativ-->
 						<xsd:enumeration value="grc-akk"/>
-						<!--Akkusativ-->
 						<xsd:enumeration value="grc-vok"/>
-						<!--Vokativ-->
 					</xsd:restriction>
 				</xsd:simpleType>
+				<!--Der Fall-->
 			</xsd:attribute>
-			<xsd:attribute name="inf" use="optional" type="xsd:string">
+			<xsd:attribute name="inf" type="xsd:string" use="optional">
 				<xsd:annotation>
 					<xsd:documentation>Grundform/Lemma</xsd:documentation>
 				</xsd:annotation>
@@ -410,49 +300,34 @@
 							</xsd:annotation>
 						</xsd:enumeration>
 						<xsd:enumeration value="grc-pres"/>
-						<!--Praesens-->
 						<xsd:enumeration value="grc-aor"/>
-						<!--Aorist-->
 						<xsd:enumeration value="grc-perf"/>
-						<!--Perf-->
 						<xsd:enumeration value="grc-fut"/>
-						<!--Futur-->
 						<xsd:enumeration value="grc-plqp"/>
-						<!--Plusquamperfekt-->
 						<xsd:enumeration value="grc-ipf"/>
-						<!--Imperfekt-->
 					</xsd:restriction>
 				</xsd:simpleType>
 			</xsd:attribute>
 			<xsd:attribute name="prs" use="optional">
-				<!--Person-->
 				<xsd:simpleType>
 					<xsd:restriction base="xsd:string">
 						<xsd:enumeration value="grc-1"/>
-						<!--1. Person-->
 						<xsd:enumeration value="grc-2"/>
-						<!--2. Person-->
 						<xsd:enumeration value="grc-3"/>
-						<!--3. Person-->
 					</xsd:restriction>
 				</xsd:simpleType>
+				<!--Person-->
 			</xsd:attribute>
-
-
 			<xsd:attribute name="diat" use="optional">
-				<!--Diathese / Genus Verbi-->
 				<xsd:simpleType>
 					<xsd:restriction base="xsd:string">
 						<xsd:enumeration value="grc-akt"/>
-						<!--Aktiv-->
 						<xsd:enumeration value="grc-med"/>
-						<!--Medium-->
 						<xsd:enumeration value="grc-pass"/>
-						<!--Passiv-->
 						<xsd:enumeration value="grc-mp"/>
-						<!--Mediopassiv-->
 					</xsd:restriction>
 				</xsd:simpleType>
+				<!--Diathese / Genus Verbi-->
 			</xsd:attribute>
 			<xsd:attribute name="sta" type="xsd:string" use="optional"/>
 			<xsd:attribute name="mod" use="optional">
@@ -474,17 +349,11 @@
 							</xsd:annotation>
 						</xsd:enumeration>
 						<xsd:enumeration value="grc-ind"/>
-						<!--Indikativ-->
 						<xsd:enumeration value="grc-konj"/>
-						<!--Konjunktiv-->
 						<xsd:enumeration value="grc-imp"/>
-						<!--Imperativ-->
 						<xsd:enumeration value="grc-opt"/>
-						<!--Optativ-->
 						<xsd:enumeration value="grc-inf"/>
-						<!--Infinitiv-->
 						<xsd:enumeration value="grc-ptz"/>
-						<!--Partizip-->
 					</xsd:restriction>
 				</xsd:simpleType>
 			</xsd:attribute>
@@ -545,7 +414,7 @@
 		</xsd:annotation>
 		<xsd:complexType mixed="false">
 			<xsd:choice minOccurs="0" maxOccurs="unbounded">
-				<xsd:element name="title" minOccurs="1" type="xsd:string">
+				<xsd:element name="title" type="xsd:string">
 					<xsd:annotation>
 						<xsd:documentation>Titel des Moduls</xsd:documentation>
 					</xsd:annotation>
@@ -575,7 +444,6 @@
 					<xsd:annotation>
 						<xsd:documentation>Name von weiteren beteiligten Personen/Institutionen/Gruppen</xsd:documentation>
 						<xsd:documentation>Zusätzliche Person(en) und Organisation(en) zu jenen, die im Element CREATOR genannt wurden, die einen bedeutsamen intelektuellen Beitrag zur Ressource geleistet haben, deren Beitrag aber sekundär im Verhältnis zu denen im Element CREATOR zu betrachten ist.</xsd:documentation>
-
 						<xsd:documentation>Im Falle mehrerer Personen / Organisationen ist jede weitere in einem zusätzlichen Meta-Element aufzuführen.</xsd:documentation>
 					</xsd:annotation>
 				</xsd:element>
@@ -584,13 +452,13 @@
 						<xsd:documentation>Das Datum Format:YYYY-MM-DD</xsd:documentation>
 					</xsd:annotation>
 				</xsd:element>
-				<xsd:element name="type" type="xsd:string" maxOccurs="1" minOccurs="0"/>
-				<xsd:element name="format" type="xsd:string" minOccurs="1" fixed="Zefania XML Bible Markup Language">
+				<xsd:element name="type" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="format" type="xsd:string" fixed="Zefania XML Bible Markup Language">
 					<xsd:annotation>
 						<xsd:documentation>Datentechnisches Format des Moduls</xsd:documentation>
 					</xsd:annotation>
 				</xsd:element>
-				<xsd:element name="identifier" type="xsd:string" minOccurs="1">
+				<xsd:element name="identifier" type="xsd:string">
 					<xsd:annotation>
 						<xsd:documentation>Kennung, die das Modul eindeutig identifiziert</xsd:documentation>
 					</xsd:annotation>
@@ -600,7 +468,7 @@
 						<xsd:documentation>Werk, gedruckt oder elektronisch, aus dem das vorliegende Dokument stammt</xsd:documentation>
 					</xsd:annotation>
 				</xsd:element>
-				<xsd:element name="language" type="xsd:string" minOccurs="1">
+				<xsd:element name="language" type="xsd:string">
 					<xsd:annotation>
 						<xsd:documentation>Sprache des Inhalts des Moduls</xsd:documentation>
 						<xsd:documentation>Sprache(n) des intellektuellen Inhalts der Ressource. Falls möglich sollte der 3-stellige Sprachcode für "geschriebene Sprachen" aus ISO 639 verwendet werden.http://www.w3.org/WAI/ER/IG/ert/iso639.htm</xsd:documentation>
@@ -615,11 +483,11 @@
 			</xsd:choice>
 		</xsd:complexType>
 	</xsd:element>
-
-
-	<xsd:element name="gr" substitutionGroup="GRAM"/>
-
-
+	<xsd:element name="gr" substitutionGroup="GRAM">
+		<xsd:annotation>
+			<xsd:documentation>Alternativer Elementname</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:complexType name="TMedia">
 		<xsd:attribute name="title" type="xsd:string">
 			<xsd:annotation>
@@ -633,8 +501,7 @@
 		</xsd:attribute>
 	</xsd:complexType>
 	<xsd:simpleType name="Tvref">
-		<xsd:restriction base="xsd:positiveInteger">
-		</xsd:restriction>
+		<xsd:restriction base="xsd:positiveInteger"/>
 	</xsd:simpleType>
 	<xsd:simpleType name="Taix">
 		<xsd:restriction base="xsd:string">
@@ -642,19 +509,16 @@
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="Tcss">
-		<xsd:restriction base="xsd:string">
-		</xsd:restriction>
+		<xsd:restriction base="xsd:string"/>
 	</xsd:simpleType>
 	<xsd:simpleType name="TScope">
 		<xsd:annotation>
-			<xsd:documentation>Bibelstellennotation siehe: 
-		http://forum.mybible.de/viewtopic.php?p=3495</xsd:documentation>
+			<xsd:documentation>Bibelstellennotation siehe: 		http://forum.mybible.de/viewtopic.php?p=3495</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:string">
 			<xsd:pattern value="\d{1,3}-\d{1,3};\d{1,3}-\d{1,3};\d{1,3}-\d{1,3}|XXX"/>
 		</xsd:restriction>
 	</xsd:simpleType>
-
 	<xsd:simpleType name="TStyleID">
 		<xsd:restriction base="xsd:string">
 			<xsd:pattern value="speaker:[a-zA-Z]*|user:[a-zA-Z]*"/>
@@ -695,7 +559,6 @@
 			<xsd:enumeration value="m-picture"/>
 		</xsd:restriction>
 	</xsd:simpleType>
-
 	<xsd:simpleType name="enumBreak">
 		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="x-nl">
@@ -796,13 +659,114 @@
 			<xsd:enumeration value="x-h6"/>
 		</xsd:restriction>
 	</xsd:simpleType>
-	
 	<xsd:simpleType name="enumXrefs">
 		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="x-mscope"/>
-
 			<xsd:enumeration value="x-fscope"/>
 			<xsd:enumeration value="x-direct"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="enumWoa">
+		<xsd:annotation>
+			<xsd:documentation> Aufzählung für die Wortarten</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="g-subst">
+				<xsd:annotation>
+					<xsd:documentation>Substantiv</xsd:documentation>
+				</xsd:annotation>
+				<!--Substantiv-->
+			</xsd:enumeration>
+			<xsd:enumeration value="g-adj">
+				<xsd:annotation>
+					<xsd:documentation>Adjektiv</xsd:documentation>
+				</xsd:annotation>
+				<!--Adjektiv-->
+			</xsd:enumeration>
+			<xsd:enumeration value="g-verb">
+				<xsd:annotation>
+					<xsd:documentation>Verb</xsd:documentation>
+				</xsd:annotation>
+				<!--Verb-->
+			</xsd:enumeration>
+			<xsd:enumeration value="g-art">
+				<xsd:annotation>
+					<xsd:documentation>Artikel</xsd:documentation>
+				</xsd:annotation>
+				<!--Artikel-->
+			</xsd:enumeration>
+			<xsd:enumeration value="g-pro">
+				<xsd:annotation>
+					<xsd:documentation>Pronomen</xsd:documentation>
+				</xsd:annotation>
+				<!--Pronomen-->
+			</xsd:enumeration>
+			<xsd:enumeration value="g-adv">
+				<xsd:annotation>
+					<xsd:documentation>Adverb</xsd:documentation>
+				</xsd:annotation>
+				<!--Adverb-->
+			</xsd:enumeration>
+			<xsd:enumeration value="g-pre">
+				<xsd:annotation>
+					<xsd:documentation>Preposition</xsd:documentation>
+				</xsd:annotation>
+				<!--Preposition-->
+			</xsd:enumeration>
+			<xsd:enumeration value="g-par">
+				<xsd:annotation>
+					<xsd:documentation>Partikel</xsd:documentation>
+				</xsd:annotation>
+				<!--Partikel-->
+			</xsd:enumeration>
+			<xsd:enumeration value="g-konj">
+				<xsd:annotation>
+					<xsd:documentation>Konjunktion</xsd:documentation>
+				</xsd:annotation>
+				<!--Konjunktion-->
+			</xsd:enumeration>
+			<xsd:enumeration value="g-num">
+				<xsd:annotation>
+					<xsd:documentation>Numerale</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="grc-verb">
+				<!--Verb-->
+			</xsd:enumeration>
+			<xsd:enumeration value="grc-subst">
+				<!--Substantiv-->
+			</xsd:enumeration>
+			<xsd:enumeration value="grc-adj">
+				<!--Adjektiv-->
+			</xsd:enumeration>
+			<xsd:enumeration value="grc-art">
+				<!--Artikel-->
+			</xsd:enumeration>
+			<xsd:enumeration value="grc-pro">
+				<!--Pronomen-->
+			</xsd:enumeration>
+			<xsd:enumeration value="grc-adv">
+				<!--Adverb-->
+			</xsd:enumeration>
+			<xsd:enumeration value="grc-pre">
+				<!--Preposition-->
+			</xsd:enumeration>
+			<xsd:enumeration value="grc-par">
+				<!--andere Partikel-->
+			</xsd:enumeration>
+			<xsd:enumeration value="grc-konj">
+				<!--Konjunktion-->
+			</xsd:enumeration>
+			<xsd:enumeration value="grc-subj">
+				<!--Subjunktionen-->
+			</xsd:enumeration>
+			<xsd:enumeration value="grc-num"/>
+			<xsd:enumeration value="grc-int">
+				<!--interjektionen-->
+			</xsd:enumeration>
+			<xsd:enumeration value="grc-neg">
+				<!--Negationen-->
+			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
 </xsd:schema>

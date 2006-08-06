@@ -20,22 +20,12 @@
 					<fo:block/>
 				</fo:static-content>
 				<fo:flow flow-name="xsl-region-body">
-					<fo:block>
-						<xsl:apply-templates/>
-					</fo:block>
+					<fo:block/>
 				</fo:flow>
 			</fo:page-sequence>
 		</fo:root>
 	</xsl:template>
-	<xsl:template match="VERS">
-		<xsl:for-each select="@vnumber">
-			<xsl:value-of select="."/>
-		</xsl:for-each>
-		<fo:inline color="black">
-			<xsl:apply-templates/>
-		</fo:inline>
-		<fo:block>
-			<xsl:text>&#xA;</xsl:text>
-		</fo:block>
+	<xsl:template match="GRAM">
+		<xsl:apply-templates/>
 	</xsl:template>
 </xsl:stylesheet>

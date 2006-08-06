@@ -3,19 +3,18 @@
 	<xsl:template match="/">
 		<html>
 			<head/>
-			<body>
-				<xsl:apply-templates/>
-			</body>
+			<body/>
 		</html>
 	</xsl:template>
-	<xsl:template match="CHAPTER">
-		<xsl:apply-templates/>
-	</xsl:template>
-	<xsl:template match="VERS">:<xsl:for-each select="@vnumber">
-			<xsl:value-of select="."/>
-		</xsl:for-each>&#160;<span style="color:black">
-			<xsl:apply-templates/>
-		</span>
-		<br/>
+	<xsl:template match="GRAM">
+		<xsl:if test="position()=1">
+			<ul style="margin-bottom:0; margin-top:0" start="1" type="disc">
+				<xsl:for-each select="../GRAM">
+					<li>
+						<xsl:apply-templates/>
+					</li>
+				</xsl:for-each>
+			</ul>
+		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>

@@ -5,7 +5,7 @@
     <Position X="0.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
       <FileName>ZefModulDownLoader.cs</FileName>
-      <HashCode>AEQACEAAAcAAAwABAAACAAAAAQFAAACaAAAAICAQiAA=</HashCode>
+      <HashCode>AEQACEAABcAAAwEBAAACAAAAAQFAAACaAAAAICAQiAA=</HashCode>
     </TypeIdentifier>
     <Members>
       <Field Name="FDownloadDirectory" Hidden="true" />
@@ -30,17 +30,22 @@
           <NewMemberFileName>ZefModulDownLoader.cs</NewMemberFileName>
         </TypeIdentifier>
       </Delegate>
-      <Delegate Name="zefdownloader.ZefModulDownLoader.ModulServerEventHandler" Collapsed="true">
+      <Delegate Name="zefdownloader.ZefModulDownLoader.ModulServerEventHandler">
         <TypeIdentifier>
           <NewMemberFileName>ZefModulDownLoader.cs</NewMemberFileName>
         </TypeIdentifier>
       </Delegate>
-      <Delegate Name="zefdownloader.ZefModulDownLoader.ModulListServerEventHandler" Collapsed="true">
+      <Delegate Name="zefdownloader.ZefModulDownLoader.ModulListServerEventHandler">
         <TypeIdentifier>
           <NewMemberFileName>ZefModulDownLoader.cs</NewMemberFileName>
         </TypeIdentifier>
       </Delegate>
-      <Delegate Name="zefdownloader.ZefModulDownLoader.WebEventExecptionHandler" Collapsed="true">
+      <Delegate Name="zefdownloader.ZefModulDownLoader.WebEventExecptionHandler">
+        <TypeIdentifier>
+          <NewMemberFileName>ZefModulDownLoader.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="zefdownloader.ZefModulDownLoader.AnotherServerFound" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>ZefModulDownLoader.cs</NewMemberFileName>
         </TypeIdentifier>
