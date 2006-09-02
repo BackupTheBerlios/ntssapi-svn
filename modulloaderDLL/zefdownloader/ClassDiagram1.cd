@@ -2,10 +2,10 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Font Name="Tahoma" Size="8.25" />
   <Class Name="zefdownloader.ZefModulDownLoader">
-    <Position X="0.5" Y="0.5" Width="2.5" />
+    <Position X="0.5" Y="0.5" Width="4" />
     <TypeIdentifier>
       <FileName>ZefModulDownLoader.cs</FileName>
-      <HashCode>AEQACEAABcAAAwEBAAACAAAAAQFAAACaAAAAICAQiAA=</HashCode>
+      <HashCode>AEwACAAABcFAAwEBgAACAAAAAQFAABCbAAAQIiAQiAA=</HashCode>
     </TypeIdentifier>
     <Members>
       <Field Name="FDownloadDirectory" Hidden="true" />
@@ -22,7 +22,7 @@
       <Method Name="WebClientModulListe_DownloadFileCompleted" Hidden="true" />
     </Members>
     <Compartments>
-      <Compartment Name="Nested Types" Collapsed="false" />
+      <Compartment Name="Events" Collapsed="true" />
     </Compartments>
     <NestedTypes>
       <Delegate Name="zefdownloader.ZefModulDownLoader.ModulListEventHandler">
@@ -40,12 +40,17 @@
           <NewMemberFileName>ZefModulDownLoader.cs</NewMemberFileName>
         </TypeIdentifier>
       </Delegate>
-      <Delegate Name="zefdownloader.ZefModulDownLoader.WebEventExecptionHandler">
+      <Delegate Name="zefdownloader.ZefModulDownLoader.AnotherServerFound" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>ZefModulDownLoader.cs</NewMemberFileName>
         </TypeIdentifier>
       </Delegate>
-      <Delegate Name="zefdownloader.ZefModulDownLoader.AnotherServerFound" Collapsed="true">
+      <Delegate Name="zefdownloader.ZefModulDownLoader.ScanFinished" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ZefModulDownLoader.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="zefdownloader.ZefModulDownLoader.WebEventExecptionHandler">
         <TypeIdentifier>
           <NewMemberFileName>ZefModulDownLoader.cs</NewMemberFileName>
         </TypeIdentifier>

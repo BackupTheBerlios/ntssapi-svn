@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zefdownloader", "..\modullo
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup1\Setup1.vdproj", "{905A36B7-D0F8-4311-B450-3FD95B20C2DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuListController", "ModuListController\ModuListController.csproj", "{15468E0D-F6DF-4577-8D81-1EE6894DE0BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,7 +29,10 @@ Global
 		{905A36B7-D0F8-4311-B450-3FD95B20C2DD}.Debug|Any CPU.ActiveCfg = Debug
 		{905A36B7-D0F8-4311-B450-3FD95B20C2DD}.Debug|Any CPU.Build.0 = Debug
 		{905A36B7-D0F8-4311-B450-3FD95B20C2DD}.Release|Any CPU.ActiveCfg = Release
-		{905A36B7-D0F8-4311-B450-3FD95B20C2DD}.Release|Any CPU.Build.0 = Release
+		{15468E0D-F6DF-4577-8D81-1EE6894DE0BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15468E0D-F6DF-4577-8D81-1EE6894DE0BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15468E0D-F6DF-4577-8D81-1EE6894DE0BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15468E0D-F6DF-4577-8D81-1EE6894DE0BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

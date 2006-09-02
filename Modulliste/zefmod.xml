@@ -59,12 +59,12 @@
 			<module filename="worsleys_nt_rev_1.zip" identifier="WORNT" lang="englisch" language="ENG" name="Worsleys NT" revision="1" type="bible"/>
 			<module filename="KJC_NT_Rev_1.zip" identifier="KJVCNT" lang="englisch" language="ENG" name="King James Clarified NT" revision="1" type="bible"/>
 			<module filename="Living_Oracles_NT_Rev_1.zip" identifier="LONT" lang="englisch" language="ENG" name="Living Oracles NT" revision="1" type="bible"/>
-			<module filename="Revised_Young_Literal_Translation_NT_Rev_1.zip" identifier="RYLT-NT" lang="englisch" language="Eng" name="Revised Youngs Literal Translation NT" revision="1" type="bible"/>
+			<module filename="Revised_Young_Literal_Translation_NT_Rev_1.zip" identifier="RYLT-NT" lang="englisch" language="ENG" name="Revised Youngs Literal Translation NT" revision="1" type="bible"/>
 			<module filename="en_gb_RWebster_1_Strong.zip" identifier="RWebster+" lang="englisch" language="ENG" name="Revised 1833 Webster Strongs" revision="1" type="bible"/>
 			<module filename="en_gb_KJV2000_1.zip" identifier="KJV2000" lang="englisch" language="ENG" name="King James Version 2000" revision="1" type="bible"/>
 			<module filename="en_gb_RWebster_1_ab.zip" identifier="RWebster" lang="englisch" language="ENG" name="Revised 1833 Webster Version" revision="1" type="bible"/>
 			<module filename="en_GB_AConservativeVersion_0_a.zip" identifier="ACV" lang="englisch" language="ENG" name="A Conservative Version" revision="0" type="bible"/>
-			<module filename="sf_a_wesley_nt.zip" identifier="Wesley's" lang="englisch" language="ENG" name="Wesley's New Testament (1755)" revision="0" type="bible"/>
+			<module filename="sf_a_wesley_nt.zip" identifier="Wesley's" lang="englisch" language="ENG" name="Wesleys New Testament (1755)" revision="0" type="bible"/>
 			<module filename="sf_ukjv.zip" identifier="UKJV" lang="englisch" language="ENG" name="Updated King James Version" revision="0" type="bible"/>
 			<module filename="sf_updv_2.zip" identifier="UPDV" lang="englisch" language="ENG" name="Updated Bible Version" revision="0" type="bible"/>
 			<module filename="Geneva_rev1.zip" identifier="GB" lang="englisch" language="ENG" name="1599 Geneva Bible" revision="1" type="bible"/>
@@ -97,9 +97,9 @@
 			<module filename="sf_kjv_strongs_rev1b.zip" identifier="kjv+" lang="englisch" language="ENG" name="King James Version with strongs" revision="1" type="bible"/>
 			<!-- === divers ===================================== -->
 			<module filename="sf_por_acf_0.zip" identifier="acf" lang="portugiesisch" language="POR" name="Portuguese Corrigida Fiel (1753/1995)" revision="0" type="bible"/>
-			<module filename="sf_hunju.zip" identifier="HunUj" lang="ungarisch" language="hun" name="Hungarian New Translation Bible" revision="0" type="bible"/>
-			<module filename="sf_rus_strongs.zip" identifier="RusVZh" lang="russisch" language="rus" name="Russian New Testament (Strongs)" revision="0" type="bible"/>
-			<module filename="sf_basque_1571_nt.zip" identifier="basq1571" lang="baskisch" language="baq" name="Basque Navarro-Labourdin) NT" revision="0" type="bible"/>
+			<module filename="sf_hunju.zip" identifier="HunUj" lang="ungarisch" language="HUN" name="Hungarian New Translation Bible" revision="0" type="bible"/>
+			<module filename="sf_rus_strongs.zip" identifier="RusVZh" lang="russisch" language="RUS" name="Russian New Testament (Strongs)" revision="0" type="bible"/>
+			<module filename="sf_basque_1571_nt.zip" identifier="basq1571" lang="baskisch" language="BAQ" name="Basque Navarro-Labourdin) NT" revision="0" type="bible"/>
 			<module filename="sf_tagalog_rev1.zip" identifier="TlgAngBiblia" lang="tagalog" language="TGL" name="Ang Dating Biblia" revision="1" type="bible"/>
 			<module filename="sf_dejeb.zip" identifier="dejer" lang="französisch" language="FRE" name="La Bible de Jérusalem" revision="0" type="bible"/>
 			<module filename="sf_ostervaldb.zip" identifier="ostv1996" lang="französisch" language="FRE" name="La Bible Ostervald (1744, révisée en 1996)" revision="0" type="bible"/>
@@ -116,12 +116,12 @@
 			<module filename="sf_czech_bkr.zip" identifier="czbkr" lang="tschechisch" language="CZE" name="Czech Bible Kralicka" revision="0" type="bible"/>
 			<module filename="sf_spanish_sev.zip" identifier="SEV" lang="spanisch" language="SPA" name="Las Sagradas Escrituras" revision="0" type="bible"/>
 			<module filename="sf_sprv.zip" identifier="Bible.SpaRV" lang="spanisch" language="SPA" name="Spanish Reina Valera" revision="0" type="bible"/>
-			<module filename="sf_gnt_rob_str.zip" identifier="GNT" lang="griechisch" language="GRC" name="Robinson/Pierpont Byzantine NT Strong's Numbers" revision="0" type="bible"/>
+			<module filename="sf_gnt_rob_str.zip" identifier="GNT" lang="griechisch" language="GRC" name="Robinson/Pierpont Byzantine NT Strongs Numbers" revision="0" type="bible"/>
 			<module filename="sf_gnt_wh_str.zip" identifier="GNT-WH" lang="griechisch" language="GRC" name="Greek NT Westcott-Hort with Strongs" revision="0" type="bible"/>
-
-	<module filename="sf_tischendorf_greek_nt_rev1.zip" identifier="Tischendorf" lang="griechisch" language="GRC" name="Tischendorf Greek NT - 1872" revision="1" type="bible"/>
-
-			<module filename="sf_gnt_tr_str.zip" identifier="GNT-TR" lang="griechisch" language="GRC" name="Textus Receptus NT w/ Strong's Numbers" revision="0" type="bible"/>
+            <module filename="sf_Tischendorf_Greek_NT_str_rev1.zip" identifier="Tischendorf+" lang="griechisch" language="GRC" name="Tischendorf Greek NT - 1872 Strongs" revision="1" type="bible"/>
+	        <module filename="sf_tischendorf_greek_nt_rev1.zip" identifier="Tischendorf" lang="griechisch" language="GRC" name="Tischendorf Greek NT - 1872" revision="1" type="bible"/>
+            <module filename="sf_Tischendorf_Greek_NT_rev2.zip" identifier="Tischendorf" lang="griechisch" language="GRC" name="Tischendorf Greek NT - 1872 Rev 2" revision="2" type="bible" />
+			<module filename="sf_gnt_tr_str.zip" identifier="GNT-TR" lang="griechisch" language="GRC" name="Textus Receptus NT w/ Strongs Numbers" revision="0" type="bible"/>
 			<module filename="sf_tischendorf.zip" identifier="grtisch8" lang="griechisch" language="GRC" name="Greek NT Tischendorf 8th Ed" revision="0" type="bible"/>
 			<module filename="sf_gnt_variants.zip" identifier="GNT-V" lang="griechisch" language="GRC" name="Greek New Testament w/ variants" revision="0" type="bible"/>
 			<module filename="sf_moderngreek.zip" identifier="greekm" lang="griechisch" language="GRC" name="Modern Greek" revision="0" type="bible"/>
@@ -130,6 +130,9 @@
 			<module filename="sf_greeknt1896.zip" identifier="greek1894" lang="griechisch" language="GRC" name="Greek NT Scrivener-1894" revision="0" type="bible"/>
 			<module filename="sf_greeknt1550.zip" identifier="greek1550" lang="griechisch" language="GRC" name="Greek NT Stephanos-1550" revision="0" type="bible"/>
 			<module filename="sf_bzy2000.zip" identifier="bzy2000" lang="griechisch" language="GRC" name="Byzantine/Majority Text (2000)" revision="0" type="bible"/>
+			<module filename="sf_bzy2000_rev_1.zip" identifier="bzy2000" lang="griechisch" language="GRC" name="Byzantine/Majority Text (2000) Rev 1" revision="1" type="bible"/>
+			<module filename="sf_bzy2000_str.zip"	identifier="bzy2000+" lang="griechisch" language="GRC" name="Byzantine/Majority Text (2000)- Strongs" revision="1" type="bible"/>
+			
 			<module filename="sf_cei74.zip" identifier="CEI74" lang="italienisch" language="ITA" name="La Bibbia CEI 1974" revision="1" type="bible"/>
 			<module filename="sf_italian.zip" identifier="italian1" lang="italienisch" language="ITA" name="Italian Version" revision="0" type="bible"/>
 			<module filename="sf_itadio.zip" identifier="ItaDio" lang="italienisch" language="ITA" name="1649 Italian Giovanni Diodati" revision="0" type="bible"/>
@@ -141,7 +144,7 @@
 			<module filename="sf_fremartin.zip" identifier="BM1844" lang="französisch" language="FRE" name="Bible Martin 1844" revision="0" type="bible"/>
 			<module filename="sf_turkish2.zip" identifier="TNT" lang="türkisch" language="TUR" name="Turkish NT" revision="0" type="bible"/>
 			<module filename="sf_peshittax.zip" identifier="SYP" lang="syrisch" language="SYR" name="Syriac Peshitta" revision="0" type="bible"/>
-			<module filename="sf_klingon.zip" identifier="i-klingon" lang="klingonisch" language="tlh" name="Klingon Language Version of the World English Bible" revision="0" type="bible"/>
+			<module filename="sf_klingon.zip" identifier="i-klingon" lang="klingonisch" language="TLH" name="Klingon Language Version of the World English Bible" revision="0" type="bible"/>
 			<module filename="sf_swahili_nt.zip" identifier="SWA" lang="swahili" language="SWA" name="Swahili NT " revision="0" type="bible"/>
 			<module filename="sf_uma_nt.zip" identifier="UMA" lang="uma" language="UND" name="Uma NT " revision="0" type="bible"/>
 			<module filename="sf_rumanian.zip" identifier="RU" lang="rumänisch" language="RUM" name="Rumanian Version " revision="0" type="bible"/>
@@ -168,7 +171,7 @@
 			<module filename="Cebuano_Ang_Biblia_Bugna_rev1.0.8.zip" identifier="ceb-b" lang="cebuano" language="CEB" name="Cebuano Ang Biblia (Bugna Version) " revision="1" type="bible"/>
 			<module filename="Cebuano_Ang_Biblia_Pinadayag_rev1.0.8.zip" identifier="ceb-p" lang="cebuano" language="CEB" name="Cebuano Pinadayag" revision="1" type="bible"/>
 			<module filename="sf_ncv.zip" identifier="cvs" lang="chinesisch" language="CHI" name="New Chinese Version Simplified" revision="0" type="bible"/>
-			<module filename="sf_bulgarian.zip" identifier="bulg1" lang="bulgarisch" language="xx" name="Bulgarian Version" revision="0" type="bible"/>
+			<module filename="sf_bulgarian.zip" identifier="bulg1" lang="bulgarisch" language="BUL" name="Bulgarian Version" revision="0" type="bible"/>
 			<module filename="sf_alban.zip" identifier="alb1" lang="albanisch" language="ALB" name="Albanian Version" revision="0" type="bible"/>
 			<module filename="sf_esperanto.zip" identifier="esp" lang="esperanto" language="ESP" name="Esperanto Bible" revision="0" type="bible"/>
 			<module filename="sf_arabic.zip" identifier="AraSVD" lang="arabisch" language="ARA" name="Arabic Version " revision="0" type="bible"/>

@@ -30,67 +30,19 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tVInhaltsbaum = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btNewVersion = new System.Windows.Forms.Button();
-            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.gBMyBible = new System.Windows.Forms.GroupBox();
-            this.btInstallGreensToMyBible = new System.Windows.Forms.Button();
-            this.cBInstallToMyBible = new System.Windows.Forms.CheckBox();
-            this.cBModulListServers = new System.Windows.Forms.ComboBox();
-            this.btDownloadSelection = new System.Windows.Forms.Button();
             this.bWModullist = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.gBMyBible.SuspendLayout();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.StatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.lBoxListServer = new System.Windows.Forms.ListBox();
+            this.tBoxAddListServer = new System.Windows.Forms.TextBox();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.AccessibleDescription = null;
-            this.splitContainer1.AccessibleName = null;
-            resources.ApplyResources(this.splitContainer1, "splitContainer1");
-            this.splitContainer1.BackgroundImage = null;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer1.Font = null;
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.AccessibleDescription = null;
-            this.splitContainer1.Panel1.AccessibleName = null;
-            resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
-            this.splitContainer1.Panel1.BackgroundImage = null;
-            this.splitContainer1.Panel1.Controls.Add(this.tVInhaltsbaum);
-            this.splitContainer1.Panel1.Font = null;
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.AccessibleDescription = null;
-            this.splitContainer1.Panel2.AccessibleName = null;
-            resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
-            this.splitContainer1.Panel2.BackgroundImage = null;
-            this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Panel2.Font = null;
-            // 
-            // tVInhaltsbaum
-            // 
-            this.tVInhaltsbaum.AccessibleDescription = null;
-            this.tVInhaltsbaum.AccessibleName = null;
-            resources.ApplyResources(this.tVInhaltsbaum, "tVInhaltsbaum");
-            this.tVInhaltsbaum.BackgroundImage = null;
-            this.tVInhaltsbaum.CheckBoxes = true;
-            this.tVInhaltsbaum.ImageList = this.imageList1;
-            this.tVInhaltsbaum.Name = "tVInhaltsbaum";
-            this.tVInhaltsbaum.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.node_AfterCheck);
-            this.tVInhaltsbaum.KeyDown += new System.Windows.Forms.KeyEventHandler(this.treeView1_KeyDown);
             // 
             // imageList1
             // 
@@ -329,157 +281,108 @@
             this.imageList1.Images.SetKeyName(230, "");
             this.imageList1.Images.SetKeyName(231, "");
             // 
-            // panel1
-            // 
-            this.panel1.AccessibleDescription = null;
-            this.panel1.AccessibleName = null;
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.BackgroundImage = null;
-            this.panel1.Controls.Add(this.btNewVersion);
-            this.panel1.Controls.Add(this.linkLabel3);
-            this.panel1.Controls.Add(this.linkLabel2);
-            this.panel1.Controls.Add(this.linkLabel1);
-            this.panel1.Controls.Add(this.gBMyBible);
-            this.panel1.Controls.Add(this.cBModulListServers);
-            this.panel1.Controls.Add(this.btDownloadSelection);
-            this.panel1.Font = null;
-            this.panel1.Name = "panel1";
-            // 
-            // btNewVersion
-            // 
-            this.btNewVersion.AccessibleDescription = null;
-            this.btNewVersion.AccessibleName = null;
-            resources.ApplyResources(this.btNewVersion, "btNewVersion");
-            this.btNewVersion.BackColor = System.Drawing.Color.Red;
-            this.btNewVersion.BackgroundImage = null;
-            this.btNewVersion.Font = null;
-            this.btNewVersion.Name = "btNewVersion";
-            this.btNewVersion.UseVisualStyleBackColor = false;
-            this.btNewVersion.Click += new System.EventHandler(this.btNewVersion_Click);
-            // 
-            // linkLabel3
-            // 
-            this.linkLabel3.AccessibleDescription = null;
-            this.linkLabel3.AccessibleName = null;
-            resources.ApplyResources(this.linkLabel3, "linkLabel3");
-            this.linkLabel3.Font = null;
-            this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.TabStop = true;
-            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
-            // 
-            // linkLabel2
-            // 
-            this.linkLabel2.AccessibleDescription = null;
-            this.linkLabel2.AccessibleName = null;
-            resources.ApplyResources(this.linkLabel2, "linkLabel2");
-            this.linkLabel2.Font = null;
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Click += new System.EventHandler(this.linkLabel2_Click);
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AccessibleDescription = null;
-            this.linkLabel1.AccessibleName = null;
-            resources.ApplyResources(this.linkLabel1, "linkLabel1");
-            this.linkLabel1.Font = null;
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // gBMyBible
-            // 
-            this.gBMyBible.AccessibleDescription = null;
-            this.gBMyBible.AccessibleName = null;
-            resources.ApplyResources(this.gBMyBible, "gBMyBible");
-            this.gBMyBible.BackgroundImage = null;
-            this.gBMyBible.Controls.Add(this.btInstallGreensToMyBible);
-            this.gBMyBible.Controls.Add(this.cBInstallToMyBible);
-            this.gBMyBible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gBMyBible.Font = null;
-            this.gBMyBible.Name = "gBMyBible";
-            this.gBMyBible.TabStop = false;
-            // 
-            // btInstallGreensToMyBible
-            // 
-            this.btInstallGreensToMyBible.AccessibleDescription = null;
-            this.btInstallGreensToMyBible.AccessibleName = null;
-            resources.ApplyResources(this.btInstallGreensToMyBible, "btInstallGreensToMyBible");
-            this.btInstallGreensToMyBible.BackgroundImage = null;
-            this.btInstallGreensToMyBible.Font = null;
-            this.btInstallGreensToMyBible.Name = "btInstallGreensToMyBible";
-            this.btInstallGreensToMyBible.UseVisualStyleBackColor = true;
-            this.btInstallGreensToMyBible.Click += new System.EventHandler(this.btInstallGreensToMyBible_Click_1);
-            // 
-            // cBInstallToMyBible
-            // 
-            this.cBInstallToMyBible.AccessibleDescription = null;
-            this.cBInstallToMyBible.AccessibleName = null;
-            resources.ApplyResources(this.cBInstallToMyBible, "cBInstallToMyBible");
-            this.cBInstallToMyBible.BackgroundImage = null;
-            this.cBInstallToMyBible.Font = null;
-            this.cBInstallToMyBible.Name = "cBInstallToMyBible";
-            this.cBInstallToMyBible.UseVisualStyleBackColor = true;
-            // 
-            // cBModulListServers
-            // 
-            this.cBModulListServers.AccessibleDescription = null;
-            this.cBModulListServers.AccessibleName = null;
-            resources.ApplyResources(this.cBModulListServers, "cBModulListServers");
-            this.cBModulListServers.BackgroundImage = null;
-            this.cBModulListServers.FormattingEnabled = true;
-            this.cBModulListServers.Name = "cBModulListServers";
-            this.cBModulListServers.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            this.cBModulListServers.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cBModulListServers_KeyDown);
-            this.cBModulListServers.DropDown += new System.EventHandler(this.comboBox1_DropDown);
-            // 
-            // btDownloadSelection
-            // 
-            this.btDownloadSelection.AccessibleDescription = null;
-            this.btDownloadSelection.AccessibleName = null;
-            resources.ApplyResources(this.btDownloadSelection, "btDownloadSelection");
-            this.btDownloadSelection.BackgroundImage = null;
-            this.btDownloadSelection.Font = null;
-            this.btDownloadSelection.Name = "btDownloadSelection";
-            this.btDownloadSelection.UseVisualStyleBackColor = true;
-            this.btDownloadSelection.Click += new System.EventHandler(this.btDownloadSelection_Click);
-            // 
-            // bWModullist
-            // 
-            this.bWModullist.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bWModullist_DoWork);
-            // 
             // menuStrip1
             // 
-            this.menuStrip1.AccessibleDescription = null;
-            this.menuStrip1.AccessibleName = null;
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
-            this.menuStrip1.BackgroundImage = null;
-            this.menuStrip1.Font = null;
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(796, 24);
+            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusLabel1,
+            this.toolStripStatusLabel1,
+            this.toolStripDropDownButton1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 462);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(796, 22);
+            this.statusStrip1.TabIndex = 3;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // StatusLabel1
+            // 
+            this.StatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.StatusLabel1.IsLink = true;
+            this.StatusLabel1.Name = "StatusLabel1";
+            this.StatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.StatusLabel1.Click += new System.EventHandler(this.StatusLabel1_Click);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
+            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
+            // 
+            // listBox1
+            // 
+            this.listBox1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(12, 39);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(251, 405);
+            this.listBox1.TabIndex = 5;
+            // 
+            // listBox2
+            // 
+            this.listBox2.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(541, 39);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(251, 405);
+            this.listBox2.TabIndex = 6;
+            // 
+            // lBoxListServer
+            // 
+            this.lBoxListServer.BackColor = System.Drawing.Color.Linen;
+            this.lBoxListServer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lBoxListServer.FormattingEnabled = true;
+            this.lBoxListServer.Location = new System.Drawing.Point(269, 39);
+            this.lBoxListServer.Name = "lBoxListServer";
+            this.lBoxListServer.Size = new System.Drawing.Size(266, 93);
+            this.lBoxListServer.TabIndex = 7;
+            this.lBoxListServer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lBoxListServer_KeyDown);
+            // 
+            // tBoxAddListServer
+            // 
+            this.tBoxAddListServer.BackColor = System.Drawing.Color.LavenderBlush;
+            this.tBoxAddListServer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tBoxAddListServer.Location = new System.Drawing.Point(269, 149);
+            this.tBoxAddListServer.Name = "tBoxAddListServer";
+            this.tBoxAddListServer.Size = new System.Drawing.Size(266, 20);
+            this.tBoxAddListServer.TabIndex = 8;
+            this.tBoxAddListServer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBoxAddListServer_KeyDown);
             // 
             // MainForm
             // 
-            this.AccessibleDescription = null;
-            this.AccessibleName = null;
-            resources.ApplyResources(this, "$this");
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = null;
-            this.Controls.Add(this.splitContainer1);
+            this.ClientSize = new System.Drawing.Size(796, 484);
+            this.Controls.Add(this.tBoxAddListServer);
+            this.Controls.Add(this.lBoxListServer);
+            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = null;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
+            this.Text = "Zefania XML Downloader (BETA  23062006)";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.gBMyBible.ResumeLayout(false);
-            this.gBMyBible.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -488,20 +391,16 @@
         #endregion
 
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TreeView tVInhaltsbaum;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btDownloadSelection;
-        private System.Windows.Forms.ComboBox cBModulListServers;
         private System.ComponentModel.BackgroundWorker bWModullist;
-        private System.Windows.Forms.GroupBox gBMyBible;
-        private System.Windows.Forms.CheckBox cBInstallToMyBible;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.LinkLabel linkLabel3;
-        private System.Windows.Forms.Button btInstallGreensToMyBible;
-        private System.Windows.Forms.Button btNewVersion;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel StatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox lBoxListServer;
+        private System.Windows.Forms.TextBox tBoxAddListServer;
 
 
     }

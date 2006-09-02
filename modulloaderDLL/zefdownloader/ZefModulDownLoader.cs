@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Threading;
-
 using System.ComponentModel;
 using System.Net;
 using System.Xml;
@@ -29,19 +28,22 @@ namespace zefdownloader
         private string FModullisteFileName;
         private string FMirrorPageFileName;
         private string FLocalFilePath;
+        private XmlDocument FModulListe = new XmlDocument();
 
-        public delegate void ModulListEventHandler(object sender, EventArgs e, XmlNode modulnode, XmlNode ISO639);
+        public delegate void ModulListEventHandler(object sender, EventArgs e, XmlNode modulnode);
         public delegate void ModulServerEventHandler(object sender, XmlNode server);
         public delegate void ModulListServerEventHandler(object sender, XmlNode server);
         public delegate void AnotherServerFound(object sender, string AnotherServer);
+        public delegate void ScanFinished(object sender);
 
         public delegate void WebEventExecptionHandler(object sender, WebException e);
         public event ModulListEventHandler OnModulNode;
         public event ModulServerEventHandler OnServerNode;
         public event AsyncCompletedEventHandler DownloadCompleted;
         public event DownloadProgressChangedEventHandler DownloadProgress;
-        public event WebEventExecptionHandler OnWebExeption;
+      
         public event AnotherServerFound OnAnotherServer;
+        public event ScanFinished OnScanFinished;
 
 
 
@@ -94,6 +96,15 @@ namespace zefdownloader
 
         }
 
+        public XmlDocument ModuListe
+        {
+            get
+            {
+                return FModulListe;
+            }
+
+        }
+
         //****************************************************************************************
         /// <summary>
         /// Diese Methode lädt ein Modul von einem bestimmten Server herunter
@@ -108,6 +119,7 @@ namespace zefdownloader
             {
                 // Zuerst Modulliste vom Server holen
                 FModulName = ModulName;
+
                 FServerName = ServerName;
 
                 FModullisteFileName = Path.GetTempFileName();
@@ -116,30 +128,30 @@ namespace zefdownloader
 
 
                 WebClient WebClientModulListe = new WebClient();
+
+                WebClientModulListe.DownloadProgressChanged += new DownloadProgressChangedEventHandler(WebClientModulListe_DownloadProgressChanged);
                 WebClientModulListe.DownloadFileCompleted += new AsyncCompletedEventHandler(WebClientModulListe_DownloadFileCompleted);
+                
                 if (!FUrlModulList.EndsWith(".xml"))
                 {
 
-                    FUrlModulList = FUrlModulList + @"/zefmod.xml";
+                    FUrlModulList = Path.Combine(FUrlModulList,"zefmod.xml");
                 }
 
                 Uri siteUri = new Uri(FUrlModulList);
+
+                WebClientModulListe.Headers.Add("download", "running");
                 /// Modulliste herunterladen
                 WebClientModulListe.DownloadFileAsync(siteUri, FModullisteFileName);
 
 
             }
 
-            catch (WebException ee)
-            {
-                if (OnWebExeption != null)
-                {
-                    OnWebExeption(this, ee);
-                }
-            }
+            
             catch (Exception e)
             {
 
+                
 
             }
 
@@ -147,11 +159,33 @@ namespace zefdownloader
 
         }
 
+        void WebClientModulListe_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            
+            if (e.BytesReceived == e.TotalBytesToReceive)
+            {
+
+                (sender as WebClient).Headers.Set("download", "success");
+
+
+
+            }
+        }
+
         void WebClientModulListe_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             try
             {
+
+                if ((sender as WebClient).Headers.Get("download") != "success") {
+
+                    ModulClient_DownloadFileCompleted(sender, e);
+                    return;
+                
+                }
+                
                 WebClient WebClientMirrorPage = new WebClient();
+                
                 XmlDocument ModulListe = new XmlDocument();
 
                 ModulListe.Load(FModullisteFileName);
@@ -210,10 +244,12 @@ namespace zefdownloader
                     WebClient ModulClient = new WebClient();
                     ModulClient.DownloadFileCompleted += new AsyncCompletedEventHandler(ModulClient_DownloadFileCompleted);
                     ModulClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ModulClient_DownloadProgressChanged);
+
                     Uri siteUri2 = new Uri(FFinalDownloadURL);
                     String MFileName = siteUri2.Segments[siteUri2.Segments.Length - 1];
-                    FLocalFilePath = this.FDownloadDirectory + @"\" + MFileName;
-                    ModulClient.DownloadFileAsync(siteUri2, FLocalFilePath);
+                    FLocalFilePath = Path.Combine(FDownloadDirectory,Path.ChangeExtension(MFileName,".~tmp"));
+                    ModulClient.Headers.Add("download", "running");
+                    ModulClient.DownloadFileAsync(siteUri2, FLocalFilePath,FLocalFilePath);
 
                 }
                 else
@@ -221,6 +257,8 @@ namespace zefdownloader
 
                     Uri siteUri = new Uri(ModulURL);
                     WebClientMirrorPage.DownloadFileCompleted += new AsyncCompletedEventHandler(WebClientMirrorPage_DownloadFileCompleted);
+                    WebClientMirrorPage.DownloadProgressChanged += new DownloadProgressChangedEventHandler(WebClientMirrorPage_DownloadProgressChanged);
+                    WebClientMirrorPage.Headers.Add("download", "running");
                     WebClientMirrorPage.DownloadFileAsync(siteUri, FMirrorPageFileName);
 
 
@@ -230,15 +268,21 @@ namespace zefdownloader
 
 
             }
-            catch (WebException ee)
-            {
-                if (OnWebExeption != null)
-                {
-                    OnWebExeption(this, ee);
-                }
-            }
+            
             catch (Exception ee)
             {
+               
+            }
+        }
+
+        void WebClientMirrorPage_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            if (e.BytesReceived == e.TotalBytesToReceive)
+            {
+
+                (sender as WebClient).Headers.Set("download", "success");
+
+
 
             }
         }
@@ -247,7 +291,15 @@ namespace zefdownloader
         {
             try
             {
+                if ((sender as WebClient).Headers.Get("download") != "success")
+                {
+                    ModulClient_DownloadFileCompleted(sender, e);
+                    // File konnte z.B. wegen Verbindungsabruch nicht komplett heruntergeladen werden
+                    return;
 
+                }
+                
+                
                 StreamReader sr = new StreamReader(FMirrorPageFileName, Encoding.GetEncoding("windows-1252"));
                 string line = null;
                 while ((line = sr.ReadLine()) != null)
@@ -273,23 +325,18 @@ namespace zefdownloader
                 ModulClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ModulClient_DownloadProgressChanged);
                 Uri siteUri2 = new Uri(FFinalDownloadURL);
                 String MFileName = siteUri2.Segments[siteUri2.Segments.Length - 1];
-                FLocalFilePath = this.FDownloadDirectory + @"\" + MFileName;
-                ModulClient.DownloadFileAsync(siteUri2, FLocalFilePath);
+                FLocalFilePath = Path.ChangeExtension(FDownloadDirectory, Path.ChangeExtension(MFileName, ".~tmp"));
+                ModulClient.Headers.Add("download", "running");
+                ModulClient.DownloadFileAsync(siteUri2, FLocalFilePath,FLocalFilePath);
             }
 
 
 
-            catch (WebException ee)
-            {
-                if (OnWebExeption != null)
-                {
-                    OnWebExeption(this, ee);
-                }
-            }
+           
 
             catch (Exception ex)
             {
-
+                
 
             }
 
@@ -298,6 +345,14 @@ namespace zefdownloader
         void ModulClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
 
+            if ((sender as WebClient).Headers.Get("download") == "success")
+            {
+
+               
+                
+                File.Delete( Path.ChangeExtension(e.UserState.ToString(), ".zip"));
+                File.Move(e.UserState.ToString(), Path.ChangeExtension(e.UserState.ToString(), ".zip"));
+            }
             if (DownloadCompleted != null)
             {
                 DownloadCompleted(this, e);
@@ -315,22 +370,16 @@ namespace zefdownloader
 
                 WebClient ClientModulList = new WebClient();
                 Uri siteUri = new Uri(FUrlModulList);
-                ClientModulList.DownloadFile(siteUri, FDownloadDirectory + @"\" + FModullisteFileName);
+                ClientModulList.DownloadFile(siteUri, Path.Combine(FDownloadDirectory ,FModullisteFileName));
 
 
 
             }
-            catch (WebException ee)
-            {
-                if (OnWebExeption != null)
-                {
-                    OnWebExeption(this, ee);
-                }
-            }
+           
             catch (Exception e)
             {
 
-                throw e;
+                
             }
 
         }
@@ -341,55 +390,91 @@ namespace zefdownloader
             try
             {
                 WebClient ClientModulList = new WebClient();
+                ClientModulList.DownloadProgressChanged+=new DownloadProgressChangedEventHandler(ClientModulList2_DownloadProgressChanged);
+                ClientModulList.DownloadFileCompleted+=new AsyncCompletedEventHandler(ClientModulList2_DownloadFileCompleted);
+
 
                 if (!FUrlModulList.EndsWith(".xml"))
                 {
 
-                    FUrlModulList = FUrlModulList + @"/zefmod.xml";
+                    FUrlModulList = FUrlModulList+"/zefmod.xml";
                 }
                 Uri siteUri = new Uri(FUrlModulList);
-                Uri siteUri2 = new Uri(@"http://zefania-sharp.sourceforge.net/iso639_codes.xml");
+
                 if (ForceRefresh)
                 {
 
 
-                    ClientModulList.DownloadFile(siteUri, FDownloadDirectory + @"\modulliste.xml");
-                    ClientModulList.DownloadFile(siteUri2, FDownloadDirectory + @"\iso639_codes.xml");
+                    ClientModulList.DownloadFileAsync(siteUri, Path.Combine(FDownloadDirectory,"modulliste.xml"));
+
                 }
+
+
 
                 if (!File.Exists(FDownloadDirectory + @"\modulliste.xml"))
                 {
 
 
-                    ClientModulList.DownloadFile(siteUri, FDownloadDirectory + @"\modulliste.xml");
-                    ClientModulList.DownloadFile(siteUri2, FDownloadDirectory + @"\iso639_codes.xml");
+                    ClientModulList.DownloadFileAsync(siteUri, Path.Combine(FDownloadDirectory,"modulliste.xml"));
+
                 }
 
-                if (!File.Exists(FDownloadDirectory + @"\iso639_codes.xml"))
+
+            }
+         
+            catch (Exception e)
+            {
+
+                
+
+            }
+        }
+
+        
+
+        void ClientModulList2_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            if (e.BytesReceived == e.TotalBytesToReceive)
+            {
+
+                (sender as WebClient).Headers.Set("download", "success");
+
+
+
+            }
+        }
+
+        void ClientModulList2_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            try
+            {
+
+                if ((sender as WebClient).Headers.Get("download") != "success")
                 {
+                    return;
 
-                    ClientModulList.DownloadFile(siteUri2, FDownloadDirectory + @"\iso639_codes.xml");
                 }
-
-
-                XmlDocument IS0639 = new XmlDocument();
-                IS0639.Load(FDownloadDirectory + @"\iso639_codes.xml");
+                
+              
                 XmlDocument ML = new XmlDocument();
                 ML.Load(FDownloadDirectory + @"\modulliste.xml");
-                
+                //Modulliste veroeffentlichen
+                FModulListe.Load(Path.Combine(FDownloadDirectory,"modulliste.xml"));
+                //
                 XmlNodeList ModulNodes = ML.SelectNodes("descendant::module");
+                
                 foreach (XmlNode ModulNode in ModulNodes)
                 {
-                    string LangCode = ModulNode.Attributes.GetNamedItem("language").Value.ToLower();
-                    XmlNode ISO = IS0639.SelectSingleNode("descendant::code[@threecharcode='" + LangCode + "']");
+                    
                     if (OnModulNode != null)
                     {
                         //Jedes modul-XML Node per event an Applikation melden
-                        OnModulNode(this, new EventArgs(), ModulNode, ISO);
+                        OnModulNode(this, new EventArgs(), ModulNode);
                     }
                 }
 
                 XmlNodeList ServerNodes = ML.SelectNodes("descendant::mirror");
+                
                 foreach (XmlNode ServerNode in ServerNodes)
                 {
 
@@ -402,39 +487,46 @@ namespace zefdownloader
                 }
 
                 XmlNodeList AnotherServerNodes = ML.SelectNodes("descendant::zefania-modules-list-servers/server");
+                
+                
                 foreach (XmlNode AnotherServerNode in AnotherServerNodes)
                 {
 
                     if (OnAnotherServer != null)
                     {
-                        OnAnotherServer(this,AnotherServerNode.InnerText);
+                        OnAnotherServer(this, AnotherServerNode.InnerText);
                     }
 
                 }
 
-
-
-
-            }
-            catch (WebException ee)
-            {
-                if (OnWebExeption != null)
+                if (OnScanFinished != null)
                 {
-                    OnWebExeption(this, ee);
+
+                    OnScanFinished(this);
+
                 }
             }
-            catch (Exception e)
+
+            catch (Exception ee)
             {
-
-                throw e;
+                
             }
+
         }
-
-
-
 
         void ModulClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
+
+            
+            if (e.BytesReceived == e.TotalBytesToReceive) {
+
+                (sender as WebClient).Headers.Set("download", "success");
+              
+
+            
+            }
+            
+            
             if (DownloadProgress != null)
             {
                 DownloadProgress(this, e);
@@ -455,7 +547,7 @@ namespace zefdownloader
             }
             catch (Exception ee)
             {
-
+                
             }
         }
 
