@@ -11,6 +11,5 @@
     <FallbackCulture>de-DE</FallbackCulture>
     <VerifyUploadedFiles>true</VerifyUploadedFiles>
     <ProjectView>ShowAllFiles</ProjectView>
-    <EnableSecurityDebugging>false</EnableSecurityDebugging>
   </PropertyGroup>
 </Project>

@@ -30,19 +30,64 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.bWModullist = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.StatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.lBoxListServer = new System.Windows.Forms.ListBox();
-            this.tBoxAddListServer = new System.Windows.Forms.TextBox();
-            this.statusStrip1.SuspendLayout();
+            this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.AccessibleDescription = null;
+            this.splitContainer1.AccessibleName = null;
+            resources.ApplyResources(this.splitContainer1, "splitContainer1");
+            this.splitContainer1.BackgroundImage = null;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer1.Font = null;
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.AccessibleDescription = null;
+            this.splitContainer1.Panel1.AccessibleName = null;
+            resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
+            this.splitContainer1.Panel1.BackgroundImage = null;
+            this.splitContainer1.Panel1.Controls.Add(this.treeView1);
+            this.splitContainer1.Panel1.Font = null;
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.AccessibleDescription = null;
+            this.splitContainer1.Panel2.AccessibleName = null;
+            resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
+            this.splitContainer1.Panel2.BackgroundImage = null;
+            this.splitContainer1.Panel2.Controls.Add(this.panel1);
+            this.splitContainer1.Panel2.Font = null;
+            // 
+            // treeView1
+            // 
+            this.treeView1.AccessibleDescription = null;
+            this.treeView1.AccessibleName = null;
+            resources.ApplyResources(this.treeView1, "treeView1");
+            this.treeView1.BackgroundImage = null;
+            this.treeView1.CheckBoxes = true;
+            this.treeView1.ImageList = this.imageList1;
+            this.treeView1.Name = "treeView1";
+            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.node_AfterCheck);
+            this.treeView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.treeView1_KeyDown);
             // 
             // imageList1
             // 
@@ -281,108 +326,111 @@
             this.imageList1.Images.SetKeyName(230, "");
             this.imageList1.Images.SetKeyName(231, "");
             // 
+            // panel1
+            // 
+            this.panel1.AccessibleDescription = null;
+            this.panel1.AccessibleName = null;
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.BackgroundImage = null;
+            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Font = null;
+            this.panel1.Name = "panel1";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.AccessibleDescription = null;
+            this.groupBox1.AccessibleName = null;
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.BackgroundImage = null;
+            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Font = null;
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AccessibleDescription = null;
+            this.checkBox1.AccessibleName = null;
+            resources.ApplyResources(this.checkBox1, "checkBox1");
+            this.checkBox1.BackgroundImage = null;
+            this.checkBox1.Font = null;
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.AccessibleDescription = null;
+            this.comboBox1.AccessibleName = null;
+            resources.ApplyResources(this.comboBox1, "comboBox1");
+            this.comboBox1.BackgroundImage = null;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyDown);
+            this.comboBox1.DropDown += new System.EventHandler(this.comboBox1_DropDown);
+            // 
+            // button2
+            // 
+            this.button2.AccessibleDescription = null;
+            this.button2.AccessibleName = null;
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.BackgroundImage = null;
+            this.button2.Font = null;
+            this.button2.Name = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // bWModullist
+            // 
+            this.bWModullist.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bWModullist_DoWork);
+            // 
             // menuStrip1
             // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.AccessibleDescription = null;
+            this.menuStrip1.AccessibleName = null;
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
+            this.menuStrip1.BackgroundImage = null;
+            this.menuStrip1.Font = null;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dateiToolStripMenuItem});
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(796, 24);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
             // 
-            // statusStrip1
+            // dateiToolStripMenuItem
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusLabel1,
-            this.toolStripStatusLabel1,
-            this.toolStripDropDownButton1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 462);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(796, 22);
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // StatusLabel1
-            // 
-            this.StatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.StatusLabel1.IsLink = true;
-            this.StatusLabel1.Name = "StatusLabel1";
-            this.StatusLabel1.Size = new System.Drawing.Size(0, 17);
-            this.StatusLabel1.Click += new System.EventHandler(this.StatusLabel1_Click);
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
-            // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
-            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
-            // 
-            // listBox1
-            // 
-            this.listBox1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 39);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(251, 405);
-            this.listBox1.TabIndex = 5;
-            // 
-            // listBox2
-            // 
-            this.listBox2.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(541, 39);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(251, 405);
-            this.listBox2.TabIndex = 6;
-            // 
-            // lBoxListServer
-            // 
-            this.lBoxListServer.BackColor = System.Drawing.Color.Linen;
-            this.lBoxListServer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lBoxListServer.FormattingEnabled = true;
-            this.lBoxListServer.Location = new System.Drawing.Point(269, 39);
-            this.lBoxListServer.Name = "lBoxListServer";
-            this.lBoxListServer.Size = new System.Drawing.Size(266, 93);
-            this.lBoxListServer.TabIndex = 7;
-            this.lBoxListServer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lBoxListServer_KeyDown);
-            // 
-            // tBoxAddListServer
-            // 
-            this.tBoxAddListServer.BackColor = System.Drawing.Color.LavenderBlush;
-            this.tBoxAddListServer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tBoxAddListServer.Location = new System.Drawing.Point(269, 149);
-            this.tBoxAddListServer.Name = "tBoxAddListServer";
-            this.tBoxAddListServer.Size = new System.Drawing.Size(266, 20);
-            this.tBoxAddListServer.TabIndex = 8;
-            this.tBoxAddListServer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBoxAddListServer_KeyDown);
+            this.dateiToolStripMenuItem.AccessibleDescription = null;
+            this.dateiToolStripMenuItem.AccessibleName = null;
+            resources.ApplyResources(this.dateiToolStripMenuItem, "dateiToolStripMenuItem");
+            this.dateiToolStripMenuItem.BackgroundImage = null;
+            this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
+            this.dateiToolStripMenuItem.ShortcutKeyDisplayString = null;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(796, 484);
-            this.Controls.Add(this.tBoxAddListServer);
-            this.Controls.Add(this.lBoxListServer);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.statusStrip1);
+            this.BackgroundImage = null;
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
+            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = null;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Zefania XML Downloader (BETA  23062006)";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -391,16 +439,16 @@
         #endregion
 
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ComboBox comboBox1;
         private System.ComponentModel.BackgroundWorker bWModullist;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel StatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.ListBox lBoxListServer;
-        private System.Windows.Forms.TextBox tBoxAddListServer;
+        private System.Windows.Forms.ToolStripMenuItem dateiToolStripMenuItem;
 
 
     }
