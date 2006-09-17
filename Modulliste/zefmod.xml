@@ -52,7 +52,8 @@
 			<module filename="sf_elb1871str_rev2.zip" identifier="elb1871strnt" lang="deutsch" language="GER" name="Elberfelder 1871 mit Strongs im NT" revision="2" type="bible"/>
 			<!-- === ENG ===================================== -->
 			
-			
+			<module filename="sf_common_rev_1.zip"  identifier="TCE" lang="englisch"  language="ENG" name="The Common Edition New Testament" revision="4" type="bible" ></module>
+			<module filename="sf_diaglot_rev_1.zip"  identifier="Diaglot" lang="englisch"  language="ENG" name="Diaglot NT - 1865" revision="4" type="bible" ></module>
 			<module filename="sf_leeser_rev1.zip" identifier="Leeser" lang="englisch" language="ENG" name="Leeser Old Testament - 1853" revision="1" type="bible"/>
 			<module filename="sf_noyes_translation_rev1.zip" identifier="Noyes" lang="englisch" language="ENG" name="Noyes Translation (Job - Re) - 1869" revision="1" type="bible"/>
 			
@@ -132,6 +133,7 @@
 			<module filename="sf_bzy2000.zip" identifier="bzy2000" lang="griechisch" language="GRC" name="Byzantine/Majority Text (2000)" revision="0" type="bible"/>
 			<module filename="sf_bzy2000_rev_1.zip" identifier="bzy2000" lang="griechisch" language="GRC" name="Byzantine/Majority Text (2000) Rev 1" revision="1" type="bible"/>
 			<module filename="sf_bzy2000_str.zip"	identifier="bzy2000+" lang="griechisch" language="GRC" name="Byzantine/Majority Text (2000)- Strongs" revision="1" type="bible"/>
+			<module filename="sf_The_Analytic_Septuagint_str_rev1.zip" identifier="ALXX+" lang="griechisch" language="GRC" name="The Analytic Septuagint" revision="1"  type="bible"/>
 			
 			<module filename="sf_cei74.zip" identifier="CEI74" lang="italienisch" language="ITA" name="La Bibbia CEI 1974" revision="1" type="bible"/>
 			<module filename="sf_italian.zip" identifier="italian1" lang="italienisch" language="ITA" name="Italian Version" revision="0" type="bible"/>
