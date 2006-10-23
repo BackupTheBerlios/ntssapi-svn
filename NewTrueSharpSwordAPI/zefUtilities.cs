@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 namespace NewTrueSharpSwordAPI.Utilities
 {
 	/// <summary>
-	/// zefUtilities enthäl t Methoden, die allgemein in den verschiedenen Klassen der API verwendbar sind.
+	/// zefUtilities enthaelt Methoden, die allgemein in den verschiedenen Klassen der API verwendbar sind.
 	/// </summary>
 	// versiegelt, um Ableitung zu verbieten
 	sealed class zefUtilities

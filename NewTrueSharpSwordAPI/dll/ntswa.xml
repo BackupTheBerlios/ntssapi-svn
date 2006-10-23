@@ -4,59 +4,47 @@
         <name>NewTrueSharpSwordAPI</name>
     </assembly>
     <members>
+        <member name="T:NewTrueSharpSwordAPI.Utilities.zefUtilities">
+            <summary>
+            zefUtilities enthaelt Methoden, die allgemein in den verschiedenen Klassen der API verwendbar sind.
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Utilities.zefUtilities.CreateMD5Dir(System.IO.Stream)">
+            <summary>
+            Diese Methode berechnet aus dem Zefania XML Bibelmodul einen MD5-Hashwert, der als Verzeichnisname
+            für das in Bibelbücher(Kapitel) zerlegte Zefania XML Bibelmodul dient.
+            </summary>
+            <returns>
+              MD5-Hashwert des Zefania XML Bibelmoduls.
+            </returns>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Utilities.zefUtilities.GetZippedModulContent(System.String)">
+            <summary>
+            Extrahiert eine Datei aus einem zip-archiv
+            </summary>
+            <param name="ModulPath">Pfade zur zip-datei</param>
+            <returns>Zefania XML Modul als Stream.</returns>
+        </member>
         <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance">
             <summary>
             zefCacheMaintenance ver waltet, erstellt und liefert Informationen über den Zefania XML 
             ModulCache.
             </summary>
         </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FIncomingModulPaths">
+        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FModulInputDirectory">
             <summary>
-            Die Dateipfade aller Module in den Eingangsverzeichnissen
+            Eingangsverzeichnis für Zefania XML Module
             </summary>
         </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FCachedInfoFilesPaths">
+        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FCacheDir">
             <summary>
-            Die Dateipfade aller info.xml 
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FCacheInfoDictionary">
-            <summary>
-            Das Dictionary aller verfügbaren <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> s.
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FCacheRequestDictionary">
-            <summary>
-            Das Dictionary aller verfügbaren <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> s, die für eine Abfrage
-            ausgewählt sind. <seealso cref="!:zefCoreRequest"/>
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FListOfModulInputDirectories">
-            <summary>
-            Die Eingangsverzeichnisse für Zefania XML Module
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FListOfCacheDirectories">
-            <summary>
-            Liste der Speicherorte für  erstellte ModulCaches
+            Speicherort für  erstellte ModulCaches
             </summary>
         </member>
         <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.#ctor">
             <summary>
             Konstruktor
             </summary>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.AddRequestModulToCacheRequestDictionary(System.String)">
-            <summary>
-            Fügt ein <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> anhand des des info.xml Pfades des Cache in das <see cref="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheRequestDictionary"/> hinzu.
-            </summary>
-            <param name="infoFilePath">Pfad zur info.xml Datei des Caches</param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.RemoveModulFromCacheRequestDictionary(System.String)">
-            <summary>
-            Entfernt ein <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> anhand des des info.xml Pfades des Cache aus dem <see cref="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheRequestDictionary"/>.
-            </summary>
-            <param name="infoFilePath">Pfad zur info.xml Datei des Caches</param>
         </member>
         <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CreateCacheFromModul(System.String,System.Int32,System.Boolean,System.Boolean)">
             <summary>
@@ -66,62 +54,6 @@
             <param name="ID">Integerkennzeichnung für die Instanz der <see cref="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache"/>Klasse </param>
             <param name="zipped">Wenn true, besteht der Cache aus zipped Files</param>
             <param name="chapters">Wenn true ist der Cache vom Type x-chapters, sonst x-books</param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.AddCacheToModulDictionary(System.String)">
-            <summary>
-            Fügt ein <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> anhand des des info.xml Pfades des Cache in das <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/>
-            </summary>
-            <param name="infoFilePath">Pfad zur info.xml Datei des Caches</param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.RefreshCacheItemsList(System.Boolean)">
-            <summary>
-             Das <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/> updaten und optional die MD5-Hashwerte checken
-            </summary>
-            <param name="checkMd5">Wenn true, MD5 checken</param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.DeleteCacheByMD5(System.String)">
-            <summary>
-            Löscht ein Cacheverzeichnis anhand des MD5-Hash Wertes
-            </summary>
-            <param name="MD5">Der MD5 Verzeichnisname des Caches</param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.IsInConsistent(System.String)">
-            <summary>
-             Anhand des Sourcepfades im <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/> nach dem <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> suchen
-             und nachsehen, ob der in der info.xml hinterlegte MD5-Hashwert vom tatsächlichen MD5-Hash des Moduls abweicht.
-            </summary>
-            <remarks>Das kann geschehen, wenn das Sourcemodul editiert wurde</remarks>
-            <param name="SourcePath">Der Pfad zum Sourcemodul</param>
-            <returns>true, wenn MD5-Hash abweicht</returns>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.DeleteSourcePath(System.String)">
-            <summary>
-            Löscht  die Sourcedatei eine Caches
-            </summary>
-            <param name="SourcePath"></param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CountCachedModuls">
-            <summary>
-            Zählt alle Module im <see cref="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoDictionary"/>, die gecached sind
-            </summary>
-            <returns>Anzahl der Modul im Cache</returns>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.DeleteCacheBySourcePath(System.String)">
-            <summary>
-            Löscht einen Cache anhand des Sourcepfad des Moduls
-            </summary>
-            <param name="SourcePath"></param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.refreshModulList(System.Boolean)">
-            <summary>
-            Alle Verzeichnislisten  und das <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/> aktualisieren.
-            </summary>
-            <param name="checkMd5">Wenn true, wird zusätzlich der MD5-Hashwert des Moduls überprüft.</param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.RefreshIncomingModulPathList">
-            <summary>
-             Alle Eingangsverzeichnisse nach möglichen Modulen durchsuchen und in <see cref="F:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.FIncomingModulPaths"/> auflisten.
-            </summary>
         </member>
         <member name="E:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.OnCacheProgress">
             <summary>
@@ -138,25 +70,14 @@
             Event, wenn versucht wurde ein non Zefania file zu cachen
             </summary>
         </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoDictionary">
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ModulInputDirectory">
             <summary>
-            Property für das Dictionary aller verfügbaren <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> s.
+            Eingangsverzeichnis für Zefania XML Bibelmodule.
             </summary>
         </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheRequestDictionary">
+        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheDirectorie">
             <summary>
-            Property für das Dictionary aller verfügbaren <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/> s, die für eine Abfrage
-            ausgewählt sind. <seealso cref="!:zefCoreRequest"/>
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfModulInputDirectories">
-            <summary>
-            Die Liste der Eingangsverzeichnisse für Zefania XML Bibelmodule.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.ListOfCacheDirectories">
-            <summary>
-            Die Liste der CacheVerzeichnisse der Zefania XML Bibelmodule.
+            CacheVerzeichnis der Zefania XML Bibelmodule.
             </summary>
         </member>
         <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheVersion">
@@ -167,341 +88,6 @@
         <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.OnCachedEventHandler">
             <summary>
              Fortschrittsevent für die Cacheerstellung
-            </summary>
-        </member>
-        <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem">
-            <summary>
-             Diese Hilfsklasse speichert alle wichtigen Infos über Module.
-             <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary"/>
-            </summary>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.#ctor(System.String,System.Boolean)">
-             <summary>
-              Konstruktor fuer ein CacheInfoItem, das einige Infos über ein Zefania XML Modul im Cache enthält.
-             </summary>
-             <param name="InfoPath">Der Pfad zu einer Cache-info.xml Datei</param>
-             <param name="checkMd5">Wenn true wird überprüft, ob der MD5-Hashwert der Quelldatei noch mit dem Vermerk in der info.xml übereinstimmt.</param>
-            <remarks>Mann kann das CacheInfoItem auch mit dem Pfad zu einer Quelldatei aufrufen.</remarks>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.reset2NoneCached">
-            <summary>
-            Setzt den Status des CacheInfoItem auf none cached zurück.
-            </summary>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.reset2Orphaned">
-            <summary>
-            Setzt den Status auf orphaned.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.VolumeTreeHidden">
-            <summary>
-             Signalisiert, ob das Modul in einer Darstellung der verfügbaren Module sichtbar sein soll.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Title">
-            <summary>
-            Der Titel des Moduls aus der Cache info.xml des Moduls.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Sourcepath">
-            <summary>
-            Der Dateipfad zur Quelldatei des Moduls im Cache
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Language">
-            <summary>
-            Die SprachId des Moduls aus der Cache info.xml des Moduls.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Identifier">
-            <summary>
-            Der Identifier aus der Cache info.xml des Moduls.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Date">
-            <summary>
-            Das Datum aus der Cache info.xml des Moduls.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Zipped">
-            <summary>
-             Wenn true ist Cache gezipped
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Type">
-            <summary>
-            x-books oder x-chapters
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Modulmd5">
-            <summary>
-            Der MD5-Hashwert der Ausgangsmoduls
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Orphaned">
-            <summary>
-            Wenn true, ist der Pfad zu der in der Cache info.xml angegebenen Sourcedatei ungültig.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Cached">
-            <summary>
-            Wenn true, wurde cache erstellt.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Inconsistent">
-            <summary>
-            Wenn true stimmt der MD5 -Hashwert der Sourcedatei nicht mehr mit der Angabe in der Cache-info.xml überein.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.Infopath">
-            <summary>
-            Der Dateipfad zur info.xml
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem.ModulCacheDir">
-            <summary>
-            Der Pfad zum Cachverzeichnis des Moduls.
-            </summary>
-        </member>
-        <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItemDictionary">
-            <summary>
-            Ein Dictionary aller Module mit Instanzen von <see cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance.CacheInfoItem"/>
-            </summary>
-        </member>
-        <member name="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest">
-            <summary>
-            Mit zefCoreRequest kann  ein Zefania XML Cache mit einer Liste von Bibelstellen im
-            Format:
-            40:7:9
-            56:12:7
-            19:4:5
-            abgefragt werden.
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Queries.zefCoreRequest.FCacheMaintenance">
-            <summary>
-            <seealso cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance"/>
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Queries.zefCoreRequest.FMaxVersePerPage">
-            <summary>
-            Die Anzahl der Verse auf einer Ergebnisseite
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Queries.zefCoreRequest.FCacheDirectories">
-            <summary>
-            Eine Liste der BaseCacheDirs.
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Queries.zefCoreRequest.FResultRequestPages">
-            <summary>
-            Eine Liste für die Ergebnise einer Abfrage.
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Queries.zefCoreRequest.FMD5ModulDirList">
-            <summary>
-            Die Liste der abzufragenden Bibelmodule identifiziert durch ihren MD5-Hashwert.
-            </summary>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetRequest(System.Collections.ArrayList)">
-            <summary>
-            Diese Methode leitet die Abfrage ein.
-            </summary>
-            <param name="VersesItems">Die Liste der einzelnen Bibelverse im Format BN:CN:VN</param>
-            <returns>true, wenn Ergebnisverse vorhanden sind</returns>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.BuildResultPage(System.Collections.ArrayList)">
-            <summary>
-             Erzeugt eine Ergebnisseite mit Versen durch Abfrage des ModulCaches.
-            </summary>
-            <param name="SubVerses">Enthält eine Untermenge der VerseItems Liste abhängig von MaxVersePerPage
-            und Anzahl der Bibelausgaben in FMD5ModulDirList.
-            <seealso cref="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetRequest(System.Collections.ArrayList)"/> </param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXChapters(System.Int32,System.String,System.String,System.String,System.String)">
-            <summary>
-             Liefert aus einem x-chapters file den Verstext incl. XML-Markup zurück.
-            </summary>
-            <param name="PathToCachedBookFile">Der Pfad zur Buchdatei im Cache.</param>
-            <param name="BN">Die Buchnummer</param>
-            <param name="CN">Die Kapitelnummer</param>
-            <param name="VN">Die Versnummer</param>
-            <param name="TranslationID">Die Übersetzungen durchzählen</param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXChaptersZip(System.Int32,System.String,System.String,System.String,System.String)">
-            <summary>
-             Liefert aus einem x-chapters zipped file den Verstext incl. XML-Markup zurück.
-            </summary>
-            <param name="PathToCachedBookFile">Der Pfad zur zip Buchdatei im Cache.</param>
-            <param name="BN">Die Buchnummer</param>
-            <param name="CN">Die Kapitelnummer</param>
-            <param name="VN">Die Versnummer</param>
-            <param name="TranslationID">Übersetzungen durchzählen</param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXBooks(System.Int32,System.String,System.String,System.String,System.String)">
-            <summary>
-            Liefert aus einem x-books file den Verstext incl. XML-Markup zurück.
-            </summary>
-            <param name="PathToCachedBookFile">Der Pfad zur Buchdatei im Cache.</param>
-            <param name="BN">Die Buchnummer</param>
-            <param name="CN">Die Kapitelnummer</param>
-            <param name="VN">Die Versnummer</param>
-            <param name="TranslationID">Übersetzungen durchzählen</param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXBooksZip(System.Int32,System.String,System.String,System.String,System.String)">
-            <summary>
-            Liefert aus einem x-books zipped file den Verstext incl. XML-Markup zurück.
-            </summary>
-            <param name="PathToCachedBookFile">Der Pfad zur zip Buchdatei im Cache.</param>
-            <param name="BN">Die Buchnummer</param>
-            <param name="CN">Die Kapitelnummer</param>
-            <param name="VN">Die Versnummer</param>
-            <param name="TranslationID">Übersetzungen durchzählen</param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.AddAppInfo(System.String)">
-            <summary>
-             Fügt eine ResultPage die ApplicationInfo hinzu.
-            </summary>
-            <param name="ResultXml">Das XML Markup der RequestPage</param>
-            <returns>Das XML Markup der RequestPage mit APPINFO</returns>
-        </member>
-        <member name="E:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnRequestFinished">
-            <summary>
-            <seealso cref="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnRequestFinishedEventHandler"/>
-            </summary>
-        </member>
-        <member name="E:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnPageRequest">
-            <summary>
-            <seealso cref="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnRequestPageEventHandler"/>
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Queries.zefCoreRequest.CacheMaintenance">
-            <summary>
-             Property zum Andocken einer  <seealso cref="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance"/> Instanz.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Queries.zefCoreRequest.CacheDirectories">
-            <summary>
-            Setzt oder liest die Liste der Cache-Verzeichnise
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Queries.zefCoreRequest.MD5ModulDirList">
-            <summary>
-            Die Liste der abzufragenden Zefania XML Bibelmodule.
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Queries.zefCoreRequest.ResultRequestPages">
-            <summary>
-            Liefert die Liste der Ergebniseiten zurück;
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Queries.zefCoreRequest.MaxVersePerPage">
-            <summary>
-            Setzt oder liest die maxmimal Anzahl der Verse auf einer Ergebnisseite
-            </summary>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Queries.zefCoreRequest.CoreRequestVersion">
-            <summary>
-            Gibt die Versionsnummer der CoreRequest-Klasse zurück.
-            </summary>
-        </member>
-        <member name="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnRequestFinishedEventHandler">
-            <summary>
-             Dieser Event wird ausgelöst, wenn die Abfrage komplett beendet wurde.
-            </summary>
-            <remarks>Das Ergebnis kann dann über <seealso cref="P:NewTrueSharpSwordAPI.Queries.zefCoreRequest.ResultRequestPages"/> untersucht werden.</remarks>
-        </member>
-        <member name="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnRequestPageEventHandler">
-            <summary>
-             Dieser Event wird ausgelöst, wenn eine Seite für eine Abfrage erstellt wurde.
-            </summary>
-        </member>
-        <member name="T:NewTrueSharpSwordAPI.Queries.BookNameType">
-            <summary>
-            maps  Bibelbuchnummer  zu Buchbezeichnungen und umgekehrt.
-            z.B.  10==&gt; 2Sam
-            </summary>
-            <summary>
-            Diese Enumeration kann verwendet werden, um auf die 
-            kurze oder lange Form des Bibelbuchnames zuzugreifen.
-            <seealso cref="!:GetBookNameByNumber"/>
-            </summary>
-        </member>
-        <member name="T:NewTrueSharpSwordAPI.Queries.BookGroup">
-            <summary>
-            Diese Aufzählung dient für die genauere Bestimmung der Bibeluntergliederung dienen.
-            </summary>
-        </member>
-        <member name="F:NewTrueSharpSwordAPI.Queries.zefMapNames.NamesXMLResource">
-            <summary>
-             Diese Variable enthält den Inhalt einer bnames Datei.
-            </summary>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.#ctor(System.String)">
-            <summary>
-             Der Konstruktor für eine Map-Klasse
-            </summary>
-            <param name="pathToNamesFile">
-             Pfad zur XML-Resource mit Zuordnungen Buchnummern zu Buchnamen.
-             vergl: http://tinyurl.com/94mr2
-            </param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetBookNumberBySingleRef(System.String,System.String,System.String@)">
-            <summary>
-            Liefert zu einer Eingabe wie  1 Chr 5,5 die Buchnummer "13" zurück.
-            </summary>
-            <param name="LangID">Die SprachId in der gesucht werden soll.</param>
-            <param name="Reference">Eine Bibelstellenangabe</param>
-            <example>1 Chr 5,6, Gen, 1Kö2,5, </example>
-            <returns>Die Buchnummer z.B. "17"</returns>
-            <param name="InternalRefView">Liefert den KapitelVersanteil per ref Paramter zurück.</param>
-            <remarks>InternalRefView liefert für  1Kön 4,6    "4:6" zurück</remarks>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.NormalizeBookRef(System.String@,System.String@)">
-            <summary>
-              Normalisiert eine Ref-Eingabe wie "1 Kön 5,6" zu   "1 kön"
-            </summary>
-            <param name="inRef">Eine Zeichenkette wie  1 Kön 5,6</param>
-            <param name="CVPart">Der KapitelVersTeil einer Stellenangabe z.B. "5,7" o. "5-8,8-12"</param>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetBookNameByNumber(System.String,NewTrueSharpSwordAPI.Queries.BookNameType,System.Int32)">
-            <summary>
-             Diese Methode liefert zu einer Buchnummer entweder die lange oder die kurze Form
-             eine Bibelbuchnamens zurück
-            </summary>
-            <param name="LangID">Die Sprach ID</param>
-            <param name="NameType">shortname oder longname</param>
-            <param name="BookNumber">Die Buchnummer</param>
-            <returns>Den Buchnamen z.B. Genesis</returns>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.isInBookGroup(System.String,NewTrueSharpSwordAPI.Queries.BookGroup)">
-            <summary>
-              Testet,ob eine Buchnummer in einer Buchgruppe vorkommt.
-              <seealso cref="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetListOfBookNamesByBookGroups(System.String,NewTrueSharpSwordAPI.Queries.BookNameType,NewTrueSharpSwordAPI.Queries.BookGroup)"/>
-            </summary>
-            <param name="BN">Die Buchnummer</param>
-            <param name="BookGr">Die Buchgruppe</param>
-            <returns>true, wenn Buchnummer in Buchgruppe vorkommt, sonst false</returns>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetListOfBookNamesByBookGroups(System.String,NewTrueSharpSwordAPI.Queries.BookNameType,NewTrueSharpSwordAPI.Queries.BookGroup)">
-            <summary>
-             Liefert die Namensliste für eine bestimmte Buchgruppen zurück.
-             <seealso cref="M:NewTrueSharpSwordAPI.Queries.zefMapNames.isInBookGroup(System.String,NewTrueSharpSwordAPI.Queries.BookGroup)"/>
-            </summary>
-            <param name="LangID">Die SprachID</param>
-            <param name="NameType">langen oder die kurzen Namen </param>
-            <param name="BookGr">Welche Buchgruppe?</param>
-            <returns>Eine Liste mit spezifischer Buchnamenauswahl</returns>
-        </member>
-        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetListOfIds">
-            <summary>
-             Diese Methode liefert eine Liste alle in einer bnames Datei verfügbaren Sprach IDs zurück.
-            </summary>
-            <returns> Eine Arrayliste aller Sprach Ids</returns>
-        </member>
-        <member name="P:NewTrueSharpSwordAPI.Queries.zefMapNames.MapVersion">
-            <summary>
-            Gibt die Versionsnummer der zefMapNames-Klasse zurück.
             </summary>
         </member>
         <member name="T:NewTrueSharpSwordAPI.Cache.ZefaniaCache">
@@ -724,26 +310,115 @@
              Die ArrayList enthält im Index 0 den Pfad zum Cacheverzeichnis.
             </remarks>
         </member>
-        <member name="T:NewTrueSharpSwordAPI.Utilities.zefUtilities">
+        <member name="T:NewTrueSharpSwordAPI.Queries.zefCoreRequest">
             <summary>
-            zefUtilities enthäl t Methoden, die allgemein in den verschiedenen Klassen der API verwendbar sind.
+            Mit zefCoreRequest kann  ein Zefania XML Cache mit einer Liste von Bibelstellen im
+            Format:
+            40:7:9
+            56:12:7
+            19:4:5
+            abgefragt werden.
             </summary>
         </member>
-        <member name="M:NewTrueSharpSwordAPI.Utilities.zefUtilities.CreateMD5Dir(System.IO.Stream)">
+        <member name="F:NewTrueSharpSwordAPI.Queries.zefCoreRequest.ResultsXmlDocs">
             <summary>
-            Diese Methode berechnet aus dem Zefania XML Bibelmodul einen MD5-Hashwert, der als Verzeichnisname
-            für das in Bibelbücher(Kapitel) zerlegte Zefania XML Bibelmodul dient.
+            Diese Liste enthaelt in jedem XmlDokument ein Zefania XML Abfragemodul entsprechend der Abrage.
             </summary>
-            <returns>
-              MD5-Hashwert des Zefania XML Bibelmoduls.
-            </returns>
         </member>
-        <member name="M:NewTrueSharpSwordAPI.Utilities.zefUtilities.GetZippedModulContent(System.String)">
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefCoreRequest.GetVerseXChapters(System.String,System.String,System.String,System.String)">
             <summary>
-            Extrahiert eine Datei aus einem zip-archiv
+             Liefert aus einem x-chapters file den Verstext incl. XML-Markup zurück.
             </summary>
-            <param name="ModulPath">Pfade zur zip-datei</param>
-            <returns>Zefania XML Modul als Stream.</returns>
+            <param name="PathToCacheDir">Der Pfad zum Verzeichnis des Caches.</param>
+            <param name="BN">Die Buchnummer</param>
+            <param name="CN">Die Kapitelnummer</param>
+            <param name="VN">Die Versnummer</param>
+            <returns>Verstext incl. XML-Markup</returns>
+        </member>
+        <member name="E:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnQueryFinished">
+            <summary>
+            Dieses Ereignis wird aufgerufen, wenn eine Abfrage beendet ist.
+            </summary>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Queries.BookNameType">
+            <summary>
+            maps  Bibelbuchnummer  zu Buchbezeichnungen und umgekehrt.
+            z.B.  10==&gt; 2Sam
+            </summary>
+            <summary>
+            Diese Enumeration kann verwendet werden, um auf die 
+            kurze oder lange Form des Bibelbuchnames zuzugreifen.
+            <seealso cref="!:GetBookNameByNumber"/>
+            </summary>
+        </member>
+        <member name="T:NewTrueSharpSwordAPI.Queries.BookGroup">
+            <summary>
+            Diese Aufzählung dient für die genauere Bestimmung der Bibeluntergliederung dienen.
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Queries.zefMapNames.NamesXMLResource">
+            <summary>
+             Diese Variable enthält den Inhalt einer bnames Datei.
+            </summary>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.#ctor(System.String)">
+            <summary>
+             Der Konstruktor für eine Map-Klasse
+            </summary>
+            <param name="pathToNamesFile">
+             Pfad zur XML-Resource mit Zuordnungen Buchnummern zu Buchnamen.
+             vergl: 
+            </param>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetBookNameByNumber(System.String,NewTrueSharpSwordAPI.Queries.BookNameType,System.Int32)">
+            <summary>
+             Diese Methode liefert zu einer Buchnummer entweder die lange oder die kurze Form
+             eine Bibelbuchnamens zurück
+            </summary>
+            <param name="LangID">Die Sprach ID</param>
+            <param name="NameType">shortname oder longname</param>
+            <param name="BookNumber">Die Buchnummer</param>
+            <returns>Den Buchnamen z.B. Genesis</returns>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.isInBookGroup(System.String,NewTrueSharpSwordAPI.Queries.BookGroup)">
+            <summary>
+              Testet,ob eine Buchnummer in einer Buchgruppe vorkommt.
+              <seealso cref="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetListOfBookNamesByBookGroups(System.String,NewTrueSharpSwordAPI.Queries.BookNameType,NewTrueSharpSwordAPI.Queries.BookGroup)"/>
+            </summary>
+            <param name="BN">Die Buchnummer</param>
+            <param name="BookGr">Die Buchgruppe</param>
+            <returns>true, wenn Buchnummer in Buchgruppe vorkommt, sonst false</returns>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetListOfBookNamesByBookGroups(System.String,NewTrueSharpSwordAPI.Queries.BookNameType,NewTrueSharpSwordAPI.Queries.BookGroup)">
+            <summary>
+             Liefert die Namensliste für eine bestimmte Buchgruppen zurück.
+             <seealso cref="M:NewTrueSharpSwordAPI.Queries.zefMapNames.isInBookGroup(System.String,NewTrueSharpSwordAPI.Queries.BookGroup)"/>
+            </summary>
+            <param name="LangID">Die SprachID</param>
+            <param name="NameType">langen oder die kurzen Namen </param>
+            <param name="BookGr">Welche Buchgruppe?</param>
+            <returns>Eine Liste mit spezifischer Buchnamenauswahl</returns>
+        </member>
+        <member name="M:NewTrueSharpSwordAPI.Queries.zefMapNames.GetListOfIds">
+            <summary>
+             Diese Methode liefert eine Liste alle in einer bnames Datei verfügbaren Sprach IDs zurück.
+            </summary>
+            <returns> Eine Arrayliste aller Sprach Ids</returns>
+        </member>
+        <member name="P:NewTrueSharpSwordAPI.Queries.zefMapNames.MapVersion">
+            <summary>
+            Gibt die Versionsnummer der zefMapNames-Klasse zurück.
+            </summary>
+        </member>
+        <member name="F:NewTrueSharpSwordAPI.Queries.ZefParseRequest.QueryResultsXmlDocs">
+            <summary>
+            Diese Liste enthaelt in jedem XmlDokument ein Zefania XML Abfragemodul entsprechend der Abrage.
+            </summary>
+        </member>
+        <member name="E:NewTrueSharpSwordAPI.Queries.ZefParseRequest.OnParseQueryFinished">
+            <summary>
+            Dieses Ereignis wird aufgerufen, wenn eine Abfrage beendet ist.
+            </summary>
         </member>
     </members>
 </doc>

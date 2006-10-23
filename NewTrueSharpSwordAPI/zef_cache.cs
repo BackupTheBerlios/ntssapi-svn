@@ -355,7 +355,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 				}
 
-				FullCachePath=BaseCacheDir+@"\zefcache\"+ModulCacheDir;
+				FullCachePath=BaseCacheDir+@"\"+ModulCacheDir;
 				// eventuell schon vorhandenen Inhaltsbaum sichern
 				UserDefTree=CatchUserTree();
 				// end
@@ -374,10 +374,13 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 				//ModulCacheInfos
 				XmlDocument CacheINFO=new XmlDocument();
-				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><revision/><volumetree hidden=\"false\" pos=\"0\"/><sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
+                CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><revision/><volumetree hidden=\"false\" pos=\"0\"/><sourcepath/><cachedir/><modulmd5/><zipped/><type/></cacheinfo></config>");
 
 				XmlNode sourcepath=CacheINFO.SelectSingleNode("descendant::sourcepath");
 				sourcepath.InnerText=ModulPath;
+
+                XmlNode cachedir = CacheINFO.SelectSingleNode("descendant::cachedir");
+                cachedir.InnerText = FullCachePath;
 
 				XmlNode md5=CacheINFO.SelectSingleNode("descendant::modulmd5");
 				md5.InnerText=ModulCacheDir;
@@ -597,7 +600,7 @@ namespace NewTrueSharpSwordAPI.Cache
 
 				}
                 
-				FullCachePath=BaseCacheDir+@"\zefcache\"+ModulCacheDir;
+				FullCachePath=BaseCacheDir+@"\"+ModulCacheDir;
 				// eventuell schon vorhandenen Inhaltsbaum sichern
 				UserDefTree=CatchUserTree();
 				// end
@@ -616,10 +619,13 @@ namespace NewTrueSharpSwordAPI.Cache
 				}
 				// ModulCacheInfos
 				XmlDocument CacheINFO=new XmlDocument();
-				CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><revision/><volumetree hidden=\"false\" pos=\"0\"/><sourcepath/><modulmd5/><zipped/><type/></cacheinfo></config>");
+                CacheINFO.LoadXml("<config><INFORMATION/><cacheinfo><revision/><volumetree hidden=\"false\" pos=\"0\"/><sourcepath/><cachedir/><modulmd5/><zipped/><type/></cacheinfo></config>");
 
 				XmlNode sourcepath=CacheINFO.SelectSingleNode("descendant::sourcepath");
 				sourcepath.InnerText=ModulPath;
+
+                XmlNode cachedir = CacheINFO.SelectSingleNode("descendant::cachedir");
+                cachedir.InnerText = FullCachePath;
 
 				XmlNode md5=CacheINFO.SelectSingleNode("descendant::modulmd5");
 				md5.InnerText=ModulCacheDir;

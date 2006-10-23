@@ -32,7 +32,7 @@ namespace NewTrueSharpSwordAPI.Queries
 		/// </summary>
 		/// <param name="pathToNamesFile">
 		///  Pfad zur XML-Resource mit Zuordnungen Buchnummern zu Buchnamen.
-		///  vergl: http://tinyurl.com/94mr2
+		///  vergl: 
 		/// </param>
 		public zefMapNames(string pathToNamesFile)
 		{
@@ -55,113 +55,42 @@ namespace NewTrueSharpSwordAPI.Queries
 
 			get
 			{
-				Version v =new Version("0.0.0.8");
+				Version v =new Version("0.0.0.9");
 				return v.Major+"."+v.Minor+"."+v.Revision+"."+v.Build;
 
 			}
 
 		}
-		/// <summary>
-		/// Liefert zu einer Eingabe wie  1 Chr 5,5 die Buchnummer "13" zurück.
-		/// </summary>
-		/// <param name="LangID">Die SprachId in der gesucht werden soll.</param>
-		/// <param name="Reference">Eine Bibelstellenangabe</param>
-		/// <example>1 Chr 5,6, Gen, 1Kö2,5, </example>
-		/// <returns>Die Buchnummer z.B. "17"</returns>
-		/// <param name="InternalRefView">Liefert den KapitelVersanteil per ref Paramter zurück.</param>
-		/// <remarks>InternalRefView liefert für  1Kön 4,6    "4:6" zurück</remarks>
-		public string GetBookNumberBySingleRef(string LangID,string Reference,ref string InternalRefView)
-		{
+        public string GetBookNumber(string reference) {
 
-			// Arbeitskopie der EingabeReferenz besorgen und von überflüssigen Zeichen befreien.
-			string WorkCopyRef=Reference.TrimStart(' ');
-			string ResultBookNumber="-1";
-			try
-			{
-				// Eingaben wie   1Mo3,6 normalisieren zu 1 mo
-				// d.h. nur noch Buchname in Lowercase
+            string BookNumber = "-1";
+            
+            try
+            {
+                XmlNodeList BookNamesList = NamesXMLResource.DocumentElement.SelectNodes("descendant::BOOK[@bshort='"+reference+"']");
+                if (BookNamesList.Count>0) {
 
-				NormalizeBookRef(ref WorkCopyRef,ref InternalRefView);
+                    XmlNode BN = BookNamesList[0];
+                    return BN.Attributes.GetNamedItem("bnumber").Value;
+                }
+                BookNamesList = NamesXMLResource.DocumentElement.SelectNodes("descendant::BOOK[text()='" + reference + "']");
+                if (BookNamesList.Count > 0)
+                {
 
-				XmlNode aBook=NamesXMLResource.DocumentElement.SelectSingleNode("descendant::id[@descr='"+LangID+"']/book[@bshort='"+WorkCopyRef+"']");
-				if(aBook!=null)
-				{
-					return aBook.Attributes.GetNamedItem("bnumber").InnerText;
-				}
-				aBook=NamesXMLResource.DocumentElement.SelectSingleNode("descendant::id[@descr='"+LangID+"']/book[text()='"+WorkCopyRef+"']"); 
-				
-				if(aBook!=null)
-				{
-				  
-					return aBook.Attributes.GetNamedItem("bnumber").InnerText;
-				
-				};
+                    XmlNode BN = BookNamesList[0];
+                    return BN.Attributes.GetNamedItem("bnumber").Value;
+                }
 
+                return BookNumber;
+            }
 
-				aBook=NamesXMLResource.DocumentElement.SelectSingleNode("descendant::id[@descr='"+LangID+"']/book[starts-with(@bshort,'"+WorkCopyRef+"')]");
-				if(aBook!=null)
-				{
-				  
-					return aBook.Attributes.GetNamedItem("bnumber").InnerText;
-				
-				};
+            catch (Exception e) {
 
-				aBook=NamesXMLResource.DocumentElement.SelectSingleNode("descendant::id[@descr='"+LangID+"']/book[starts-with(text(),'"+WorkCopyRef+"')]"); 
-				
-				if(aBook!=null)
-				{
-				  
-					return aBook.Attributes.GetNamedItem("bnumber").InnerText;
-				
-				};
-
-				
-				return ResultBookNumber="-1";
-				
-			}
-			catch(Exception e)
-			{
-				return ResultBookNumber="-1";
-
-			}
-          }
-		/// <summary>
-		///   Normalisiert eine Ref-Eingabe wie "1 Kön 5,6" zu   "1 kön"
-		/// </summary>
-		/// <param name="inRef">Eine Zeichenkette wie  1 Kön 5,6</param>
-		/// <param name="CVPart">Der KapitelVersTeil einer Stellenangabe z.B. "5,7" o. "5-8,8-12"</param>
-		private void NormalizeBookRef(ref string inRef, ref string CVPart)
-		{
-
-			try
-			{
-
-				inRef=Regex.Replace(inRef,"[ ]+","");
-
-				inRef=Regex.Replace(inRef,"([a-zA-Z])([1-9])","$1 $2");
-
-				CVPart=Regex.Match(inRef,"[ ]([1-9-]*)([,]*)([1-9-]*)").ToString().Trim();
-
-				CVPart=Regex.Replace(CVPart,"[,]",":");
-
-				if(CVPart==""){CVPart="0:0";}
-
-				if(CVPart.IndexOf(":")==-1){CVPart=CVPart+":0";}
-
-				inRef=Regex.Replace(inRef,"([1-9])([a-zA-Z])","$1 $2");
-
-				inRef=Regex.Replace(inRef,"([1-9a-zA-Z])([ ]+)","$1 ");
-
-				inRef=Regex.Match(inRef+" ","([IV1-5]*)([ .]*)([a-zA-Z]+)([ ])").ToString().Trim();
-
-				inRef=inRef.ToLower();
-
-			}
-			catch(Exception e)
-			{
-
-			}
-		}
+                return BookNumber;
+            }
+        
+        
+        }
 
 		/// <summary>
 		///  Diese Methode liefert zu einer Buchnummer entweder die lange oder die kurze Form
