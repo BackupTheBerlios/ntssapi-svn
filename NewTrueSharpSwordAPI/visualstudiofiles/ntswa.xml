@@ -27,7 +27,7 @@
         </member>
         <member name="T:NewTrueSharpSwordAPI.Cache.zefCacheMaintenance">
             <summary>
-            zefCacheMaintenance ver waltet, erstellt und liefert Informationen über den Zefania XML 
+            zefCacheMaintenance verwaltet, erstellt und liefert Informationen über den Zefania XML 
             ModulCache.
             </summary>
         </member>
@@ -340,6 +340,11 @@
             Dieses Ereignis wird aufgerufen, wenn eine Abfrage beendet ist.
             </summary>
         </member>
+        <member name="E:NewTrueSharpSwordAPI.Queries.zefCoreRequest.OnPageQueryFinished">
+            <summary>
+            Dieses Ereignis wird aufgerufen, wenn eine Abfrage beendet ist.
+            </summary>
+        </member>
         <member name="T:NewTrueSharpSwordAPI.Queries.BookNameType">
             <summary>
             maps  Bibelbuchnummer  zu Buchbezeichnungen und umgekehrt.
@@ -418,6 +423,11 @@
         <member name="E:NewTrueSharpSwordAPI.Queries.ZefParseRequest.OnParseQueryFinished">
             <summary>
             Dieses Ereignis wird aufgerufen, wenn eine Abfrage beendet ist.
+            </summary>
+        </member>
+        <member name="E:NewTrueSharpSwordAPI.Queries.ZefParseRequest.OnPageQueryFinished">
+            <summary>
+            Dieses Ereignis wird aufgerufen, wenn eine Abfrage fuer eine Ergebnisseite beendet ist.
             </summary>
         </member>
     </members>

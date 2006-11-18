@@ -24,12 +24,6 @@ namespace NewTrueSharpSwordAPI.Queries
         /// </summary>
         public event PQueryFinished OnParseQueryFinished;
 
-        public delegate void QueryPageFinished(object sender, List<XmlDocument> QueryResults);
-        /// <summary>
-        /// Dieses Ereignis wird aufgerufen, wenn eine Abfrage fuer eine Ergebnisseite beendet ist.
-        /// </summary>
-        public event QueryPageFinished OnPageQueryFinished;
-
         
         public ZefParseRequest() {
 
@@ -48,7 +42,7 @@ namespace NewTrueSharpSwordAPI.Queries
             }
         }
 
-        public  void GetQuery(string Query, List<string> PathsToCaches,int MaxVerseOnPage) {
+        public void GetQuery(string Query, List<string> PathsToCaches) {
 
             List<string> InternList = new List<string>();
             int MyIndex = -1;
@@ -67,15 +61,12 @@ namespace NewTrueSharpSwordAPI.Queries
                 
                 }
 
-                
                 foreach (string item in MyQuery) {
                     MyIndex++;
                     InternList.AddRange(ParseSingleQueryItem(item));
                 }
 
-
-
-                DeepRequest.GetResults(InternList, PathsToCaches,MaxVerseOnPage);
+                DeepRequest.GetResults(InternList, PathsToCaches);
 
             }
             catch (Exception e) {
@@ -92,12 +83,6 @@ namespace NewTrueSharpSwordAPI.Queries
             item = Regex.Replace(item, @"\s{1,}", "");
             string tmp=Regex.Replace(item, @"^[1-5|1-5\.|\D][\D]*","");
 
-            if (tmp == "") {
-
-                string BOOK = item;
-            
-            }
-            
             string BN = item.Replace(tmp, "");
 
             if (BN.IndexOf(".") > -1)
@@ -124,15 +109,8 @@ namespace NewTrueSharpSwordAPI.Queries
             }
             BN = Names.GetBookNumber(BN);
 
-            if (tmp.IndexOf(",") == -1) {
-
-                string CHAPTER = tmp;
-
-            }
-
 
             string CN = tmp.Substring(0, tmp.IndexOf(","));
-
 
             string VN=tmp.Substring(tmp.IndexOf(",")+1);
 
@@ -238,8 +216,6 @@ namespace NewTrueSharpSwordAPI.Queries
                     InterneList.Add(BN + ":" + CN + ":" + VN);
                 }
 
-            }// end foreach (string item in items)
-
                 foreach (string item2 in InterneList)
                 {
 
@@ -267,7 +243,7 @@ namespace NewTrueSharpSwordAPI.Queries
 
 
                 }
-            
+            }// end foreach (string item in items)
             return InterneList2;
 
 

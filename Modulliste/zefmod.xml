@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <!-- edited with XMLSPY v5 rel. 3 U (http://www.xmlspy.com) by Snowbird (wtg) -->
 <?xml-stylesheet href="" type="text/xsl"?>
-<zefania-modules version="1.10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\ZefaniaXML\SVN2\NewTrueSharpSwordAPI\resourcen\Untitled1.xsd">
+<zefania-modules version="1.10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="">
 	<zefania-modules-list-servers>
 		<server>http://zefania-sharp.sourceforge.net</server>
 	</zefania-modules-list-servers>
@@ -52,6 +52,9 @@
 			<module filename="sf_elb1871str_rev2.zip" identifier="elb1871strnt" lang="deutsch" language="GER" name="Elberfelder 1871 mit Strongs im NT" revision="2" type="bible"/>
 			<!-- === ENG ===================================== -->
 			
+			<module filename="sf_VW2006.zip" identifier="AVW" language="ENG" lang="englisch" name="The Holy Scriptures"  revision="1" type="bible"/>
+			<module filename="sf_Brentons_English_Septuagint.zip"  identifier="LXXE" lang="englisch" language="ENG" name="Brentons English Septuagint" revision="1" type="bible"/>
+ 			<module filename="sf_Riverside_NT2.zip" identifier="RNT"  lang="englisch" language="ENG" name="The Riverside New Testament (1923)" revision="1" type="bible"/>
 			<module filename="sf_common_rev_1.zip"  identifier="TCE" lang="englisch"  language="ENG" name="The Common Edition New Testament" revision="4" type="bible" ></module>
 			<module filename="sf_diaglot_rev_1.zip"  identifier="Diaglot" lang="englisch"  language="ENG" name="Diaglot NT - 1865" revision="4" type="bible" ></module>
 			<module filename="sf_leeser_rev1.zip" identifier="Leeser" lang="englisch" language="ENG" name="Leeser Old Testament - 1853" revision="1" type="bible"/>

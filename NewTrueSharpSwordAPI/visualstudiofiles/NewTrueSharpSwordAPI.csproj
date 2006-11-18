@@ -115,6 +115,9 @@
     <Compile Include="..\ZefParseRequest.cs">
       <Link>ZefParseRequest.cs</Link>
     </Compile>
+    <Compile Include="..\zefParseHtmlRequest.cs">
+      <Link>zefParseHtmlRequest.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

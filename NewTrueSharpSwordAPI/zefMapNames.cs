@@ -391,6 +391,21 @@ namespace NewTrueSharpSwordAPI.Queries
 
 
 		}
+        
+        public string GetCommonName(string LangID, string ID) {
+
+            try
+            {
+
+                XmlNode Item = NamesXMLResource.DocumentElement.SelectSingleNode("descendant::ID[@descr='" + LangID + "']/"+ID);
+                return Item.InnerText;
+            }
+            catch (Exception e) {
+
+                return "--";
+            }
+        
+        }
 
 	}
 }

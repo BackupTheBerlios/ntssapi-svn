@@ -4,6 +4,7 @@ using System.Collections;
 using System.Xml;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Text;
+using System.Collections.Generic;
 
 using NewTrueSharpSwordAPI.Utilities;
 
@@ -829,37 +830,6 @@ namespace NewTrueSharpSwordAPI.Cache
 				XmlDocument CacheInfo=new XmlDocument();
 				CacheInfo.Load(FullCachePath+@"\info.xml");
 
-				XmlNode attr00=CacheInfo.CreateNode(XmlNodeType.Attribute,"title","");
-				attr00.InnerText=GetBibleName;
-				XmlNode attr01=CacheInfo.CreateNode(XmlNodeType.Attribute,"userdef","");
-				attr01.InnerText="false";
-
-				XmlNode ContentTree =CacheInfo.CreateNode(XmlNodeType.Element,"tree","");
-				ContentTree.Attributes.SetNamedItem(attr00);
-				ContentTree.Attributes.SetNamedItem(attr01);
-
-				XmlNode attr1=CacheInfo.CreateNode(XmlNodeType.Attribute,"title","");
-
-				XmlNode AT_Node=CacheInfo.CreateNode(XmlNodeType.Element,"group","");
-
-				attr1.InnerText="AT";
-				AT_Node.Attributes.SetNamedItem(attr1);
-				ContentTree.AppendChild(AT_Node);
-
-				XmlNode attr2=CacheInfo.CreateNode(XmlNodeType.Attribute,"title","");
-
-				XmlNode NT_Node=CacheInfo.CreateNode(XmlNodeType.Element,"group","");;
-				attr2.InnerText="NT";
-				NT_Node.Attributes.SetNamedItem(attr2);
-				ContentTree.AppendChild(NT_Node);
-
-				XmlNode attr3=CacheInfo.CreateNode(XmlNodeType.Attribute,"title","");
-				XmlNode AP_Node=CacheInfo.CreateNode(XmlNodeType.Element,"group","");;
-				attr3.InnerText="AP";
-				AP_Node.Attributes.SetNamedItem(attr3);
-				ContentTree.AppendChild(AP_Node);
-				CacheInfo.DocumentElement.AppendChild(ContentTree);
-
 
 				string[] Books;
 
@@ -876,6 +846,42 @@ namespace NewTrueSharpSwordAPI.Cache
 				XmlTextReader ModulReader=null;
 
 				UTF8Encoding utf8 = new UTF8Encoding();
+                XmlNode treeXX = CacheInfo.DocumentElement.SelectSingleNode("descendant::tree");
+                XmlNode GroupAT = CacheInfo.CreateNode(XmlNodeType.Element, "group", "");
+                XmlNode GroupNT = CacheInfo.CreateNode(XmlNodeType.Element, "group", "");
+                XmlNode GroupAP = CacheInfo.CreateNode(XmlNodeType.Element, "group", "");
+
+                if (treeXX == null)
+                {
+
+                    treeXX = CacheInfo.CreateNode(XmlNodeType.Element, "tree", "");
+
+                    XmlNode attr0 = CacheInfo.CreateNode(XmlNodeType.Attribute, "title", "");
+                    attr0.InnerText = BibleName;
+                    treeXX.Attributes.SetNamedItem(attr0);
+                   
+                    XmlNode attr5 = CacheInfo.CreateNode(XmlNodeType.Attribute, "id", "");
+                    attr5.InnerText = "AT";
+                    GroupAT.Attributes.SetNamedItem(attr5);
+
+                    
+                    XmlNode attr6 = CacheInfo.CreateNode(XmlNodeType.Attribute, "id", "");
+                    attr6.InnerText = "NT";
+                    GroupNT.Attributes.SetNamedItem(attr6);
+
+                   
+                    XmlNode attr7 = CacheInfo.CreateNode(XmlNodeType.Attribute, "id", "");
+                    attr7.InnerText = "AP";
+                    GroupAP.Attributes.SetNamedItem(attr7);
+                    treeXX.AppendChild(GroupAT);
+                    treeXX.AppendChild(GroupNT);
+                    treeXX.AppendChild(GroupAP);
+
+
+                }
+
+                Boolean [,] BookChapterArray = new Boolean[300,200];
+
 				foreach(string BookFile in Books)
 				{
 					MemoryStream sr =new MemoryStream();
@@ -930,36 +936,12 @@ namespace NewTrueSharpSwordAPI.Cache
 						{
 
 							ChapterNumber=ModulReader.GetAttribute("cnumber");
-							if(ChapterNumber==null){continue;}
-							XmlNode Entry =CacheInfo.CreateNode(XmlNodeType.Element,"item","");
-							XmlNode attr5=CacheInfo.CreateNode(XmlNodeType.Attribute,"bn","");
-							XmlNode attr6=CacheInfo.CreateNode(XmlNodeType.Attribute,"cn","");
+							
+                            
+                            if(ChapterNumber==null){continue;}
 
-							XmlNode attr8=CacheInfo.CreateNode(XmlNodeType.Attribute,"active","");
-							attr5.InnerText=BookNumber;
-							attr6.InnerText=ChapterNumber;
 
-							attr8.InnerText=false.ToString();
-							Entry.Attributes.SetNamedItem(attr5);
-							Entry.Attributes.SetNamedItem(attr6);
-
-							Entry.Attributes.SetNamedItem(attr8);
-							if(Convert.ToInt16(BookNumber)<40)
-							{
-								AT_Node.AppendChild(Entry);
-
-							}
-							if(Convert.ToInt16(BookNumber)>39&Convert.ToInt16(BookNumber)<67)
-							{
-								NT_Node.AppendChild(Entry);
-
-							}
-
-							if(Convert.ToInt16(BookNumber)>66)
-							{
-								AP_Node.AppendChild(Entry);
-
-							}
+                            BookChapterArray[Convert.ToInt16(BookNumber), Convert.ToInt16(ChapterNumber)] = true;
 
 						}
 
@@ -970,14 +952,129 @@ namespace NewTrueSharpSwordAPI.Cache
 
 
 				}// end foreach
+                XmlNode Book;
+                XmlNode Chapter;
+                for (int i = 1; i<=BookChapterArray.GetLength(0)-1; i++) {
 
+                    for (int ii = 1; ii<=BookChapterArray.GetLength(1)-1; ii++) {
+
+                        if (BookChapterArray[i,ii]) {
+
+                            if (i < 40)
+                            {
+
+                              Book=treeXX.SelectSingleNode("descendant::b[@n='"+i.ToString()+"']");
+                              if (Book == null)
+                              {
+                                  Book = CacheInfo.CreateNode(XmlNodeType.Element, "b", "");
+                                  XmlNode attr9 = CacheInfo.CreateNode(XmlNodeType.Attribute, "n", "");
+
+                                  attr9.InnerText = i.ToString();
+                                  Book.Attributes.SetNamedItem(attr9);
+                                  Chapter = CacheInfo.CreateNode(XmlNodeType.Element, "c", "");
+                                  Chapter.InnerText = ii.ToString();
+                                  Book.AppendChild(Chapter);
+                                  GroupAT.AppendChild(Book);
+                                  treeXX.AppendChild(GroupAT);
+
+
+                              }
+                              else {
+
+                                  Chapter = CacheInfo.CreateNode(XmlNodeType.Element, "c", "");
+                                  Chapter.InnerText = ii.ToString();
+                                  Book.AppendChild(Chapter);
+                                  GroupAT.AppendChild(Book);
+                                  treeXX.AppendChild(GroupAT);
+                              
+                              
+                              }
+                              
+                             
+                            }
+                            if (i > 39 & i < 67)
+                            {
+                                Book = treeXX.SelectSingleNode("descendant::b[@n='" + i.ToString() + "']");
+                                if (Book == null)
+                                {
+                                    Book = CacheInfo.CreateNode(XmlNodeType.Element, "b", "");
+                                    XmlNode attr9 = CacheInfo.CreateNode(XmlNodeType.Attribute, "n", "");
+
+                                    attr9.InnerText = i.ToString();
+                                    Book.Attributes.SetNamedItem(attr9);
+                                    Chapter = CacheInfo.CreateNode(XmlNodeType.Element, "c", "");
+                                    Chapter.InnerText = ii.ToString();
+                                    Book.AppendChild(Chapter);
+                                    GroupNT.AppendChild(Book);
+                                    treeXX.AppendChild(GroupAT);
+
+
+                                }
+                                else
+                                {
+
+                                    Chapter = CacheInfo.CreateNode(XmlNodeType.Element, "c", "");
+                                    Chapter.InnerText = ii.ToString();
+                                    Book.AppendChild(Chapter);
+                                    GroupNT.AppendChild(Book);
+                                    treeXX.AppendChild(GroupAT);
+
+
+                                }
+                              
+
+                            }
+
+                            if (i > 66)
+                            {
+                                Book = treeXX.SelectSingleNode("descendant::b[@n='" + i.ToString() + "']");
+                                if (Book == null)
+                                {
+                                    Book = CacheInfo.CreateNode(XmlNodeType.Element, "b", "");
+                                    XmlNode attr9 = CacheInfo.CreateNode(XmlNodeType.Attribute, "n", "");
+
+                                    attr9.InnerText = i.ToString();
+                                    Book.Attributes.SetNamedItem(attr9);
+                                    Chapter = CacheInfo.CreateNode(XmlNodeType.Element, "c", "");
+                                    Chapter.InnerText = ii.ToString();
+                                    Book.AppendChild(Chapter);
+                                    GroupAP.AppendChild(Book);
+                                    treeXX.AppendChild(GroupAT);
+
+
+                                }
+                                else
+                                {
+
+                                    Chapter = CacheInfo.CreateNode(XmlNodeType.Element, "c", "");
+                                    Chapter.InnerText = ii.ToString();
+                                    Book.AppendChild(Chapter);
+                                    GroupAP.AppendChild(Book);
+                                    treeXX.AppendChild(GroupAT);
+
+
+                                }
+                              
+
+                            }
+                        
+                        
+                        }
+                    
+                    }// en for ii
+                
+                
+                }// end for i
+
+
+                CacheInfo.DocumentElement.AppendChild(treeXX);
 				CacheInfo.Save(FullCachePath+@"\info.xml");
 
 
 			}
 			catch(Exception e)
 			{
-
+                string te = e.Message;
 			}
 
 		}
