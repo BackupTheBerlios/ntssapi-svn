@@ -1,6 +1,0 @@
-..\dll\NewTrueSharpSwordAPI.dll
-..\dll\NewTrueSharpSwordAPI.pdb
-..\dll\ntswa.xml
-obj\Debug\ResolveAssemblyReference.cache
-obj\Debug\NewTrueSharpSwordAPI.dll
-obj\Debug\NewTrueSharpSwordAPI.pdb
